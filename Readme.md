@@ -1,32 +1,27 @@
 # 日问
 
-毕业多年，虽然每天看似也没有学了什么，但再回头时却也和刚毕业时迥然不同。正如:
+[<img src="https://img.shields.io/badge/react-3-61dafb">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Areact)
+[<img src="https://img.shields.io/badge/devops-2-39a0ee">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Adevops)
+[<img src="https://img.shields.io/badge/network-3-blue">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Anetwork)
+[<img src="https://img.shields.io/badge/k8s-3-316de6">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Ak8s)
+[<img src="https://img.shields.io/badge/css-3-224bea">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Acss)
+[<img src="https://img.shields.io/badge/redis-3-0d4e99">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Aredis)
+[<img src="https://img.shields.io/badge/vue-4-4fc08d">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Avue)
+[<img src="https://img.shields.io/badge/js-3-f1da50">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Ajs)
+[<img src="https://img.shields.io/badge/linux-4-fabd14">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Alinux)
+[<img src="https://img.shields.io/badge/html-2-ea4628">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Ahtml)
+[<img src="https://img.shields.io/badge/db-4-red">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Adb)
+[<img src="https://img.shields.io/badge/server-1-blueviolet">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Aserver)
 
-> 勤学如春起之苗，不见其增，日有所长。
+> 勤学如春起之苗，不见其增，日有所长；辍学如磨刀之石，不见其损，日有所亏。
 
-为了更好地对学习可衡量化，每日一题倒是一个不错的形式。
+⭐️ Star me on GitHub — it helps!
 
-**对于选题，我会选择平时业务开发中会遇到的一些问题，技巧或者面试题，不仅仅限于前端，也不仅仅限于后端，因此可以作为一个业务开发人员的自我修养。** 在平时工作中，有时单一技术栈根本不足以应付工作中所遇见的问题，更不足以支持你把握更好的机遇。而在面试过程中，也会有一些边界之外的问题，对于高级工程师更是如此，因此不要自我设限。
+每天至少一个问题，有关前端，后端，graphql，devops，微服务以及软技能，促进个人职业成长，欢迎交流。
 
-最后，以诸葛武侯的诫子书与君共勉
+以诸葛武侯的诫子书与君共勉
 
 > 夫君子之行，静以修身，俭以养德。非澹泊无以明志，非宁静无以致远。夫学须静也，才须学也，非学无以广才，非志无以成学。淫慢则不能励精，险躁则不能治性。**年与时驰，意与日去，遂成枯落，多不接世，悲守穷庐，将复何及！**
-
-
-## 分类
-
-+ [react](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Areact)
-+ [vue](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Avue)
-+ [js](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Ajs)
-+ [css](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Acss)
-+ [html](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Ahtml)
-+ [数据库](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Adb)
-+ [redis](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Aredis)
-+ [后端](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Aserver)
-+ [计算机网络](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Anetwork)
-+ [devops](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Adevops)
-+ [linux](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Alinux)
-+ [k8s](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Ak8s)
 
 ## 历史
 
@@ -64,11 +59,13 @@
 + 2019.11.01 - 添加第一道题
 + 2019.11.04 - 添加 Readme
 + 2019.11.07 - 第1个 star
++ 2019.11.12 - 第10个 star
 
 ## 交流
 
-我是山月，一个喜欢跑步的程序员，公众号【山月行】作者，可以添加我微信 `shanyue94` 备注加群，进群交流技术问题
+我是山月，一个喜欢跑步与爬山的程序员，我会定期分享全栈文章在个人公众号中。如果你对全栈面试，前端工程化，graphql，devops，个人服务器运维以及微服务感兴趣的话，可以关注我的微信公众号【山月行】。
 
-也可以关注我公众号，我将分享一些前后端及运维文章并定期总结每日一问
+另外可以添加微信 `shanyue94` 备注加群，进群交流技术问题
 
-![欢迎关注公众号山月行，我会定期分享一些前后端以及运维的文章](https://shanyue.tech/qrcode.jpg)
+![如果你对全栈面试，前端工程化，graphql，devops，个人服务器运维以及微服务感兴趣的话，可以关注我](https://shanyue.tech/qrcode.jpg)
+
