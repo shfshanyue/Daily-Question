@@ -1,40 +1,13 @@
-# 日问
+# 日问周刊 | 全栈问题汇总 | 第一期
 
-[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/react?style=flat-square">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Areact)
-[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/devops?style=flat-square">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Adevops)
-[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/network?style=flat-square">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Anetwork)
-[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/k8s?style=flat-square">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Ak8s)
-[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/css?style=flat-square">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Acss)
-[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/redis?style=flat-square">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Aredis)
-[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/vue?style=flat-square">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Avue)
-[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/js?style=flat-square">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Ajs)
-[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/linux?style=flat-square">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Alinux)
-[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/html?style=flat-square">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Ahtml)
-[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/db?style=flat-square">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Adb)
-[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/server?style=flat-square">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Aserver)
+勤学如春起之苗，不见其增，日有所长。
 
-> 勤学如春起之苗，不见其增，日有所长；辍学如磨刀之石，不见其损，日有所亏。
+因此我在 github 上新建了一个仓库 [日问](https://github.com/shfshanyue/Daily-Question)，每天至少一个问题。有关全栈，graphql，devops，微服务以及软技能，促进职业成长，欢迎交流。
 
-⭐️ Star me on GitHub — it helps!
+**对于选题，我会选择平时业务开发中会遇到的一些问题，技巧或者面试题，不仅仅限于前端，也不仅仅限于后端，因此可以作为一个业务开发人员的自我修养。** 在平时工作中，有时单一技术栈根本不足以应付工作中所遇见的问题，更不足以支持你把握更好的机遇。而在面试过程中，也会有一些边界之外的问题，对于高级工程师更是如此，因此不要自我设限。
 
-每天至少一个问题，有关前端，后端，graphql，devops，微服务以及软技能，促进个人职业成长，欢迎交流。
+> 目前有一些问题还没有答案，欢迎大家补充。等我有时间时会补充完答案
 
-以诸葛武侯的诫子书与君共勉
-
-> 夫君子之行，静以修身，俭以养德。非澹泊无以明志，非宁静无以致远。夫学须静也，才须学也，非学无以广才，非志无以成学。淫慢则不能励精，险躁则不能治性。**年与时驰，意与日去，遂成枯落，多不接世，悲守穷庐，将复何及！**
-
-## 历史
-
-+ [【Q033】如何对接口进行限流](https://github.com/shfshanyue/Daily-Question/issues/34) [<img src="https://img.shields.io/badge/server-blue">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Aserver)
-+ [【Q032】js 中什么是 softbind，如何实现](https://github.com/shfshanyue/Daily-Question/issues/33) [<img src="https://img.shields.io/badge/js-f1da50">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Ajs)
-+ [【Q031】js 中如何实现 bind](https://github.com/shfshanyue/Daily-Question/issues/32) [<img src="https://img.shields.io/badge/js-f1da50">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Ajs)
-+ [【Q030】linux 中如何打印所有网络接口](https://github.com/shfshanyue/Daily-Question/issues/31) [<img src="https://img.shields.io/badge/linux-fabd14">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Alinux)
-+ [【Q029】websocket 如何向特定的用户组推送消息](https://github.com/shfshanyue/Daily-Question/issues/30) [<img src="https://img.shields.io/badge/server-blue">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Aserver)
-+ [【Q028】在linux中如何获取登录的用户](https://github.com/shfshanyue/Daily-Question/issues/29) [<img src="https://img.shields.io/badge/linux-fabd14">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Alinux)
-+ [【Q027】在前端开发中，如何获取浏览器的唯一标识](https://github.com/shfshanyue/Daily-Question/issues/28) [<img src="https://img.shields.io/badge/js-f1da50">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Ajs)
-+ [【Q026】如何对接口进行压力测试](https://github.com/shfshanyue/Daily-Question/issues/27) [<img src="https://img.shields.io/badge/server-blueviolet">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Aserver)
-+ [【Q025】简述 socket 建立的过程](https://github.com/shfshanyue/Daily-Question/issues/26) [<img src="https://img.shields.io/badge/network-blue">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Anetwork)
-+ [【Q024】在 postgres 中，查询时如何对 jsonb 数据格式化](https://github.com/shfshanyue/Daily-Question/issues/25) [<img src="https://img.shields.io/badge/db-red">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Adb)
 + [【Q023】websocket 服务多节点部署时会有什么问题，怎么解决](https://github.com/shfshanyue/Daily-Question/issues/24) [<img src="https://img.shields.io/badge/server-blueviolet">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Aserver)
 + [【Q022】如何实现一个简单的 Promise](https://github.com/shfshanyue/Daily-Question/issues/23) [<img src="https://img.shields.io/badge/js-f1da50">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Ajs)
 + [【Q021】React 中，cloneElement 与 createElement 各是什么，有什么区别](https://github.com/shfshanyue/Daily-Question/issues/22) [<img src="https://img.shields.io/badge/react-61dafb">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Areact)
@@ -59,18 +32,9 @@
 + [【Q002】当 ping 一个 IP 地址时发生了什么](https://github.com/shfshanyue/Daily-Question/issues/2) [<img src="https://img.shields.io/badge/network-blue">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Anetwork)
 + [【Q001】网站开发中，如何实现图片的懒加载](https://github.com/shfshanyue/Daily-Question/issues/1) [<img src="https://img.shields.io/badge/html-ea4628">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Ahtml)
 
-## 时间线
 
-+ 2019.11.01 - 添加第一道题
-+ 2019.11.04 - 添加 Readme
-+ 2019.11.07 - 第1个 star
-+ 2019.11.12 - 第8个 star
+<hr>
 
-## 交流
-
-我是山月，一个喜欢跑步与爬山的程序员，我会定期分享全栈文章在个人公众号中。如果你对全栈面试，前端工程化，graphql，devops，个人服务器运维以及微服务感兴趣的话，可以关注我的微信公众号【山月行】。
-
-另外可以添加微信 `shanyue94` 备注加群，进群交流技术问题
+> 我是山月，一个喜欢跑步与爬山的程序员，我会定期分享全栈文章在个人公众号中。如果你对全栈面试，前端工程化，graphql，devops，个人服务器运维以及微服务感兴趣的话，可以关注我
 
 ![如果你对全栈面试，前端工程化，graphql，devops，个人服务器运维以及微服务感兴趣的话，可以关注我](https://shanyue.tech/qrcode.jpg)
-
