@@ -1,15 +1,16 @@
 # 日问
 
-[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/react?style=flat-square">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Areact)
-[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/devops?style=flat-square">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Adevops)
-[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/network?style=flat-square">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Anetwork)
-[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/k8s?style=flat-square">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Ak8s)
 [<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/css?style=flat-square">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Acss)
-[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/redis?style=flat-square">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Aredis)
-[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/vue?style=flat-square">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Avue)
 [<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/js?style=flat-square">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Ajs)
-[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/linux?style=flat-square">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Alinux)
 [<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/html?style=flat-square">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Ahtml)
+[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/react?style=flat-square">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Areact)
+[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/vue?style=flat-square">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Avue)
+[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/devops?style=flat-square">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Adevops)
+[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/k8s?style=flat-square">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Ak8s)
+[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/redis?style=flat-square">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Aredis)
+[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/network?style=flat-square">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Anetwork)
+[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/http?style=flat-square">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Ahttp)
+[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/linux?style=flat-square">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Alinux)
 [<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/db?style=flat-square">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Adb)
 [<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/server?style=flat-square">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Aserver)
 
@@ -25,6 +26,9 @@
 
 ## 历史
 
++ [【Q036】http 状态码中 301，302和307有什么区别](https://github.com/shfshanyue/Daily-Question/issues/37) [<img src="https://img.shields.io/badge/http-ac31d6">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Ahttp)
++ [【Q035】http 常见的状态码有哪些](https://github.com/shfshanyue/Daily-Question/issues/36) [<img src="https://img.shields.io/badge/http-ac31d6">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Ahttp)
++ [【Q034】如何实现一个 loading 动画](https://github.com/shfshanyue/Daily-Question/issues/35) [<img src="https://img.shields.io/badge/css-224bea">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Acss)
 + [【Q033】如何对接口进行限流](https://github.com/shfshanyue/Daily-Question/issues/34) [<img src="https://img.shields.io/badge/server-blue">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Aserver)
 + [【Q032】js 中什么是 softbind，如何实现](https://github.com/shfshanyue/Daily-Question/issues/33) [<img src="https://img.shields.io/badge/js-f1da50">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Ajs)
 + [【Q031】js 中如何实现 bind](https://github.com/shfshanyue/Daily-Question/issues/32) [<img src="https://img.shields.io/badge/js-f1da50">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Ajs)
@@ -65,6 +69,7 @@
 + 2019.11.04 - 添加 Readme
 + 2019.11.07 - 第1个 star
 + 2019.11.12 - 第8个 star
++ 2019.11.16 - 第16个 star，很巧
 
 ## 交流
 
