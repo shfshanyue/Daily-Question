@@ -1,5 +1,17 @@
 # 日问
 
+> 勤学如春起之苗，不见其增，日有所长；辍学如磨刀之石，不见其损，日有所亏。
+
+⭐️ Star me on GitHub — it helps!
+
+每天至少一个问题，有关前端，后端，graphql，devops，微服务以及软技能，促进个人职业成长，欢迎交流。
+
+以诸葛武侯的诫子书与君共勉
+
+> 夫君子之行，静以修身，俭以养德。非澹泊无以明志，非宁静无以致远。夫学须静也，才须学也，非学无以广才，非志无以成学。淫慢则不能励精，险躁则不能治性。**年与时驰，意与日去，遂成枯落，多不接世，悲守穷庐，将复何及！**
+
+## 分类
+
 [<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/css?style=flat-square">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Acss)
 [<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/js?style=flat-square">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Ajs)
 [<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/html?style=flat-square">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Ahtml)
@@ -13,19 +25,12 @@
 [<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/linux?style=flat-square">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Alinux)
 [<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/db?style=flat-square">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Adb)
 [<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/server?style=flat-square">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Aserver)
+[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/open?style=flat-square">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Aopen)
 
-> 勤学如春起之苗，不见其增，日有所长；辍学如磨刀之石，不见其损，日有所亏。
-
-⭐️ Star me on GitHub — it helps!
-
-每天至少一个问题，有关前端，后端，graphql，devops，微服务以及软技能，促进个人职业成长，欢迎交流。
-
-以诸葛武侯的诫子书与君共勉
-
-> 夫君子之行，静以修身，俭以养德。非澹泊无以明志，非宁静无以致远。夫学须静也，才须学也，非学无以广才，非志无以成学。淫慢则不能励精，险躁则不能治性。**年与时驰，意与日去，遂成枯落，多不接世，悲守穷庐，将复何及！**
 
 ## 历史
 
++ [【Q037】linux 有哪些发行版，你最喜欢哪一个](https://github.com/shfshanyue/Daily-Question/issues/38) [<img src="https://img.shields.io/badge/open-0075ca">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Aopen)
 + [【Q036】http 状态码中 301，302和307有什么区别](https://github.com/shfshanyue/Daily-Question/issues/37) [<img src="https://img.shields.io/badge/http-ac31d6">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Ahttp)
 + [【Q035】http 常见的状态码有哪些](https://github.com/shfshanyue/Daily-Question/issues/36) [<img src="https://img.shields.io/badge/http-ac31d6">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Ahttp)
 + [【Q034】如何实现一个 loading 动画](https://github.com/shfshanyue/Daily-Question/issues/35) [<img src="https://img.shields.io/badge/css-224bea">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Acss)
