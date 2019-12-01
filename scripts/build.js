@@ -33,7 +33,7 @@ const LABELS = [
   },
   {
     name: 'server',
-    alias: '后端',
+    alias: '后端基础',
     group: 'server'
   },
   {
@@ -165,6 +165,7 @@ function getLables () {
               nodes {
                 id
                 number
+                title
               }
             }
           }
@@ -186,12 +187,14 @@ async function generateHeaders () {
   const allLabels = _.keyBy(LABELS, 'name')
   const headers = _.map(labels, label => {
     return {
+      name: label.name,
       title: allLabels[label.name].alias || label.name,
       collabsable: false,
-      children: _.get(label, 'issues.nodes').map(x => x.number)
+      children: _.get(label, 'issues.nodes').map(x => ['${label.name}-${x.number}', x.title.slice(6)])
     }
   })
-  fs.writeFileSync(path.resolve(__dirname, '../.vuepress', 'header.json'), JSON.stringify(headers, null, 2))
+  const groups = _.groupBy(_.sortBy(headers, 'name'), label => `/${allLabels[label.name].group}/`)
+  fs.writeFileSync(path.resolve(__dirname, '../.vuepress', 'header.json'), JSON.stringify(groups, null, 2))
 }
 
 async function generateMd () {
@@ -204,12 +207,14 @@ async function generateMd () {
       fs.mkdirSync(d)
     }
   }
+  const allIssues = _.keyBy(_.map(issues, issue => _.pick(issue, ['title', 'number'])), 'number')
+  fs.writeFileSync(path.resolve(__dirname, '../.vuepress', 'issues.json'), JSON.stringify(allIssues, null, 2))
   for (const issue of issues) {
-    const body = issue.body && `<blockquote> ${issue.body} </blockquote>`
+    const body = issue.body && `::: tip 更多描述 \r\n ${issue.body} \r\n:::`
     const md = `# ${issue.title}\r\n\r\n${body}`
     for (const label of issue.labels.nodes) {
       const group = labels[label.name].group
-      fs.writeFileSync(path.resolve(dir, group, `${issue.number}.md`), md)
+      fs.writeFileSync(path.resolve(dir, group, `${label.name}-${issue.number}.md`), md)
     }
   }
 }

@@ -10,7 +10,9 @@
   },
   "devDependencies": {},
   "scripts": {
-    "doc": "node scripts/build"
+    "doc": "node scripts/build",
+    "dev": "vuepress dev",
+    "build": "vuepress build"
   },
   "repository": {
     "type": "git",

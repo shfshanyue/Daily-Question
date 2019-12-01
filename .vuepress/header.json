@@ -1,233 +1,562 @@
-[
-  {
-    "title": "开放式问题",
-    "collabsable": false,
-    "children": [
-      38,
-      61,
-      84
-    ]
-  },
-  {
-    "title": "数据库",
-    "collabsable": false,
-    "children": [
-      7,
-      8,
-      25
-    ]
-  },
-  {
-    "title": "计算机网络",
-    "collabsable": false,
-    "children": [
-      2,
-      26,
-      31,
-      46,
-      55,
-      88
-    ]
-  },
-  {
-    "title": "html",
-    "collabsable": false,
-    "children": [
-      1,
-      20
-    ]
-  },
-  {
-    "title": "js",
-    "collabsable": false,
-    "children": [
-      3,
-      23,
-      28,
-      32,
-      33,
-      89
-    ]
-  },
-  {
-    "title": "css",
-    "collabsable": false,
-    "children": [
-      10,
-      18,
-      35
-    ]
-  },
-  {
-    "title": "后端",
-    "collabsable": false,
-    "children": [
-      6,
-      17,
-      21,
-      24,
-      27,
-      30,
-      34,
-      48
-    ]
-  },
-  {
-    "title": "linux",
-    "collabsable": false,
-    "children": [
-      4,
-      29,
-      31,
-      38,
-      42,
-      44,
-      56,
-      71
-    ]
-  },
-  {
-    "title": "devops",
-    "collabsable": false,
-    "children": [
-      9,
-      16,
-      19
-    ]
-  },
-  {
-    "title": "react",
-    "collabsable": false,
-    "children": [
-      11,
-      14,
-      15,
-      22,
-      39,
-      67,
-      68,
-      69,
-      70,
-      72
-    ]
-  },
-  {
-    "title": "vue",
-    "collabsable": false,
-    "children": [
-      12,
-      72,
-      90,
-      91,
-      92
-    ]
-  },
-  {
-    "title": "k8s",
-    "collabsable": false,
-    "children": [
-      13,
-      41
-    ]
-  },
-  {
-    "title": "redis",
-    "collabsable": false,
-    "children": [
-      21,
-      40
-    ]
-  },
-  {
-    "title": "http",
-    "collabsable": false,
-    "children": [
-      36,
-      37,
-      51,
-      80,
-      82,
-      85,
-      86
-    ]
-  },
-  {
-    "title": "docker",
-    "collabsable": false,
-    "children": [
-      42,
-      43,
-      47
-    ]
-  },
-  {
-    "title": "vim",
-    "collabsable": false,
-    "children": [
-      45
-    ]
-  },
-  {
-    "title": "算法与数据结构",
-    "collabsable": false,
-    "children": [
-      49,
-      62
-    ]
-  },
-  {
-    "title": "操作系统",
-    "collabsable": false,
-    "children": [
-      50,
-      54,
-      64,
-      66
-    ]
-  },
-  {
-    "title": "graphql",
-    "collabsable": false,
-    "children": [
-      52,
-      53
-    ]
-  },
-  {
-    "title": "微服务",
-    "collabsable": false,
-    "children": [
-      57,
-      58,
-      59,
-      60,
-      61,
-      63,
-      65,
-      77
-    ]
-  },
-  {
-    "title": "webpack",
-    "collabsable": false,
-    "children": [
-      73,
-      74,
-      75,
-      76,
-      78,
-      79,
-      81,
-      83,
-      87,
-      92
-    ]
-  },
-  {
-    "title": "前端工程化",
-    "collabsable": false,
-    "children": [
-      84
-    ]
-  }
-]
+{
+  "/base/": [
+    {
+      "name": "algorithm",
+      "title": "算法与数据结构",
+      "collabsable": false,
+      "children": [
+        [
+          "${label.name}-${x.number}",
+          "如何实现一个优先级队列"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "如何判断两个链表是否相交"
+        ]
+      ]
+    },
+    {
+      "name": "http",
+      "title": "http",
+      "collabsable": false,
+      "children": [
+        [
+          "${label.name}-${x.number}",
+          "http 常见的状态码有哪些"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "http 状态码中 301，302和307有什么区别"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "http 状态码 502 和 504 有什么区别"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "简述 http 的缓存机制"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "http proxy 的原理是什么"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "随着 http2 的发展，前端性能优化中的哪些传统方案可以被替代"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "http2 与 http1.1 有什么不同"
+        ]
+      ]
+    },
+    {
+      "name": "linux",
+      "title": "linux",
+      "collabsable": false,
+      "children": [
+        [
+          "${label.name}-${x.number}",
+          "如何获取一个进程的内存并监控"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "在linux中如何获取登录的用户"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "linux 中如何打印所有网络接口"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "linux 有哪些发行版，你最喜欢哪一个"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "CoW 策略指什么，docker 中有哪些应用"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "如何使用命令查看一个文件有多少字符以及多少行"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "如何在 linux 中打印所有环境变量"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "如何用 linux 命令输出文件的特定行"
+        ]
+      ]
+    },
+    {
+      "name": "network",
+      "title": "计算机网络",
+      "collabsable": false,
+      "children": [
+        [
+          "${label.name}-${x.number}",
+          "当 ping 一个 IP 地址时发生了什么"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "简述 socket 建立的过程"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "linux 中如何打印所有网络接口"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "如何把一个 CIDR 地址转化为IP地址范围段"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "简述TCP 的三次握手"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "什么是 CNAME 记录和 A 记录"
+        ]
+      ]
+    },
+    {
+      "name": "os",
+      "title": "操作系统",
+      "collabsable": false,
+      "children": [
+        [
+          "${label.name}-${x.number}",
+          "什么是守护进程"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "什么是对象存储，与块存储和文件存储有什么区别"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "SIGINT SIGTERM SIGKILL 有什么区别"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "有没有使用过 oss，对象存储相比块存储和文件存储有什么优缺点"
+        ]
+      ]
+    },
+    {
+      "name": "vim",
+      "title": "vim",
+      "collabsable": false,
+      "children": [
+        [
+          "${label.name}-${x.number}",
+          "如何使用vim查看文件有多少个字符以及多少行"
+        ]
+      ]
+    }
+  ],
+  "/fe/": [
+    {
+      "name": "css",
+      "title": "css",
+      "collabsable": false,
+      "children": [
+        [
+          "${label.name}-${x.number}",
+          "如何实现一个元素的水平垂直居中"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "css 如何实现左侧固定300px，右侧自适应的布局"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "如何实现一个 loading 动画"
+        ]
+      ]
+    },
+    {
+      "name": "html",
+      "title": "html",
+      "collabsable": false,
+      "children": [
+        [
+          "${label.name}-${x.number}",
+          "网站开发中，如何实现图片的懒加载"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "如何实现选中复制的功能"
+        ]
+      ]
+    },
+    {
+      "name": "js",
+      "title": "js",
+      "collabsable": false,
+      "children": [
+        [
+          "${label.name}-${x.number}",
+          "什么是防抖和节流，他们的应用场景有哪些"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "如何实现一个简单的 Promise"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "在前端开发中，如何获取浏览器的唯一标识"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "js 中如何实现 bind"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "js 中什么是 softbind，如何实现"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "如何实现 promise.map，并限制并发数"
+        ]
+      ]
+    },
+    {
+      "name": "react",
+      "title": "react",
+      "collabsable": false,
+      "children": [
+        [
+          "${label.name}-${x.number}",
+          "了解 React 中的 ErrorBoundary 吗，它有那些使用场景"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "有没有使用过 react hooks，它带来了那些便利"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "如何使用 react hooks 实现一个计数器的组件"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "React 中，cloneElement 与 createElement 各是什么，有什么区别"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "使用 react 实现一个通用的 message 组件"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "如何使用 react hooks 实现 useFetch 请求数据"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "react 如何使用 render prop component 请求数据"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "React Portal 有哪些使用场景"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "什么是 virtual DOM，它的引入带了什么好处"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "react 与 vue 数组中 key 的作用是什么"
+        ]
+      ]
+    },
+    {
+      "name": "vue",
+      "title": "vue",
+      "collabsable": false,
+      "children": [
+        [
+          "${label.name}-${x.number}",
+          "vue3.0 中为什么要使用 Proxy，它相比以前的实现方式有什么改进"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "react 与 vue 数组中 key 的作用是什么"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "vue 中 v-if 和 v-show 的区别是什么"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "vue 中 computed 的原理是什么"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "vue-loader 的实现原理是什么"
+        ]
+      ]
+    },
+    {
+      "name": "webpack",
+      "title": "webpack",
+      "collabsable": false,
+      "children": [
+        [
+          "${label.name}-${x.number}",
+          "webpack 是用来做什么的，原理是什么"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "webpack 中的 loader 的作用是什么"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "有没有自己写过一个webpack的loader"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "webpack 中plugin的作用是什么，有没有自己写过"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "使用 webpack 时如何优化项目体积"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "什么是 HMR，原理是什么"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "使用 webpack 打包时，如何更好地利用 long term cache"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "随着 http2 的发展，webpack 有没有更好的打包方案"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "webpack 中 tree shaking 的原理是什么"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "vue-loader 的实现原理是什么"
+        ]
+      ]
+    },
+    {
+      "name": "前端工程化",
+      "title": "前端工程化",
+      "collabsable": false,
+      "children": [
+        [
+          "${label.name}-${x.number}",
+          "网站性能优化都有哪些点"
+        ]
+      ]
+    }
+  ],
+  "/server/": [
+    {
+      "name": "db",
+      "title": "数据库",
+      "collabsable": false,
+      "children": [
+        [
+          "${label.name}-${x.number}",
+          "如何写一个 SQL 获取分组 top n 的数据"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "如何写一个 SQL 获取分组 top 1 的数据 "
+        ],
+        [
+          "${label.name}-${x.number}",
+          "在 postgres 中，查询时如何对 jsonb 数据格式化"
+        ]
+      ]
+    },
+    {
+      "name": "graphql",
+      "title": "graphql",
+      "collabsable": false,
+      "children": [
+        [
+          "${label.name}-${x.number}",
+          "简述一下 graphql，它的引进有什么好处"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "graphql 的引进有什么风险，以及性能问题"
+        ]
+      ]
+    },
+    {
+      "name": "micro service",
+      "title": "微服务",
+      "collabsable": false,
+      "children": [
+        [
+          "${label.name}-${x.number}",
+          "什么是服务降级"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "什么是熔断机制，微服务如何做熔断"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "什么是负载均衡"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "四层负载均衡与七层负载均衡有什么区别"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "你们项目中的计划任务是如何组织的"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "RPC 与 REST 有什么优劣"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "如何实现服务发现 (Service Discovery)"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "如何设计一个短网址生成服务"
+        ]
+      ]
+    },
+    {
+      "name": "redis",
+      "title": "redis",
+      "collabsable": false,
+      "children": [
+        [
+          "${label.name}-${x.number}",
+          "如何实现一个分布式锁"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "redis 的持久化方案有哪些"
+        ]
+      ]
+    },
+    {
+      "name": "server",
+      "title": "后端基础",
+      "collabsable": false,
+      "children": [
+        [
+          "${label.name}-${x.number}",
+          "生产环境的某个接口报错，如何定位"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "后端的敏感数据在生产环境是如何配置的"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "如何实现一个分布式锁"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "websocket 服务多节点部署时会有什么问题，怎么解决"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "如何对接口进行压力测试"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "websocket 如何向特定的用户组推送消息"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "如何对接口进行限流"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "如何设计一个高并发系统"
+        ]
+      ]
+    }
+  ],
+  "/devops/": [
+    {
+      "name": "devops",
+      "title": "devops",
+      "collabsable": false,
+      "children": [
+        [
+          "${label.name}-${x.number}",
+          "当新入职一家公司时，如何快速搭建开发环境并让应用跑起来"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "你们的前端项目是如何在线上部署的"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "当你使用 docker 部署应用时，如何查看应用日志"
+        ]
+      ]
+    },
+    {
+      "name": "docker",
+      "title": "docker",
+      "collabsable": false,
+      "children": [
+        [
+          "${label.name}-${x.number}",
+          "CoW 策略指什么，docker 中有哪些应用"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "docker 中如何查看某个容器消耗的内存和CPU"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "docker 中的网络隔离是如何实现的"
+        ]
+      ]
+    },
+    {
+      "name": "k8s",
+      "title": "k8s",
+      "collabsable": false,
+      "children": [
+        [
+          "${label.name}-${x.number}",
+          "helm v3 中为什么要弃用 tiller"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "k8s 由那些组件组成"
+        ]
+      ]
+    }
+  ],
+  "/open/": [
+    {
+      "name": "open",
+      "title": "开放式问题",
+      "collabsable": false,
+      "children": [
+        [
+          "${label.name}-${x.number}",
+          "linux 有哪些发行版，你最喜欢哪一个"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "你们项目中的计划任务是如何组织的"
+        ],
+        [
+          "${label.name}-${x.number}",
+          "网站性能优化都有哪些点"
+        ]
+      ]
+    }
+  ]
+}
