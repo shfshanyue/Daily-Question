@@ -1,0 +1,45 @@
+Index: test/cases/mixins.return.styl
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>another()\n  foo bar\n  bar baz\n  return\n  baz raz\n\nbody\n  another()
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- test/cases/mixins.return.styl	(date 1566213328000)
++++ test/cases/mixins.return.styl	(date 1566318005492)
+@@ -5,4 +5,33 @@
+   baz raz
+ 
+ body
+-  another()
+\ No newline at end of file
++  another()
++
++$IMG = {
++  temp: {
++    selectors: ("test" "test1")
++    props: {
++      pop: "dies"
++    }
++  }
++}
++
++add-property(name, expr)
++  {name} expr
++
++generateImgClasses()
++  $IMG.temp.selectors sdsd
++  //for $img, $obj in $IMG
++  //  {join(",", $obj.selectors)}
++  //    for $prop in $obj.props
++  //      add-property($prop, "url(%s)" % $img)
++
++html
++  generateImgClasses()
++
++
++.test
++  font-size 12px
++
++  table.section tr td:nth-child(n + 1)
++    font-size 10px

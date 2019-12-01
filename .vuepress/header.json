@@ -1,0 +1,233 @@
+[
+  {
+    "title": "开放式问题",
+    "collabsable": false,
+    "children": [
+      38,
+      61,
+      84
+    ]
+  },
+  {
+    "title": "数据库",
+    "collabsable": false,
+    "children": [
+      7,
+      8,
+      25
+    ]
+  },
+  {
+    "title": "计算机网络",
+    "collabsable": false,
+    "children": [
+      2,
+      26,
+      31,
+      46,
+      55,
+      88
+    ]
+  },
+  {
+    "title": "html",
+    "collabsable": false,
+    "children": [
+      1,
+      20
+    ]
+  },
+  {
+    "title": "js",
+    "collabsable": false,
+    "children": [
+      3,
+      23,
+      28,
+      32,
+      33,
+      89
+    ]
+  },
+  {
+    "title": "css",
+    "collabsable": false,
+    "children": [
+      10,
+      18,
+      35
+    ]
+  },
+  {
+    "title": "后端",
+    "collabsable": false,
+    "children": [
+      6,
+      17,
+      21,
+      24,
+      27,
+      30,
+      34,
+      48
+    ]
+  },
+  {
+    "title": "linux",
+    "collabsable": false,
+    "children": [
+      4,
+      29,
+      31,
+      38,
+      42,
+      44,
+      56,
+      71
+    ]
+  },
+  {
+    "title": "devops",
+    "collabsable": false,
+    "children": [
+      9,
+      16,
+      19
+    ]
+  },
+  {
+    "title": "react",
+    "collabsable": false,
+    "children": [
+      11,
+      14,
+      15,
+      22,
+      39,
+      67,
+      68,
+      69,
+      70,
+      72
+    ]
+  },
+  {
+    "title": "vue",
+    "collabsable": false,
+    "children": [
+      12,
+      72,
+      90,
+      91,
+      92
+    ]
+  },
+  {
+    "title": "k8s",
+    "collabsable": false,
+    "children": [
+      13,
+      41
+    ]
+  },
+  {
+    "title": "redis",
+    "collabsable": false,
+    "children": [
+      21,
+      40
+    ]
+  },
+  {
+    "title": "http",
+    "collabsable": false,
+    "children": [
+      36,
+      37,
+      51,
+      80,
+      82,
+      85,
+      86
+    ]
+  },
+  {
+    "title": "docker",
+    "collabsable": false,
+    "children": [
+      42,
+      43,
+      47
+    ]
+  },
+  {
+    "title": "vim",
+    "collabsable": false,
+    "children": [
+      45
+    ]
+  },
+  {
+    "title": "算法与数据结构",
+    "collabsable": false,
+    "children": [
+      49,
+      62
+    ]
+  },
+  {
+    "title": "操作系统",
+    "collabsable": false,
+    "children": [
+      50,
+      54,
+      64,
+      66
+    ]
+  },
+  {
+    "title": "graphql",
+    "collabsable": false,
+    "children": [
+      52,
+      53
+    ]
+  },
+  {
+    "title": "微服务",
+    "collabsable": false,
+    "children": [
+      57,
+      58,
+      59,
+      60,
+      61,
+      63,
+      65,
+      77
+    ]
+  },
+  {
+    "title": "webpack",
+    "collabsable": false,
+    "children": [
+      73,
+      74,
+      75,
+      76,
+      78,
+      79,
+      81,
+      83,
+      87,
+      92
+    ]
+  },
+  {
+    "title": "前端工程化",
+    "collabsable": false,
+    "children": [
+      84
+    ]
+  }
+]
