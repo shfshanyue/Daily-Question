@@ -11,11 +11,12 @@ module.exports = {
     repo: 'shfshanyue/Daily-Question',
     nav: [
       { text: '主页', link: '/' },
+      { text: '历史', link: '/history.html' },
       { text: '计算机基础', link: '/base/' },
       { text: '前端', link: '/fe/' },
       { text: '后端', link: '/server/' },
       { text: 'DevOps', link: '/devops/' },
-      { text: '关于我', link: 'https://shanyue.tech/about' },
+      { text: '我的博客', link: 'https://shanyue.tech' },
       { text: '个人服务器运维指南', link: 'https://shanyue.tech/op/' },
     ],
     sidebar: header,

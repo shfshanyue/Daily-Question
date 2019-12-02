@@ -218,7 +218,7 @@ async function generateHeaders () {
 function getIssueMd (issue) {
   const title = `# ${issue.title.slice(6)}`
   const body = issue.body && `::: tip 更多描述 \r\n ${issue.body} \r\n:::`
-  const more = `::: tip Issue \r\n 欢迎在 Issue 中讨论: [Issue ${issue.number}](https://github.com/shfshanyue/Daily-Question/issues/${issue.number}) \r\n:::`
+  const more = `::: tip Issue \r\n 欢迎在 Issue 中交流与讨论: [Issue ${issue.number}](https://github.com/shfshanyue/Daily-Question/issues/${issue.number}) \r\n:::`
   const comments = _.get(issue, 'comments.nodes', [])
   const comment = comments.length > 0 ? (_.maxBy(comments, 'reactions.totalCount') || comments[0]).body : ''
   const md = [title, body, more, comment].join('\r\n\r\n')
@@ -244,11 +244,13 @@ async function generateMd () {
 
   // 创建 Readme.md
   for (const group of _.keys(GROUP_MAP)) {
-    const md = issues.filter(x => {
+    const title = '# 目录\n'
+    const content = issues.filter(x => {
       return x.labels.nodes.some(label => labels[label.name].group === group)
     }).map(issue => {
-      return `+ [${issue.title}](${issue.labels.nodes[0].name}/${issue.number})`
+      return `+ [${issue.title}](${issue.labels.nodes[0].name}/${issue.number}.html)`
     }).join('\n')
+    const md = title + content
     fs.writeFileSync(path.resolve(dir, group, 'Readme.md'), md)
   }
 
@@ -256,7 +258,7 @@ async function generateMd () {
   fs.writeFileSync(path.resolve(__dirname, '../.vuepress', 'issues.json'), JSON.stringify(allIssues, null, 2))
 
   // 创建 history.md
-  const historyMd = issues.map(issue => `+ [${issue.title}](${labels[issue.labels.nodes[0].name].group}/${issue.labels.nodes[0].name}/${issue.number})`).reverse().join('\n')
+  const historyMd = '# 历史记录\n' + issues.map(issue => `+ [${issue.title}](${labels[issue.labels.nodes[0].name].group}/${issue.labels.nodes[0].name}/${issue.number})`).reverse().join('\n')
   fs.writeFileSync(path.resolve(__dirname, '..', 'history.md'), historyMd)
 
   for (const issue of issues) {

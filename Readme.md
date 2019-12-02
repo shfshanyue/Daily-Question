@@ -14,41 +14,43 @@
 
 ### 计算机基础
 
-[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/network?style=flat-square&label=network">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Anetwork)
-[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/http?style=flat-square&label=http">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Ahttp)
-[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/linux?style=flat-square&label=linux">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Alinux)
-[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/vim?style=flat-square">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Avim)
-[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/algorithm?style=flat-square&label=algorithm">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Aalgorithm)
-[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/algorithm?style=flat-square&label=os">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Aos)
+[计算机网络](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Anetwork) | 
+[算法与数据结构](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Aalgorithm) | 
+[操作系统](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Aos) |
+[Linux基础](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Alinux) |
+[http](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Ahttp) | 
+[vim](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Avim) |
 
 ### 前端
 
-[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/css?style=flat-square&label=css">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Acss)
-[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/js?style=flat-square&label=javascript">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Ajs)
-[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/html?style=flat-square&label=html">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Ahtml)
-[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/react?style=flat-square&label=React">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Areact)
-[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/vue?style=flat-square&label=Vue">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Avue)
-[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/webpack?style=flat-square&label=webpack">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Awebpack)
+[CSS](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Acss) |
+[Javascript](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Ajs) |
+[html](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Ahtml) |
+[React](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Areact) |
+[Vue](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Avue) |
+[Webpack](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Awebpack) |
+[前端工程化](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3A前端工程化)
 
 ### 后端
 
-[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/server?style=flat-square&label=server">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Aserver)
-[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/db?style=flat-square&label=Database">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Adb)
-[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/redis?style=flat-square&label=Redis">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Aredis)
+[后端基础](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Aserver) |
+[数据库](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Adb) |
+[Redis](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Aredis) |
+[微服务架构](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Amicro-service)
 
 ### DevOps
 
-[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/devops?style=flat-square&label=DevOps">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Adevops)
-[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/k8s?style=flat-square&label=kubernetes">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Ak8s)
-[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/docker?style=flat-square&label=docker">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Adocker)
+[DevOps](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Adevops) |
+[Docker](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Adocker) |
+[kubernetes](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Ak8s)
 
 ### 开放式问题
 
-[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/open?style=flat-square&label=open">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Aopen)
+[开放式问题](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Aopen)
 
 ## 历史
 
-[查看所有问题](https://q.shanyue.tech/history)
+[查看所有问题](https://q.shanyue.tech/history.html)
 
 ## 时间线
 
