@@ -1,0 +1,35 @@
+name: deploy to aliyun oss
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    # 切代码到 runner
+    - uses: actions/checkout@v1
+      with:
+        submodules: true
+    # 使用 node:10
+    - name: use Node.js 10.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 10.x
+    # npm install
+    - name: npm install and build
+      run: |
+        npm install
+        npm run build
+      env:
+        CI: true
+    # 设置阿里云OSS的 id/secret，存储到 github 的 secrets 中
+    - name: setup aliyun oss
+      uses: manyuanrong/setup-ossutil@master
+      with:
+        endpoint: oss-cn-beijing.aliyuncs.com
+        access-key-id: ${{ secrets.OSS_KEY_ID }}
+        access-key-secret: ${{ secrets.OSS_KEY_SECRET }}
+    - name: cp files to aliyun
+      run: ossutil cp -rf .vuepress/dist oss://shanyue-question/
