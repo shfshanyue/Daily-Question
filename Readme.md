@@ -19,6 +19,7 @@
 [<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/linux?style=flat-square&label=linux">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Alinux)
 [<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/vim?style=flat-square">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Avim)
 [<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/algorithm?style=flat-square&label=algorithm">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Aalgorithm)
+[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/algorithm?style=flat-square&label=os">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Aos)
 
 ### 前端
 

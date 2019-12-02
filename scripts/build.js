@@ -87,7 +87,7 @@ const LABELS = [
     group: 'server',
   },
   {
-    name: 'micro service',
+    name: 'micro-service',
     alias: '微服务',
     group: 'server'
   },
@@ -113,7 +113,7 @@ const fetch = axios.create({
   baseURL: 'https://api.github.com/graphql',
   headers: {
     'X-Custom-Header': 'foobar',
-    Authorization: 'bearer c6e242721eff8c5639751a2adfec13add93e0ac0',
+    Authorization: 'bearer 71a548e8de0358e176d41d1411ef844bbb9f1c8c',
     'Content-Type': 'application/json'
   }
 })
@@ -190,10 +190,16 @@ async function generateHeaders () {
       name: label.name,
       title: allLabels[label.name].alias || label.name,
       collabsable: false,
-      children: _.get(label, 'issues.nodes').map(x => ['${label.name}-${x.number}', x.title.slice(6)])
+      children: _.get(label, 'issues.nodes').map(x => [`${label.name}/${x.number}`, x.title.slice(6)])
     }
   })
   const groups = _.groupBy(_.sortBy(headers, 'name'), label => `/${allLabels[label.name].group}/`)
+  for (const group of _.keys(groups)) {
+    groups[group] = [
+      ['', '目录'],
+      ...groups[group]
+    ]
+  }
   fs.writeFileSync(path.resolve(__dirname, '../.vuepress', 'header.json'), JSON.stringify(groups, null, 2))
 }
 
@@ -201,20 +207,40 @@ async function generateMd () {
   const issues = await getIssues()
   const labels = _.keyBy(LABELS, 'name')
   const dir = path.resolve(__dirname, '..')
-  for (const group of _.keys(GROUP_MAP)) {
-    const d = path.resolve(dir, group)
+
+  // 创建目录
+  for (const label of LABELS) {
+    const d = path.resolve(dir, label.group, label.name)
     if (!fs.existsSync(d)) {
-      fs.mkdirSync(d)
+      fs.mkdirSync(d, {
+        recursive: true
+      })
     }
   }
+
   const allIssues = _.keyBy(_.map(issues, issue => _.pick(issue, ['title', 'number'])), 'number')
+
+  // 创建 Readme.md
+  for (const group of _.keys(GROUP_MAP)) {
+    const md = issues.filter(x => {
+      return x.labels.nodes.some(label => labels[label.name].group === group)
+    }).map(issue => {
+      return `+ [${issue.title}](${issue.labels.nodes[0].name}/${issue.number})`
+    }).join('\r\n')
+    fs.writeFileSync(path.resolve(dir, group, 'Readme.md'), md)
+  }
+
+  // 创建 issue.json
   fs.writeFileSync(path.resolve(__dirname, '../.vuepress', 'issues.json'), JSON.stringify(allIssues, null, 2))
+
+
   for (const issue of issues) {
     const body = issue.body && `::: tip 更多描述 \r\n ${issue.body} \r\n:::`
-    const md = `# ${issue.title}\r\n\r\n${body}`
+    const more = `::: tip Issue \r\n 欢迎在 Issue 中讨论: [Issue ${issue.number}](https://github.com/shfshanyue/Daily-Question/issues/${issue.number}) \r\n:::`
+    const md = `# ${issue.title.slice(6)}\r\n\r\n${body}\r\n\r\n${more}`
     for (const label of issue.labels.nodes) {
       const group = labels[label.name].group
-      fs.writeFileSync(path.resolve(dir, group, `${label.name}-${issue.number}.md`), md)
+      fs.writeFileSync(path.resolve(dir, group, `${label.name}/${issue.number}.md`), md)
     }
   }
 }
