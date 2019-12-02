@@ -113,7 +113,7 @@ const fetch = axios.create({
   baseURL: 'https://api.github.com/graphql',
   headers: {
     'X-Custom-Header': 'foobar',
-    Authorization: 'bearer 71a548e8de0358e176d41d1411ef844bbb9f1c8c',
+    Authorization: `bearer ${process.env.ACCESS_TOKEN}`,
     'Content-Type': 'application/json'
   }
 })
