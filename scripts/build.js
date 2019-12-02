@@ -113,7 +113,7 @@ const fetch = axios.create({
   baseURL: 'https://api.github.com/graphql',
   headers: {
     'X-Custom-Header': 'foobar',
-    Authorization: 'bearer 29a93e93c8c33c65f46628f28abb1742e9b59a3a',
+    Authorization: 'bearer c6e242721eff8c5639751a2adfec13add93e0ac0',
     'Content-Type': 'application/json'
   }
 })
@@ -148,7 +148,7 @@ function getIssues () {
     method: 'post',
     data: { query }
   }).then(data => {
-    return data.data.data.repository.issues.nodes
+    return data.data.data.repository.issues.nodes.filter(issue => issue.title.startsWith('【Q'))
   })
 }
 

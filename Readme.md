@@ -14,11 +14,11 @@
 
 ### 计算机基础
 
-[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/network?style=flat-square&label=计算机网络">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Anetwork)
+[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/network?style=flat-square&label=network">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Anetwork)
 [<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/http?style=flat-square&label=http">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Ahttp)
-[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/linux?style=flat-square&label=linux基础">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Alinux)
+[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/linux?style=flat-square&label=linux">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Alinux)
 [<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/vim?style=flat-square">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Avim)
-[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/algorithm?style=flat-square&label=算法与数据结构">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Aalgorithm)
+[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/algorithm?style=flat-square&label=algorithm">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Aalgorithm)
 
 ### 前端
 
@@ -31,8 +31,8 @@
 
 ### 后端
 
-[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/server?style=flat-square&label=后端基础">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Aserver)
-[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/db?style=flat-square&label=数据库">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Adb)
+[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/server?style=flat-square&label=server">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Aserver)
+[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/db?style=flat-square&label=Database">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Adb)
 [<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/redis?style=flat-square&label=Redis">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Aredis)
 
 ### DevOps
@@ -43,7 +43,7 @@
 
 ### 开放式问题
 
-[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/open?style=flat-square">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Aopen)
+[<img src="https://img.shields.io/github/issues/shfshanyue/daily-question/open?style=flat-square&label=open">](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Aopen)
 
 ## 历史
 
