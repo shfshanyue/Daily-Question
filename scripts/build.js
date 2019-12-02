@@ -215,6 +215,16 @@ async function generateHeaders () {
   fs.writeFileSync(path.resolve(__dirname, '../.vuepress', 'header.json'), JSON.stringify(groups, null, 2))
 }
 
+function getIssueMd (issue) {
+  const title = `# ${issue.title.slice(6)}`
+  const body = issue.body && `::: tip 更多描述 \r\n ${issue.body} \r\n:::`
+  const more = `::: tip Issue \r\n 欢迎在 Issue 中讨论: [Issue ${issue.number}](https://github.com/shfshanyue/Daily-Question/issues/${issue.number}) \r\n:::`
+  const comments = _.get(issue, 'comments.nodes', [])
+  const comment = comments.length > 0 ? (_.maxBy(comments, 'reactions.totalCount') || comments[0]).body : ''
+  const md = [title, body, more, comment].join('\r\n\r\n')
+  return md
+}
+
 async function generateMd () {
   const issues = await getIssues()
   const labels = _.keyBy(LABELS, 'name')
@@ -237,23 +247,20 @@ async function generateMd () {
     const md = issues.filter(x => {
       return x.labels.nodes.some(label => labels[label.name].group === group)
     }).map(issue => {
-      return `+ [${issue.title}](${issue.labels.nodes[0].name}/${issue.number}.html)`
-    }).join('\r\n')
+      return `+ [${issue.title}](${issue.labels.nodes[0].name}/${issue.number})`
+    }).join('\n')
     fs.writeFileSync(path.resolve(dir, group, 'Readme.md'), md)
   }
 
   // 创建 issue.json
   fs.writeFileSync(path.resolve(__dirname, '../.vuepress', 'issues.json'), JSON.stringify(allIssues, null, 2))
 
+  // 创建 history.md
+  const historyMd = issues.map(issue => `+ [${issue.title}](${labels[issue.labels.nodes[0].name].group}/${issue.labels.nodes[0].name}/${issue.number})`).reverse().join('\n')
+  fs.writeFileSync(path.resolve(__dirname, '..', 'history.md'), historyMd)
 
   for (const issue of issues) {
-    const title = `# ${issue.title.slice(6)}`
-    const body = issue.body && `::: tip 更多描述 \r\n ${issue.body} \r\n:::`
-    const more = `::: tip Issue \r\n 欢迎在 Issue 中讨论: [Issue ${issue.number}](https://github.com/shfshanyue/Daily-Question/issues/${issue.number}) \r\n:::`
-    const comments = _.get(issue, 'comments.nodes', [])
-    console.log(comments)
-    const comment = comments.length > 0 ? (_.maxBy(comments, 'reactions.totalCount') || comments[0]).body : ''
-    const md = [title, body, more, comment].join('\r\n\r\n')
+    const md = getIssueMd(issue)
     for (const label of issue.labels.nodes) {
       const group = labels[label.name].group
       fs.writeFileSync(path.resolve(dir, group, `${label.name}/${issue.number}.md`), md)
