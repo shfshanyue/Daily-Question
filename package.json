@@ -4,6 +4,7 @@
   "description": "勤学如春起之苗，不见其增，日有所长；辍学如磨刀之石，不见其损，日有所亏。",
   "main": "index.js",
   "dependencies": {
+    "@vuepress/plugin-google-analytics": "^1.2.0",
     "axios": "^0.19.0",
     "lodash": "^4.17.15",
     "vuepress": "^1.2.0"
