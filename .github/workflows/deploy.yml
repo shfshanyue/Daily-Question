@@ -33,3 +33,5 @@ jobs:
         access-key-secret: ${{ secrets.OSS_KEY_SECRET }}
     - name: cp files to aliyun
       run: ossutil cp -rf .vuepress/dist oss://shanyue-question/
+    - name: set long term cache
+      run: ossutil set-meta oss://shanyue-question/assets cache-control:"max-age=31536000" --update -rf
