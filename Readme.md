@@ -19,7 +19,7 @@
 [操作系统](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Aos) |
 [Linux基础](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Alinux) |
 [http](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Ahttp) | 
-[vim](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Avim) |
+[vim](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Avim)
 
 ### 前端
 
@@ -54,9 +54,9 @@
 
 ## 面试
 
-+ [17年记](https://github.com/shfshanyue/Daily-Question/blob/master/interviews/2017.md)
-+ [18年记](https://github.com/shfshanyue/Daily-Question/blob/master/interviews/2018.md)
-+ [19年记](https://github.com/shfshanyue/Daily-Question/blob/master/interviews/2019.md)
++ [17年面试记](https://github.com/shfshanyue/Daily-Question/blob/master/interviews/2017.md)
++ [18年面试记](https://github.com/shfshanyue/Daily-Question/blob/master/interviews/2018.md)
++ [19年面试记](https://github.com/shfshanyue/Daily-Question/blob/master/interviews/2019.md)
 
 ## 时间线
 
@@ -66,12 +66,13 @@
 + 2019.11.12 - 第8个 star
 + 2019.11.16 - 第16个 star，很巧
 + 2019.11.26 - 第32个 star
++ 2019.12.03 - 第64个 star
 
 ## 交流
 
-我是山月，一个喜欢跑步与爬山的程序员，我会定期分享全栈文章在个人公众号中。如果你对全栈面试，前端工程化，graphql，devops，个人服务器运维以及微服务感兴趣的话，可以关注我的微信公众号【山月行】。
+我是山月，你可以添加微信 `shanyue94` 与我交流。
 
-另外可以添加微信 `shanyue94` 备注加群，进群交流技术问题
+另外，也欢迎你来扫码关注我的公众号【山月行】。
 
 ![如果你对全栈面试，前端工程化，graphql，devops，个人服务器运维以及微服务感兴趣的话，可以关注我](https://shanyue.tech/qrcode.jpg)
 

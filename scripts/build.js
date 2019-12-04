@@ -259,7 +259,7 @@ async function generateMd () {
 
   // 创建 history.md
   const historyMd = '# 历史记录\n' + issues.map(issue => `+ [${issue.title}](${labels[issue.labels.nodes[0].name].group}/${issue.labels.nodes[0].name}/${issue.number}.html)`).reverse().join('\n')
-  fs.writeFileSync(path.resolve(__dirname, '..', 'history.md'), historyMd)
+  fs.writeFileSync(path.resolve(__dirname, '../weekly', 'Readme.md'), historyMd)
 
   for (const issue of issues) {
     const md = getIssueMd(issue)

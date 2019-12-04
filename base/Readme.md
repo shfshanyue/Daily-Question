@@ -26,3 +26,4 @@
 + [【Q084】随着 http2 的发展，前端性能优化中的哪些传统方案可以被替代](http/85.html)
 + [【Q085】http2 与 http1.1 有什么不同](http/86.html)
 + [【Q087】什么是 CNAME 记录和 A 记录](network/88.html)
++ [【Q093】如何实现一个 LRU](algorithm/94.html)

@@ -11,7 +11,8 @@ module.exports = {
     repo: 'shfshanyue/Daily-Question',
     nav: [
       { text: '主页', link: '/' },
-      { text: '历史', link: '/history.html' },
+      { text: '周刊', link: '/weekly/' },
+      { text: '三年面经', link: '/interviews/2017.html' },
       { text: '计算机基础', link: '/base/' },
       { text: '前端', link: '/fe/' },
       { text: '后端', link: '/server/' },
@@ -19,7 +20,21 @@ module.exports = {
       { text: '我的博客', link: 'https://shanyue.tech' },
       { text: '个人服务器运维指南', link: 'https://shanyue.tech/op/' },
     ],
-    sidebar: header,
+    sidebar: {
+      ...header,
+      '/interviews/': [
+        ['2017', '2017年面试记'],
+        ['2018', '2018年面试记'],
+        ['2019', '2019年面试记']
+      ],
+      '/weekly/': [
+        ['', '所有历史'],
+        ['week1', '全站周刊第一周'],
+        ['week2', '全站周刊第二周'],
+        ['week3', '全站周刊第三周'],
+        ['week4', '全站周刊第四周'],
+      ]
+    },
     lastUpdated: 'Last Updated',
     // displayAllHeaders: true
   },
