@@ -1,3 +1,19 @@
+# 日问周刊 | 全栈面试汇总 | 第四期
+
+> 勤学如春起之苗，不见其增，日有所长；辍学如磨刀之石，不见其损，日有所亏。
+
+我在 github 上新建了一个仓库 [日问](https://github.com/shfshanyue/Daily-Question)，每天至少一个问题。有关全栈，graphql，devops，微服务以及软技能，促进职业成长，欢迎交流。
+
+以诸葛武侯的诫子书与君共勉
+
+> 夫君子之行，静以修身，俭以养德。非澹泊无以明志，非宁静无以致远。夫学须静也，才须学也，非学无以广才，非志无以成学。淫慢则不能励精，险躁则不能治性。**年与时驰，意与日去，遂成枯落，多不接世，悲守穷庐，将复何及！**
+
++ [第一期](https://github.com/shfshanyue/Daily-Question/blob/master/weekly/week1.md)
++ [第二期](https://github.com/shfshanyue/Daily-Question/blob/master/weekly/week2.md)
++ [第三期](https://github.com/shfshanyue/Daily-Question/blob/master/weekly/week3.md)
+
+## 本期
+
 + [【Q092】react 中 ref 是干什么用的，有哪些使用场景](https://q.shanyue.tech/fe/react/93.html)
 + [【Q091】vue-loader 的实现原理是什么](https://q.shanyue.tech/fe/vue/92.html)
 + [【Q090】vue 中 computed 的原理是什么](https://q.shanyue.tech/fe/vue/91.html)
@@ -32,3 +48,9 @@
 + [【Q061】如何判断两个链表是否相交](https://q.shanyue.tech/base/algorithm/62.html)
 + [【Q060】你们项目中的计划任务是如何组织的](https://q.shanyue.tech/server/micro-service/61.html)
 + [【Q059】四层负载均衡与七层负载均衡有什么区别](https://q.shanyue.tech/server/micro-service/60.html)
+
+<hr>
+
+> 我是山月，我会定期分享全栈文章在个人公众号中。如果你对全栈面试，前端工程化，graphql，devops，个人服务器运维以及微服务感兴趣的话，可以关注我。另外可以加我微信 `shanyue94` 与我交流，备注交流，另外也可以加群交流，备注加群。
+
+![如果你对全栈面试，前端工程化，graphql，devops，个人服务器运维以及微服务感兴趣的话，可以关注我](https://shanyue.tech/qrcode.jpg)

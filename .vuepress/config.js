@@ -12,7 +12,7 @@ module.exports = {
     nav: [
       { text: '主页', link: '/' },
       { text: '周刊', link: '/weekly/' },
-      { text: '三年面经', link: '/interviews/2017.html' },
+      { text: '三年面经', link: '/interviews/2018.html' },
       { text: '计算机基础', link: '/base/' },
       { text: '前端', link: '/fe/' },
       { text: '后端', link: '/server/' },
