@@ -1,6 +1,13 @@
 name: deploy to aliyun oss
 
-on: [push]
+on:
+  push:
+    barches:
+      - master
+  issues:
+    types: [opened, edited]
+  issue_comment:
+    types: [created, edited]
 
 jobs:
   build:
@@ -21,6 +28,7 @@ jobs:
     - name: npm install and build
       run: |
         npm install
+        npm run doc
         npm run build
       env:
         CI: true
