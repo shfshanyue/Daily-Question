@@ -5,9 +5,11 @@ on:
     barches:
       - master
   issues:
-    types: [opened, edited]
+    types: [labeled, edited]
   issue_comment:
     types: [created, edited]
+  schedule:
+  - cron:  '50 20 * * *'
 
 jobs:
   build:
@@ -32,6 +34,7 @@ jobs:
         npm run build
       env:
         CI: true
+        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
     # 设置阿里云OSS的 id/secret，存储到 github 的 secrets 中
     - name: setup aliyun oss
       uses: manyuanrong/setup-ossutil@master
@@ -39,6 +42,9 @@ jobs:
         endpoint: oss-cn-beijing.aliyuncs.com
         access-key-id: ${{ secrets.OSS_KEY_ID }}
         access-key-secret: ${{ secrets.OSS_KEY_SECRET }}
+    - name: 删除冗余文件
+      run: ossutil rm oss://shanyue-question/assets -rf
+      if: github.event_name == 'schedule'
     - name: cp files to aliyun
       run: ossutil cp -rf .vuepress/dist oss://shanyue-question/
     - name: set long term cache

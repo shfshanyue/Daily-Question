@@ -1,4 +1,5 @@
 # 历史记录
++ [【Q095】k8s 中的 QoS 有哪几种类型](devops/k8s/96.html)
 + [【Q094】你们的前端代码上线部署一次需要多长时间，需要人为干预吗](devops/devops/95.html)
 + [【Q093】如何实现一个 LRU](base/algorithm/94.html)
 + [【Q092】react 中 ref 是干什么用的，有哪些使用场景](fe/react/93.html)
