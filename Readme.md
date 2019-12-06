@@ -12,14 +12,15 @@
 
 ## 分类
 
-### 计算机基础
+### 计算机与编程基础
 
 [计算机网络](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Anetwork) | 
 [算法与数据结构](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Aalgorithm) | 
 [操作系统](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Aos) |
 [Linux基础](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Alinux) |
 [http](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Ahttp) | 
-[vim](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Avim)
+[vim](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Avim) | 
+[git](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Agit)
 
 ### 前端
 
@@ -76,12 +77,14 @@
 + 2019.12.03 - 第64个 star
 + 2019.12.05 - 第100道题
 
+## 相关推荐
+
+如果你对一些**前端技术圈**相关的技术文章、工具资源、学习资料、招聘信息及其他有趣的东西感兴趣的话，可以关注目前在 `shopee` 工作的 [winty](https://github.com/LuckyWinty/blog) 妹子，也可以添加她的微信 `winty230`。
+
 ## 交流
 
-我是山月，你可以添加微信 `shanyue94` 与我交流，另外欢迎关注我的博客[山月行](https://shanyue.tech/)，分享工作中遇到的一些技术问题以及思考。
+我是山月，你可以添加微信 `shanyue94` 与我交流，另外欢迎关注我的博客[山月行](https://shanyue.tech/)，我会在其中分享工作中遇到的一些技术问题以及思考。
 
-## 资料分享
+另外推荐关注我的公众号 `山月行`，助你走向全栈之路。关注公众号后回复 `资料`，可以领取海量全栈资源。
 
-如果你对一些**前端技术圈**相关的技术文章、工具资源、学习资料、招聘信息及其他有趣的东西感兴趣的话，可以关注公众号【前端Q】
-
-<img width="300" height="300" src="https://raw.githubusercontent.com/LuckyWinty/blog/master/images/qrcode/%E4%BA%8C%E7%BB%B4%E7%A0%81%E7%BE%8E%E5%8C%96%202.png" alt="资料分享">
+![公众号山月行](./qr.png)
