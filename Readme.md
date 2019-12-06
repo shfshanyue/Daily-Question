@@ -48,9 +48,9 @@
 
 [开放式问题](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Aopen)
 
-## 历史
+### 历史记录
 
-[查看所有问题](https://q.shanyue.tech/history.html)
+[查看所有问题](https://q.shanyue.tech/weekly/history.html)
 
 ## 面试
 
@@ -70,9 +70,10 @@
 
 ## 交流
 
-我是山月，你可以添加微信 `shanyue94` 与我交流。
+我是山月，你可以添加微信 `shanyue94` 与我交流，另外欢迎关注我的博客[山月行](https://shanyue.tech/)，分享工作中遇到的一些技术问题以及思考。
 
-另外，也欢迎你来扫码关注我的公众号【山月行】。
+## 资料分享
 
-![如果你对全栈面试，前端工程化，graphql，devops，个人服务器运维以及微服务感兴趣的话，可以关注我](https://shanyue.tech/qrcode.jpg)
+如果你对一些**前端技术圈**相关的技术文章、工具资源、学习资料、招聘信息及其他有趣的东西感兴趣的话，可以关注公众号【前端Q】
 
+<img width="300" height="300" src="https://raw.githubusercontent.com/LuckyWinty/blog/master/images/qrcode/%E4%BA%8C%E7%BB%B4%E7%A0%81%E7%BE%8E%E5%8C%96%202.png" alt="资料分享">
