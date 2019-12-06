@@ -3,7 +3,7 @@ const header = require('./header')
 module.exports = {
   base: '/',
   title: '日问',
-  description: '东坡云：事如春梦了无痕，技术积累也是如此，于是在此略作整理。浮生六记中有一句：见藐小微物，必细查其纹理，其中对技术不仅要如琢如磨如切如磋，也记录一些物外之趣。',
+  description: '勤学如春起之苗，不见其增，日有所长；辍学如磨刀之石，不见其损，日有所亏。',
   head: [
     ['link', { rel: 'shortcut icon', href: '/favicon.ico', type: 'image/x-icon' }]
   ],
@@ -29,10 +29,10 @@ module.exports = {
       ],
       '/weekly/': [
         ['', '所有历史'],
-        ['week1', '全站周刊第一周'],
-        ['week2', '全站周刊第二周'],
-        ['week3', '全站周刊第三周'],
-        ['week4', '全站周刊第四周'],
+        ['week1', '全栈周刊第一期'],
+        ['week2', '全栈周刊第二期'],
+        ['week3', '全栈周刊第三期'],
+        ['week4', '全栈周刊第四期'],
       ]
     },
     lastUpdated: 'Last Updated',
@@ -48,6 +48,31 @@ module.exports = {
     (options, ctx) => {
       return {
         name: 'archive',
+        async additionalPages () {
+          return [
+            {
+              path: '/',
+              frontmatter: {
+                home: true,
+                heroText: '日问',
+                tagline: '山月的全栈进阶之路',
+                actionText: '历史记录  →',
+                actionLink: '/weekly/',
+                features: [{
+                  title: '全栈',
+                  details: '见其广，知其深'
+                }, {
+                  title: '每日一题',
+                  details: '勤学如春起之苗，不见其增，日有所长'
+                }, {
+                  title: '积累',
+                  details: '不积跬步，无以至千里'
+                }],
+                footer: '暮从碧山下，山月随人归。却顾所来径，苍苍横翠微。'
+              }
+            }
+          ]
+        },
         extendPageData ($page) {
           if ($page.frontmatter.keywords) {
             const meta = $page.frontmatter.meta
