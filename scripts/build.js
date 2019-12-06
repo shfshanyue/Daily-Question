@@ -122,12 +122,12 @@ const fetch = axios.create({
   }
 })
 
-function getIssues () {
+async function getIssues (after) {
   const query = `
-    query ISSUES { 
+    query ISSUES ($after: String) { 
       repository (name: "Daily-Question", owner: "shfshanyue") {
         id
-        issues (first: 100) {
+        issues (first: 100, after: $after) {
           pageInfo {
             hasNextPage
             endCursor
@@ -157,12 +157,22 @@ function getIssues () {
       }
     }
   `
-  return fetch.request({
+  const issues = await fetch.request({
     method: 'post',
-    data: { query }
+    data: {
+      query,
+      variables: {
+        after
+      }
+    }
   }).then(data => {
-    return data.data.data.repository.issues.nodes.filter(issue => issue.title.startsWith('【Q'))
+    return data.data.data.repository.issues
   })
+  let moreIssues = []
+  if (issues.pageInfo.hasNextPage) {
+    moreIssues = await getIssues(issues.pageInfo.endCursor)
+  }
+  return ([...issues.nodes, ...moreIssues]).filter(issue => issue.title.startsWith('【Q'))
 }
 
 function getLables () {
