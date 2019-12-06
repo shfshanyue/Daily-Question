@@ -8,3 +8,4 @@
 + [【Q042】docker 中如何查看某个容器消耗的内存和CPU](docker/43.html)
 + [【Q046】docker 中的网络隔离是如何实现的](docker/47.html)
 + [【Q094】你们的前端代码上线部署一次需要多长时间，需要人为干预吗](devops/95.html)
++ [【Q095】k8s 中的 QoS 有哪几种类型](k8s/96.html)

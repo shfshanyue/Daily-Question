@@ -41,6 +41,10 @@ const LABELS = [
     group: 'base'
   },
   {
+    name: 'git',
+    group: 'base'
+  },
+  {
     name: 'devops',
     group: 'devops'
   },
