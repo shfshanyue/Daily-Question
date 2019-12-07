@@ -55,6 +55,7 @@ module.exports = {
               frontmatter: {
                 home: true,
                 heroText: '日问',
+                heroImage: './logo.png',
                 tagline: '山月的全栈进阶之路',
                 actionText: '历史记录  →',
                 actionLink: '/weekly/',

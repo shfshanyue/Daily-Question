@@ -3,7 +3,7 @@
     <header class="hero">
       <img
         v-if="data.heroImage"
-        :src="$withBase(data.heroImage)"
+        src="./logo.png"
         :alt="data.heroAlt || 'hero'"
       >
 
