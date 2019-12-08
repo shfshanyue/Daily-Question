@@ -1,4 +1,12 @@
 # 历史记录
++ [【Q109】可以对图片开启 gzip 压缩吗，为什么](../base/http/110.html)
++ [【Q108】gzip 的原理是什么](../base/http/109.html)
++ [【Q107】什么是 Basic Auth 和 Digest Auth](../base/http/108.html)
++ [【Q106】什么是IO多路复用](../base/os/107.html)
++ [【Q105】你为什么从上家公司离职](../open/open/106.html)
++ [【Q104】你在工作中遇到最受挫折的事情是什么](../open/open/105.html)
++ [【Q103】你在工作中遇到最有挑战的事情是什么](../open/open/104.html)
++ [【Q102】有没有用 npm 发布过 package，如何发布](../fe/js/103.html)
 + [【Q101】你们后端代码上线部署一次需要多长时间](../devops/devops/102.html)
 + [【Q100】如何使用 react/vue 实现一个 message API](../fe/react/101.html)
 + [【Q099】git 如何查看某个文件的提交历史](../base/git/100.html)

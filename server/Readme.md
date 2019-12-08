@@ -22,3 +22,4 @@
 + [【Q064】如何实现服务发现 (Service Discovery)](micro-service/65.html)
 + [【Q076】如何设计一个短网址生成服务](micro-service/77.html)
 + [【Q101】你们后端代码上线部署一次需要多长时间](devops/102.html)
++ [【Q107】什么是 Basic Auth 和 Digest Auth](http/108.html)
