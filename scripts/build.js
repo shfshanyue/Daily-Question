@@ -10,6 +10,10 @@ const LABELS = [
     group: 'open'
   },
   {
+    name: 'node',
+    group: 'fe'
+  },
+  {
     name: 'db',
     alias: '数据库',
     group: 'server'
