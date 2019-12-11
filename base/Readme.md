@@ -7,7 +7,7 @@
 + [【Q035】http 常见的状态码有哪些](http/36.html)
 + [【Q036】http 状态码中 301，302和307有什么区别](http/37.html)
 + [【Q037】linux 有哪些发行版，你最喜欢哪一个](linux/38.html)
-+ [【Q041】CoW 策略指什么，docker 中有哪些应用](docker/42.html)
++ [【Q041】CoW 策略指什么，docker 中有哪些应用](linux/42.html)
 + [【Q043】如何使用命令查看一个文件有多少字符以及多少行](linux/44.html)
 + [【Q044】如何使用vim查看文件有多少个字符以及多少行](vim/45.html)
 + [【Q045】如何把一个 CIDR 地址转化为IP地址范围段](network/46.html)

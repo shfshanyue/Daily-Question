@@ -10,6 +10,10 @@
       "collabsable": false,
       "children": [
         [
+          "algorithm/",
+          "目录"
+        ],
+        [
           "algorithm/49",
           "如何实现一个优先级队列"
         ],
@@ -29,6 +33,10 @@
       "collabsable": false,
       "children": [
         [
+          "git/",
+          "目录"
+        ],
+        [
           "git/100",
           "git 如何查看某个文件的提交历史⭐️"
         ]
@@ -39,6 +47,10 @@
       "title": "http",
       "collabsable": false,
       "children": [
+        [
+          "http/",
+          "目录"
+        ],
         [
           "http/36",
           "http 常见的状态码有哪些⭐️"
@@ -119,6 +131,10 @@
       "collabsable": false,
       "children": [
         [
+          "linux/",
+          "目录"
+        ],
+        [
           "linux/4",
           "如何获取一个进程的内存并监控⭐️"
         ],
@@ -178,6 +194,10 @@
       "collabsable": false,
       "children": [
         [
+          "network/",
+          "目录"
+        ],
+        [
           "network/2",
           "当 ping 一个 IP 地址时发生了什么⭐️"
         ],
@@ -213,6 +233,10 @@
       "collabsable": false,
       "children": [
         [
+          "os/",
+          "目录"
+        ],
+        [
           "os/50",
           "什么是守护进程⭐️"
         ],
@@ -244,6 +268,10 @@
       "collabsable": false,
       "children": [
         [
+          "vim/",
+          "目录"
+        ],
+        [
           "vim/45",
           "如何使用vim查看文件有多少个字符以及多少行"
         ]
@@ -260,6 +288,10 @@
       "title": "css",
       "collabsable": false,
       "children": [
+        [
+          "css/",
+          "目录"
+        ],
         [
           "css/10",
           "如何实现一个元素的水平垂直居中⭐️"
@@ -280,6 +312,10 @@
       "collabsable": false,
       "children": [
         [
+          "html/",
+          "目录"
+        ],
+        [
           "html/1",
           "网站开发中，如何实现图片的懒加载⭐️"
         ],
@@ -294,6 +330,10 @@
       "title": "js",
       "collabsable": false,
       "children": [
+        [
+          "js/",
+          "目录"
+        ],
         [
           "js/3",
           "什么是防抖和节流，他们的应用场景有哪些⭐️"
@@ -330,6 +370,10 @@
       "collabsable": false,
       "children": [
         [
+          "node/",
+          "目录"
+        ],
+        [
           "node/119",
           "有没有读过 koa 的源码，什么是洋葱模型呢"
         ]
@@ -340,6 +384,10 @@
       "title": "react",
       "collabsable": false,
       "children": [
+        [
+          "react/",
+          "目录"
+        ],
         [
           "react/11",
           "了解 React 中的 ErrorBoundary 吗，它有那些使用场景⭐️"
@@ -396,6 +444,10 @@
       "collabsable": false,
       "children": [
         [
+          "vue/",
+          "目录"
+        ],
+        [
           "vue/12",
           "vue3.0 中为什么要使用 Proxy，它相比以前的实现方式有什么改进⭐️"
         ],
@@ -426,6 +478,10 @@
       "title": "webpack",
       "collabsable": false,
       "children": [
+        [
+          "webpack/",
+          "目录"
+        ],
         [
           "webpack/73",
           "webpack 是用来做什么的，原理是什么"
@@ -474,6 +530,10 @@
       "collabsable": false,
       "children": [
         [
+          "前端工程化/",
+          "目录"
+        ],
+        [
           "前端工程化/84",
           "网站性能优化都有哪些点"
         ],
@@ -495,6 +555,10 @@
       "collabsable": false,
       "children": [
         [
+          "db/",
+          "目录"
+        ],
+        [
           "db/7",
           "如何写一个 SQL 获取分组 top n 的数据⭐️"
         ],
@@ -514,6 +578,10 @@
       "collabsable": false,
       "children": [
         [
+          "graphql/",
+          "目录"
+        ],
+        [
           "graphql/52",
           "简述一下 graphql，它的引进有什么好处"
         ],
@@ -528,6 +596,10 @@
       "title": "微服务",
       "collabsable": false,
       "children": [
+        [
+          "micro-service/",
+          "目录"
+        ],
         [
           "micro-service/57",
           "什么是服务降级"
@@ -568,6 +640,10 @@
       "collabsable": false,
       "children": [
         [
+          "redis/",
+          "目录"
+        ],
+        [
           "redis/21",
           "如何实现一个分布式锁⭐️"
         ],
@@ -582,6 +658,10 @@
       "title": "后端基础",
       "collabsable": false,
       "children": [
+        [
+          "server/",
+          "目录"
+        ],
         [
           "server/6",
           "生产环境的某个接口报错，如何定位⭐️"
@@ -636,6 +716,10 @@
       "collabsable": false,
       "children": [
         [
+          "devops/",
+          "目录"
+        ],
+        [
           "devops/9",
           "当新入职一家公司时，如何快速搭建开发环境并让应用跑起来⭐️"
         ],
@@ -663,6 +747,10 @@
       "collabsable": false,
       "children": [
         [
+          "docker/",
+          "目录"
+        ],
+        [
           "docker/42",
           "CoW 策略指什么，docker 中有哪些应用"
         ],
@@ -681,6 +769,10 @@
       "title": "k8s",
       "collabsable": false,
       "children": [
+        [
+          "k8s/",
+          "目录"
+        ],
         [
           "k8s/13",
           "helm v3 中为什么要弃用 tiller⭐️"
@@ -706,6 +798,10 @@
       "title": "开放式问题",
       "collabsable": false,
       "children": [
+        [
+          "open/",
+          "目录"
+        ],
         [
           "open/38",
           "linux 有哪些发行版，你最喜欢哪一个⭐️"

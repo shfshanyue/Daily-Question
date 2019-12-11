@@ -216,11 +216,12 @@ async function generateHeaders () {
   const labels = await getLables()
   const allLabels = _.keyBy(LABELS, 'name')
   const headers = _.map(labels, label => {
+    const children = _.get(label, 'issues.nodes').map(x => [`${label.name}/${x.number}`, x.title.slice(6) + (x.comments.totalCount ? '⭐️' : '')])
     return {
       name: label.name,
       title: allLabels[label.name].alias || label.name,
       collabsable: false,
-      children: _.get(label, 'issues.nodes').map(x => [`${label.name}/${x.number}`, x.title.slice(6) + (x.comments.totalCount ? '⭐️' : '')])
+      children: [[`${label.name}/`, '目录'], ...children]
     }
   })
   const groups = _.groupBy(_.sortBy(headers, 'name'), label => `/${allLabels[label.name].group}/`)
@@ -233,6 +234,7 @@ async function generateHeaders () {
   fs.writeFileSync(path.resolve(__dirname, '../.vuepress', 'header.json'), JSON.stringify(groups, null, 2))
 }
 
+// 根据 Issue 生成 Markdown
 function getIssueMd (issue) {
   const title = `# ${issue.title.slice(6)}`
   const body = issue.body && `::: tip 更多描述 \r\n ${issue.body} \r\n:::`
@@ -243,6 +245,7 @@ function getIssueMd (issue) {
   return md
 }
 
+// 生成所有的 Markdown
 async function generateMd () {
   const issues = await getIssues()
   const labels = _.keyBy(LABELS, 'name')
@@ -258,21 +261,35 @@ async function generateMd () {
     }
   }
 
+  // 所有的 Issue
   const allIssues = _.keyBy(_.map(issues, issue => _.pick(issue, ['title', 'number'])), 'number')
 
-  // 创建 Readme.md
+  // 创建 category 目录
   for (const group of _.keys(GROUP_MAP)) {
     const title = '# 目录\n'
     const content = issues.filter(x => {
       return x.labels.nodes.some(label => labels[label.name].group === group)
     }).map(issue => {
-      return `+ [${issue.title}](${issue.labels.nodes[0].name}/${issue.number}.html)`
+      const labelName = issue.labels.nodes.filter(label => labels[label.name].group === group)[0].name
+      return `+ [${issue.title}](${labelName}/${issue.number}.html)`
     }).join('\n')
     const md = title + content
     fs.writeFileSync(path.resolve(dir, group, 'Readme.md'), md)
   }
 
-  // 创建 issue.json
+  // 创建 tag 目录
+  for (const label of LABELS) {
+    const title = '# 目录\n'
+    const content = issues.filter(x => {
+      return x.labels.nodes.some(l => label.name === l.name)
+    }).map(issue => {
+      return `+ [${issue.title}](${issue.number}.html)`
+    }).join('\n')
+    const md = title + content
+    fs.writeFileSync(path.resolve(dir, label.group, label.name, 'Readme.md'), md)
+  }
+
+  // 创建 issue.json，不过好像没啥用
   fs.writeFileSync(path.resolve(__dirname, '../.vuepress', 'issues.json'), JSON.stringify(allIssues, null, 2))
 
   // 创建 history.md
@@ -283,7 +300,7 @@ async function generateMd () {
     const md = getIssueMd(issue)
     for (const label of issue.labels.nodes) {
       const group = labels[label.name].group
-      fs.writeFileSync(path.resolve(dir, group, `${label.name}/${issue.number}.md`), md)
+      fs.writeFileSync(path.resolve(dir, group, label.name, `${issue.number}.md`), md)
     }
   }
 }
