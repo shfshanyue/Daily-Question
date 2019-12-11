@@ -14,40 +14,40 @@
 
 ### 计算机与编程基础
 
-[计算机网络](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Anetwork) | 
-[算法与数据结构](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Aalgorithm) | 
-[操作系统](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Aos) |
-[Linux基础](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Alinux) |
-[http](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Ahttp) | 
-[vim](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Avim) | 
-[git](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Agit)
+[计算机网络](https://q.shanyue.tech/base/network/) | 
+[算法与数据结构](https://q.shanyue.tech/base/algorithm/) | 
+[操作系统](https://q.shanyue.tech/base/os/) |
+[Linux基础](https://q.shanyue.tech/base/linux/) |
+[http](https://q.shanyue.tech/base/http/) | 
+[vim](https://q.shanyue.tech/base/vim/) | 
+[git](https://q.shanyue.tech/base/git/)
 
 ### 前端
 
-[CSS](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Acss) |
-[Javascript](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Ajs) |
-[html](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Ahtml) |
-[React](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Areact) |
-[Vue](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Avue) |
-[Webpack](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Awebpack) |
-[前端工程化](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3A前端工程化)
+[CSS](https://q.shanyue.tech/fe/css/) |
+[Javascript](https://q.shanyue.tech/fe/js/) |
+[html](https://q.shanyue.tech/fe/html/) |
+[React](https://q.shanyue.tech/fe/react/) |
+[Vue](https://q.shanyue.tech/fe/vue/) |
+[Webpack](https://q.shanyue.tech/fe/webpack/) |
+[前端工程化](https://q.shanyue.tech/fe/前端工程化/)
 
 ### 后端
 
-[后端基础](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Aserver) |
-[数据库](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Adb) |
-[Redis](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Aredis) |
-[微服务架构](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Amicro-service)
+[后端基础](https://q.shanyue.tech/server/server/) |
+[数据库](https://q.shanyue.tech/server/db/) |
+[Redis](https://q.shanyue.tech/server/redis/) |
+[微服务架构](https://q.shanyue.tech/server/micro-service/)
 
 ### DevOps
 
-[DevOps](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Adevops) |
-[Docker](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Adocker) |
-[kubernetes](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Ak8s)
+[DevOps](https://q.shanyue.tech/devops/devops/) |
+[Docker](https://q.shanyue.tech/devops/docker/) |
+[kubernetes](https://q.shanyue.tech/devops/k8s/)
 
 ### 开放式问题
 
-[开放式问题](https://github.com/shfshanyue/Daily-Question/issues?q=is%3Aopen+is%3Aissue+label%3Aopen)
+[开放式问题](http://q.shanyue.tech/open/open/)
 
 ### 历史记录
 
@@ -61,9 +61,9 @@
 
 ## 面试经验
 
-+ [17年面试记](https://github.com/shfshanyue/Daily-Question/blob/master/interviews/2017.md)
-+ [18年面试记](https://github.com/shfshanyue/Daily-Question/blob/master/interviews/2018.md)
-+ [19年面试记](https://github.com/shfshanyue/Daily-Question/blob/master/interviews/2019.md)
++ [17年面试记(阿里百度美团头条小米滴滴)](https://github.com/shfshanyue/Daily-Question/blob/master/interviews/2017.md)
++ [18年面试记(头条)](https://github.com/shfshanyue/Daily-Question/blob/master/interviews/2018.md)
++ [19年面试记(阿里头条)](https://github.com/shfshanyue/Daily-Question/blob/master/interviews/2019.md)
 
 ## 时间线
 
@@ -76,6 +76,7 @@
 + 2019.12.02 - 用周日一天的时间使用 Issues 自动生成了官网
 + 2019.12.03 - 第64个 star
 + 2019.12.05 - 第100道题
++ 2019.12.08 - 第128道题
 
 ## 相关推荐
 

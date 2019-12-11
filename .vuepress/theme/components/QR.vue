@@ -2,7 +2,7 @@
   <div class="qr">
     <img src="./qr.jpg" alt="山月行" width="120" height="120" loading="lazy">
     <p class="we-intro">
-      如果你对前端，后端，devops，个人服务器或运维感兴趣的话，可以扫码关注我的公众号<span class="we-highlight">山月行</span>。
+      如果你对前端，后端，DevOps，个人服务器或运维感兴趣的话，可以关注我的公众号<span class="we-highlight">全栈成长之路</span>。
     </p>
   </div>
 </template>

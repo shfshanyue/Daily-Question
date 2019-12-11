@@ -12,3 +12,4 @@
 + [【Q098】在 linux 中如何查看 cron 执行的情况](99.html)
 + [【Q114】如何查看一个文件的 inode number](115.html)
 + [【Q115】文件系统中 mtime 和 ctime 指什么，都有什么不同](116.html)
++ [【Q129】shell 中 ${} 与 $() 各是什么意思](130.html)

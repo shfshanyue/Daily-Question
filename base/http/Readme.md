@@ -17,3 +17,4 @@
 + [【Q119】https 是如何保证报文安全的](120.html)
 + [【Q121】我们如何从 http 的报文中得知该服务使用的技术栈](122.html)
 + [【Q122】在发送 http 请求报文时，Host 是必要的吗](123.html)
++ [【Q133】http 响应头中如果 content-type 为 application/octet-stream，则代表什么意思](134.html)

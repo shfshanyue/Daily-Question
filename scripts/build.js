@@ -293,7 +293,7 @@ async function generateMd () {
   fs.writeFileSync(path.resolve(__dirname, '../.vuepress', 'issues.json'), JSON.stringify(allIssues, null, 2))
 
   // 创建 history.md
-  const historyMd = '# 历史记录\n' + issues.map(issue => `+ [${issue.title}](../${labels[issue.labels.nodes[0].name].group}/${issue.labels.nodes[0].name}/${issue.number}.html)`).reverse().join('\n')
+  const historyMd = '# 历史记录\n' + issues.map(issue => `+ [${issue.title}](../${labels[issue.labels.nodes[0].name].group}/${issue.labels.nodes[0].name}/${issue.number}.html)`).join('\n')
   fs.writeFileSync(path.resolve(__dirname, '../weekly', 'Readme.md'), historyMd)
 
   for (const issue of issues) {

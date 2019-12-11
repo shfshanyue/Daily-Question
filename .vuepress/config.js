@@ -17,6 +17,7 @@ module.exports = {
       { text: '前端', link: '/fe/' },
       { text: '后端', link: '/server/' },
       { text: 'DevOps', link: '/devops/' },
+      { text: '开放式问题', link: '/open/' },
       { text: '我的博客', link: 'https://shanyue.tech' },
       { text: '个人服务器运维指南', link: 'https://shanyue.tech/op/' },
     ],
