@@ -148,6 +148,10 @@ async function getIssues (after) {
                 reactions (content: THUMBS_UP) {
                   totalCount
                 }
+                author {
+                  login
+                  url
+                }
               }
             }
             labels (first: 5) {
@@ -288,9 +292,6 @@ async function generateMd () {
     const md = title + content
     fs.writeFileSync(path.resolve(dir, label.group, label.name, 'Readme.md'), md)
   }
-
-  // 创建 issue.json，不过好像没啥用
-  fs.writeFileSync(path.resolve(__dirname, '../.vuepress', 'issues.json'), JSON.stringify(allIssues, null, 2))
 
   // 创建 history.md
   const historyMd = '# 历史记录\n' + issues.map(issue => `+ [${issue.title}](../${labels[issue.labels.nodes[0].name].group}/${issue.labels.nodes[0].name}/${issue.number}.html)`).join('\n')

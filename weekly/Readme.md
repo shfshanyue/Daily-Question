@@ -134,3 +134,4 @@
 + [【Q133】http 响应头中如果 content-type 为 application/octet-stream，则代表什么意思](../base/http/134.html)
 + [【Q134】ssh 的原理是什么](../base/network/135.html)
 + [【Q135】负载均衡有哪几种方式，它们的原理是什么](../server/micro-service/136.html)
++ [【Q136】http 向 https 做重定向应该使用哪个状态码](../base/http/137.html)

@@ -138,6 +138,10 @@ const ISSUES_QUERY = `
               reactions (content: THUMBS_UP) {
                 totalCount
               }
+              author {
+                login
+                url
+              }
             }
           }
           labels (first: 5) {
@@ -184,9 +188,11 @@ getIssues().then(issues => {
   const labels = _.keyBy(LABELS, 'name')
   return issues.map(issue => {
     const comments = issue.comments.nodes
+    const _comment = _.maxBy(comments, 'reactions.totalCount') || comments[0] || null
+    const comment = _comment && (_comment.author.login === 'shfshanyue' || _comment.reactions.totalCount > 0) && _comment
     return {
       ..._.omit(issue, 'comments'),
-      comment: _.maxBy(comments, 'reactions.totalCount') || comments[0] || null,
+      comment,
       labels: issue.labels.nodes.map(label => {
         return {
           ...label,
@@ -199,6 +205,6 @@ getIssues().then(issues => {
 }).then(issues => {
   fs.writeFileSync(path.resolve(__dirname, '../.vuepress', 'issues.json'), JSON.stringify(issues, null, 2))
 }).catch(e => {
-  console.log(e)
+  console.error(e)
   process.exit(1)
 })

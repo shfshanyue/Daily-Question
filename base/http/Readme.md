@@ -18,3 +18,4 @@
 + [【Q121】我们如何从 http 的报文中得知该服务使用的技术栈](122.html)
 + [【Q122】在发送 http 请求报文时，Host 是必要的吗](123.html)
 + [【Q133】http 响应头中如果 content-type 为 application/octet-stream，则代表什么意思](134.html)
++ [【Q136】http 向 https 做重定向应该使用哪个状态码](137.html)

@@ -1,542 +1,2781 @@
-{
-  "1": {
+[
+  {
+    "id": "MDU6SXNzdWU1MTYwNTcyNDA=",
+    "number": 1,
     "title": "【Q001】网站开发中，如何实现图片的懒加载",
-    "number": 1
+    "body": "网站开发中，如何实现图片的懒加载，随着 web 技术的发展，他有没有一些更好的方案",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE2",
+        "name": "html",
+        "group": "fe"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU0OTEzMzE0NQ==",
+      "body": "懒加载，顾名思义，在当前网页，滑动页面到能看到图片的时候再加载图片\r\n\r\n故问题拆分成两个：\r\n\r\n1. 如何判断图片出现在了当前视口 （即如何判断我们能够看到图片）\r\n2. 如何控制图片的加载\r\n\r\n## 方案一\r\n\r\n### 如何判断图片出现在了当前视口\r\n\r\n`clientTop`，`offsetTop`，`clientHeight` 以及 `scrollTop` 各种关于图片的高度作比对\r\n\r\n这些高度都代表了什么意思？\r\n\r\n这我以前有可能是知道的，那时候我比较单纯，喜欢死磕。我现在想通了，背不过的东西就不要背了\r\n\r\n**所以它有一个问题：复杂琐碎不好理解！**\r\n\r\n仅仅知道它静态的高度还不够，我们还需要知道动态的\r\n\r\n**如何动态？监听 `window.scroll` 事件**\r\n\r\n### 如何控制图片的加载\r\n\r\n``` html\r\n<img data-src=\"shanyue.jpg\">\r\n```\r\n\r\n首先设置一个临时属性 `data-src`，控制加载时使用 `src` 代替 `data-src`\r\n\r\n## 方案二\r\n\r\n改进一下\r\n\r\n### 如何判断图片出现在了当前视口\r\n\r\n引入一个新的 API， **`Element.getBoundingClientRect()` 方法返回元素的大小及其相对于视口的位置。**\r\n\r\n<img alt=\"getBoundingClientRect示例图\" src=\"https://mdn.mozillademos.org/files/15087/rect.png\">\r\n\r\n那如何判断图片出现在了当前视口呢，根据示例图示意，代码如下，这个就比较好理解了，就可以很容易地背会(就可以愉快地去面试了)。\r\n\r\n``` js\r\n// clientHeight 代表当前视口的高度\r\nimg.getBoundingClientRect().top < document.documentElement.clientHeight\r\n```\r\n\r\n**监听 `window.scroll` 事件也优化一下**\r\n\r\n加个节流器，提高性能。工作中一般使用 `lodash.throttle` 就可以了，万能的 `lodash` 啊！\r\n\r\n``` js\r\n_.throttle(func, [wait=0], [options={}])\r\n```\r\n\r\n参考 [什么是防抖和节流，他们的应用场景有哪些](https://github.com/shfshanyue/Daily-Question/issues/3)\r\n\r\n## 方案三\r\n\r\n再改进一下\r\n\r\n### 如何判断图片出现在了当前视口\r\n\r\n**方案二使用的方法是: `window.scroll` 监听 `Element.getBoundingClientRect()` 并使用 `_.throttle` 节流**\r\n\r\n**一系列组合动作太复杂了，于是浏览器出了一个三合一事件: `IntersectionObserver` API，一个能够监听元素是否到了当前视口的事件，一步到位！**\r\n\r\n事件回调的参数是 [IntersectionObserverEntry](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry) 的集合，代表关于是否在可见视口的一系列值\r\n\r\n其中，`entry.isIntersecting` 代表目标元素可见\r\n\r\n``` javascript\r\nconst observer = new IntersectionObserver((changes) => {\r\n  // changes: 目标元素集合\r\n  changes.forEach((change) => {\r\n    // intersectionRatio\r\n    if (change.isIntersecting) {\r\n      const img = change.target\r\n      img.src = img.dataset.src\r\n      observer.unobserve(img)\r\n    }\r\n  })\r\n})\r\n\r\nobserver.observe(img)\r\n```\r\n\r\n**当然，`IntersectionObserver` 除了给图片做懒加载外，还可以对单页应用资源做预加载。**\r\n\r\n如在 `next.js v9` 中，会对视口内的资源做预加载，可以参考 [next 9 production optimizations](https://nextjs.org/blog/next-9#production-optimizations)\r\n\r\n``` jsx\r\n<Link href=\"/about\">\r\n  <a>关于山月</a>\r\n</Link>\r\n```\r\n\r\n## 方案四\r\n\r\n浏览器觉得懒加载这事可以交给自己做，你们开发者加个属性就好了。实在是...！\r\n\r\n``` html\r\n<img src=\"shanyue.jpg\" loading=\"lazy\">\r\n```\r\n\r\n不过目前浏览器兼容性不太好，关于 `loading` 属性的文章也可以查看 [Native image lazy-loading for the web!](https://addyosmani.com/blog/lazy-loading/)\r\n",
+      "reactions": {
+        "totalCount": 1
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "2": {
+  {
+    "id": "MDU6SXNzdWU1MTY0MjgxNDI=",
+    "number": 2,
     "title": "【Q002】当 ping 一个 IP 地址时发生了什么",
-    "number": 2
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE0",
+        "name": "network",
+        "group": "base",
+        "alias": "计算机网络"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU0OTMzNjQ4Nw==",
+      "body": "从 `ping` 的 `man` 手册就可以看出来，`ping` 实际上发送了 `ICMP ECHO_REQUEST` 的报文\r\n\r\n> ping -- send ICMP ECHO_REQUEST packets to network hosts\r\n\r\n通过让目标 IP 地址返回 `ICMP ECHO_RESPONSE` 报文来判断 IP 可不可达",
+      "reactions": {
+        "totalCount": 1
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "3": {
+  {
+    "id": "MDU6SXNzdWU1MTY4MTUzMjA=",
+    "number": 3,
     "title": "【Q003】什么是防抖和节流，他们的应用场景有哪些",
-    "number": 3
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js",
+        "group": "fe"
+      }
+    ],
+    "comment": false
   },
-  "4": {
+  {
+    "id": "MDU6SXNzdWU1MTY4MTU2NzM=",
+    "number": 4,
     "title": "【Q004】如何获取一个进程的内存并监控",
-    "number": 4
+    "body": "在编写脚本时，有时会出现内存过大发生 OOM 的事情，那我们如何得知某个进程的内存？另外又如何监控它",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU0NzI4NDM2",
+        "name": "linux",
+        "group": "base"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU0OTM0MjE4MQ==",
+      "body": "通过 `ps` 可以获知一个进程所占用的内存\r\n\r\n``` bash\r\n$ ps -O rss -p 3506\r\n  PID   RSS S TTY          TIME COMMAND\r\n 3506  6984 S pts/1    00:00:00 vim\r\n```\r\n\r\n如果要监控内存，肯定使用对进程万能的命令 `pidstat` （PS: 这名字一听就知道是干嘛的）\r\n\r\n``` bash\r\n# -r 显示内存信息\r\n# -p 指定 pid\r\n# 1: 每个一秒打印一次\r\n$ pidstat -r -p 3506 1\r\nLinux 3.10.0-957.21.3.el7.x86_64 (shanyue)      11/04/19        _x86_64_        (2 CPU)\r\n\r\n20:47:35      UID       PID  minflt/s  majflt/s     VSZ    RSS   %MEM  Command\r\n20:47:36        0      3506      0.00      0.00  139940   6984   0.18  vim\r\n20:47:37        0      3506      0.00      0.00  139940   6984   0.18  vim\r\n20:47:38        0      3506      0.00      0.00  139940   6984   0.18  vim\r\n20:47:39        0      3506      0.00      0.00  139940   6984   0.18  vim\r\n20:47:40        0      3506      0.00      0.00  139940   6984   0.18  vim\r\n20:47:41        0      3506      0.00      0.00  139940   6984   0.18  vim\r\n```\r\n\r\n当然，也可以使用万能的 `htop` 命令\r\n\r\n参考: [linux 各项监控指标小记](https://shanyue.tech/op/linux-monitor)",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "6": {
+  {
+    "id": "MDU6SXNzdWU1MTY4MTY0NDM=",
+    "number": 6,
     "title": "【Q005】生产环境的某个接口报错，如何定位",
-    "number": 6
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIy",
+        "name": "server",
+        "group": "server",
+        "alias": "后端基础"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU0OTM0NTU1Ng==",
+      "body": "1. 测试环境有没有问题，有问题可以在测试环境测试\r\n1. 有没有异常报警系统，如 `sentry`，如果有在 `sentry` 中查看堆栈信息以及相关上下文，定位代码\r\n1. 如果堆栈信息不足够找到问题，看有没有链路追踪工具，如 `zipkin`。从 `sentry` 中找到 `requestId`，在数据库日志/上下游链路日志中查找对应 `requestId` 的日志\r\n1. 查看接口相关代码 \r\n\r\n既然报错，那么一定会在异常上报系统中找到 `Issue` 进行定位。最怕的是那种接口没报错，但是业务方反馈数据有误的问题了，只能开了 debug，进行代码调试了",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "7": {
+  {
+    "id": "MDU6SXNzdWU1MTY5MjM2NzU=",
+    "number": 7,
     "title": "【Q006】如何写一个 SQL 获取分组 top n 的数据",
-    "number": 7
+    "body": "一个学校中的每个学生属于一个班级，如何获取每个班的前三名\r\n\r\n假设有学生表 `student(id, score, class_id)`，`score` 代表分数，`class_id` 代表班级，如何写出 SQL 取每个班级分数前三名",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzEz",
+        "name": "db",
+        "group": "server",
+        "alias": "数据库"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU0OTIzNDQxOQ==",
+      "body": "通过一个自连接可以获取到\r\n\r\n``` sql\r\nselect id, class_id, score from student s1 where (\r\n  -- 对比每行 student，通过自连接找到该班中比该 student 分数要高与等于的人数，即排名\r\n  select count(*) from student s2 where s2.class_id = s1.class_id and s2.score >= s1.score\r\n) = 1\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "8": {
+  {
+    "id": "MDU6SXNzdWU1MTY5ODg0NTQ=",
+    "number": 8,
     "title": "【Q007】如何写一个 SQL 获取分组 top 1 的数据 ",
-    "number": 8
+    "body": "一个学校中的每个学生属于一个班级，如何获取每个班的前三名\r\n\r\n假设有学生表 `student(id, score, class_id)`，`score` 代表分数，`class_id` 代表班级，如何写出 SQL 取每个班级分数前一名\r\n\r\n与 [Top n](https://github.com/shfshanyue/Daily-Question/issues/7) 类似，不过有更简单的方法\r\n\r\n（当然考虑到并列情况就会复杂很多",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzEz",
+        "name": "db",
+        "group": "server",
+        "alias": "数据库"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU0OTM0MzI2OA==",
+      "body": "单纯的获取 Top 1，只需要 `group by` 加聚合函数，不过复杂的还是参考 [top n](https://github.com/shfshanyue/Daily-Question/issues/7)\r\n\r\n``` sql\r\nselect class_id, max(score) from student group by class_id\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "9": {
+  {
+    "id": "MDU6SXNzdWU1MTY5OTQ0NTk=",
+    "number": 9,
     "title": "【Q008】当新入职一家公司时，如何快速搭建开发环境并让应用跑起来",
-    "number": 9
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU2MTA0NTgx",
+        "name": "devops",
+        "group": "devops"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU0OTM1MTAyOA==",
+      "body": "这要看这家公司的基础设施怎么样了（当然面试时，最好在反问面试官环节问问这个问题）\r\n\r\n+ 查看是否有 `dockerfile`，如果有跟着 `dockerfile` 跑命令\r\n+ 查看是否有 `CI/CD`，如果有跟着 `CI/CD` 部署的脚本跑命令\r\n\r\n如果都没有，那只能到处问人自求多福了\r\n\r\n不过鉴于本地环境与开发环境部署的有可能不同（特别是前端，开发时需要起个 server），也有几个点需要注意\r\n\r\n1. 前端有可能在本地环境启动时需要依赖前端部署时所产生的文件，所以有时需要先正常部署一遍，再试着按照本地环境启动 (即需要先 `npm run build` 一下，再 `npm run dev`)\r\n1. 别忘了设置环境变量",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "10": {
+  {
+    "id": "MDU6SXNzdWU1MTc1ODAwMTc=",
+    "number": 10,
     "title": "【Q009】如何实现一个元素的水平垂直居中",
-    "number": 10
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIw",
+        "name": "css",
+        "group": "fe"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU1MTEzMjAxNw==",
+      "body": "绝对定位方法：\r\n```\r\n.box {\r\n  postion: absolute;\r\n  top: 50%;\r\n  bottom: 50%;\r\n  width: 50px;\r\n  height: 50px;\r\n  transform: translate(-50%, -50%);\r\n}\r\n<body>\r\n<div class=\"box\"><div>\r\n</body>\r\n```\r\n\r\nflex方法：\r\n```\r\nbody {\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n}\r\n.box {\r\n  width: 50px;\r\n  height: 50px;\r\n}\r\n\r\n<body>\r\n<div class=\"box\"><div>\r\n</body>\r\n```",
+      "reactions": {
+        "totalCount": 1
+      },
+      "author": {
+        "login": "woohs",
+        "url": "https://github.com/woohs"
+      }
+    }
   },
-  "11": {
+  {
+    "id": "MDU6SXNzdWU1MTc2MTA0MTY=",
+    "number": 11,
     "title": "【Q010】了解 React 中的 ErrorBoundary 吗，它有那些使用场景",
-    "number": 11
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU4MzQ3NDIy",
+        "name": "react",
+        "group": "fe"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU1MzE4Mjg3OQ==",
+      "body": "待答",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "12": {
+  {
+    "id": "MDU6SXNzdWU1MTc2MTIxNTM=",
+    "number": 12,
     "title": "【Q011】vue3.0 中为什么要使用 Proxy，它相比以前的实现方式有什么改进",
-    "number": 12
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU4MzU0NDc5",
+        "name": "vue",
+        "group": "fe"
+      }
+    ],
+    "comment": false
   },
-  "13": {
+  {
+    "id": "MDU6SXNzdWU1MTgxODk2MDQ=",
+    "number": 13,
     "title": "【Q012】helm v3 中为什么要弃用 tiller",
-    "number": 13
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjYwMTIxNDcw",
+        "name": "k8s",
+        "group": "devops"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU1Mjc3NjMxNA==",
+      "body": "`helm` v2 中，`helm client` 通过 gRPC 把 `Chart` 交给 `tiller`。`tiller` 是 k8s 中的一个 `pod`，在 `k8s` 集群中根据 `Chart` 以及配置信息部署资源，架构图如下\r\n\r\n![https://supergiant.io/wp-content/uploads/2018/11/helm-workflow-new.jpg](https://supergiant.io/wp-content/uploads/2018/11/helm-workflow-new.jpg)\r\n\r\n这有一个问题，`tiller` 有一个最高权限的 RBAC，而运维，开发众多权限不同的人都可以通过 `tiller` 这个最高权限来部署新的应用，会产生相应的安全问题。\r\n\r\n于是，`helm v3` 去掉了 `tiller`，它的权限控制基于操作人员的 `kubeconfig`",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "14": {
+  {
+    "id": "MDU6SXNzdWU1MTgxOTIzNTg=",
+    "number": 14,
     "title": "【Q013】有没有使用过 react hooks，它带来了那些便利",
-    "number": 14
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU4MzQ3NDIy",
+        "name": "react",
+        "group": "fe"
+      }
+    ],
+    "comment": null
   },
-  "15": {
+  {
+    "id": "MDU6SXNzdWU1MTgxOTU3NDc=",
+    "number": 15,
     "title": "【Q014】如何使用 react hooks 实现一个计数器的组件",
-    "number": 15
+    "body": "如何使用 react hooks 实现最简单一个计数器的组件\r\n\r\n为了保证最最简单化，不需要暂停与开始状态",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU4MzQ3NDIy",
+        "name": "react",
+        "group": "fe"
+      }
+    ],
+    "comment": null
   },
-  "16": {
+  {
+    "id": "MDU6SXNzdWU1MTkxNjI4Nzg=",
+    "number": 16,
     "title": "【Q015】你们的前端项目是如何在线上部署的",
-    "number": 16
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU2MTA0NTgx",
+        "name": "devops",
+        "group": "devops"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU1MTA3MDkyMA==",
+      "body": "> 今天正好写了一篇长文来回答这个问题\r\n\r\n前端一说起刀耕火种，那肯定紧随着前端工程化这一话题。随着 `react`/`vue`/`angular`，`es6+`，`webpack`，`babel`，`typescript` 以及 `node` 的发展，前端已经在逐渐替代过去 script 引 cdn 开发的方式了，掀起了工程化这一大浪潮。得益于工程化的发展与开源社区的良好生态，前端应用的可用性与效率得到了很大提高。\r\n\r\n前端以前是刀耕火种，那前端应用部署在以前也是刀耕火种。那前端应用部署的发展得益于什么，随前端工程化带来的副产品？\r\n\r\n这只是一部分，而更重要的原因是 `devops` 的崛起。\r\n\r\n为了更清晰地理解前端部署的发展史，了解部署时运维和前端（或者更广泛地说，业务开发人员）的职责划分，当每次前端部署发生改变时，可以思考两个问题\r\n\r\n1. 缓存，前端应用中http 的 `response header` 由谁来配？得益于工程化发展，可以对打包后得到带有 hash 值的文件可以做永久缓存\r\n1. 跨域，`/api` 的代理配置由谁来配？在开发环境前端可以开个小服务，启用 `webpack-dev-server` 配置跨域，那生产环境呢\r\n\r\n这两个问题都是前端面试时的高频问题，但话语权是否掌握在前端手里\r\n\r\n时间来到 `React` 刚刚发展起来的这一年，这时已经使用 `React` 开发应用，使用 `webpack` 来打包。但是前端部署，仍是刀耕火种\r\n\r\n## 刀耕火种\r\n\r\n一台跳板机\r\n\r\n一台生产环境服务器\r\n\r\n一份部署脚本\r\n\r\n前端调着他的 `webpack`，开心地给运维发了部署邮件并附了一份部署脚本，想着第一次不用套后端的模板，第一次前端可以独立部署。想着自己基础盘进一步扩大，前端不禁开心地笑了\r\n\r\n运维照着着前端发过来的部署邮件，一遍又一遍地拉着代码，改着配置，写着 `try_files`， 配着 `proxy_pass`。\r\n\r\n这时候，前端静态文件由 `nginx` 托管，`nginx` 配置文件大致长这个样子\r\n\r\n``` conf\r\nserver {\r\n  listen 80;\r\n  server_name shanyue.tech; \r\n\r\n  location / {\r\n    # 避免非root路径404\r\n    try_files $uri $uri/ /index.html;\r\n  }\r\n\r\n  # 解决跨域\r\n  location /api {\r\n    proxy_pass http://api.shanyue.tech;\r\n  }\r\n\r\n  # 为带 hash 值的文件配置永久缓存\r\n  location ~* \\.(?:css|js)$ {\r\n      try_files $uri =404;\r\n      expires 1y;\r\n      add_header Cache-Control \"public\";\r\n  }\r\n\r\n  location ~ ^.+\\..+$ {\r\n      try_files $uri =404;\r\n  }\r\n}\r\n```\r\n\r\n不过...经常有时候跑不起来\r\n\r\n运维抱怨着前端的部署脚本没有标好 `node` 版本，前端嚷嚷着测试环境没问题\r\n\r\n这个时候运维需要费很多心力放在部署上，甚至测试环境的部署上，前端也要操心放在运维如何部署上。这个时候由于怕影响线上环境，上线往往选择在深夜，前端和运维身心俱疲\r\n\r\n不过向来如此\r\n\r\n鲁迅说，向来如此，那便对么。\r\n\r\n**这个时候，无论跨域的配置还是缓存的配置，都是运维来管理，运维不懂前端。但配置方式却是前端在提供，而前端并不熟悉 nginx**\r\n\r\n## 使用 docker 构建镜像\r\n\r\n`docker` 的引进，很大程度地解决了部署脚本跑不了这个大BUG。**`dockerfile` 即部署脚本，部署脚本即 `dockerfile`**。也很大程度缓解了前端运维的摩擦，毕竟前端越来越靠谱了，至少部署脚本没有问题了 (笑\r\n\r\n这时候，前端不再提供静态资源，而是提供服务，一个 `http` 服务\r\n\r\n前端写的 `dockerfile` 大致长这个样子\r\n\r\n``` dockerfile\r\nFROM node:alpine\r\n\r\n# 代表生产环境\r\nENV PROJECT_ENV production\r\n# 许多 package 会根据此环境变量，做出不同的行为\r\n# 另外，在 webpack 中打包也会根据此环境变量做出优化，但是 create-react-app 在打包时会写死该环境变量\r\nENV NODE_ENV production\r\nWORKDIR /code\r\nADD . /code\r\nRUN npm install && npm run build && npm install -g http-server\r\nEXPOSE 80\r\n\r\nCMD http-server ./public -p 80\r\n```\r\n\r\n单单有 `dockerfile` 也跑不起来，另外前端也开始维护一个 `docker-compose.yaml`，交给运维执行命令 `docker-compose up -d` 启动前端应用。前端第一次写 `dockerfile` 与 `docker-compose.yaml`，在部署流程中扮演的角色越来越重要。想着自己基础盘进一步扩大，前端不禁开心地笑了\r\n\r\n``` yaml\r\nversion: \"3\"\r\nservices:\r\n  shici:\r\n    build: .\r\n    expose:\r\n      - 80\r\n```\r\n\r\n\r\n运维的 `nginx` 配置文件大致长这个样子\r\n\r\n``` conf\r\nserver {\r\n  listen 80;\r\n  server_name shanyue.tech; \r\n\r\n  location / {\r\n    proxy_pass http://static.shanyue.tech;\r\n  }\r\n\r\n  location /api {\r\n    proxy_pass http://api.shanyue.tech;\r\n  }\r\n}\r\n```\r\n\r\n运维除了配置 `nginx` 之外，还要执行一个命令: `docker-compose up -d`\r\n\r\n这时候再思考文章最前面两个问题\r\n\r\n1. 缓存，由于从静态文件转换为服务，缓存开始交由前端控制 (但是镜像中的 `http-server` 不太适合做这件事情)\r\n1. 跨域，跨域仍由运维在 `nginx` 中配置\r\n\r\n前端可以做他应该做的事情中的一部分了，这是一件令人开心的事情\r\n\r\n当然，前端对于 `dockerfile` 的改进也是一个慢慢演进的过程，那这个时候镜像有什么问题呢？\r\n\r\n1. 构建镜像体积过大\r\n1. 构建镜像时间过长\r\n\r\n## 使用多阶段构建优化镜像\r\n\r\n这中间其实经历了不少坎坷，其中过程如何，详见我的另一篇文章: [如何使用 docker 部署前端应用](https://juejin.im/post/5c83cbaa6fb9a04a0f65fdaa)。\r\n\r\n其中主要的优化也是在上述所提到的两个方面\r\n\r\n1. 构建镜像体积由 1G+ 变为 10M+\r\n1. 构建镜像时间由 5min+ 变为 1min (视项目复杂程度，大部分时间在构建时间与上传静态资源时间)\r\n\r\n``` dockerfile\r\nFROM node:alpine as builder\r\n\r\nENV PROJECT_ENV production\r\nENV NODE_ENV production\r\n\r\nWORKDIR /code\r\n\r\nADD package.json /code\r\nRUN npm install --production\r\n\r\nADD . /code\r\n\r\n# npm run uploadCdn 是把静态资源上传至 oss 上的脚本文件，将来会使用 cdn 对 oss 加速\r\nRUN npm run build && npm run uploadCdn\r\n\r\n# 选择更小体积的基础镜像\r\nFROM nginx:alpine\r\nCOPY --from=builder code/public/index.html code/public/favicon.ico /usr/share/nginx/html/\r\nCOPY --from=builder code/public/static /usr/share/nginx/html/static\r\n```\r\n\r\n那它怎么做的\r\n\r\n1. 先 `ADD package.json /code`, 再 `npm install --production` 之后 `Add` 所有文件。充分利用镜像缓存，减少构建时间\r\n1. 多阶段构建，大大减小镜像体积\r\n\r\n另外还可以有一些小优化，如\r\n\r\n+ `npm cache` 的基础镜像或者 `npm` 私有仓库，减少 `npm install` 时间，减小构建时间\r\n+ `npm install --production` 只装必要的包\r\n\r\n前端看着自己优化的 `dockerfile`，想着前几天还被运维吵，说什么磁盘一半的空间都被前端的镜像给占了，想着自己节省了前端镜像几个数量级的体积，为公司好像省了不少服务器的开销，想着自己的基础盘进一步扩大，不禁开心的笑了\r\n\r\n这时候再思考文章最前面两个问题\r\n\r\n1. 缓存，缓存由前端控制，缓存在oss上设置，将会使用 cdn 对 oss 加速。此时缓存由前端写脚本控制\r\n1. 跨域，跨域仍由运维在 `nginx` 中配置\r\n\r\n## CI/CD 与 gitlab\r\n\r\n此时前端成就感爆棚，运维呢？运维还在一遍一遍地上线，重复着一遍又一遍的部署三个动作\r\n\r\n1. 拉代码\r\n1. `docker-compose up -d`\r\n1. 重启 nginx\r\n\r\n运维觉得再也不能这么下去了，于是他引进了 `CI`: 与现有代码仓库 `gitlab` 配套的 `gitlab ci`\r\n\r\n+ `CI`，`Continuous Integration`，持续集成\r\n+ `CD`，`Continuous Delivery`，持续交付\r\n\r\n重要的不是 `CI/CD` 是什么，重要的是现在运维不用跟着业务上线走了，不需要一直盯着前端部署了。这些都是 `CI/CD` 的事情了，它被用来做自动化部署。上述提到的三件事交给了 `CI/CD`\r\n\r\n`.gitlab-ci.yml` 是 `gitlab` 的 CI 配置文件，它大概长这个样子\r\n\r\n``` yaml\r\ndeploy:\r\n  stage: deploy\r\n  only:\r\n    - master\r\n  script:\r\n    - docker-compose up --build -d\r\n  tags:\r\n    - shell\r\n```\r\n\r\n`CI/CD` 不仅仅更解放了业务项目的部署，也在交付之前大大加强了业务代码的质量，它可以用来 `lint`，`test`，`package` 安全检查，甚至多特性多环境部署，我将会在我以后的文章将这部分事情\r\n\r\n我的一个服务器渲染项目 [shfshanyue/shici](https://github.com/shfshanyue/shici) 以前在我的服务器中就是以 `docker`/`docker-compose/gitlab-ci` 的方式部署，有兴趣的可以看看它的配置文件\r\n\r\n+ [shfshanyue/shici:Dockerfile](https://github.com/shfshanyue/shici/blob/master/Dockerfile)\r\n+ [shfshanyue/shici:docker-compose.yml](https://github.com/shfshanyue/shici/blob/master/docker-compose.yml)\r\n+ [shfshanyue/shici:gitlab-ci.yml](https://github.com/shfshanyue/shici/blob/master/.gitlab-ci.yml)\r\n\r\n如果你有个人服务器的话，也建议你做一个自己感兴趣的前端应用和配套的后端接口服务，并且配套 `CI/CD` 把它部署在自己的自己服务器上\r\n\r\n而你如果希望结合 `github` 做 `CI/CD`，那可以试一试 `github` + `github action`\r\n\r\n另外，也可以试试 `drone.ci`，如何部署可以参考我以前的文章: [github 上持续集成方案 drone 的简介及部署](https://juejin.im/post/5dc0b563f265da4cef190b8a)\r\n\r\n## 使用 kubernetes 部署\r\n\r\n随着业务越来越大，镜像越来越多，`docker-compose` 已经不太能应付，`kubernetes` 应时而出。这时服务器也从1台变成了多台，多台服务器就会有分布式问题\r\n\r\n**一门新技术的出现，在解决以前问题的同时也会引进复杂性。**\r\n\r\nk8s 部署的好处很明显: 健康检查，滚动升级，弹性扩容，快速回滚，资源限制，完善的监控等等\r\n\r\n那现在遇到的新问题是什么？\r\n\r\n**构建镜像的服务器，提供容器服务的服务器，做持续集成的服务器是一台！**\r\n\r\n需要一个私有的镜像仓库，这是运维的事情，`harbor` 很快就被运维搭建好了，但是对于前端部署来说，复杂性又提高了\r\n\r\n先来看看以前的流程:\r\n\r\n1. 前端配置 `dockerfile` 与 `docker-compose`\r\n1. 生产环境服务器的 `CI runner` 拉代码(可以看做以前的运维)，`docker-compose up -d` 启动服务。然后再重启 `nginx`，做反向代理，对外提供服务\r\n\r\n以前的流程有一个问题: **构建镜像的服务器，提供容器服务的服务器，做持续集成的服务器是一台！**，所以需要一个私有的镜像仓库，一个能够访问 `k8s` 集群的持续集成服务器\r\n\r\n流程改进之后结合 `k8s` 的流程如下\r\n\r\n1. 前端配置 `dockerfile`，构建镜像，推到镜像仓库\r\n1. 运维为前端应用配置 `k8s` 的资源配置文件，`kubectl apply -f` 时会重新拉取镜像，部署资源\r\n\r\n运维问前端，需不需要再扩大下你的基础盘，写一写前端的 `k8s` 资源配置文件，并且列了几篇文章\r\n\r\n+ [使用 k8s 部署你的第一个应用: Pod，Deployment 与 Service](https://juejin.im/post/5db8c2b46fb9a020256692dc)\r\n+ [使用 k8s 为你的应用配置域名: Ingress](https://juejin.im/post/5db8da4b6fb9a0204520b310)\r\n+ [使用 k8s 为你的域名加上 https](https://juejin.im/post/5db8d94be51d4529f73e2833)\r\n\r\n前端看了看后端十几个 k8s 配置文件之后，摇摇头说算了算了\r\n\r\n这个时候，`gitlab-ci.yaml` 差不多长这个样子，配置文件的权限由运维一人管理\r\n\r\n``` yaml\r\ndeploy:\r\n  stage: deploy\r\n  only:\r\n    - master\r\n  script:\r\n    - docker build -t harbor.shanyue.tech/fe/shanyue\r\n    - docker push harbor.shanyue.tech/fe/shanyue\r\n    - kubectl apply -f https://k8s-config.default.svc.cluster.local/shanyue.yaml\r\n  tags:\r\n    - shell\r\n```\r\n\r\n这时候再思考文章最前面两个问题\r\n\r\n1. 缓存，缓存由前端控制\r\n1. 跨域，跨域仍由运维控制，在后端 `k8s` 资源的配置文件中控制 `Ingress`\r\n\r\n## 使用 helm 部署\r\n\r\n这时前端与运维已不太往来，除了偶尔新起项目需要运维帮个忙以外\r\n\r\n但好景不长，突然有一天，前端发现自己连个环境变量都没法传！于是经常找运维修改配置文件，运维也不胜其烦\r\n\r\n于是有了 `helm`，如果用一句话解释它，那它就是一个带有模板功能的 `k8s` 资源配置文件。作为前端，你只需要填参数。更多详细的内容可以参考我以前的文章 [使用 helm 部署 k8s 资源](https://juejin.im/post/5dbf7909f265da4d4b5fe7b4)\r\n\r\n假如我们使用 [bitnami/nginx](https://hub.helm.sh/charts/bitnami/nginx) 作为 `helm chart`，前端可能写的配置文件长这个样子\r\n\r\n``` yaml\r\nimage:\r\n  registry: harbor.shanyue.tech\r\n  repository: fe/shanyue\r\n  tag: 8a9ac0\r\n\r\ningress:\r\n  enabled: true\r\n  hosts:\r\n  - name: shanyue.tech\r\n    path: /\r\n\r\n  tls:\r\n  - hosts:\r\n      - shanyue.tech\r\n    secretName: shanyue-tls\r\n\r\n    # livenessProbe:\r\n    #   httpGet:\r\n    #     path: /\r\n    #     port: http\r\n    #   initialDelaySeconds: 30\r\n    #   timeoutSeconds: 5\r\n    #   failureThreshold: 6\r\n    # \r\n    # readinessProbe:\r\n    #   httpGet:\r\n    #     path: /\r\n    #     port: http\r\n    #   initialDelaySeconds: 5\r\n    #   timeoutSeconds: 3\r\n    #   periodSeconds: 5\r\n```\r\n\r\n这时候再思考文章最前面两个问题\r\n\r\n1. 缓存，缓存由前端控制\r\n1. 跨域，跨域由后端控制，配置在后端 Chart 的配置文件 `values.yaml` 中\r\n\r\n到了这时前端和运维的职责所在呢？\r\n\r\n前端需要做的事情有:\r\n\r\n1. 写前端构建的 `dockerfile`，这只是一次性的工作，而且有了参考\r\n1. 使用 `helm` 部署时指定参数\r\n\r\n那运维要做的事情呢\r\n\r\n1. 提供一个供所有前端项目使用的 `helm chart`，甚至不用提供，如果运维比较懒那就就使用 [bitnami/nginx](https://hub.helm.sh/charts/bitnami/nginx) 吧。也是一次性工作\r\n1. 提供一个基于 `helm` 的工具，禁止业务过多的权限，甚至不用提供，如果运维比较懒那就直接使用 `helm`\r\n\r\n这时前端可以关注于自己的业务，运维可以关注于自己的云原生，职责划分从未这般清楚\r\n\r\n## 统一前端部署平台\r\n\r\n后来运维觉得前端应用的本质是一堆静态文件，较为单一，容易统一化，来避免各个前端镜像质量的参差不齐。于是运维准备了一个统一的 `node` 基础镜像\r\n\r\n前端再也不需要构建镜像，上传 CDN 了，他只需要写一份配置文件就可以了，大致长这个样子\r\n\r\n``` yaml\r\nbuild:\r\n  command: npm run build\r\n  dist: /dist\r\n\r\nhosts:\r\n- name: shanyue.tech\r\n  path: /\r\n\r\nheaders:\r\n- location: /*\r\n  values:\r\n  - cache-control: max-age=7200\r\n- location: assets/*\r\n  values:\r\n  - cache-control: max-age=31536000\r\n\r\nredirects:\r\n- from : /api\r\n  to: https://api.shanyue.tech\r\n  status: 200\r\n```\r\n\r\n此时，前端只需要写一份配置文件，就可以配置缓存，配置 `proxy`，做应该属于前端做的一切，而运维也再也不需要操心前端部署的事情了\r\n\r\n前端看着自己刚刚写好的配置文件，怅然若失的样子...\r\n\r\n不过一般只有大厂会有这么完善的前端部署平台，如果你对它有兴趣，你可以尝试下 `netlify`，可以参考我的文章: [使用 netlify 部署你的前端应用](https://shanyue.tech/op/deploy-fe-with-netlify.html)\r\n\r\n## 服务端渲染与后端部署\r\n\r\n大部分前端应用本质上是静态资源，剩下的少部分就是服务端渲染了，服务端渲染的本质上是一个后端服务，它的部署可以视为后端部署\r\n\r\n后端部署的情况更为复杂，比如\r\n\r\n1. 配置服务，后端需要访问敏感数据，但又不能把敏感数据放在代码仓库。你可以在 `environment variables`， `consul` 或者 `k8s configmap` 中维护\r\n1. 上下链路服务，你需要依赖数据库，上游服务\r\n1. 访问控制，限制 IP，黑白名单\r\n1. RateLimit\r\n1. 等等\r\n\r\n我将在以后的文章分享如何在 k8s 中部署一个后端\r\n\r\n## 小结\r\n\r\n随着 `devops` 的发展，前端部署越来越简单，可控性也越来越高，建议所有人都稍微学习一下 `devops` 的东西。\r\n\r\n道阻且长，行则将至。\r\n\r\n## 相关文章\r\n\r\n+ [个人服务器运维指南](https://juejin.im/post/5db7a9e2f265da4cf85d6fb9)\r\n+ [如果你想搭建一个博客](https://juejin.im/post/5db78500f265da4d0a68cef7)\r\n+ [当我有一台服务器时我做了什么](https://juejin.im/post/5c9232a8e51d45729b3b71e1)\r\n+ [使用 k8s 部署你的第一个应用: Pod，Deployment 与 Service](https://juejin.im/post/5db8c2b46fb9a020256692dc)\r\n+ [使用 k8s 为你的应用配置域名: Ingress](https://juejin.im/post/5db8da4b6fb9a0204520b310)\r\n+ [使用 k8s 为你的域名加上 https](https://juejin.im/post/5db8d94be51d4529f73e2833)\r\n",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "17": {
+  {
+    "id": "MDU6SXNzdWU1MTk1OTg4MDg=",
+    "number": 17,
     "title": "【Q016】后端的敏感数据在生产环境是如何配置的",
-    "number": 17
+    "body": "后端的敏感数据在生产环境是如何配置的，如数据库的账号密码，jwt 的 secret，联调上游服务的 token 等",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIy",
+        "name": "server",
+        "group": "server",
+        "alias": "后端基础"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU1MTM0NjI1OA==",
+      "body": "目前我们的方式是在每次部署之前，在 [vault](https://github.com/hashicorp/vault) 和 [consul](https://github.com/hashicorp/consul) 拉取敏感数据，写在配置文件中\r\n\r\n另外，还有几种可选的方案\r\n\r\n1. 跟随 `CI/CD` 的环境变量，敏感配置放在 CI 平台\r\n1. 跟随 k8s `secret`/`configMap`，敏感配置放在 k8s 集群\r\n1. 跟随专有的配置服务，如 `consul`/`vault`",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "18": {
+  {
+    "id": "MDU6SXNzdWU1MTk5NTY3NjQ=",
+    "number": 18,
     "title": "【Q017】css 如何实现左侧固定300px，右侧自适应的布局",
-    "number": 18
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIw",
+        "name": "css",
+        "group": "fe"
+      }
+    ],
+    "comment": false
   },
-  "19": {
+  {
+    "id": "MDU6SXNzdWU1MTk5NTk0MTI=",
+    "number": 19,
     "title": "【Q018】当你使用 docker 部署应用时，如何查看应用日志",
-    "number": 19
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU2MTA0NTgx",
+        "name": "devops",
+        "group": "devops"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU1MjQ0MjU4NA==",
+      "body": "在docker中使用 `docker logs CONTAINER`\r\n\r\n如果在k8s中使用 `kubectl logs POD`",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "20": {
+  {
+    "id": "MDU6SXNzdWU1MjA0MjExNDI=",
+    "number": 20,
     "title": "【Q019】如何实现选中复制的功能",
-    "number": 20
+    "body": "在一些博客系统，如掘金的博客中，可以复制代码，它是如何实现的",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE2",
+        "name": "html",
+        "group": "fe"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU1MjA5OTE2NQ==",
+      "body": "它一般可以使用第三方库 [clipboard.js](https://github.com/zenorocha/clipboard.js) 来实现，源码很简单，可以读一读\r\n\r\n主要有两个要点\r\n\r\n1. 选中\r\n1. 复制\r\n\r\n## 选中\r\n\r\n选中主要利用了 [Selection API](https://developer.mozilla.org/en-US/docs/Web/API/Selection)\r\n\r\n选中的代码如下\r\n\r\n``` js\r\nconst selection = window.getSelection();\r\nconst range = document.createRange();\r\n\r\nrange.selectNodeContents(element);\r\nselection.removeAllRanges();\r\nselection.addRange(range);\r\n\r\nselectedText = selection.toString();\r\n```\r\n\r\n取消选中的代码如下\r\n\r\n``` js\r\nwindow.getSelection().removeAllRanges();\r\n```\r\n\r\n它有现成的第三方库可以使用: [select.js](https://github.com/zenorocha/select)\r\n\r\n## 复制\r\n\r\n复制就比较简单了，`execCommand`\r\n\r\n``` js\r\ndocument.exec('copy')\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "21": {
+  {
+    "id": "MDU6SXNzdWU1MjA0Mjc1NzU=",
+    "number": 21,
     "title": "【Q020】如何实现一个分布式锁",
-    "number": 21
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjY2OTk3OTM5",
+        "name": "redis",
+        "group": "server"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIy",
+        "name": "server",
+        "group": "server",
+        "alias": "后端基础"
+      }
+    ],
+    "comment": false
   },
-  "22": {
+  {
+    "id": "MDU6SXNzdWU1MjA1NjU4MDk=",
+    "number": 22,
     "title": "【Q021】React 中，cloneElement 与 createElement 各是什么，有什么区别",
-    "number": 22
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU4MzQ3NDIy",
+        "name": "react",
+        "group": "fe"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU1NDY4ODc0MQ==",
+      "body": "首参不一样，直接上 API\r\n\r\n``` js\r\nReact.cloneElement(\r\n  element,\r\n  [props],\r\n  [...children]\r\n)\r\n\r\nReact.createElement(\r\n  type,\r\n  [props],\r\n  [...children]\r\n)\r\n```\r\n",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "23": {
+  {
+    "id": "MDU6SXNzdWU1MjA1NjY4MzA=",
+    "number": 23,
     "title": "【Q022】如何实现一个简单的 Promise",
-    "number": 23
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js",
+        "group": "fe"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU1MzE4MjA0Mg==",
+      "body": "一个简单的 `Promise` 的粗糙实现，关键点在于\r\n\r\n1. 当 `pending` 时， `thenable` 函数由一个队列维护\r\n1. 当状态变为 `resolved(fulfilled)` 时，队列中所有 `thenable` 函数执行\r\n1. 当 `resolved` 时， `thenable` 函数直接执行\r\n\r\n<!--more-->\r\n\r\n`rejected` 状态同理\r\n\r\n```javascript\r\nclass Prom {\r\n  static resolve (value) {\r\n    if (value && value.then) {\r\n      return value \r\n    }\r\n    return new Prom(resolve => resolve(value))\r\n  }\r\n\r\n  constructor (fn) {\r\n    this.value = undefined\r\n    this.reason = undefined\r\n    this.status = 'PENDING'\r\n\r\n    // 维护一个 resolve/pending 的函数队列\r\n    this.resolveFns = []\r\n    this.rejectFns = []\r\n\r\n    const resolve = (value) => {\r\n      // 注意此处的 setTimeout\r\n      setTimeout(() => {\r\n        this.status = 'RESOLVED'\r\n        this.value = value\r\n        this.resolveFns.forEach(({ fn, resolve: res, reject: rej }) => res(fn(value)))\r\n      })\r\n    }\r\n\r\n    const reject = (e) => {\r\n      setTimeout(() => {\r\n        this.status = 'REJECTED'\r\n        this.reason = e\r\n        this.rejectFns.forEach(({ fn, resolve: res, reject: rej }) => rej(fn(e)))\r\n      })\r\n    }\r\n\r\n    fn(resolve, reject)\r\n  }\r\n\r\n\r\n  then (fn) {\r\n    if (this.status === 'RESOLVED') {\r\n      const result = fn(this.value)\r\n      // 需要返回一个 Promise\r\n      // 如果状态为 resolved，直接执行\r\n      return Prom.resolve(result)\r\n    }\r\n    if (this.status === 'PENDING') {\r\n      // 也是返回一个 Promise\r\n      return new Prom((resolve, reject) => {\r\n        // 推进队列中，resolved 后统一执行\r\n        this.resolveFns.push({ fn, resolve, reject }) \r\n      })\r\n    }\r\n  }\r\n\r\n  catch (fn) {\r\n    if (this.status === 'REJECTED') {\r\n      const result = fn(this.value)\r\n      return Prom.resolve(result)\r\n    }\r\n    if (this.status === 'PENDING') {\r\n      return new Prom((resolve, reject) => {\r\n        this.rejectFns.push({ fn, resolve, reject }) \r\n      })\r\n    }\r\n  }\r\n}\r\n\r\nProm.resolve(10).then(o => o * 10).then(o => o + 10).then(o => {\r\n  console.log(o)\r\n})\r\n\r\nreturn new Prom((resolve, reject) => reject('Error')).catch(e => {\r\n  console.log('Error', e)\r\n})\r\n```\r\n",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "24": {
+  {
+    "id": "MDU6SXNzdWU1MjA1NjY5ODI=",
+    "number": 24,
     "title": "【Q023】websocket 服务多节点部署时会有什么问题，怎么解决",
-    "number": 24
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIy",
+        "name": "server",
+        "group": "server",
+        "alias": "后端基础"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU1MzE4NzQ4MA==",
+      "body": "## 多节点问题\r\n\r\n在开始思考分布式会有什么问题时，先来回答一个问题: 服务端如何与客户端交流？\r\n\r\n在 ws 服务端，当与客户端连接成功后，会生成一个对象 `connection`，ws 会维护一个与客户端所有连接的 `connections`。如果想要主动推送消息到客户端，只需要调用API `connection.sendText(message)`。\r\n\r\n那如何给所有人广播消息呢？\r\n\r\n服务器只需要与它自身的所有连接 `server.connections` 挨个发消息就是广播，所以它只是一个伪广播：我要给群里所有人发消息，但我不能在群里发，只能挨个私发。\r\n\r\n### 单节点\r\n\r\n当单节点时所有用户都能正常受到通知，流程如下\r\n\r\n![ws 单节点时](https://raw.githubusercontent.com/shfshanyue/graph/master/draw/ws-single-node.jpg)\r\n\r\n这时所有用户都能收到消息通知\r\n\r\n### 多节点\r\n\r\n当多节点时，就会有部分用户无法正常受到通知，从以下流程图中可以很清楚地看到问题所在\r\n\r\n![ws 多节点时](https://raw.githubusercontent.com/shfshanyue/graph/master/draw/ws-multi-node.jpg)\r\n\r\n**负载到节点2的所有用户都没有收到消息通知**\r\n\r\n## 如何解决\r\n\r\n多节点服务器就会有分布式问题，解决分布式问题就找一个大家都能找到的地，比如说 `Redis`，比如说 `Kafka` 等消息件\r\n\r\n改进后流程图如下\r\n\r\n1. 需要向所有用户推送消息，请求 websocket 服务\r\n1. 负载均衡到某个节点\r\n1. 该节点向 redis/kafka 推送消息: 向所有用户推送消息通知\r\n1. 所有节点在 redis/kafka 上订阅消息\r\n1. 订阅成功后所有节点向客户端 push 消息\r\n\r\n![借用 redis](https://raw.githubusercontent.com/shfshanyue/graph/master/draw/ws-redis.jpg)\r\n\r\n## redis PUBSUB\r\n\r\n其中有一个细节是 pub/sub 那里，redis 的 `pubsub` 较 `Kafka` 等消息中间件更为轻便，**最主要的是与ws集成的社区方案比较成熟，这点很重要**，如 Node 中的以下两个\r\n\r\n+ [graphql subscriptions - redis](https://github.com/davidyaha/graphql-redis-subscriptions)\r\n+ [socket.io-redis](https://github.com/socketio/socket.io-redis)\r\n\r\n`pubsub` 在 redis 中的命令如下\r\n\r\n+ pub: `publish channel message`\r\n+ sub: `subscribe`\r\n\r\n如果我们要订阅 `eat` 这个 `channel` 的话，图示如下\r\n\r\n![redis pubsub example](https://raw.githubusercontent.com/shfshanyue/Daily-Question/master/assets/pubsub.png)\r\n\r\n## 进一步追问\r\n\r\n面试官见我回答完问题后，又一次追问\r\n\r\n**那 websocket 如何向特定的用户组推送消息？**\r\n\r\n假如一个学校有以下数据结构\r\n\r\n1. `Class`: 代表班级\r\n1. `Student`: 代表学生，每个学生都在其中一个班级\r\n\r\n那假如要向 `Class:201901` 班级的所有学生发送通知，应该如何实现\r\n\r\n欢迎在 Issue 中讨论: [【Q029】websocket 如何向特定用户组推送消息](https://github.com/shfshanyue/Daily-Question/issues/30)\r\n\r\n## 小结\r\n\r\n借用解决方案的图作为小结\r\n\r\n![借用 redis](https://raw.githubusercontent.com/shfshanyue/graph/master/draw/ws-redis.jpg)\r\n",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "25": {
+  {
+    "id": "MDU6SXNzdWU1MjA4MDYxMTU=",
+    "number": 25,
     "title": "【Q024】在 postgres 中，查询时如何对 jsonb 数据格式化",
-    "number": 25
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzEz",
+        "name": "db",
+        "group": "server",
+        "alias": "数据库"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU1MjM0MDU0Ng==",
+      "body": "使用 `jsonb_pretty` 函数，示例如下\r\n\r\n``` sql\r\n> select jsonb_pretty('{\"a\": {\"b\": 4}}'::jsonb)\r\n+----------------+\r\n| jsonb_pretty   |\r\n|----------------|\r\n| {              |\r\n|     \"a\": {     |\r\n|         \"b\": 4 |\r\n|     }          |\r\n| }              |\r\n+----------------+\r\nSELECT 1\r\nTime: 0.018s\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "26": {
+  {
+    "id": "MDU6SXNzdWU1MjA5NTU1MDI=",
+    "number": 26,
     "title": "【Q025】简述 socket 建立的过程",
-    "number": 26
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE0",
+        "name": "network",
+        "group": "base",
+        "alias": "计算机网络"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU1MzE4MjMyNQ==",
+      "body": "一图胜千言\r\n\r\n![image](https://user-images.githubusercontent.com/13389461/68817970-5e11d000-06be-11ea-85ee-5d2496d14c63.png)\r\n",
+      "reactions": {
+        "totalCount": 1
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "27": {
+  {
+    "id": "MDU6SXNzdWU1MjEyOTc0OTU=",
+    "number": 27,
     "title": "【Q026】如何对接口进行压力测试",
-    "number": 27
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIy",
+        "name": "server",
+        "group": "server",
+        "alias": "后端基础"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU1MzE4MjE0NQ==",
+      "body": "``` bash\r\n$ ab\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "28": {
+  {
+    "id": "MDU6SXNzdWU1MjEzNzA0Mjg=",
+    "number": 28,
     "title": "【Q027】在前端开发中，如何获取浏览器的唯一标识",
-    "number": 28
+    "body": "如何获取浏览器的唯一标识，原理是什么",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js",
+        "group": "fe"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU1Mjc4NDQ1Ng==",
+      "body": "[fingerprintjs2](https://github.com/Valve/fingerprintjs2)",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "29": {
+  {
+    "id": "MDU6SXNzdWU1MjEzOTk3ODA=",
+    "number": 29,
     "title": "【Q028】在linux中如何获取登录的用户",
-    "number": 29
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU0NzI4NDM2",
+        "name": "linux",
+        "group": "base"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU1MzE4MTg2OQ==",
+      "body": "``` bash\r\n$ who\r\n\r\n$ last\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "30": {
+  {
+    "id": "MDU6SXNzdWU1MjE5MjExMTQ=",
+    "number": 30,
     "title": "【Q029】websocket 如何向特定的用户组推送消息",
-    "number": 30
+    "body": "假如一个学校有以下数据结构\r\n\r\n1. `Class`: 代表班级\r\n1. `Student`: 代表学生，每个学生都在其中一个班级\r\n\r\n那假如要向 `Class:201901` 班级的所有学生发送通知，应该如何实现",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIy",
+        "name": "server",
+        "group": "server",
+        "alias": "后端基础"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU1NDYyNjQzOA==",
+      "body": "在 `redis` 处维护一个对象，记录每个 group 所对应的 `connections`/`sockets`\r\n\r\n``` js\r\n{\r\n  'Class:201901': [student1Socket, student2Socket]\r\n}\r\n```\r\n\r\n当 client 刚连入 server 时，便加入某个特定的组，或者叫 room，比如 student01，刚开始连入 server，可能要加入 room：`Student:01`，`Class:201901`，`Group:10086`",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "31": {
+  {
+    "id": "MDU6SXNzdWU1MjI2MDI3MTU=",
+    "number": 31,
     "title": "【Q030】linux 中如何打印所有网络接口",
-    "number": 31
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU0NzI4NDM2",
+        "name": "linux",
+        "group": "base"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE0",
+        "name": "network",
+        "group": "base",
+        "alias": "计算机网络"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU1Mzc0MjYyOA==",
+      "body": "## ifconfig\r\n\r\n`ifconfig` 是最简单最常用，但是打印信息太多了\r\n\r\n``` bash\r\n$ ifconfig\r\ncni0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1450\r\n        inet 10.244.0.1  netmask 255.255.255.0  broadcast 0.0.0.0\r\n        ether 9e:f3:9e:47:9d:55  txqueuelen 1000  (Ethernet)\r\n        RX packets 14733665  bytes 1007493238 (960.8 MiB)\r\n        RX errors 0  dropped 0  overruns 0  frame 0\r\n        TX packets 15040396  bytes 4534954611 (4.2 GiB)\r\n        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0\r\n\r\ndocker0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500\r\n        inet 172.18.0.1  netmask 255.255.0.0  broadcast 172.18.255.255\r\n        ether 02:42:09:fe:1d:e5  txqueuelen 0  (Ethernet)\r\n        RX packets 0  bytes 0 (0.0 B)\r\n        RX errors 0  dropped 0  overruns 0  frame 0\r\n        TX packets 0  bytes 0 (0.0 B)\r\n        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0\r\n```\r\n\r\n## netstat\r\n\r\n`netstat` 与 `ip` 也挺好用，特别是它们还可以打印路由表\r\n\r\n``` bash\r\n$ netstat -i\r\nKernel Interface table\r\nIface             MTU    RX-OK RX-ERR RX-DRP RX-OVR    TX-OK TX-ERR TX-DRP TX-OVR Flg\r\ncni0             1450 14733471      0      0 0      15040202      0      0      0 BMRU\r\ndocker0          1500        0      0      0 0             0      0      0      0 BMU\r\neth0             1500 42833038      0      0 0      40961577      0      0      0 BMRU\r\nflannel.1        1450  4761436      0      0 0       4091581      0      0      0 BMRU\r\nlo              65536 376447249      0      0 0      376447249      0      0      0 LRU\r\nveth2052e2d6     1450  7358995      0      0 0       7518642      0      0      0 BMRU\r\nveth3190806e     1450  7363232      0      0 0       7510100      0      0      0 BMRU\r\n```\r\n\r\n## ip\r\n\r\n``` bash\r\n$ ip link\r\n\r\n$ ip addr\r\n```\r\n",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "32": {
+  {
+    "id": "MDU6SXNzdWU1MjM0MTY3MTM=",
+    "number": 32,
     "title": "【Q031】js 中如何实现 bind",
-    "number": 32
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js",
+        "group": "fe"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU1NDYyNzg0NA==",
+      "body": "**最简单的 `bind` 一行就可以实现，而在实际面试过程中也不会考察你太多的边界条件**\r\n\r\n``` js\r\nFunction.prototype.fakeBind = function(obj) {\r\n  return (...args) => this.apply(obj, args)\r\n}\r\n```\r\n\r\n测试一下\r\n\r\n``` js\r\nfunction f (arg) {\r\n  console.log(this.a, arg)\r\n}\r\n\r\n// output: 3, 4\r\nf.bind({ a: 3 })(4)\r\n\r\n// output: 3, 4\r\nf.fakeBind({ a: 3 })(4)\r\n```\r\n",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "33": {
+  {
+    "id": "MDU6SXNzdWU1MjM0MTgxNDI=",
+    "number": 33,
     "title": "【Q032】js 中什么是 softbind，如何实现",
-    "number": 33
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js",
+        "group": "fe"
+      }
+    ],
+    "comment": null
   },
-  "34": {
+  {
+    "id": "MDU6SXNzdWU1MjM0MTkyNDM=",
+    "number": 34,
     "title": "【Q033】如何对接口进行限流",
-    "number": 34
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIy",
+        "name": "server",
+        "group": "server",
+        "alias": "后端基础"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU1NDYzMDg2MQ==",
+      "body": "一般采用漏桶算法：\r\n\r\n1. 漏桶初始为空\r\n1. API 调用是在往漏桶里注水\r\n1. 漏桶会以一定速率出水\r\n1. 水满时 API 拒绝调用\r\n\r\n![漏桶算法](https://d33wubrfki0l68.cloudfront.net/e737eb0be9176ca74d03344f082281154f90f12c/c0076/assets/img/leaky-bucket.f8cb8f08.png)\r\n\r\n可以使用 `redis` 的计数器实现\r\n\r\n1. 计数器初始为空\r\n1. API 调用计数器增加\r\n1. 给计数器设置过期时间，隔段时间清零，视为一定速率出水\r\n1. 计数器达到上限时，拒绝调用\r\n\r\n当然，这只是大致思路，这时会有两个问题要注意\r\n\r\n1. 最坏情况下的限流是额定限流速率的2倍\r\n1. 条件竞争问题\r\n\r\n不过实际实现时注意以下就好了（话说一般也是调用现成的三方库做限流...)，可以参考我以前的文章 <https://shanyue.tech/post/rate-limit/>",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "35": {
+  {
+    "id": "MDU6SXNzdWU1MjM4Mjg0NTU=",
+    "number": 35,
     "title": "【Q034】如何实现一个 loading 动画",
-    "number": 35
+    "body": "如何实现一个 loading 动画，可用 css 或 svg",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIw",
+        "name": "css",
+        "group": "fe"
+      }
+    ],
+    "comment": false
   },
-  "36": {
+  {
+    "id": "MDU6SXNzdWU1MjM4MjkxMDQ=",
+    "number": 36,
     "title": "【Q035】http 常见的状态码有哪些",
-    "number": 36
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjgwMDkyMDA5",
+        "name": "http",
+        "group": "base"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU1NDgxODIzMw==",
+      "body": "* 1XX 表示消息\r\n* 2XX 表示成功\r\n* 3XX 表示重定向\r\n* 4XX 表示客户端错误\r\n* 5XX 表示服务端错误\r\n\r\n#### 常见的状态码\r\n\r\n* 200\r\n> 最喜欢见到的状态码，表示请求成功\r\n\r\n* 301\r\n> 永久重定向\r\n\r\n* 302\r\n> 临时重定向\r\n\r\n* 304\r\n> 自上次请求，未修改的文件\r\n\r\n* 400\r\n> 错误的请求\r\n\r\n* 401\r\n> 未被授权，需要身份验证，例如token信息等等\r\n\r\n* 403\r\n> 请求被拒绝\r\n\r\n* 404\r\n> 资源缺失，接口不存在，或请求的文件不存在等等\r\n\r\n* 500\r\n> 服务器端的未知错误\r\n\r\n* 502\r\n> 网关错误\r\n\r\n* 503\r\n> 服务暂时无法使用\r\n",
+      "reactions": {
+        "totalCount": 1
+      },
+      "author": {
+        "login": "jiayankai",
+        "url": "https://github.com/jiayankai"
+      }
+    }
   },
-  "37": {
+  {
+    "id": "MDU6SXNzdWU1MjM4Mjk0MTg=",
+    "number": 37,
     "title": "【Q036】http 状态码中 301，302和307有什么区别",
-    "number": 37
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjgwMDkyMDA5",
+        "name": "http",
+        "group": "base"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU1NDY4ODQ3NA==",
+      "body": "+ 301，Moved Permanently。永久重定向，该操作比较危险，需要谨慎操作：如果设置了301，但是一段时间后又想取消，但是浏览器中已经有了缓存，还是会重定向。\r\n+ 302，Fount。临时重定向，但是会在重定向的时候改变 method: 把 POST 改成 GET，于是有了 307\r\n+ 307，Temporary Redirect。临时重定向，在重定向时不会改变 method\r\n",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "38": {
+  {
+    "id": "MDU6SXNzdWU1MjM5NTQ1NjY=",
+    "number": 38,
     "title": "【Q037】linux 有哪些发行版，你最喜欢哪一个",
-    "number": 38
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU0NzI4NDM2",
+        "name": "linux",
+        "group": "base"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzEx",
+        "name": "open",
+        "group": "open",
+        "alias": "开放式问题"
+      }
+    ],
+    "comment": false
   },
-  "39": {
+  {
+    "id": "MDU6SXNzdWU1MjQzMDM3ODE=",
+    "number": 39,
     "title": "【Q038】使用 react 实现一个通用的 message 组件",
-    "number": 39
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU4MzQ3NDIy",
+        "name": "react",
+        "group": "fe"
+      }
+    ],
+    "comment": null
   },
-  "40": {
+  {
+    "id": "MDU6SXNzdWU1MjQzNjE1ODQ=",
+    "number": 40,
     "title": "【Q039】redis 的持久化方案有哪些",
-    "number": 40
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjY2OTk3OTM5",
+        "name": "redis",
+        "group": "server"
+      }
+    ],
+    "comment": null
   },
-  "41": {
+  {
+    "id": "MDU6SXNzdWU1MjQ4MzAwODA=",
+    "number": 41,
     "title": "【Q040】k8s 由那些组件组成",
-    "number": 41
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjYwMTIxNDcw",
+        "name": "k8s",
+        "group": "devops"
+      }
+    ],
+    "comment": null
   },
-  "42": {
+  {
+    "id": "MDU6SXNzdWU1MjQ5ODUyMzY=",
+    "number": 42,
     "title": "【Q041】CoW 策略指什么，docker 中有哪些应用",
-    "number": 42
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjg1NjEyMDI0",
+        "name": "docker",
+        "group": "devops"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjU0NzI4NDM2",
+        "name": "linux",
+        "group": "base"
+      }
+    ],
+    "comment": null
   },
-  "43": {
+  {
+    "id": "MDU6SXNzdWU1MjU3NzExNTQ=",
+    "number": 43,
     "title": "【Q042】docker 中如何查看某个容器消耗的内存和CPU",
-    "number": 43
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjg1NjEyMDI0",
+        "name": "docker",
+        "group": "devops"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU1NTk4MjU5MA==",
+      "body": "``` bash\r\n$ docker stats postgres\r\nCONTAINER ID        NAME                CPU %               MEM USAGE / LIMIT     MEM %               NET I/O             BLOCK I/O           PIDS\r\nadb85849e229        postgres            0.00%               3.328MiB / 1.796GiB   0.18%               0B / 0B             874GB / 2.6GB       7\r\n\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "44": {
+  {
+    "id": "MDU6SXNzdWU1MjU4MDc3NjY=",
+    "number": 44,
     "title": "【Q043】如何使用命令查看一个文件有多少字符以及多少行",
-    "number": 44
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU0NzI4NDM2",
+        "name": "linux",
+        "group": "base"
+      }
+    ],
+    "comment": null
   },
-  "45": {
+  {
+    "id": "MDU6SXNzdWU1MjU4MDkzNzk=",
+    "number": 45,
     "title": "【Q044】如何使用vim查看文件有多少个字符以及多少行",
-    "number": 45
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjg3OTAxMzk2",
+        "name": "vim",
+        "group": "base"
+      }
+    ],
+    "comment": null
   },
-  "46": {
+  {
+    "id": "MDU6SXNzdWU1MjU4MjAwNDE=",
+    "number": 46,
     "title": "【Q045】如何把一个 CIDR 地址转化为IP地址范围段",
-    "number": 46
+    "body": "如 `172.16.0.0/27` 的IP范围是多少",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE0",
+        "name": "network",
+        "group": "base",
+        "alias": "计算机网络"
+      }
+    ],
+    "comment": null
   },
-  "47": {
+  {
+    "id": "MDU6SXNzdWU1MjU4MjcwODc=",
+    "number": 47,
     "title": "【Q046】docker 中的网络隔离是如何实现的",
-    "number": 47
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjg1NjEyMDI0",
+        "name": "docker",
+        "group": "devops"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU1NjAxODkxNQ==",
+      "body": "参考: https://docs.docker.com/network/iptables/",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "48": {
+  {
+    "id": "MDU6SXNzdWU1MjY2MTA3NDk=",
+    "number": 48,
     "title": "【Q047】如何设计一个高并发系统",
-    "number": 48
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIy",
+        "name": "server",
+        "group": "server",
+        "alias": "后端基础"
+      }
+    ],
+    "comment": null
   },
-  "49": {
+  {
+    "id": "MDU6SXNzdWU1MjY2MTM0MTI=",
+    "number": 49,
     "title": "【Q048】如何实现一个优先级队列",
-    "number": 49
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjkwMDg5OTM2",
+        "name": "algorithm",
+        "group": "base",
+        "alias": "算法与数据结构"
+      }
+    ],
+    "comment": null
   },
-  "50": {
+  {
+    "id": "MDU6SXNzdWU1MjY5MjA3MTI=",
+    "number": 50,
     "title": "【Q049】什么是守护进程",
-    "number": 50
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjkxMDQ3MDQ2",
+        "name": "os",
+        "group": "base",
+        "alias": "操作系统"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU1OTcwNzYyOQ==",
+      "body": "TODO",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "51": {
+  {
+    "id": "MDU6SXNzdWU1MjcwNjMyNjg=",
+    "number": 51,
     "title": "【Q050】http 状态码 502 和 504 有什么区别",
-    "number": 51
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjgwMDkyMDA5",
+        "name": "http",
+        "group": "base"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU1NzQ3NTAyNw==",
+      "body": "* 502 Bad Gateway\r\nThe server was acting as a gateway or proxy and received an invalid response from the upstream server.\r\n收到了上游响应但无法解析\r\n\r\n* 504 Gateway Timeout\r\nThe server was acting as a gateway or proxy and did not receive a timely response from the upstream server.\r\n上游响应超时\r\n",
+      "reactions": {
+        "totalCount": 2
+      },
+      "author": {
+        "login": "sjfkai",
+        "url": "https://github.com/sjfkai"
+      }
+    }
   },
-  "52": {
+  {
+    "id": "MDU6SXNzdWU1Mjc0NzQxMDI=",
+    "number": 52,
     "title": "【Q051】简述一下 graphql，它的引进有什么好处",
-    "number": 52
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjkyOTk0Mjk2",
+        "name": "graphql",
+        "group": "server"
+      }
+    ],
+    "comment": null
   },
-  "53": {
+  {
+    "id": "MDU6SXNzdWU1Mjc0NzQ0MTc=",
+    "number": 53,
     "title": "【Q052】graphql 的引进有什么风险，以及性能问题",
-    "number": 53
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjkyOTk0Mjk2",
+        "name": "graphql",
+        "group": "server"
+      }
+    ],
+    "comment": null
   },
-  "54": {
+  {
+    "id": "MDU6SXNzdWU1Mjc1MzEwMDA=",
+    "number": 54,
     "title": "【Q053】什么是对象存储，与块存储和文件存储有什么区别",
-    "number": 54
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjkxMDQ3MDQ2",
+        "name": "os",
+        "group": "base",
+        "alias": "操作系统"
+      }
+    ],
+    "comment": null
   },
-  "55": {
+  {
+    "id": "MDU6SXNzdWU1Mjc3MDM1MTU=",
+    "number": 55,
     "title": "【Q054】简述TCP 的三次握手",
-    "number": 55
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE0",
+        "name": "network",
+        "group": "base",
+        "alias": "计算机网络"
+      }
+    ],
+    "comment": false
   },
-  "56": {
+  {
+    "id": "MDU6SXNzdWU1Mjc3ODA5MDQ=",
+    "number": 56,
     "title": "【Q055】如何在 linux 中打印所有环境变量",
-    "number": 56
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU0NzI4NDM2",
+        "name": "linux",
+        "group": "base"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU1OTY3OTYxNA==",
+      "body": "``` shell\r\n$ printenv\r\nXDG_SESSION_ID=10536\r\nHOSTNAME=shanyue\r\nTERM=xterm-256color\r\nSHELL=/bin/bash\r\nHISTSIZE=1000\r\nSSH_CLIENT=124.200.184.74 16003 22\r\nSSH_TTY=/dev/pts/0\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "57": {
+  {
+    "id": "MDU6SXNzdWU1Mjc4NzYwMjU=",
+    "number": 57,
     "title": "【Q056】什么是服务降级",
-    "number": 57
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjk2MzM2ODQy",
+        "name": "micro-service",
+        "group": "server",
+        "alias": "微服务"
+      }
+    ],
+    "comment": null
   },
-  "58": {
+  {
+    "id": "MDU6SXNzdWU1Mjc4NzkzNzE=",
+    "number": 58,
     "title": "【Q057】什么是熔断机制，微服务如何做熔断",
-    "number": 58
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjk2MzM2ODQy",
+        "name": "micro-service",
+        "group": "server",
+        "alias": "微服务"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU1ODk0ODU0OA==",
+      "body": "TODO",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "59": {
+  {
+    "id": "MDU6SXNzdWU1Mjc5MzkyNjU=",
+    "number": 59,
     "title": "【Q058】什么是负载均衡",
-    "number": 59
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjk2MzM2ODQy",
+        "name": "micro-service",
+        "group": "server",
+        "alias": "微服务"
+      }
+    ],
+    "comment": null
   },
-  "60": {
+  {
+    "id": "MDU6SXNzdWU1Mjg0Njk3NTU=",
+    "number": 60,
     "title": "【Q059】四层负载均衡与七层负载均衡有什么区别",
-    "number": 60
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjk2MzM2ODQy",
+        "name": "micro-service",
+        "group": "server",
+        "alias": "微服务"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU1OTcwNzQ5OQ==",
+      "body": "TODO",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "61": {
+  {
+    "id": "MDU6SXNzdWU1Mjg0NzAzNTI=",
+    "number": 61,
     "title": "【Q060】你们项目中的计划任务是如何组织的",
-    "number": 61
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjk2MzM2ODQy",
+        "name": "micro-service",
+        "group": "server",
+        "alias": "微服务"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzEx",
+        "name": "open",
+        "group": "open",
+        "alias": "开放式问题"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU1OTcwNzU1NQ==",
+      "body": "TODO\r\n",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "62": {
+  {
+    "id": "MDU6SXNzdWU1Mjg0NzE0MDg=",
+    "number": 62,
     "title": "【Q061】如何判断两个链表是否相交",
-    "number": 62
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjkwMDg5OTM2",
+        "name": "algorithm",
+        "group": "base",
+        "alias": "算法与数据结构"
+      }
+    ],
+    "comment": false
   },
-  "63": {
+  {
+    "id": "MDU6SXNzdWU1MjkwMzQxMDE=",
+    "number": 63,
     "title": "【Q062】RPC 与 REST 有什么优劣",
-    "number": 63
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjk2MzM2ODQy",
+        "name": "micro-service",
+        "group": "server",
+        "alias": "微服务"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU1OTcwNzQ1Mw==",
+      "body": "TODO",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "64": {
+  {
+    "id": "MDU6SXNzdWU1MjkwMzc1Mzk=",
+    "number": 64,
     "title": "【Q063】SIGINT SIGTERM SIGKILL 有什么区别",
-    "number": 64
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjkxMDQ3MDQ2",
+        "name": "os",
+        "group": "base",
+        "alias": "操作系统"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU1OTcwNzM5OA==",
+      "body": "TODO",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "65": {
+  {
+    "id": "MDU6SXNzdWU1MjkwNDE0MzU=",
+    "number": 65,
     "title": "【Q064】如何实现服务发现 (Service Discovery)",
-    "number": 65
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjk2MzM2ODQy",
+        "name": "micro-service",
+        "group": "server",
+        "alias": "微服务"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU1OTcwNzM0NQ==",
+      "body": "TODO: k8s 的服务发现是如何实现的",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "66": {
+  {
+    "id": "MDU6SXNzdWU1MjkwNDE4MzI=",
+    "number": 66,
     "title": "【Q065】有没有使用过 oss，对象存储相比块存储和文件存储有什么优缺点",
-    "number": 66
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjkxMDQ3MDQ2",
+        "name": "os",
+        "group": "base",
+        "alias": "操作系统"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU1OTcwNzIzOA==",
+      "body": "OSS 兼具分布式与读取速度的平衡吧",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "67": {
+  {
+    "id": "MDU6SXNzdWU1MjkxMzEzOTk=",
+    "number": 67,
     "title": "【Q066】如何使用 react hooks 实现 useFetch 请求数据",
-    "number": 67
+    "body": "比如设计成 `useFetch` 这种形式，它的 API 应该如何设计",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU4MzQ3NDIy",
+        "name": "react",
+        "group": "fe"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU1ODk0NDYyMg==",
+      "body": "可以参考 [How to fetch data with React Hooks?](https://www.robinwieruch.de/react-hooks-fetch-data)",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "68": {
+  {
+    "id": "MDU6SXNzdWU1MjkxNDIxODg=",
+    "number": 68,
     "title": "【Q067】react 如何使用 render prop component 请求数据",
-    "number": 68
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU4MzQ3NDIy",
+        "name": "react",
+        "group": "fe"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU1ODk0ODM4Mg==",
+      "body": "参考: <https://www.robinwieruch.de/react-fetching-data#how-to-fetch-data-in-render-props>",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "69": {
+  {
+    "id": "MDU6SXNzdWU1Mjk2MjYxNzA=",
+    "number": 69,
     "title": "【Q068】React Portal 有哪些使用场景",
-    "number": 69
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU4MzQ3NDIy",
+        "name": "react",
+        "group": "fe"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU1OTY0ODY2MQ==",
+      "body": "> Portals provide a first-class way to render children into a DOM node that exists outside the DOM hierarchy of the parent component.\r\n\r\n在以前， `react` 中所有的组件都会位于 `#app` 下，而使用 `Portals` 提供了一种脱离 `#app` 的组件。\r\n\r\n因此 `Portals` 适合脱离文档流(out of flow) 的组件，特别是 `position: absolute` 与 `position: fixed` 的组件。比如模态框，通知，警告，goTop 等。\r\n\r\n以下是官方一个模态框的示例，可以在以下地址中测试效果 <https://codepen.io/gaearon/pen/jGBWpE?editors=1010>\r\n\r\n\r\n``` html\r\n<html>\r\n  <body>\r\n    <div id=\"app\"></div>\r\n    <div id=\"modal\"></div>\r\n    <div id=\"gotop\"></div>\r\n    <div id=\"alert\"></div>\r\n  </body>\r\n</html>\r\n```\r\n\r\n\r\n``` jsx\r\nconst modalRoot = document.getElementById('modal');\r\n\r\nclass Modal extends React.Component {\r\n  constructor(props) {\r\n    super(props);\r\n    this.el = document.createElement('div');\r\n  }\r\n\r\n  componentDidMount() {\r\n    modalRoot.appendChild(this.el);\r\n  }\r\n\r\n  componentWillUnmount() {\r\n    modalRoot.removeChild(this.el);\r\n  }\r\n\r\n  render() {\r\n    return ReactDOM.createPortal(\r\n      this.props.children,\r\n      this.el,\r\n    );\r\n  }\r\n}\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "70": {
+  {
+    "id": "MDU6SXNzdWU1Mjk2MjY5OTE=",
+    "number": 70,
     "title": "【Q069】什么是 virtual DOM，它的引入带了什么好处",
-    "number": 70
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU4MzQ3NDIy",
+        "name": "react",
+        "group": "fe"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU1OTYzNTY4OA==",
+      "body": "数据与UI的进一步分离，这样也更有利于 SSR",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "71": {
+  {
+    "id": "MDU6SXNzdWU1Mjk5MzIxOTA=",
+    "number": 71,
     "title": "【Q070】如何用 linux 命令输出文件的特定行",
-    "number": 71
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU0NzI4NDM2",
+        "name": "linux",
+        "group": "base"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU1OTYzNTA3Mg==",
+      "body": "使用 `sed` 或者 `head`/`tail`，以要输出第100行为例\r\n\r\n```\r\nsed -n 100p Readme.md\r\n\r\nhead -100 Readme.md | tail -1\r\n```\r\n\r\n关于 `sed` 更多的用法可以参考我的文章: [sed 命令详解及示例](https://shanyue.tech/op/linux-sed.html#sed-%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3)",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "72": {
+  {
+    "id": "MDU6SXNzdWU1MzA1Nzc4MjA=",
+    "number": 72,
     "title": "【Q071】react 与 vue 数组中 key 的作用是什么",
-    "number": 72
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU4MzQ3NDIy",
+        "name": "react",
+        "group": "fe"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjU4MzU0NDc5",
+        "name": "vue",
+        "group": "fe"
+      }
+    ],
+    "comment": null
   },
-  "73": {
+  {
+    "id": "MDU6SXNzdWU1MzA1ODYyNDI=",
+    "number": 73,
     "title": "【Q072】webpack 是用来做什么的，原理是什么",
-    "number": 73
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzA2NzQ0ODEz",
+        "name": "webpack",
+        "group": "fe"
+      }
+    ],
+    "comment": null
   },
-  "74": {
+  {
+    "id": "MDU6SXNzdWU1MzA1ODgzMTQ=",
+    "number": 74,
     "title": "【Q073】webpack 中的 loader 的作用是什么",
-    "number": 74
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzA2NzQ0ODEz",
+        "name": "webpack",
+        "group": "fe"
+      }
+    ],
+    "comment": null
   },
-  "75": {
+  {
+    "id": "MDU6SXNzdWU1MzA1ODg1MTY=",
+    "number": 75,
     "title": "【Q074】有没有自己写过一个webpack的loader",
-    "number": 75
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzA2NzQ0ODEz",
+        "name": "webpack",
+        "group": "fe"
+      }
+    ],
+    "comment": null
   },
-  "76": {
+  {
+    "id": "MDU6SXNzdWU1MzA1ODg2MTQ=",
+    "number": 76,
     "title": "【Q075】webpack 中plugin的作用是什么，有没有自己写过",
-    "number": 76
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzA2NzQ0ODEz",
+        "name": "webpack",
+        "group": "fe"
+      }
+    ],
+    "comment": null
   },
-  "77": {
+  {
+    "id": "MDU6SXNzdWU1MzA1ODkyODU=",
+    "number": 77,
     "title": "【Q076】如何设计一个短网址生成服务",
-    "number": 77
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjk2MzM2ODQy",
+        "name": "micro-service",
+        "group": "server",
+        "alias": "微服务"
+      }
+    ],
+    "comment": null
   },
-  "78": {
+  {
+    "id": "MDU6SXNzdWU1MzA3MjMzNzQ=",
+    "number": 78,
     "title": "【Q077】使用 webpack 时如何优化项目体积",
-    "number": 78
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzA2NzQ0ODEz",
+        "name": "webpack",
+        "group": "fe"
+      }
+    ],
+    "comment": null
   },
-  "79": {
+  {
+    "id": "MDU6SXNzdWU1MzA3MjM4NTA=",
+    "number": 79,
     "title": "【Q078】什么是 HMR，原理是什么",
-    "number": 79
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzA2NzQ0ODEz",
+        "name": "webpack",
+        "group": "fe"
+      }
+    ],
+    "comment": null
   },
-  "80": {
+  {
+    "id": "MDU6SXNzdWU1MzA3MjQ0NjY=",
+    "number": 80,
     "title": "【Q079】简述 http 的缓存机制",
-    "number": 80
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjgwMDkyMDA5",
+        "name": "http",
+        "group": "base"
+      }
+    ],
+    "comment": false
   },
-  "81": {
+  {
+    "id": "MDU6SXNzdWU1MzA3MjQ2Mzk=",
+    "number": 81,
     "title": "【Q080】使用 webpack 打包时，如何更好地利用 long term cache",
-    "number": 81
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzA2NzQ0ODEz",
+        "name": "webpack",
+        "group": "fe"
+      }
+    ],
+    "comment": null
   },
-  "82": {
+  {
+    "id": "MDU6SXNzdWU1MzA3MjQ3OTk=",
+    "number": 82,
     "title": "【Q081】http proxy 的原理是什么",
-    "number": 82
+    "body": "如 `webpack-dev-server` 可以设置 proxy，`nginx` 也可以设置",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjgwMDkyMDA5",
+        "name": "http",
+        "group": "base"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2NTM1NTQyMA==",
+      "body": "todo",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "83": {
+  {
+    "id": "MDU6SXNzdWU1MzA3MjQ5NzM=",
+    "number": 83,
     "title": "【Q082】随着 http2 的发展，webpack 有没有更好的打包方案",
-    "number": 83
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzA2NzQ0ODEz",
+        "name": "webpack",
+        "group": "fe"
+      }
+    ],
+    "comment": null
   },
-  "84": {
+  {
+    "id": "MDU6SXNzdWU1MzA3MjUyMDk=",
+    "number": 84,
     "title": "【Q083】网站性能优化都有哪些点",
-    "number": 84
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzEx",
+        "name": "open",
+        "group": "open",
+        "alias": "开放式问题"
+      },
+      {
+        "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+        "name": "前端工程化",
+        "group": "fe"
+      }
+    ],
+    "comment": null
   },
-  "85": {
+  {
+    "id": "MDU6SXNzdWU1MzA3MjUzODQ=",
+    "number": 85,
     "title": "【Q084】随着 http2 的发展，前端性能优化中的哪些传统方案可以被替代",
-    "number": 85
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjgwMDkyMDA5",
+        "name": "http",
+        "group": "base"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2MjA5NjA4MA==",
+      "body": "1. 雪碧图\r\n1. 资源文件合并",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "86": {
+  {
+    "id": "MDU6SXNzdWU1MzA3MjU0NzI=",
+    "number": 86,
     "title": "【Q085】http2 与 http1.1 有什么不同",
-    "number": 86
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjgwMDkyMDA5",
+        "name": "http",
+        "group": "base"
+      }
+    ],
+    "comment": null
   },
-  "87": {
+  {
+    "id": "MDU6SXNzdWU1MzA3MjU2Nzk=",
+    "number": 87,
     "title": "【Q086】webpack 中 tree shaking 的原理是什么",
-    "number": 87
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzA2NzQ0ODEz",
+        "name": "webpack",
+        "group": "fe"
+      }
+    ],
+    "comment": null
   },
-  "88": {
+  {
+    "id": "MDU6SXNzdWU1MzA3MjYxMTc=",
+    "number": 88,
     "title": "【Q087】什么是 CNAME 记录和 A 记录",
-    "number": 88
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE0",
+        "name": "network",
+        "group": "base",
+        "alias": "计算机网络"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2MjA5NTgwNg==",
+      "body": "CNAME：域名  -> 域名\r\nA：域名 -> IP",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "89": {
+  {
+    "id": "MDU6SXNzdWU1MzA3MjY0Nzk=",
+    "number": 89,
     "title": "【Q088】如何实现 promise.map，并限制并发数",
-    "number": 89
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js",
+        "group": "fe"
+      }
+    ],
+    "comment": false
   },
-  "90": {
+  {
+    "id": "MDU6SXNzdWU1MzA3MjY4NTc=",
+    "number": 90,
     "title": "【Q089】vue 中 v-if 和 v-show 的区别是什么",
-    "number": 90
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU4MzU0NDc5",
+        "name": "vue",
+        "group": "fe"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2MTkzNDA3NQ==",
+      "body": "> v-show always compiles and renders everything - it simply adds the \"display: none\" style to the element. It has a higher initial load cost, but toggling is very cheap.\r\n> Incomparison, v-if is truely conditional: it is lazy, so if its initial condition is false, it won't even do anything. This can be good for initial load time. When the condition is true, v-if will then compile and render its content. Toggling a v-if block actually tearsdown everything inside it, e.g. Components inside v-if are acually destroyed and re-created when toggled, so toggling a huge v-if block can be more expensive than v-show.\r\n\r\nv-show 总是会进行编译和渲染的工作 - 它只是简单的在元素上添加了 `display: none;` 的样式。v-show 具有较高的初始化性能成本上的消耗，但是使得转换状态变得很容易。\r\n相比之下，v-if 才是真正「有条件」的：它的加载是惰性的，因此，若它的初始条件是 false，它就不会做任何事情。这对于初始加载时间来说是有益的，当条件为 true 时，v-if 才会编译并渲染其内容。切换 v-if 下的块儿内容实际上时销毁了其内部的所有元素，比如说处于v-if下的组件实际上在切换状态时会被销毁并重新生成，因此，切换一个较大v-if块儿时会比v-show消耗的性能多。",
+      "reactions": {
+        "totalCount": 2
+      },
+      "author": {
+        "login": "zhaofeihao",
+        "url": "https://github.com/zhaofeihao"
+      }
+    }
   },
-  "91": {
+  {
+    "id": "MDU6SXNzdWU1MzA3MjcwNTE=",
+    "number": 91,
     "title": "【Q090】vue 中 computed 的原理是什么",
-    "number": 91
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU4MzU0NDc5",
+        "name": "vue",
+        "group": "fe"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2MzA1MDQzMw==",
+      "body": "要讲清楚，computed原理，首先得讲vue响应式原理，因为computed的实现是基于Watcher对象的。\r\n那么vue的响应式原理是什么呢，众所周知，vue是基于Object.defineProperty实现监听的。在vue初始化数据data和computed数据过程中。会涉及到以下几个对象：\r\n1. Observe对象\r\n2. Dep对象\r\n3. Watch对象\r\nObserve对象是在data执行响应式时候调用，因为computed属性基于响应式属性，所以其不需要创建Observe对象。\r\nDep对象主要功能是做依赖收集，有个属性维护多个Watch对象，当更新时候循环调用每个Watch执行更新。\r\nWatch对象主要是用于更新，而且是收集的重点对象。\r\n\r\n这里谈到computed计算属性，首先要知道，其有两种定义方式，一种是方法，另一种是get，set属性。而且，其内部监听的对象必须是已经定义响应式的属性，比如data的属性vuex的属性。\r\n\r\nvue在创建computed属性时候，会循环所有计算属性，每一个计算属性会创建一个watch，并且在通过defineProperty定义监听，在get中，计算属性工作是做依赖收集，在set中，计算属性重要工作是重新执行计算方法，这里需要多补充一句，因为computed是懒执行，也就是说第一次初始化之后，变不会执行计算，下一次变更执行重新计算是在set中。\r\n\r\n另一个补充点是依赖收集的时机，computed收集时机和data一样，是在组件挂载前，但是其收集对象是自己属性对应的watch，而data本身所有数据对应一个watch。\r\n\r\n以下附计算属性源码验证说法：\r\n\r\n```typescript\r\n\r\nfunction initComputed (vm: Component, computed: Object) {\r\n  // $flow-disable-line\r\n  const watchers = vm._computedWatchers = Object.create(null)\r\n  // computed properties are just getters during SSR\r\n  const isSSR = isServerRendering()\r\n\r\n  for (const key in computed) {\r\n    const userDef = computed[key]\r\n    const getter = typeof userDef === 'function' ? userDef : userDef.get\r\n    if (process.env.NODE_ENV !== 'production' && getter == null) {\r\n      warn(\r\n        `Getter is missing for computed property \"${key}\".`,\r\n        vm\r\n      )\r\n    }\r\n\r\n    if (!isSSR) {\r\n      // create internal watcher for the computed property.\r\n      watchers[key] = new Watcher(\r\n        vm,\r\n        getter || noop,\r\n        noop,\r\n        computedWatcherOptions\r\n      )\r\n    }\r\n\r\n    // component-defined computed properties are already defined on the\r\n    // component prototype. We only need to define computed properties defined\r\n    // at instantiation here.\r\n    if (!(key in vm)) {\r\n      defineComputed(vm, key, userDef)\r\n    } else if (process.env.NODE_ENV !== 'production') {\r\n      if (key in vm.$data) {\r\n        warn(`The computed property \"${key}\" is already defined in data.`, vm)\r\n      } else if (vm.$options.props && key in vm.$options.props) {\r\n        warn(`The computed property \"${key}\" is already defined as a prop.`, vm)\r\n      }\r\n    }\r\n  }\r\n}\r\n```\r\n可以看到，在执行new Watcher之前，会对计算属性做判断，判断其是否为函数，如果不是则取getter。这是因为计算属性有两种定义方式。之后第二步是执行deineCoumputed。这一步只是简单的调用defineProterty我就不贴代码了。\r\n\r\n关于计算属性的getter和setter定义如下：\r\n重点关注get的懒加载部分，和Watcher的定义\r\n```typescript\r\nfunction createComputedGetter (key) {\r\n  return function computedGetter () {\r\n    const watcher = this._computedWatchers && this._computedWatchers[key]\r\n    if (watcher) {\r\n      if (watcher.dirty) {\r\n        watcher.evaluate()\r\n      }\r\n      if (Dep.target) {\r\n        watcher.depend()\r\n      }\r\n      return watcher.value\r\n    }\r\n  }\r\n}\r\n\r\nfunction createGetterInvoker(fn) {\r\n  return function computedGetter () {\r\n    return fn.call(this, this)\r\n  }\r\n}\r\n```\r\n",
+      "reactions": {
+        "totalCount": 1
+      },
+      "author": {
+        "login": "wython",
+        "url": "https://github.com/wython"
+      }
+    }
   },
-  "92": {
+  {
+    "id": "MDU6SXNzdWU1MzA3MjcxNzg=",
+    "number": 92,
     "title": "【Q091】vue-loader 的实现原理是什么",
-    "number": 92
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU4MzU0NDc5",
+        "name": "vue",
+        "group": "fe"
+      },
+      {
+        "id": "MDU6TGFiZWwxNzA2NzQ0ODEz",
+        "name": "webpack",
+        "group": "fe"
+      }
+    ],
+    "comment": null
   },
-  "93": {
+  {
+    "id": "MDU6SXNzdWU1MzE4MTgyMzA=",
+    "number": 93,
     "title": "【Q092】react 中 ref 是干什么用的，有哪些使用场景",
-    "number": 93
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU4MzQ3NDIy",
+        "name": "react",
+        "group": "fe"
+      }
+    ],
+    "comment": false
   },
-  "94": {
+  {
+    "id": "MDU6SXNzdWU1MzI1NzgxMzc=",
+    "number": 94,
     "title": "【Q093】如何实现一个 LRU",
-    "number": 94
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjkwMDg5OTM2",
+        "name": "algorithm",
+        "group": "base",
+        "alias": "算法与数据结构"
+      }
+    ],
+    "comment": null
   },
-  "95": {
+  {
+    "id": "MDU6SXNzdWU1MzI2MzUxNDc=",
+    "number": 95,
     "title": "【Q094】你们的前端代码上线部署一次需要多长时间，需要人为干预吗",
-    "number": 95
+    "body": "更短的部署时间，更少的人为干预，更有利于敏捷开发",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU2MTA0NTgx",
+        "name": "devops",
+        "group": "devops"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzEx",
+        "name": "open",
+        "group": "open",
+        "alias": "开放式问题"
+      },
+      {
+        "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+        "name": "前端工程化",
+        "group": "fe"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2MjA5NDkyMA==",
+      "body": "TODO",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "96": {
+  {
+    "id": "MDU6SXNzdWU1MzMyMTI2OTc=",
+    "number": 96,
     "title": "【Q095】k8s 中的 QoS 有哪几种类型",
-    "number": 96
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjYwMTIxNDcw",
+        "name": "k8s",
+        "group": "devops"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2MjAzNzYzNw==",
+      "body": "参考官方文档：[Configure Quality of Service for Pods\r\n](https://kubernetes.io/docs/tasks/configure-pod-container/quality-service-pod/)，总结如下\r\n\r\n有三种类型 `Guaranteed`，`Burstable` 与 `BestEffort `\r\n\r\n+ `Guaranteed`\r\n    + Pod 里的每个容器都必须有内存 `resources.limits` 和 `resources.requests`，而且必须是一样的\r\n    + Pod 里的每个容器都必须有 CPU `resources.limits` 和 `resources.requests`，而且必须是一样的\r\n+ `Burstable`\r\n    + Pod 里至少有一个容器有内存或者 CPU `resources.requests`\r\n+ `BestEffort`\r\n    + 不设置 `resources.requests` 和 `resources.limits`",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "97": {
+  {
+    "id": "MDU6SXNzdWU1MzMyNjAxNzg=",
+    "number": 97,
     "title": "【Q096】cron 表达式 (* 10 * * *) 会如何触发",
-    "number": 97
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU0NzI4NDM2",
+        "name": "linux",
+        "group": "base"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2MjA5MTA3Mg==",
+      "body": "每天十点，每分钟都会执行一次",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "98": {
+  {
+    "id": "MDU6SXNzdWU1MzMyNjIyOTE=",
+    "number": 98,
     "title": "【Q097】cron 表达式 (30 10 * * *) 会如何触发",
-    "number": 98
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU0NzI4NDM2",
+        "name": "linux",
+        "group": "base"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2MjA5MTIxMw==",
+      "body": "每天十点半执行一次",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "99": {
+  {
+    "id": "MDU6SXNzdWU1MzMyOTUyMzQ=",
+    "number": 99,
     "title": "【Q098】在 linux 中如何查看 cron 执行的情况",
-    "number": 99
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU0NzI4NDM2",
+        "name": "linux",
+        "group": "base"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2MjA5MTk0NA==",
+      "body": "在 `centos` 中，查看日志文件\r\n\r\n``` bash\r\n$ tail -f /var/log/cron\r\nDec  5 19:30:01 8 CROND[24068]: (root) CMD (echo hello, world)\r\nDec  5 19:31:01 8 CROND[24084]: (root) CMD (echo hello, world)\r\nDec  5 19:31:01 8 CROND[24083]: (root) CMD (echo hello)\r\nDec  5 19:32:01 8 CROND[24094]: (root) CMD (echo hello, world)\r\nDec  5 19:32:01 8 CROND[24093]: (root) CMD (echo hello)\r\nDec  5 19:33:01 8 CROND[24104]: (root) CMD (echo hello, world)\r\nDec  5 19:33:01 8 CROND[24103]: (root) CMD (echo hello)\r\nDec  5 19:34:01 8 CROND[24113]: (root) CMD (echo hello)\r\nDec  5 19:34:01 8 CROND[24114]: (root) CMD (echo hello, world)\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "100": {
+  {
+    "id": "MDU6SXNzdWU1MzM0MDI4NzA=",
+    "number": 100,
     "title": "【Q099】git 如何查看某个文件的提交历史",
-    "number": 100
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzE2ODAxMDI2",
+        "name": "git",
+        "group": "base"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2MjE2ODM3OA==",
+      "body": "``` bash\r\ngit log -p file\r\n```",
+      "reactions": {
+        "totalCount": 1
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "101": {
+  {
+    "id": "MDU6SXNzdWU1MzM0NDIzMzk=",
+    "number": 101,
     "title": "【Q100】如何使用 react/vue 实现一个 message API",
-    "number": 101
+    "body": "可以实现如下 API\r\n\r\n`message.info()`\r\n`message.success()`",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU4MzQ3NDIy",
+        "name": "react",
+        "group": "fe"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjU4MzU0NDc5",
+        "name": "vue",
+        "group": "fe"
+      }
+    ],
+    "comment": null
   },
-  "102": {
+  {
+    "id": "MDU6SXNzdWU1MzM3NTE1MTA=",
+    "number": 102,
     "title": "【Q101】你们后端代码上线部署一次需要多长时间",
-    "number": 102
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU2MTA0NTgx",
+        "name": "devops",
+        "group": "devops"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIy",
+        "name": "server",
+        "group": "server",
+        "alias": "后端基础"
+      }
+    ],
+    "comment": null
   },
-  "103": {
+  {
+    "id": "MDU6SXNzdWU1MzM4MzM1Mzk=",
+    "number": 103,
     "title": "【Q102】有没有用 npm 发布过 package，如何发布",
-    "number": 103
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js",
+        "group": "fe"
+      }
+    ],
+    "comment": null
   },
-  "104": {
+  {
+    "id": "MDU6SXNzdWU1MzM5MTQ3NDA=",
+    "number": 104,
     "title": "【Q103】你在工作中遇到最有挑战的事情是什么",
-    "number": 104
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzEx",
+        "name": "open",
+        "group": "open",
+        "alias": "开放式问题"
+      }
+    ],
+    "comment": null
   },
-  "105": {
+  {
+    "id": "MDU6SXNzdWU1MzM5MTQ5MTk=",
+    "number": 105,
     "title": "【Q104】你在工作中遇到最受挫折的事情是什么",
-    "number": 105
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzEx",
+        "name": "open",
+        "group": "open",
+        "alias": "开放式问题"
+      }
+    ],
+    "comment": null
   },
-  "106": {
+  {
+    "id": "MDU6SXNzdWU1MzM5OTgwODg=",
+    "number": 106,
     "title": "【Q105】你为什么从上家公司离职",
-    "number": 106
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzEx",
+        "name": "open",
+        "group": "open",
+        "alias": "开放式问题"
+      }
+    ],
+    "comment": null
   },
-  "107": {
+  {
+    "id": "MDU6SXNzdWU1MzQ0MDA5NTk=",
+    "number": 107,
     "title": "【Q106】什么是IO多路复用",
-    "number": 107
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjkxMDQ3MDQ2",
+        "name": "os",
+        "group": "base",
+        "alias": "操作系统"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2MjkwMTQzNg==",
+      "body": "假设你的服务器要同时处理 100 个 `socket` 连接\r\n\r\n1. 开一个线程，挨个处理。这就没法处理并发了\r\n1. 开100个线程，分别处理。这么多的线程在内核态频频进进出出也很消耗性能\r\n1. 开一个线程，去检查 `socket` 是否就绪，如果就绪则再开一个线程去处理。这就是IO多路复用了\r\n\r\n`select`、`poll`、`epoll` 是三中典型的IO多路复用的系统调用，但实际上现在 `epoll` 使用的最多。当你使用 `strace` 查看 `nodejs` 某个服务的系统调用时，将会发现 `nodejs` 就是使用了 `epoll`\r\n\r\n",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "108": {
+  {
+    "id": "MDU6SXNzdWU1MzQ0MDg0MzU=",
+    "number": 108,
     "title": "【Q107】什么是 Basic Auth 和 Digest Auth",
-    "number": 108
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjgwMDkyMDA5",
+        "name": "http",
+        "group": "base"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIy",
+        "name": "server",
+        "group": "server",
+        "alias": "后端基础"
+      }
+    ],
+    "comment": null
   },
-  "109": {
+  {
+    "id": "MDU6SXNzdWU1MzQ0MTY5MDI=",
+    "number": 109,
     "title": "【Q108】gzip 的原理是什么",
-    "number": 109
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjgwMDkyMDA5",
+        "name": "http",
+        "group": "base"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2MjkwNjgyNg==",
+      "body": "`gzip` 使用了 `LZ77` 算法与 `Huffman` 编码来压缩文件，重复度越高的文件可压缩的空间就越大。",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "110": {
+  {
+    "id": "MDU6SXNzdWU1MzQ0NzcxNzA=",
+    "number": 110,
     "title": "【Q109】可以对图片开启 gzip 压缩吗，为什么",
-    "number": 110
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjgwMDkyMDA5",
+        "name": "http",
+        "group": "base"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2MjkwMzYyMw==",
+      "body": "不需要开启，如果开启的话，有可能使图片变的更大。如果你注意一些网站的 img 资源时，就会发现他们都没有开启 `gzip`\r\n\r\n参考: https://webmasters.stackexchange.com/questions/8382/is-gzipping-images-worth-it-for-a-small-size-reduction-but-overhead-compressing\r\n\r\n> **Don't use gzip for image or other binary files.**\r\n>\r\n> Image file formats supported by the web, as well as videos, PDFs and other binary formats, are already compressed; using gzip on them won't provide any additional benefit, and can actually make them larger. To compress images, see Optimize images.",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "111": {
+  {
+    "id": "MDU6SXNzdWU1MzU0NTc0OTg=",
+    "number": 111,
     "title": "【Q110】http 的请求报文与响应报文的格式是什么",
-    "number": 111
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjgwMDkyMDA5",
+        "name": "http",
+        "group": "base"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2MzYzNzUzMA==",
+      "body": "以 `nc` 模拟 http 报文如下\r\n\r\n``` bash\r\n$ nc www.baidu.com 80\r\nGET / HTTP/1.1\r\nHost: www.baidu.com\r\n\r\nHTTP/1.1 200 OK\r\nAccept-Ranges: bytes\r\nCache-Control: no-cache\r\nConnection: Keep-Alive\r\nContent-Length: 14615\r\nContent-Type: text/html\r\nDate: Tue, 10 Dec 2019 02:48:44 GMT\r\nP3p: CP=\" OTI DSP COR IVA OUR IND COM \"\r\nP3p: CP=\" OTI DSP COR IVA OUR IND COM \"\r\nPragma: no-cache\r\nServer: BWS/1.1\r\nSet-Cookie: BAIDUID=F0FC6B3A056DEA285F51A1F2F8A170BB:FG=1; expires=Thu, 31-Dec-37 23:55:55 GMT; max-age=2147483647; path=/; domain=.baidu.com\r\nSet-Cookie: BIDUPSID=F0FC6B3A056DEA285F51A1F2F8A170BB; expires=Thu, 31-Dec-37 23:55:55 GMT; max-age=2147483647; path=/; domain=.baidu.com\r\nSet-Cookie: PSTM=1575946124; expires=Thu, 31-Dec-37 23:55:55 GMT; max-age=2147483647; path=/; domain=.baidu.com\r\nSet-Cookie: BAIDUID=F0FC6B3A056DEA287CB2B9422E09E30E:FG=1; max-age=31536000; expires=Wed, 09-Dec-20 02:48:44 GMT; domain=.baidu.com; path=/; version=1; comment=bd\r\nTraceid: 1575946124058431156210725656341129791126\r\nVary: Accept-Encoding\r\nX-Ua-Compatible: IE=Edge,chrome=1\r\n\r\n<!DOCTYPE html><!--STATUS OK-->\r\n........内容省略\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "112": {
+  {
+    "id": "MDU6SXNzdWU1MzU0NzEwNzM=",
+    "number": 112,
     "title": "【Q111】http 响应头中的 ETag 值是如何生成的",
-    "number": 112
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjgwMDkyMDA5",
+        "name": "http",
+        "group": "base"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2Mzg5NDAzNA==",
+      "body": "关于 `etag` 的生成需要满足几个条件\r\n\r\n1. 当文件不会更改时，`etag` 值保持不变。所以不能单纯使用 `inode`\r\n1. 便于计算，不会特别耗 CPU。这样子 `hash` 不是特别合适\r\n1. 便于横向扩展，多个 `node` 上生成的 `etag` 值一致。这样子 `inode` 就排除了\r\n\r\n关于服务器中 `etag` 如何生成可以参考 [HTTP: Generating ETag Header](https://stackoverflow.com/questions/4533/http-generating-etag-header)\r\n\r\n**那么在 `nginx` 中的 `etag` 是如何生成的？**\r\n\r\n## nginx 中 ETag 的生成\r\n\r\n我在网上找到一些资料与源代码了解到了 `etag` 的计算方法。由 `python` 伪代码表示计算方法如下\r\n\r\n``` python\r\netag = '{:x}-{:x}'.format(header.last_modified, header.content_lenth)\r\n```\r\n\r\n源码: [ngx_http_core_modules.c](https://github.com/nginx/nginx/blob/6c3838f9ed45f5c2aa6a971a0da3cb6ffe45b61e/src/http/ngx_http_core_module.c#L1582)\r\n\r\n``` c\r\netag->value.len = ngx_sprintf(etag->value.data, \"\\\"%xT-%xO\\\"\",\r\n                                  r->headers_out.last_modified_time,\r\n                                  r->headers_out.content_length_n)\r\n                      - etag->value.data;\r\n```\r\n\r\n**总结：`nginx` 中 `etag` 由响应头的 `Last-Modified` 与 `Content-Length` 表示为十六进制组合而成。**\r\n\r\n随手在我的k8s集群里找个 `nginx` 服务测试一下\r\n\r\n``` bash\r\n$ curl --head 10.97.109.49\r\nHTTP/1.1 200 OK\r\nServer: nginx/1.16.0\r\nDate: Tue, 10 Dec 2019 06:45:24 GMT\r\nContent-Type: text/html\r\nContent-Length: 612\r\nLast-Modified: Tue, 23 Apr 2019 10:18:21 GMT\r\nConnection: keep-alive\r\nETag: \"5cbee66d-264\"\r\nAccept-Ranges: bytes\r\n```\r\n\r\n由 `etag` 计算 `Last-Modified` 与 `Content-Length`，使用 `js` 计算如下，结果相符\r\n\r\n``` js\r\n> new Date(parseInt('5cbee66d', 16) * 1000).toJSON()\r\n\"2019-04-23T10:18:21.000Z\"\r\n> parseInt('264', 16)\r\n612\r\n```\r\n\r\n## Last-Modified，ETag 与协商缓存\r\n\r\n我们知道协商缓存有两种方式\r\n\r\n+ `Last-Modified`/`if-Modified-Since`\r\n+ `ETag`/`If-None-Match`\r\n\r\n既然在 `nginx` 中 `ETag` 由 `Last-Modified` 和 `Content-Length` 组成，那它便算是一个加强版的 `Last-Modified` 了，那加强在什么地方呢？\r\n\r\n** `Last-Modified` 是由一个 `unix timestamp` 表示，则意味着它只能作用于秒级的改变**\r\n\r\n那下一个问题：[如果 http 响应头中 ETag 值改变了，是否意味着文件内容一定已经更改](https://github.com/shfshanyue/Daily-Question/issues/113)\r\n",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "113": {
+  {
+    "id": "MDU6SXNzdWU1MzU1Njc3NTk=",
+    "number": 113,
     "title": "【Q112】如果 http 响应头中 ETag 值改变了，是否意味着文件内容一定已经更改",
-    "number": 113
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjgwMDkyMDA5",
+        "name": "http",
+        "group": "base"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2MzkyNTM2Ng==",
+      "body": "不一定，由服务器中 `ETag` 的生成算法决定。详见 [#112](https://github.com/shfshanyue/Daily-Question/issues/112)\r\n\r\n比如 `nginx` 中的 `etag` 由 `last_modified` 与 `content_length` 组成，而 `last_modified` 又由 `mtime` 组成\r\n\r\n当编辑文件却未更改文件内容时，或者 `touch file`，`mtime` 也会改变，此时 `etag` 改变，但是文件内容没有更改。",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "114": {
+  {
+    "id": "MDU6SXNzdWU1MzU1ODU2ODY=",
+    "number": 114,
     "title": "【Q113】如何看待 toB 与 toC",
-    "number": 114
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzEx",
+        "name": "open",
+        "group": "open",
+        "alias": "开放式问题"
+      }
+    ],
+    "comment": null
   },
-  "115": {
+  {
+    "id": "MDU6SXNzdWU1MzU1OTAyOTc=",
+    "number": 115,
     "title": "【Q114】如何查看一个文件的 inode number",
-    "number": 115
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU0NzI4NDM2",
+        "name": "linux",
+        "group": "base"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2Mzk3ODc1Nw==",
+      "body": "可以使用 `ls` 或者 `stat`\r\n\r\n``` bash\r\n$ stat hello.txt\r\n  File: ‘hello.txt’\r\n  Size: 30              Blocks: 8          IO Block: 4096   regular file\r\nDevice: fd01h/64769d    Inode: 917526      Links: 1\r\nAccess: (0644/-rw-r--r--)  Uid: (    0/    root)   Gid: (    0/    root)\r\nAccess: 2019-12-10 16:15:55.253325208 +0800\r\nModify: 2019-12-10 16:15:52.740653330 +0800\r\nChange: 2019-12-10 16:15:52.742653069 +0800\r\n\r\n$ ls -i hello.txt\r\n917526 hello.txt\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "116": {
+  {
+    "id": "MDU6SXNzdWU1MzU2NTA0MDI=",
+    "number": 116,
     "title": "【Q115】文件系统中 mtime 和 ctime 指什么，都有什么不同",
-    "number": 116
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU0NzI4NDM2",
+        "name": "linux",
+        "group": "base"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjkxMDQ3MDQ2",
+        "name": "os",
+        "group": "base",
+        "alias": "操作系统"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2Mzk4MzQ3Nw==",
+      "body": "在 `linux` 中，\r\n\r\n+ `mtime`：`modified time` 指文件内容改变的时间戳\r\n+ `ctime`：`change time` 指文件属性改变的时间戳，属性包括 `mtime`。而在 windows 上，它表示的是 `creation time`\r\n\r\n所以 `ctime` 会比 `mtime` 要大一些，使用 `stat` 查看文件属性如下\r\n\r\n``` bash\r\n$ stat hello.txt\r\n  File: ‘hello.txt’\r\n  Size: 30              Blocks: 8          IO Block: 4096   regular file\r\nDevice: fd01h/64769d    Inode: 917526      Links: 1\r\nAccess: (0644/-rw-r--r--)  Uid: (    0/    root)   Gid: (    0/    root)\r\nAccess: 2019-12-10 16:15:55.253325208 +0800\r\nModify: 2019-12-10 16:15:52.740653330 +0800\r\nChange: 2019-12-10 16:15:52.742653069 +0800\r\n Birth: -\r\n```\r\n\r\n而 http 服务选择 `Last_Modified` 时一般会选择 `mtime`",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "117": {
+  {
+    "id": "MDU6SXNzdWU1MzU2NzAxMjE=",
+    "number": 117,
     "title": "【Q116】http 服务中静态文件的 Last-Modified 是根据什么生成的",
-    "number": 117
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjgwMDkyMDA5",
+        "name": "http",
+        "group": "base"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2Mzk5NzU5OA==",
+      "body": "一般会选文件的 `mtime`，表示文件内容的修改时间\r\n\r\n`nginx` 也是这样处理的，源码见: [ngx_http_static_module.c](https://github.com/nginx/nginx/blob/4bf4650f2f10f7bbacfe7a33da744f18951d416d/src/http/modules/ngx_http_static_module.c#L217)\r\n\r\n``` c\r\n    r->headers_out.status = NGX_HTTP_OK;\r\n    r->headers_out.content_length_n = of.size;\r\n    r->headers_out.last_modified_time = of.mtime;\r\n```\r\n\r\n关于为什么使用 `mtime` 而非 `ctime`，可以参考 [#116](https://github.com/shfshanyue/Daily-Question/issues/117)",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "118": {
+  {
+    "id": "MDU6SXNzdWU1MzU2ODYxNjY=",
+    "number": 118,
     "title": "【Q117】既然 http 是无状态协议，那它是如何保持登录状态",
-    "number": 118
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjgwMDkyMDA5",
+        "name": "http",
+        "group": "base"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2NDAwMzA2Nw==",
+      "body": "通过 cookie 或者 Authorization header 来传递凭证，在服务端进行认证",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "119": {
+  {
+    "id": "MDU6SXNzdWU1MzU3ODY0ODM=",
+    "number": 119,
     "title": "【Q118】有没有读过 koa 的源码，什么是洋葱模型呢",
-    "number": 119
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzI2MDg3MTMx",
+        "name": "node",
+        "group": "fe"
+      }
+    ],
+    "comment": null
   },
-  "120": {
+  {
+    "id": "MDU6SXNzdWU1MzU3ODcwMDU=",
+    "number": 120,
     "title": "【Q119】https 是如何保证报文安全的",
-    "number": 120
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjgwMDkyMDA5",
+        "name": "http",
+        "group": "base"
+      }
+    ],
+    "comment": null
   },
-  "121": {
+  {
+    "id": "MDU6SXNzdWU1MzU4MTAyNTc=",
+    "number": 121,
     "title": "【Q120】TCP 是如何保证可靠性的",
-    "number": 121
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE0",
+        "name": "network",
+        "group": "base",
+        "alias": "计算机网络"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2NDkwNDY3Nw==",
+      "body": "ACK",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "122": {
+  {
+    "id": "MDU6SXNzdWU1MzU4MTk4MDM=",
+    "number": 122,
     "title": "【Q121】我们如何从 http 的报文中得知该服务使用的技术栈",
-    "number": 122
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjgwMDkyMDA5",
+        "name": "http",
+        "group": "base"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2NDEwMTEwMw==",
+      "body": "一般有两个 response header，有时服务端为了隐蔽自己真实的技术栈会隐蔽这两个字段\r\n\r\n+ `X-Powerd-By`\r\n+ `Server`",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "123": {
+  {
+    "id": "MDU6SXNzdWU1MzYxODgyMjQ=",
+    "number": 123,
     "title": "【Q122】在发送 http 请求报文时，Host 是必要的吗",
-    "number": 123
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjgwMDkyMDA5",
+        "name": "http",
+        "group": "base"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2NDgwODY1NA==",
+      "body": "是有必要的，因为我们不知道会途径会不会有代理出现， 如果直接到达服务器的话，服务器是可以通过路径知道资源在哪，但是如果通过代理的话，代理无法得知具体服务器是什么地址",
+      "reactions": {
+        "totalCount": 1
+      },
+      "author": {
+        "login": "Gloomysunday28",
+        "url": "https://github.com/Gloomysunday28"
+      }
+    }
   },
-  "124": {
+  {
+    "id": "MDU6SXNzdWU1MzY3MzY1NTI=",
+    "number": 124,
     "title": "【Q123】如何监控文件系统的变动",
-    "number": 124
+    "body": "当一个文件或者一个目录下的文件有所变动时能够监控到。\r\n\r\n如一些前端和后端项目在开发环境下会根据项目目录变动而重启或者重新编译",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzI2MDg3MTMx",
+        "name": "node",
+        "group": "fe"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjkxMDQ3MDQ2",
+        "name": "os",
+        "group": "base",
+        "alias": "操作系统"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2NDkwNDYwMQ==",
+      "body": "`inotify`",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "125": {
+  {
+    "id": "MDU6SXNzdWU1MzY4MDc0NDQ=",
+    "number": 125,
     "title": "【Q124】如何保证内网服务的安全性",
-    "number": 125
+    "body": "如 `gitlab CE` 经常暴露出重大漏洞，而它也只需要在公司内部使用。部署 `gitlab` 时我们如何保证它的安全性",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjk2MzM2ODQy",
+        "name": "micro-service",
+        "group": "server",
+        "alias": "微服务"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2NDk2MTA5Nw==",
+      "body": "basic auth，digest auth，ip whitelist，vpn",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "126": {
+  {
+    "id": "MDU6SXNzdWU1MzY4MzU3MzA=",
+    "number": 126,
     "title": "【Q125】docker 中如何为每个容器的 cpu/memory 设限，原理是什么",
-    "number": 126
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjg1NjEyMDI0",
+        "name": "docker",
+        "group": "devops"
+      }
+    ],
+    "comment": null
   },
-  "127": {
+  {
+    "id": "MDU6SXNzdWU1Mzc0MTgzNzQ=",
+    "number": 127,
     "title": "【Q126】localhost:3000 与 localhost:5000 的 cookie 信息是否共享",
-    "number": 127
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE2",
+        "name": "html",
+        "group": "fe"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2NTM1Mjk1Mg==",
+      "body": "共享",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "128": {
+  {
+    "id": "MDU6SXNzdWU1Mzc1NDM2MzA=",
+    "number": 128,
     "title": "【Q127】vpn 的原理是什么",
-    "number": 128
+    "body": "当在公司工作时经常需要 vpn 用以连接公司内网，其原理是什么",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE0",
+        "name": "network",
+        "group": "base",
+        "alias": "计算机网络"
+      }
+    ],
+    "comment": null
   },
-  "129": {
+  {
+    "id": "MDU6SXNzdWU1Mzc4ODYyMzI=",
+    "number": 129,
     "title": "【Q128】构建镜像时，那几个指令会增加镜像层数",
-    "number": 129
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjg1NjEyMDI0",
+        "name": "docker",
+        "group": "devops"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2NTY5Njk1Nw==",
+      "body": "`RUN`，`ADD`，`COPY`",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "130": {
+  {
+    "id": "MDU6SXNzdWU1Mzc5MDczNTY=",
+    "number": 130,
     "title": "【Q129】shell 中 ${} 与 $() 各是什么意思",
-    "number": 130
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU0NzI4NDM2",
+        "name": "linux",
+        "group": "base"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2NTcxMjkwOQ==",
+      "body": "+ `${}` 变量\r\n+ `$()` 命令",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
-  "131": {
+  {
+    "id": "MDU6SXNzdWU1MzgxMjc4MDU=",
+    "number": 131,
     "title": "【Q130】docker 如何隔离容器与宿主机的时间",
-    "number": 131
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjg1NjEyMDI0",
+        "name": "docker",
+        "group": "devops"
+      }
+    ],
+    "comment": null
   },
-  "132": {
+  {
+    "id": "MDU6SXNzdWU1MzgxMjkzODM=",
+    "number": 132,
     "title": "【Q131】在 docker 的容器中，如何访问宿主机的 localhost",
-    "number": 132
+    "body": "如在宿主机有一个 `mysql` 数据库，在容器中，如何连接数据库",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjg1NjEyMDI0",
+        "name": "docker",
+        "group": "devops"
+      }
+    ],
+    "comment": null
   },
-  "133": {
+  {
+    "id": "MDU6SXNzdWU1MzgxMzEzMjg=",
+    "number": 133,
     "title": "【Q132】如何在 docker 中运行 docker",
-    "number": 133
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjg1NjEyMDI0",
+        "name": "docker",
+        "group": "devops"
+      }
+    ],
+    "comment": null
   },
-  "134": {
+  {
+    "id": "MDU6SXNzdWU1MzgyNzc2Nzg=",
+    "number": 134,
     "title": "【Q133】http 响应头中如果 content-type 为 application/octet-stream，则代表什么意思",
-    "number": 134
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjgwMDkyMDA5",
+        "name": "http",
+        "group": "base"
+      }
+    ],
+    "comment": null
   },
-  "135": {
+  {
+    "id": "MDU6SXNzdWU1MzkxMDc4ODk=",
+    "number": 135,
     "title": "【Q134】ssh 的原理是什么",
-    "number": 135
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE0",
+        "name": "network",
+        "group": "base",
+        "alias": "计算机网络"
+      }
+    ],
+    "comment": null
   },
-  "136": {
+  {
+    "id": "MDU6SXNzdWU1Mzk0MjUwMzk=",
+    "number": 136,
     "title": "【Q135】负载均衡有哪几种方式，它们的原理是什么",
-    "number": 136
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjk2MzM2ODQy",
+        "name": "micro-service",
+        "group": "server",
+        "alias": "微服务"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2Njg0NzUzOQ==",
+      "body": "TODO",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU1NDAxMzI2OTY=",
+    "number": 137,
+    "title": "【Q136】http 向 https 做重定向应该使用哪个状态码",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjgwMDkyMDA5",
+        "name": "http",
+        "group": "base"
+      }
+    ],
+    "comment": null
   }
-}
+]
