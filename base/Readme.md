@@ -52,3 +52,6 @@
 + [【Q133】http 响应头中如果 content-type 为 application/octet-stream，则代表什么意思](http/134.html)
 + [【Q134】ssh 的原理是什么](network/135.html)
 + [【Q136】http 向 https 做重定向应该使用哪个状态码](http/137.html)
++ [【Q138】一个守护进程的创建步骤是什么，如何用 C 语言创建](os/139.html)
++ [【Q140】Node 中 cluster 的原理是什么](os/141.html)
++ [【Q141】http 响应头中的 Date 与 Last-Modified 有什么不同，网站部署时需要注意什么](http/142.html)

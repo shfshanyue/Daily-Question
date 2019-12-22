@@ -19,3 +19,4 @@
 + [【Q122】在发送 http 请求报文时，Host 是必要的吗](123.html)
 + [【Q133】http 响应头中如果 content-type 为 application/octet-stream，则代表什么意思](134.html)
 + [【Q136】http 向 https 做重定向应该使用哪个状态码](137.html)
++ [【Q141】http 响应头中的 Date 与 Last-Modified 有什么不同，网站部署时需要注意什么](142.html)

@@ -130,6 +130,10 @@
         [
           "http/137",
           "http 向 https 做重定向应该使用哪个状态码"
+        ],
+        [
+          "http/142",
+          "http 响应头中的 Date 与 Last-Modified 有什么不同，网站部署时需要注意什么⭐️"
         ]
       ]
     },
@@ -283,6 +287,14 @@
         [
           "os/124",
           "如何监控文件系统的变动⭐️"
+        ],
+        [
+          "os/139",
+          "一个守护进程的创建步骤是什么，如何用 C 语言创建"
+        ],
+        [
+          "os/141",
+          "Node 中 cluster 的原理是什么⭐️"
         ]
       ]
     },
@@ -302,285 +314,26 @@
       ]
     }
   ],
-  "/fe/": [
-    [
-      "",
-      "目录"
-    ],
-    {
-      "name": "css",
-      "title": "css",
-      "collabsable": false,
-      "children": [
-        [
-          "css/",
-          "目录"
-        ],
-        [
-          "css/10",
-          "如何实现一个元素的水平垂直居中⭐️"
-        ],
-        [
-          "css/18",
-          "css 如何实现左侧固定300px，右侧自适应的布局⭐️"
-        ],
-        [
-          "css/35",
-          "如何实现一个 loading 动画⭐️"
-        ]
-      ]
-    },
-    {
-      "name": "html",
-      "title": "html",
-      "collabsable": false,
-      "children": [
-        [
-          "html/",
-          "目录"
-        ],
-        [
-          "html/1",
-          "网站开发中，如何实现图片的懒加载⭐️"
-        ],
-        [
-          "html/20",
-          "如何实现选中复制的功能⭐️"
-        ],
-        [
-          "html/127",
-          "localhost:3000 与 localhost:5000 的 cookie 信息是否共享⭐️"
-        ]
-      ]
-    },
-    {
-      "name": "js",
-      "title": "js",
-      "collabsable": false,
-      "children": [
-        [
-          "js/",
-          "目录"
-        ],
-        [
-          "js/3",
-          "什么是防抖和节流，他们的应用场景有哪些⭐️"
-        ],
-        [
-          "js/23",
-          "如何实现一个简单的 Promise⭐️"
-        ],
-        [
-          "js/28",
-          "在前端开发中，如何获取浏览器的唯一标识⭐️"
-        ],
-        [
-          "js/32",
-          "js 中如何实现 bind⭐️"
-        ],
-        [
-          "js/33",
-          "js 中什么是 softbind，如何实现"
-        ],
-        [
-          "js/89",
-          "如何实现 promise.map，并限制并发数⭐️"
-        ],
-        [
-          "js/103",
-          "有没有用 npm 发布过 package，如何发布"
-        ]
-      ]
-    },
-    {
-      "name": "node",
-      "title": "node",
-      "collabsable": false,
-      "children": [
-        [
-          "node/",
-          "目录"
-        ],
-        [
-          "node/119",
-          "有没有读过 koa 的源码，什么是洋葱模型呢"
-        ],
-        [
-          "node/124",
-          "如何监控文件系统的变动⭐️"
-        ]
-      ]
-    },
-    {
-      "name": "react",
-      "title": "react",
-      "collabsable": false,
-      "children": [
-        [
-          "react/",
-          "目录"
-        ],
-        [
-          "react/11",
-          "了解 React 中的 ErrorBoundary 吗，它有那些使用场景⭐️"
-        ],
-        [
-          "react/14",
-          "有没有使用过 react hooks，它带来了那些便利"
-        ],
-        [
-          "react/15",
-          "如何使用 react hooks 实现一个计数器的组件"
-        ],
-        [
-          "react/22",
-          "React 中，cloneElement 与 createElement 各是什么，有什么区别⭐️"
-        ],
-        [
-          "react/39",
-          "使用 react 实现一个通用的 message 组件"
-        ],
-        [
-          "react/67",
-          "如何使用 react hooks 实现 useFetch 请求数据⭐️"
-        ],
-        [
-          "react/68",
-          "react 如何使用 render prop component 请求数据⭐️"
-        ],
-        [
-          "react/69",
-          "React Portal 有哪些使用场景⭐️"
-        ],
-        [
-          "react/70",
-          "什么是 virtual DOM，它的引入带了什么好处⭐️"
-        ],
-        [
-          "react/72",
-          "react 与 vue 数组中 key 的作用是什么"
-        ],
-        [
-          "react/93",
-          "react 中 ref 是干什么用的，有哪些使用场景⭐️"
-        ],
-        [
-          "react/101",
-          "如何使用 react/vue 实现一个 message API"
-        ]
-      ]
-    },
-    {
-      "name": "vue",
-      "title": "vue",
-      "collabsable": false,
-      "children": [
-        [
-          "vue/",
-          "目录"
-        ],
-        [
-          "vue/12",
-          "vue3.0 中为什么要使用 Proxy，它相比以前的实现方式有什么改进⭐️"
-        ],
-        [
-          "vue/72",
-          "react 与 vue 数组中 key 的作用是什么"
-        ],
-        [
-          "vue/90",
-          "vue 中 v-if 和 v-show 的区别是什么⭐️"
-        ],
-        [
-          "vue/91",
-          "vue 中 computed 的原理是什么⭐️"
-        ],
-        [
-          "vue/92",
-          "vue-loader 的实现原理是什么"
-        ],
-        [
-          "vue/101",
-          "如何使用 react/vue 实现一个 message API"
-        ]
-      ]
-    },
-    {
-      "name": "webpack",
-      "title": "webpack",
-      "collabsable": false,
-      "children": [
-        [
-          "webpack/",
-          "目录"
-        ],
-        [
-          "webpack/73",
-          "webpack 是用来做什么的，原理是什么"
-        ],
-        [
-          "webpack/74",
-          "webpack 中的 loader 的作用是什么"
-        ],
-        [
-          "webpack/75",
-          "有没有自己写过一个webpack的loader"
-        ],
-        [
-          "webpack/76",
-          "webpack 中plugin的作用是什么，有没有自己写过"
-        ],
-        [
-          "webpack/78",
-          "使用 webpack 时如何优化项目体积"
-        ],
-        [
-          "webpack/79",
-          "什么是 HMR，原理是什么"
-        ],
-        [
-          "webpack/81",
-          "使用 webpack 打包时，如何更好地利用 long term cache"
-        ],
-        [
-          "webpack/83",
-          "随着 http2 的发展，webpack 有没有更好的打包方案"
-        ],
-        [
-          "webpack/87",
-          "webpack 中 tree shaking 的原理是什么"
-        ],
-        [
-          "webpack/92",
-          "vue-loader 的实现原理是什么"
-        ]
-      ]
-    },
-    {
-      "name": "前端工程化",
-      "title": "前端工程化",
-      "collabsable": false,
-      "children": [
-        [
-          "前端工程化/",
-          "目录"
-        ],
-        [
-          "前端工程化/84",
-          "网站性能优化都有哪些点"
-        ],
-        [
-          "前端工程化/95",
-          "你们的前端代码上线部署一次需要多长时间，需要人为干预吗⭐️"
-        ]
-      ]
-    }
-  ],
   "/server/": [
     [
       "",
       "目录"
     ],
+    {
+      "name": "c",
+      "title": "C语言",
+      "collabsable": false,
+      "children": [
+        [
+          "c/",
+          "目录"
+        ],
+        [
+          "c/139",
+          "一个守护进程的创建步骤是什么，如何用 C 语言创建"
+        ]
+      ]
+    },
     {
       "name": "db",
       "title": "数据库",
@@ -741,6 +494,300 @@
         [
           "server/108",
           "什么是 Basic Auth 和 Digest Auth"
+        ]
+      ]
+    }
+  ],
+  "/fe/": [
+    [
+      "",
+      "目录"
+    ],
+    {
+      "name": "css",
+      "title": "css",
+      "collabsable": false,
+      "children": [
+        [
+          "css/",
+          "目录"
+        ],
+        [
+          "css/10",
+          "如何实现一个元素的水平垂直居中⭐️"
+        ],
+        [
+          "css/18",
+          "css 如何实现左侧固定300px，右侧自适应的布局⭐️"
+        ],
+        [
+          "css/35",
+          "如何实现一个 loading 动画⭐️"
+        ]
+      ]
+    },
+    {
+      "name": "html",
+      "title": "html",
+      "collabsable": false,
+      "children": [
+        [
+          "html/",
+          "目录"
+        ],
+        [
+          "html/1",
+          "网站开发中，如何实现图片的懒加载⭐️"
+        ],
+        [
+          "html/20",
+          "如何实现选中复制的功能⭐️"
+        ],
+        [
+          "html/127",
+          "localhost:3000 与 localhost:5000 的 cookie 信息是否共享⭐️"
+        ]
+      ]
+    },
+    {
+      "name": "js",
+      "title": "js",
+      "collabsable": false,
+      "children": [
+        [
+          "js/",
+          "目录"
+        ],
+        [
+          "js/3",
+          "什么是防抖和节流，他们的应用场景有哪些⭐️"
+        ],
+        [
+          "js/23",
+          "如何实现一个简单的 Promise⭐️"
+        ],
+        [
+          "js/28",
+          "在前端开发中，如何获取浏览器的唯一标识⭐️"
+        ],
+        [
+          "js/32",
+          "js 中如何实现 bind⭐️"
+        ],
+        [
+          "js/33",
+          "js 中什么是 softbind，如何实现"
+        ],
+        [
+          "js/89",
+          "如何实现 promise.map，并限制并发数⭐️"
+        ],
+        [
+          "js/103",
+          "有没有用 npm 发布过 package，如何发布"
+        ],
+        [
+          "js/138",
+          "js 代码压缩的原理是什么⭐️"
+        ]
+      ]
+    },
+    {
+      "name": "node",
+      "title": "node",
+      "collabsable": false,
+      "children": [
+        [
+          "node/",
+          "目录"
+        ],
+        [
+          "node/119",
+          "有没有读过 koa 的源码，什么是洋葱模型呢"
+        ],
+        [
+          "node/124",
+          "如何监控文件系统的变动⭐️"
+        ],
+        [
+          "node/140",
+          "在 Node 应用中如何利用多核心CPU的优势⭐️"
+        ],
+        [
+          "node/141",
+          "Node 中 cluster 的原理是什么⭐️"
+        ]
+      ]
+    },
+    {
+      "name": "react",
+      "title": "react",
+      "collabsable": false,
+      "children": [
+        [
+          "react/",
+          "目录"
+        ],
+        [
+          "react/11",
+          "了解 React 中的 ErrorBoundary 吗，它有那些使用场景⭐️"
+        ],
+        [
+          "react/14",
+          "有没有使用过 react hooks，它带来了那些便利⭐️"
+        ],
+        [
+          "react/15",
+          "如何使用 react hooks 实现一个计数器的组件"
+        ],
+        [
+          "react/22",
+          "React 中，cloneElement 与 createElement 各是什么，有什么区别⭐️"
+        ],
+        [
+          "react/39",
+          "使用 react 实现一个通用的 message 组件"
+        ],
+        [
+          "react/67",
+          "如何使用 react hooks 实现 useFetch 请求数据⭐️"
+        ],
+        [
+          "react/68",
+          "react 如何使用 render prop component 请求数据⭐️"
+        ],
+        [
+          "react/69",
+          "React Portal 有哪些使用场景⭐️"
+        ],
+        [
+          "react/70",
+          "什么是 virtual DOM，它的引入带了什么好处⭐️"
+        ],
+        [
+          "react/72",
+          "react 与 vue 数组中 key 的作用是什么"
+        ],
+        [
+          "react/93",
+          "react 中 ref 是干什么用的，有哪些使用场景⭐️"
+        ],
+        [
+          "react/101",
+          "如何使用 react/vue 实现一个 message API"
+        ],
+        [
+          "react/143",
+          "react hooks 中如何模拟 componentDidMount"
+        ]
+      ]
+    },
+    {
+      "name": "vue",
+      "title": "vue",
+      "collabsable": false,
+      "children": [
+        [
+          "vue/",
+          "目录"
+        ],
+        [
+          "vue/12",
+          "vue3.0 中为什么要使用 Proxy，它相比以前的实现方式有什么改进⭐️"
+        ],
+        [
+          "vue/72",
+          "react 与 vue 数组中 key 的作用是什么"
+        ],
+        [
+          "vue/90",
+          "vue 中 v-if 和 v-show 的区别是什么⭐️"
+        ],
+        [
+          "vue/91",
+          "vue 中 computed 的原理是什么⭐️"
+        ],
+        [
+          "vue/92",
+          "vue-loader 的实现原理是什么"
+        ],
+        [
+          "vue/101",
+          "如何使用 react/vue 实现一个 message API"
+        ]
+      ]
+    },
+    {
+      "name": "webpack",
+      "title": "webpack",
+      "collabsable": false,
+      "children": [
+        [
+          "webpack/",
+          "目录"
+        ],
+        [
+          "webpack/73",
+          "webpack 是用来做什么的，原理是什么"
+        ],
+        [
+          "webpack/74",
+          "webpack 中的 loader 的作用是什么"
+        ],
+        [
+          "webpack/75",
+          "有没有自己写过一个webpack的loader"
+        ],
+        [
+          "webpack/76",
+          "webpack 中plugin的作用是什么，有没有自己写过"
+        ],
+        [
+          "webpack/78",
+          "使用 webpack 时如何优化项目体积"
+        ],
+        [
+          "webpack/79",
+          "什么是 HMR，原理是什么"
+        ],
+        [
+          "webpack/81",
+          "使用 webpack 打包时，如何更好地利用 long term cache"
+        ],
+        [
+          "webpack/83",
+          "随着 http2 的发展，webpack 有没有更好的打包方案"
+        ],
+        [
+          "webpack/87",
+          "webpack 中 tree shaking 的原理是什么"
+        ],
+        [
+          "webpack/92",
+          "vue-loader 的实现原理是什么"
+        ]
+      ]
+    },
+    {
+      "name": "前端工程化",
+      "title": "前端工程化",
+      "collabsable": false,
+      "children": [
+        [
+          "前端工程化/",
+          "目录"
+        ],
+        [
+          "前端工程化/84",
+          "网站性能优化都有哪些点"
+        ],
+        [
+          "前端工程化/95",
+          "你们的前端代码上线部署一次需要多长时间，需要人为干预吗⭐️"
+        ],
+        [
+          "前端工程化/138",
+          "js 代码压缩的原理是什么⭐️"
         ]
       ]
     }
