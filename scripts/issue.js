@@ -10,9 +10,8 @@ const issuesByGroup = _.groupBy(flatIssues, 'label.group')
 
 function getComment (comment) {
   if (comment) {
-    const author = `By Author [${comment.author.login}](${comment.author.url})\n\n`
     const commentBody = comment.body.replace(/\n#/g, '\n##')
-    return author + commentBody
+    return commentBody
   }
 }
 

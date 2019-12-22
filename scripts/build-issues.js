@@ -5,6 +5,11 @@ const axios = require('axios')
 
 const LABELS = [
   {
+    name: 'c',
+    alias: 'C语言',
+    group: 'server'
+  },
+  {
     name: 'open',
     alias: '开放式问题',
     group: 'open'

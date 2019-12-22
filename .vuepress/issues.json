@@ -283,7 +283,17 @@
         "group": "fe"
       }
     ],
-    "comment": null
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2ODI0NDg1NA==",
+      "body": "依我的看法，`React hooks` 主要解决了状态以及副作用难以复用的场景，除此之外，他对我最大的好处就是在 `Console` 中不会看到重重叠叠相同名字的组件了(HOC)。\r\n\r\n目前使用感觉最爽的两个hook，都是关于请求的。一个是 `apollo-client` 的 `useQuery`，一个是 [swr](https://github.com/zeit/swr)。",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU1MTgxOTU3NDc=",
@@ -1023,7 +1033,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDU1OTcwNzYyOQ==",
-      "body": "TODO",
+      "body": "守护进程，可以被认为是后台进程，当你把控制台关闭时，它仍然还会运行。\r\n\r\n当然 - 这只是表面，从更深层次看呢？",
       "reactions": {
         "totalCount": 0
       },
@@ -2776,6 +2786,142 @@
         "group": "base"
       }
     ],
+    "comment": null
+  },
+  {
+    "id": "MDU6SXNzdWU1NDA4MTY1NDQ=",
+    "number": 138,
+    "title": "【Q137】js 代码压缩的原理是什么",
+    "body": "我们知道 `javascript` 代码经压缩 (uglify) 后，可以使体积变得更小，那它代码压缩的原理是什么。\r\n\r\n如果你来做这么一个功能的话，你会怎么去压缩一段 `js` 代码的体积",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js",
+        "group": "fe"
+      },
+      {
+        "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+        "name": "前端工程化",
+        "group": "fe"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2NzgxOTE4Ng==",
+      "body": "https://github.com/mishoo/UglifyJS2",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU1NDA5NjUwNTk=",
+    "number": 139,
+    "title": "【Q138】一个守护进程的创建步骤是什么，如何用 C 语言创建",
+    "body": "#50 ",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzQ1MjU2MzU2",
+        "name": "c",
+        "group": "server",
+        "alias": "C语言"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjkxMDQ3MDQ2",
+        "name": "os",
+        "group": "base",
+        "alias": "操作系统"
+      }
+    ],
+    "comment": null
+  },
+  {
+    "id": "MDU6SXNzdWU1NDA5NzU5MDg=",
+    "number": 140,
+    "title": "【Q139】在 Node 应用中如何利用多核心CPU的优势",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzI2MDg3MTMx",
+        "name": "node",
+        "group": "fe"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2NzkyNDQyMQ==",
+      "body": "使用 `cluster` 模块\r\n\r\n[Node 中 cluster 的原理是什么](https://github.com/shfshanyue/Daily-Question/issues/141)",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU1NDA5ODQ0NDI=",
+    "number": 141,
+    "title": "【Q140】Node 中 cluster 的原理是什么",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzI2MDg3MTMx",
+        "name": "node",
+        "group": "fe"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjkxMDQ3MDQ2",
+        "name": "os",
+        "group": "base",
+        "alias": "操作系统"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2NzkyMzY1NA==",
+      "body": "1. `fork` 子进程\r\n1. `Load Balance`\r\n1. 多进程共享端口\r\n\r\n## 相关文章\r\n\r\n+ [Node 官方文档: cluster](https://nodejs.org/api/cluster.html)\r\n+ [深入浅出 node cluster](https://juejin.im/post/5c87760fe51d4507534c88e5)\r\n+ [Node.js进阶：cluster模块深入剖析](https://github.com/chyingp/nodejs-learning-guide/blob/master/%E6%A8%A1%E5%9D%97/cluster.md)",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU1NDEzMjg1MTI=",
+    "number": 142,
+    "title": "【Q141】http 响应头中的 Date 与 Last-Modified 有什么不同，网站部署时需要注意什么",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjgwMDkyMDA5",
+        "name": "http",
+        "group": "base"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2ODE4MjMzNw==",
+      "body": "`LM-Factor` 与它俩有关。\r\n\r\n简而言之，一个静态资源没有设置 `Cache-Control` 时会以这两个响应头来设置强制缓存时间，而非直接进行协商缓存。在涉及到 CDN 时，表现更为明显，体现在更新代码部署后，界面没有更新。",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU1NDE0MjcyMzg=",
+    "number": 143,
+    "title": "【Q142】react hooks 中如何模拟 componentDidMount",
+    "body": "",
+    "labels": [],
     "comment": null
   }
 ]
