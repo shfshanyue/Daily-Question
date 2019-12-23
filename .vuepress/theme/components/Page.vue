@@ -2,16 +2,16 @@
   <main class="page">
     <slot name="top" />
 
-
-    <div class="theme-default-content">
+    <div :class="{ 'theme-default-content': true, lock: isLock }">
       <Content />
-      <!-- <div class="content-lock"> -->
-      <!--   <p>下方扫码关注公众号<span class="light">全栈成长之路</span></p> -->
-      <!--   <p>并发送 <span class="light">0F34</span></p> -->
-      <!--   <p>即可在关注期间<span class="light">无限制</span>浏览本站全部文章内容</p> -->
-      <!--   <img src="./qr.jpg" width="180" height="180"> -->
-      <!--   <p>（由于该提示信息随机出现，你也可以<span class="light">再次刷新</span>页面，来浏览本文全部内容）</p> -->
-      <!-- </div> -->
+      <div class="content-lock">
+        <p>下方扫码关注公众号<span>全栈成长之路</span></p>
+        <p>并发送 <span v-text="code"></span></p>
+        <p>即可在关注期间<span>无限制</span>浏览本站全部文章内容</p>
+        <img src="./qr.jpg" width="180" height="180">
+        <p>（由于该提示信息随机出现，你也可以<span>再次刷新</span>页面，来浏览本文全部内容）</p>
+        <p>（你也可以通过修改一行代码来屏蔽该提示消息）</p>
+      </div>
     </div>
     <PageEdit />
 
@@ -27,24 +27,59 @@ import PageNav from '@theme/components/PageNav.vue'
 import random from 'lodash/random'
 import get from 'lodash/get'
 
+import request from '../util/api'
+
+function getCode () {
+  if (localStorage.code) {
+    return localStorage.code
+  }
+  const code = Array.from(Array(4), x => random(0, 9)).join('')
+  localStorage.code = code
+  return code
+}
+
+async function verifyCode (code) {
+  const { data: { data: token } } = await request.post('/api/verifyCode', {
+    code
+  })
+  return token
+}
+
+async function verifyToken (token) {
+  const { data: { data: verify } } = await request.post('/api/verifyToken', {
+    token
+  })
+  return verify
+}
+
 export default {
   data () {
     return {
+      lock: false,
       code: ''
     }
   },
-  mounted () {
-    this.code = this.getKey()
-  },
-  methods: {
-    getKey () {
-      if (localStorage.key) {
-        return localStorage.key
+  async mounted () {
+    const code = getCode()
+    this.code = code
+    if (!localStorage.token) {
+      this.lock = true
+      const token = await verifyCode(code)
+      if (token) {
+        localStorage.token = token
+        this.lock = false
       }
-      const s = '0123456789abcdefghijklmnopqrstuvwxyz'
-      const key = [0, 0, 0, 0].map(x => get(s, random(0, 31))).join('')
-      localStorage.key = key
-      return key
+    } else {
+      const token = localStorage.token
+      const verify = await verifyToken(token)
+      if (!verify) {
+        this.lock = true
+      }
+    }
+  },
+  computed: {
+    isLock () {
+      return this.lock ? Math.random() > 0.5 : false
     }
   },
   components: { PageEdit, PageNav },
@@ -60,6 +95,7 @@ export default {
   display block
 
 .content-lock
+  display none
   text-align center
   padding 2rem
   font-size 1em
@@ -67,17 +103,21 @@ export default {
   p
     line-height 1.2em
 
-.light
-  color #3eaf7c
-  font-weight 600
+  span
+    color #3eaf7c
+    font-weight 600
 
 .theme-default-content.lock
-  h1 + .tip + *
-    opacity .5
+  .content__default
+    :nth-child(3)
+      opacity .5
 
-  h1 + .tip + * + *
-    opacity .2
+    :nth-child(4)
+      opacity .2
 
-  h1 + .tip + * + * ~ *
-    display none
+    :nth-child(n+5)
+      display none
+
+  .content-lock
+    display block
 </style>
