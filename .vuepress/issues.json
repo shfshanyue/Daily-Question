@@ -2447,7 +2447,17 @@
         "group": "base"
       }
     ],
-    "comment": null
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2ODM4MDY4MA==",
+      "body": "https主要解决三个安全问题：\r\n1. 内容隐私\r\n2. 防篡改\r\n3. 确认对方身份\r\n\r\nhttps并不是直接通过非对称加密传输过程，而是有握手过程，握手过程主要是和服务器做通讯，生成私有秘钥，最后通过该秘钥对称加密传输数据。还有验证证书的正确性。\r\n证书验证过程保证了对方是合法的，并且中间人无法通过伪造证书方式进行攻击。",
+      "reactions": {
+        "totalCount": 1
+      },
+      "author": {
+        "login": "wython",
+        "url": "https://github.com/wython"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU1MzU4MTAyNTc=",
@@ -2628,7 +2638,7 @@
         "alias": "计算机网络"
       }
     ],
-    "comment": null
+    "comment": false
   },
   {
     "id": "MDU6SXNzdWU1Mzc4ODYyMzI=",
@@ -2732,7 +2742,17 @@
         "group": "base"
       }
     ],
-    "comment": null
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2ODYxMDg3MA==",
+      "body": "代表二进制流，一般用以下载文件",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU1MzkxMDc4ODk=",
@@ -2786,7 +2806,17 @@
         "group": "base"
       }
     ],
-    "comment": null
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2ODYxMTc1Nw==",
+      "body": "一般用作 `301` 的较为多，但是也有使用 `302`，如果开启了 `HSTS` 则会使用 `307`\r\n\r\n如知乎使用了 302，淘宝使用了 301\r\n\r\n``` bash\r\n$ curl --head www.zhihu.com\r\nHTTP/1.1 302 Found\r\nDate: Tue, 24 Dec 2019 00:13:54 GMT\r\nContent-Length: 22\r\nConnection: keep-alive\r\nServer: NWS_TCloud_IPV6\r\nLocation: https://www.zhihu.com/\r\nX-NWS-LOG-UUID: 0e28d9a1-6aeb-42cd-9f6b-00bd6cf11500\r\n\r\n$ curl --head www.taobao.com\r\nHTTP/1.1 301 Moved Permanently\r\nServer: Tengine\r\nDate: Tue, 24 Dec 2019 00:13:58 GMT\r\nContent-Type: text/html\r\nContent-Length: 278\r\nConnection: keep-alive\r\nLocation: https://www.taobao.com/\r\nVia: cache20.cn1480[,0]\r\nTiming-Allow-Origin: *\r\nEagleId: 6f3f38a815771464380412555e\r\n\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU1NDA4MTY1NDQ=",
@@ -2921,7 +2951,51 @@
     "number": 143,
     "title": "【Q142】react hooks 中如何模拟 componentDidMount",
     "body": "",
-    "labels": [],
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU4MzQ3NDIy",
+        "name": "react",
+        "group": "fe"
+      }
+    ],
     "comment": null
+  },
+  {
+    "id": "MDU6SXNzdWU1NDE1NzE2NTk=",
+    "number": 144,
+    "title": "【Q143】docker-compose 部署 docker 时，如何把宿主机的环境变量注入到容器中",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjg1NjEyMDI0",
+        "name": "docker",
+        "group": "devops"
+      }
+    ],
+    "comment": null
+  },
+  {
+    "id": "MDU6SXNzdWU1NDE5Mzc1MTU=",
+    "number": 145,
+    "title": "【Q144】http 1.1 中的 keep-alive 有什么作用",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjgwMDkyMDA5",
+        "name": "http",
+        "group": "base"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2ODYxMDUxMw==",
+      "body": "在 `http 1.1` 中，在响应头中设置 `keep-alive` 可以在一个 TCP 连接上发送多个 http 请求\r\n\r\n1. 避免了重开 TCP 连接的开销\r\n1. 避免了刷新时重新建立 SSL 连接的开销\r\n1. 避免了QPS过大时，服务器的连接数过大\r\n\r\n在服务器端使用响应头开启 `keep-alive`\r\n\r\n``` bash\r\nConnection: Keep-Alive\r\nKeep-Alive: timeout=5, max=1000\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   }
 ]

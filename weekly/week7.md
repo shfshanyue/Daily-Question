@@ -1,19 +1,62 @@
 # 日问周刊 | 全栈面试汇总 | 第七期
 
-> 勤学如春起之苗，不见其增，日有所长；辍学如磨刀之石，不见其损，日有所亏。
-
-我在 github 上新建了一个仓库 [日问](https://github.com/shfshanyue/Daily-Question)，每天至少一个问题。有关全栈，graphql，devops，微服务以及软技能，促进职业成长，欢迎交流。
-
-以诸葛武侯的诫子书与君共勉
-
-> 夫君子之行，静以修身，俭以养德。非澹泊无以明志，非宁静无以致远。夫学须静也，才须学也，非学无以广才，非志无以成学。淫慢则不能励精，险躁则不能治性。**年与时驰，意与日去，遂成枯落，多不接世，悲守穷庐，将复何及！**
-
 + [第一期](https://github.com/shfshanyue/Daily-Question/blob/master/weekly/week1.md)
 + [第二期](https://github.com/shfshanyue/Daily-Question/blob/master/weekly/week2.md)
 + [第三期](https://github.com/shfshanyue/Daily-Question/blob/master/weekly/week3.md)
 + [第四期](https://github.com/shfshanyue/Daily-Question/blob/master/weekly/week4.md)
 + [第五期](https://github.com/shfshanyue/Daily-Question/blob/master/weekly/week5.md)
 + [第六期](https://github.com/shfshanyue/Daily-Question/blob/master/weekly/week6.md)
+
+我在 github 上新建了一个仓库 [日问](https://github.com/shfshanyue/Daily-Question)，每天一道面试题，有关前端，后端，devops以及软技能，促进职业成长，敲开大厂之门，欢迎交流
+
+并且记录我的面试经验
+
++ [17年面试记(阿里百度美团头条小米滴滴)](https://q.shanyue.tech/interviews/2017.html)
++ [18年面试记(头条)](https://q.shanyue.tech/interviews/2018.html)
++ [19年面试记(阿里头条)](https://q.shanyue.tech/interviews/2019.html)
+
+## 分类
+
+### 计算机与编程基础
+
+[计算机网络](https://q.shanyue.tech/base/network/) | 
+[算法与数据结构](https://q.shanyue.tech/base/algorithm/) | 
+[操作系统](https://q.shanyue.tech/base/os/) |
+[Linux基础](https://q.shanyue.tech/base/linux/) |
+[http](https://q.shanyue.tech/base/http/) | 
+[vim](https://q.shanyue.tech/base/vim/) | 
+[git](https://q.shanyue.tech/base/git/)
+
+### 前端
+
+[CSS](https://q.shanyue.tech/fe/css/) |
+[Javascript](https://q.shanyue.tech/fe/js/) |
+[html](https://q.shanyue.tech/fe/html/) |
+[React](https://q.shanyue.tech/fe/react/) |
+[Vue](https://q.shanyue.tech/fe/vue/) |
+[Webpack](https://q.shanyue.tech/fe/webpack/) |
+[前端工程化](https://q.shanyue.tech/fe/前端工程化/)
+
+### 后端
+
+[后端基础](https://q.shanyue.tech/server/server/) |
+[数据库](https://q.shanyue.tech/server/db/) |
+[Redis](https://q.shanyue.tech/server/redis/) |
+[微服务架构](https://q.shanyue.tech/server/micro-service/)
+
+### DevOps
+
+[DevOps](https://q.shanyue.tech/devops/devops/) |
+[Docker](https://q.shanyue.tech/devops/docker/) |
+[kubernetes](https://q.shanyue.tech/devops/k8s/)
+
+### 开放式问题
+
+[开放式问题](http://q.shanyue.tech/open/open/)
+
+### 历史记录
+
+[查看所有问题](https://q.shanyue.tech/weekly/history.html)
 
 ## 【Q124】如何保证内网服务的安全性
 
