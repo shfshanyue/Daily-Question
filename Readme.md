@@ -82,8 +82,23 @@
 
 如果你对一些前端相关的技术文章、学习资料、招聘信息及其他有趣的东西感兴趣的话，可以关注目前在 `shopee` 工作的 [winty](https://github.com/LuckyWinty/blog) 妹子，也可以添加她的微信 `winty230`。
 
+## 全栈成长
+
+以下是我的个人公众号【全栈成长之路】，我会在里边会写一些前后端及DevOps文章，帮助各位同学打破成长的瓶颈，欢迎关注
+
+<div align="center">
+  <img src="./assets/qr.png" width="240">
+  <br>
+  <sup>个人公众号:【全栈成长之路】</sup>
+</div>
+
 ## 交流
 
-我是山月，你可以添加微信 `shanyue94` 与我交流，另外欢迎关注我的博客[山月行](https://shanyue.tech/)，我会在其中分享工作中遇到的一些技术问题以及思考。
+我是山月，你可以添加微信 `shanyue94` 与我交流，另外欢迎关注我的博客[山月行](https://shanyue.tech/)，我会在其中分享工作中遇到的一些前后端问题以及思考。以下是我的个人微信，欢迎交流与进群学习
 
-![公众号山月行](./assets/qr.png)
+<div align="center">
+  <img src="https://shanyue.tech/we.png" width="300">
+  <br>
+  <sup>个人微信，备注日问，欢迎进群，每天学习一点点</sup>
+</div>
+

@@ -2,7 +2,8 @@ const _ = require('lodash')
 const argv = require('yargs')
   .string('n')
   .array('label')
-  .boolean(['renumber'])
+  .boolean(['renumber', 'issue', 'number'])
+  .default('issue', true)
   .argv
 
 const issues = require('../.vuepress/issues.json')
@@ -22,7 +23,7 @@ function getComment (comment) {
 function getIssueMd (issue) {
   const title = `## ${issue.title}`
   const body = issue.body && `<blockquote> 更多描述: ${issue.body} </blockquote>`
-  const more = `> 在 Issue 中交流与讨论: [Issue 地址](https://github.com/shfshanyue/Daily-Question/issues/${issue.number})`
+  const more = argv.issue ? `> 在 Issue 中交流与讨论: [Issue 地址](https://github.com/shfshanyue/Daily-Question/issues/${issue.number})` : ''
   const comment = getComment(issue.comment)
   const md = _.compact([title, body, more, comment]).join('\n\n')
   return md
@@ -31,13 +32,10 @@ function getIssueMd (issue) {
 function getIssuesMd (issues) {
   return issues
     .map((issue, i) => {
-      if (argv.renumber) {
-        return {
-          ...issue,
-          title: `${_.padStart(i, 2, 0)} ${issue.title.slice(6)}`,
-        }
+      return {
+        ...issue,
+        title: argv.renumber ? `${_.padStart(i + 1, 2, 0)} ${issue.title.slice(6)}` : (argv.number ? issue.title : issue.title.slice(6))
       }
-      return issue
     })
     .map(issue => getIssueMd(issue))
     .join('\n\n')

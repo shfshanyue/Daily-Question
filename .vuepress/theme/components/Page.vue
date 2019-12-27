@@ -79,7 +79,7 @@ export default {
   },
   computed: {
     isLock () {
-      return this.lock ? Math.random() > 0.35 : false
+      return this.lock ? Math.random() > 0.5 : false
       /* return false */
     }
   },

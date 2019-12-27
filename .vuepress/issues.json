@@ -1735,7 +1735,17 @@
         "group": "base"
       }
     ],
-    "comment": null
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2ODkxNTczOQ==",
+      "body": "1. 多路复用\r\n1. 二进制分帧\r\n1. server push\r\n1. 头部压缩\r\n\r\n可参考文章 [http2 详解](https://juejin.im/post/5b88a4f56fb9a01a0b31a67e)",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU1MzA3MjU2Nzk=",
@@ -2958,7 +2968,17 @@
         "group": "fe"
       }
     ],
-    "comment": null
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2ODg1MDAwNw==",
+      "body": "在 `useEffect`，把第二个参数即依赖的状态，设置为 `[]`\r\n \r\n``` js\r\nuseEffect(callback, [])\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU1NDE1NzE2NTk=",
@@ -2989,6 +3009,59 @@
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDU2ODYxMDUxMw==",
       "body": "在 `http 1.1` 中，在响应头中设置 `keep-alive` 可以在一个 TCP 连接上发送多个 http 请求\r\n\r\n1. 避免了重开 TCP 连接的开销\r\n1. 避免了刷新时重新建立 SSL 连接的开销\r\n1. 避免了QPS过大时，服务器的连接数过大\r\n\r\n在服务器端使用响应头开启 `keep-alive`\r\n\r\n``` bash\r\nConnection: Keep-Alive\r\nKeep-Alive: timeout=5, max=1000\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU1NDIxMzQ2MTU=",
+    "number": 146,
+    "title": "【Q145】如何判断端口是否可达",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU0NzI4NDM2",
+        "name": "linux",
+        "group": "base"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2ODc1MjAzMA==",
+      "body": "使用 `nc`，`-z` 指测试接口连通性\r\n\r\n``` bash\r\nnc -vz localhost 443\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU1NDIyMjk1OTE=",
+    "number": 147,
+    "title": "【Q146】如果使用 SSR，可以在 created/componentWillMount 中访问 localStorage 吗",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU4MzQ3NDIy",
+        "name": "react",
+        "group": "fe"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjU4MzU0NDc5",
+        "name": "vue",
+        "group": "fe"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2ODgxNzY1Mw==",
+      "body": "不可以，created/componentWillMount 时，还未挂载，代码仍然在服务器中执行，此时没有浏览器环境，因此此时访问 localStorage 将会报错",
       "reactions": {
         "totalCount": 0
       },
