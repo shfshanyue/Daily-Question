@@ -140,7 +140,7 @@ const ISSUES_QUERY = `
             nodes {
               id
               body
-              reactions (content: THUMBS_UP) {
+              star: reactions (content: THUMBS_UP) {
                 totalCount
               }
               author {
@@ -193,8 +193,9 @@ getIssues().then(issues => {
   const labels = _.keyBy(LABELS, 'name')
   return issues.map(issue => {
     const comments = issue.comments.nodes
-    const _comment = _.maxBy(comments, 'reactions.totalCount') || comments[0] || null
-    const comment = _comment && (_comment.author.login === 'shfshanyue' || _comment.reactions.totalCount > 0) && _comment
+    const _comment = _.maxBy(comments, 'star.totalCount') || comments[0] || null
+    // 我的回答或者赞数大于0
+    const comment = _comment && (_comment.author.login === 'shfshanyue' || _comment.star.totalCount > 0) && _comment
     return {
       ..._.omit(issue, 'comments'),
       comment,

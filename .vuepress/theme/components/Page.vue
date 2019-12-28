@@ -33,7 +33,7 @@ function getCode () {
   if (localStorage.code) {
     return localStorage.code
   }
-  const code = Array.from(Array(4), x => random(0, 9)).join('')
+  const code = Math.random().toString().slice(2, 6)
   localStorage.code = code
   return code
 }

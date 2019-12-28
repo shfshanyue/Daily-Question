@@ -249,8 +249,9 @@ function getIssueMd (issue) {
   const body = issue.body && `::: tip 更多描述 \r\n ${issue.body} \r\n:::`
   const more = `::: tip Issue \r\n 欢迎在 Issue 中交流与讨论: [Issue ${issue.number}](https://github.com/shfshanyue/Daily-Question/issues/${issue.number}) \r\n:::`
   const comments = _.get(issue, 'comments.nodes', [])
-  const comment = comments.length > 0 ? (_.maxBy(comments, 'reactions.totalCount') || comments[0]).body : ''
-  const md = [title, body, more, comment].join('\r\n\r\n')
+  const comment = comments.length > 0 ? (_.maxBy(comments, 'reactions.totalCount') || comments[0]): ''
+  const author = comment ?  `::: tip Author \r\n回答者: [${comment.author.login}](${comment.author.url}) \r\n:::` : ''
+  const md = [title, body, more, author, comment.body].join('\r\n\r\n')
   return md
 }
 
