@@ -872,7 +872,17 @@
         "group": "server"
       }
     ],
-    "comment": false
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2OTQxMDczOQ==",
+      "body": "两种方案\r\n\r\n+ RDB，备份数据本身。因此粒度不够细，数据完整性也不是能够很好的保证。但是简单粗暴，适合大量数据\r\n+ AOF，备份命令本身。当恢复数据时，把所有写命令执行一遍即可恢复，粒度细，完整性好。正因为是命令，所以恢复速度慢\r\n\r\n如果需要持久化时，两种方案全开。\r\n\r\nPS：一般 redis 只用到缓存功能，无重要数据，如不涉及消息队列，则持久化可以关掉",
+      "star": {
+        "totalCount": 1
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU1MjQ4MzAwODA=",
@@ -2078,7 +2088,7 @@
         "group": "fe"
       }
     ],
-    "comment": null
+    "comment": false
   },
   {
     "id": "MDU6SXNzdWU1MzM3NTE1MTA=",
@@ -2555,7 +2565,7 @@
   {
     "id": "MDU6SXNzdWU1MzY3MzY1NTI=",
     "number": 124,
-    "title": "【Q123】如何监控文件系统的变动",
+    "title": "【Q123】如何监控文件的变动",
     "body": "当一个文件或者一个目录下的文件有所变动时能够监控到。\r\n\r\n如一些前端和后端项目在开发环境下会根据项目目录变动而重启或者重新编译",
     "labels": [
       {
@@ -2572,7 +2582,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDU2NDkwNDYwMQ==",
-      "body": "`inotify`",
+      "body": "`inotify`，但是内核对文件监控的数量也有限制，可以更改如下设置\r\n\r\n``` bash\r\nfs.inotify.max_user_watches = 524288\r\n```",
       "star": {
         "totalCount": 0
       },
@@ -3132,5 +3142,77 @@
       }
     ],
     "comment": null
+  },
+  {
+    "id": "MDU6SXNzdWU1NDMxMzgwMDQ=",
+    "number": 151,
+    "title": "【Q150】redis 中 zset 是什么，用作什么应用场景",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjY2OTk3OTM5",
+        "name": "redis",
+        "group": "server"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2OTQxMjcyNQ==",
+      "body": "`SortedSet`，有序集合，一般可以有两种用途\r\n\r\n1. 排行榜，TOP N 之类\r\n1. 优先级消息队列",
+      "star": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU1NDM3MDQxMDM=",
+    "number": 152,
+    "title": "【Q151】react hooks 如何替代或部分替代 redux 功能",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU4MzQ3NDIy",
+        "name": "react",
+        "group": "fe"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2OTcwNDI4MQ==",
+      "body": "我们把全局store分为两块\r\n\r\n1. 从服务器端来，如各种 `model`，此时可以使用 `swr` 直接替代。或者封装一个 `useModel`，如 `useUser`，`usePermission`\r\n1. 客户端全局 store，此时可以使用 `useReducer` 和 `useContext` 来替代",
+      "star": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU1NDM3MDQ5NTA=",
+    "number": 153,
+    "title": "【Q152】如何实现一个 react hook，你有没有自己写过一个",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU4MzQ3NDIy",
+        "name": "react",
+        "group": "fe"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2OTcwMzM1Nw==",
+      "body": "可以参考官方文档 <https://reactjs.org/docs/hooks-custom.html>\r\n\r\n自定义一个 `hook` 仅仅是一个以 `use` 打头，组合 `useState` 和 `useEffect` 或者其它 `hooks` 的一个普通函数",
+      "star": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   }
 ]

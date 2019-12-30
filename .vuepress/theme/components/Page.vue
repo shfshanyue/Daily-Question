@@ -7,10 +7,11 @@
       <div class="content-lock">
         <p>扫码关注公众号<span>全栈成长之路</span>，并发送 <span v-text="code"></span></p>
         <p>即可在关注期间<span>无限制</span>浏览本站全部文章内容</p>
-        <p>公众号将会分享前后端以及 DevOps 相关文章，帮助开发者打破瓶颈，走向全栈之路</p>
         <img src="./qr.jpg" width="180" height="180">
-        <p>（由于该提示信息随机出现，你也可以<span>再次刷新</span>页面，来浏览本文全部内容）</p>
-        <p>（你也可以通过修改一行代码来屏蔽该提示消息）</p>
+        <!-- <p>该提示信息随机出现，你可以<span>再次刷新</span>页面，来浏览本站全部文章</p> -->
+        <p>
+          你也可以在<a href="https://github.com/shfshanyue/op-note/blob/master/blog-to-wechat.md">关于回复公众号扫码解锁全站的技术实现</a>中获得解锁代码，永久解锁本站全部文章
+        </p>
       </div>
     </div>
     <PageEdit />
@@ -79,7 +80,7 @@ export default {
   },
   computed: {
     isLock () {
-      return this.lock ? Math.random() > 0.5 : false
+      return this.lock ? Math.random() > 0.01 : false
       /* return false */
     }
   },
