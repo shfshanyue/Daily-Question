@@ -10,7 +10,7 @@
         <img src="./qr.jpg" width="180" height="180">
         <!-- <p>该提示信息随机出现，你可以<span>再次刷新</span>页面，来浏览本站全部文章</p> -->
         <p>
-          你也可以在<a href="https://github.com/shfshanyue/op-note/blob/master/blog-to-wechat.md">关于回复公众号扫码解锁全站的技术实现</a>中获得解锁代码，永久解锁本站全部文章
+          你也可以在文章<a href="https://github.com/shfshanyue/op-note/blob/master/blog-to-wechat.md">关于回复公众号扫码解锁全站的技术实现</a>中获得解锁代码，永久解锁本站全部文章
         </p>
       </div>
     </div>
@@ -25,8 +25,6 @@
 <script>
 import PageEdit from '@theme/components/PageEdit.vue'
 import PageNav from '@theme/components/PageNav.vue'
-import random from 'lodash/random'
-import get from 'lodash/get'
 
 import request from '../util/api'
 

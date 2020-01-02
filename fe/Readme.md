@@ -47,3 +47,8 @@
 + [【Q142】react hooks 中如何模拟 componentDidMount](react/143.html)
 + [【Q146】如果使用 SSR，可以在 created/componentWillMount 中访问 localStorage 吗](react/147.html)
 + [【Q148】关于 JSON，以下代码输出什么](js/149.html)
++ [【Q151】react hooks 如何替代或部分替代 redux 功能](react/152.html)
++ [【Q152】如何实现一个 react hook，你有没有自己写过一个](react/153.html)
++ [【Q153】权限设计中的 RABC 是指什么](前端工程化/154.html)
++ [【Q154】在 react/vue 中数组是否可以以在数组中的次序为 key](react/155.html)
++ [【Q156】如何进行代码质量检测](前端工程化/157.html)

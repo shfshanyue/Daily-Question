@@ -13,3 +13,6 @@
 + [【Q100】如何使用 react/vue 实现一个 message API](101.html)
 + [【Q142】react hooks 中如何模拟 componentDidMount](143.html)
 + [【Q146】如果使用 SSR，可以在 created/componentWillMount 中访问 localStorage 吗](147.html)
++ [【Q151】react hooks 如何替代或部分替代 redux 功能](152.html)
++ [【Q152】如何实现一个 react hook，你有没有自己写过一个](153.html)
++ [【Q154】在 react/vue 中数组是否可以以在数组中的次序为 key](155.html)
