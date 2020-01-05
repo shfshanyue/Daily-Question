@@ -15,6 +15,10 @@ const LABELS = [
     group: 'open'
   },
   {
+    name: 'dom',
+    group: 'fe'
+  },
+  {
     name: 'node',
     group: 'fe'
   },

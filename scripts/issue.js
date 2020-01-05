@@ -1,8 +1,9 @@
 const _ = require('lodash')
 const argv = require('yargs')
   .string('n')
+  .number('c')
   .array('label')
-  .boolean(['renumber', 'issue', 'number'])
+  .boolean(['renumber', 'issue', 'number', 'comment'])
   .default('issue', true)
   .argv
 
@@ -50,8 +51,11 @@ function main() {
   }
   if (argv.label) {
     const labels = argv.label
-    const issues = _.flatMap(labels, label => issuesByLabel[label])
-    const md = getIssuesMd(_.sortBy(issues, 'number'))
+    const count = argv.c
+    const comment = count ? true : argv.comment
+    const issues = _.flatMap(labels, label => issuesByLabel[label]).filter(issue => comment ? issue.comment : true)
+    const filterIssues = count ? Array.from(Array(count), x => _.random(issues.length-1)).map(x => _.get(issues, x)) : issues
+    const md = getIssuesMd(_.sortBy(_.uniqBy(filterIssues, 'number'), 'number'))
     console.log(md)
   }
 }

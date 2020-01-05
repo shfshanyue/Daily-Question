@@ -217,6 +217,10 @@
         [
           "linux/146",
           "如何判断端口是否可达⭐️"
+        ],
+        [
+          "linux/163",
+          "如何禁止服务器被 ping"
         ]
       ]
     },
@@ -370,6 +374,10 @@
         [
           "db/25",
           "在 postgres 中，查询时如何对 jsonb 数据格式化⭐️"
+        ],
+        [
+          "db/159",
+          "数据库 postgres 与 mysql 相比有哪些优劣"
         ]
       ]
     },
@@ -563,6 +571,25 @@
       ]
     },
     {
+      "name": "dom",
+      "title": "dom",
+      "collabsable": false,
+      "children": [
+        [
+          "dom/",
+          "目录"
+        ],
+        [
+          "dom/161",
+          "如何设置一个 cookie"
+        ],
+        [
+          "dom/162",
+          "如何删除一个 cookie"
+        ]
+      ]
+    },
+    {
       "name": "html",
       "title": "html",
       "collabsable": false,
@@ -582,6 +609,10 @@
         [
           "html/127",
           "localhost:3000 与 localhost:5000 的 cookie 信息是否共享⭐️"
+        ],
+        [
+          "html/160",
+          "什么是 CSRF 攻击"
         ]
       ]
     },
@@ -629,6 +660,10 @@
         [
           "js/149",
           "关于 JSON，以下代码输出什么⭐️"
+        ],
+        [
+          "js/160",
+          "什么是 CSRF 攻击"
         ]
       ]
     },
