@@ -311,7 +311,7 @@
       "id": "MDEyOklzc3VlQ29tbWVudDU2ODk2MjY4Mg==",
       "body": "```js\r\nimport React, { useEffect, useState } from \"react\";\r\n\r\nfunction App() {\r\n    const [count, setCount] = useState(0);\r\n    useEffect(() => {\r\n        const timer = setInterval(() => {\r\n            setCount(count => count + 1)\r\n        }, 1000)\r\n\r\n        return () => {\r\n           clearInterval(timer)\r\n        }\r\n    }, [])\r\n\r\n    return <h1>{count}</h1>\r\n}\r\n```",
       "star": {
-        "totalCount": 3
+        "totalCount": 11
       },
       "author": {
         "login": "AlfredXuu",
@@ -1480,14 +1480,14 @@
       }
     ],
     "comment": {
-      "id": "MDEyOklzc3VlQ29tbWVudDU1OTYzNTY4OA==",
-      "body": "数据与UI的进一步分离，这样也更有利于 SSR",
+      "id": "MDEyOklzc3VlQ29tbWVudDU2OTA3NDAyNQ==",
+      "body": "- 虚拟 DOM 最大的优势在于抽象了原本的渲染过程，实现了跨平台的能力，而不仅仅局限于浏览器的 DOM，可以是安卓和 IOS 的原生组件，可以是近期很火热的小程序，也可以是各种 GUI。\r\n-  vdom 把渲染过程抽象化了，从而使得组件的抽象能力也得到提升，并且可以适配 DOM 以外的渲染目标。\r\n\r\n\r\n- Virtual DOM 在牺牲(牺牲很关键)部分性能的前提下，增加了可维护性，这也是很多框架的通性。\r\n实现了对 DOM 的集中化操作，在数据改变时先对虚拟 DOM 进行修改，再反映到真实的 DOM中，用最小的代价来更新DOM，提高效率(提升效率要想想是跟哪个阶段比提升了效率，别只记住了这一条)。\r\n- 打开了函数式 UI 编程的大门。\r\n- 可以渲染到 DOM 以外的端，使得框架跨平台，比如 ReactNative，React VR 等。\r\n- 可以更好的实现 SSR，同构渲染等。这条其实是跟上面一条差不多的。\r\n- 组件的高度抽象化。\r\n\r\n> 虚拟 DOM 的缺点\r\n- 首次渲染大量 DOM 时，由于多了一层虚拟 DOM 的计算，会比 innerHTML 插入慢。\r\n- 虚拟 DOM 需要在内存中的维护一份 DOM 的副本(更上面一条其实也差不多，上面一条是从速度上，这条是空间上)。\r\n- 如果虚拟 DOM 大量更改，这是合适的。但是单一的，频繁的更新的话，虚拟 DOM 将会花费更多的时间处理计算的工作。所以，如果你有一个DOM 节点相对较少页面，用虚拟 DOM，它实际上有可能会更慢。但对于大多数单页面应用，这应该都会更快。\r\n",
       "star": {
-        "totalCount": 0
+        "totalCount": 3
       },
       "author": {
-        "login": "shfshanyue",
-        "url": "https://github.com/shfshanyue"
+        "login": "libin1991",
+        "url": "https://github.com/libin1991"
       }
     }
   },
@@ -3386,6 +3386,74 @@
         "id": "MDU6TGFiZWwxNjU0NzI4NDM2",
         "name": "linux",
         "group": "base"
+      }
+    ],
+    "comment": null
+  },
+  {
+    "id": "MDU6SXNzdWU1NDU3MDExMDM=",
+    "number": 164,
+    "title": "【Q163】如何创建一个线程",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzQ1MjU2MzU2",
+        "name": "c",
+        "group": "server",
+        "alias": "C语言"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU3MjUzNTY3NQ==",
+      "body": "创建一个最简单的线程\r\n\r\n``` c\r\n#include <pthread.h>\r\n#include <stdio.h>\r\n#include <unistd.h>\r\n\r\nvoid *thread_function(void *arg) {\r\n  printf(\"hello, world\\n\");\r\n  sleep(10);\r\n}\r\n\r\nint main() {\r\n  pthread_t thread;\r\n\r\n  pthread_create(&thread, NULL, thread_function, NULL);\r\n  pthread_join(thread, NULL);\r\n}\r\n```\r\n\r\n执行它\r\n\r\n``` bash\r\n$ gcc thread.c -std=c99 -lpthread && ./a.out\r\nhello, world\r\n```",
+      "star": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU1NDc0Mzk3ODI=",
+    "number": 165,
+    "title": "【Q164】React 中 fiber 是用来做什么的",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU4MzQ3NDIy",
+        "name": "react",
+        "group": "fe"
+      }
+    ],
+    "comment": null
+  },
+  {
+    "id": "MDU6SXNzdWU1NDc1MTMwODM=",
+    "number": 166,
+    "title": "【Q165】什么是公有云，私有云，混合云以及多重云",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU2MTA0NTgx",
+        "name": "devops",
+        "group": "devops"
+      }
+    ],
+    "comment": null
+  },
+  {
+    "id": "MDU6SXNzdWU1NDc1MzA5OTA=",
+    "number": 167,
+    "title": "【Q166】在C语言中，void * 是什么意思",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzQ1MjU2MzU2",
+        "name": "c",
+        "group": "server",
+        "alias": "C语言"
       }
     ],
     "comment": null

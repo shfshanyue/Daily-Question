@@ -12,7 +12,7 @@
 
 ## 分类
 
-### 计算机与编程基础
+### [计算机与编程基础](https://q.shanyue.tech/base/)
 
 [计算机网络](https://q.shanyue.tech/base/network/) | 
 [算法与数据结构](https://q.shanyue.tech/base/algorithm/) | 
@@ -22,7 +22,7 @@
 [vim](https://q.shanyue.tech/base/vim/) | 
 [git](https://q.shanyue.tech/base/git/)
 
-### 前端
+### [前端](https://q.shanyue.tech/fe/)
 
 [CSS](https://q.shanyue.tech/fe/css/) |
 [Javascript](https://q.shanyue.tech/fe/js/) |
@@ -34,6 +34,7 @@
 
 ### 后端
 
+[C语言](https://q.shanyue.tech/server/c/) |
 [后端基础](https://q.shanyue.tech/server/server/) |
 [数据库](https://q.shanyue.tech/server/db/) |
 [Redis](https://q.shanyue.tech/server/redis/) |
@@ -81,6 +82,8 @@
 ## 相关推荐
 
 如果你对一些前端相关的技术文章、学习资料、招聘信息及其他有趣的东西感兴趣的话，可以关注目前在 `shopee` 工作的 [winty](https://github.com/LuckyWinty/blog) 妹子，也可以添加她的微信 `winty230`。
+
+如果你对 nodejs 感兴趣，可以关注 [考拉](https://github.com/koala-coding) 的博客：[程序员成长指北](http://www.inode.club/)
 
 ## 全栈成长
 
