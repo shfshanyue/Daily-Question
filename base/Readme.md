@@ -60,3 +60,4 @@
 + [【Q147】当在浏览器中看到某资源使用了 http2 后，使用 curl 为什么看到的仍是 http 1.1](http/148.html)
 + [【Q149】什么是队首阻塞，如何解决，原理如何](http/150.html)
 + [【Q162】如何禁止服务器被 ping](linux/163.html)
++ [【Q170】什么是文件描述符 (file descriptor)](os/171.html)
