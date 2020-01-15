@@ -35,3 +35,6 @@
 + [【Q163】如何创建一个线程](c/164.html)
 + [【Q166】在C语言中，void * 是什么意思](c/167.html)
 + [【Q167】每个指针所占的存储空间是多少](c/168.html)
++ [【Q172】C语言中 printf 与 puts 有什么区别](c/173.html)
++ [【Q174】TCP 三次握手发生在 socket 建立的哪一步](c/175.html)
++ [【Q180】当执行 SQL 语句 select * from user where id = 1 时发什么了什么](db/181.html)

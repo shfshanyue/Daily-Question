@@ -1,7 +1,7 @@
 # 目录
 + [【Q002】当 ping 一个 IP 地址时发生了什么](network/2.html)
 + [【Q004】如何获取一个进程的内存并监控](linux/4.html)
-+ [【Q025】简述 socket 建立的过程](network/26.html)
++ [【Q025】简述 TCP socket 建立的过程](network/26.html)
 + [【Q028】在linux中如何获取登录的用户](linux/29.html)
 + [【Q030】linux 中如何打印所有网络接口](linux/31.html)
 + [【Q035】http 常见的状态码有哪些](http/36.html)
@@ -61,3 +61,8 @@
 + [【Q149】什么是队首阻塞，如何解决，原理如何](http/150.html)
 + [【Q162】如何禁止服务器被 ping](linux/163.html)
 + [【Q170】什么是文件描述符 (file descriptor)](os/171.html)
++ [【Q171】在服务器内如何得知自己的公网IP](linux/172.html)
++ [【Q173】简述 UDP socket 建立的过程](network/174.html)
++ [【Q174】TCP 三次握手发生在 socket 建立的哪一步](network/175.html)
++ [【Q176】如何在数组中找出三个数之和为N](algorithm/177.html)
++ [【Q179】ssh 如何设置 IP whiteList](linux/180.html)

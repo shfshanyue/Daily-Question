@@ -60,6 +60,12 @@
 
 每当创建问题与回答问题时，官网将由 `github actions` 自动构建，并自动部署上线。当然，因为构建以及CDN刷新可能需要一些时间。至于更多的影响因素可以参考问题 [【Q094】你们的前端代码上线部署一次需要多长时间，需要人为干预吗](https://github.com/shfshanyue/Daily-Question/issues/95)
 
+## 模拟面试 (前端)
+
+在我的公众号 `全栈成长之路` 中回复关键字【面试】，将会随机生成大厂前端模拟面试题，点击链接可以查看答案
+
+![模拟面试](https://camo.githubusercontent.com/c6aefa9d0e275fa39f3447f62267c191c25a1da2/68747470733a2f2f6330312e676169747562616f2e6e65742f676169747562616f5f466c4f4d423637704b58552d444e6b6d4862455449714c6b655363332e706e673f696d6167654d6f6772322f7175616c6974792f3930)
+
 ## 面试经验
 
 + [17年面试记(阿里百度美团头条小米滴滴)](https://github.com/shfshanyue/Daily-Question/blob/master/interviews/2017.md)
@@ -100,7 +106,7 @@
 我是山月，你可以添加微信 `shanyue94` 与我交流，另外欢迎关注我的博客[山月行](https://shanyue.tech/)，我会在其中分享工作中遇到的一些前后端问题以及思考。以下是我的个人微信，欢迎交流与进群学习
 
 <div align="center">
-  <img src="https://shanyue.tech/we.png" width="300">
+  <img src="https://shanyue.tech/we.pngasf" width="300">
   <br>
   <sup>个人微信，备注日问，欢迎进群，每天学习一点点</sup>
 </div>
