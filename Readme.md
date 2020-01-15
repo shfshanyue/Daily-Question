@@ -91,6 +91,10 @@
 
 如果你对 nodejs 感兴趣，可以关注 [考拉](https://github.com/koala-coding) 的博客：[程序员成长指北](http://www.inode.club/)
 
+## 交流
+
+我是山月，你可以添加微信 `shanyue94` 与我交流，另外欢迎关注我的博客[山月行](https://shanyue.tech/)，我会在其中分享工作中遇到的一些前后端问题以及思考。
+
 ## 全栈成长
 
 以下是我的个人公众号【全栈成长之路】，我会在里边会写一些前后端及DevOps文章，帮助各位同学打破成长的瓶颈，欢迎关注
@@ -100,14 +104,3 @@
   <br>
   <sup>个人公众号:【全栈成长之路】</sup>
 </div>
-
-## 交流
-
-我是山月，你可以添加微信 `shanyue94` 与我交流，另外欢迎关注我的博客[山月行](https://shanyue.tech/)，我会在其中分享工作中遇到的一些前后端问题以及思考。以下是我的个人微信，欢迎交流与进群学习
-
-<div align="center">
-  <img src="https://shanyue.tech/we.pngasf" width="300">
-  <br>
-  <sup>个人微信，备注日问，欢迎进群，每天学习一点点</sup>
-</div>
-
