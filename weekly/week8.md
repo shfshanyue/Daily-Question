@@ -120,7 +120,7 @@ nc -vz localhost 443
 
 ## 关于 JSON，以下代码输出什么
 
-<blockquote> 更多描述: ``` js
+更多描述: ``` js
 const obj = {
   a: 3,
   b: 4,
@@ -130,7 +130,7 @@ const obj = {
 }
 
 console.log(JSON.stringify(obj))
-``` </blockquote>
+```
 
 > 在 Issue 中交流与讨论: [Issue 地址](https://github.com/shfshanyue/Daily-Question/issues/149)
 

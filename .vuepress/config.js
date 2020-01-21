@@ -1,9 +1,15 @@
+const _ = require('lodash')
 const header = require('./header')
+const issues = require('./issues')
+
+const issuesByNumber = _.keyBy(issues, 'number')
+
+const desc = '每天至少一个问题，有关前端，后端，graphql，devops，微服务以及软技能，促进个人职业成长，敲开大厂之门。'
 
 module.exports = {
   base: '/',
   title: '日问',
-  description: '勤学如春起之苗，不见其增，日有所长；辍学如磨刀之石，不见其损，日有所亏。',
+  description: desc,
   head: [
     ['link', { rel: 'shortcut icon', href: '/favicon.ico', type: 'image/x-icon' }]
   ],
@@ -34,6 +40,12 @@ module.exports = {
         ['week2', '全栈周刊第二期'],
         ['week3', '全栈周刊第三期'],
         ['week4', '全栈周刊第四期'],
+        ['week5', '全栈周刊第五期'],
+        ['week6', '全栈周刊第六期'],
+        ['week7', '全栈周刊第七期'],
+        ['week8', '全栈周刊第八期'],
+        ['week9', '全栈周刊第九期'],
+        ['week10', '全栈周刊第十期']
       ]
     },
     lastUpdated: 'Last Updated',
@@ -76,26 +88,18 @@ module.exports = {
           ]
         },
         extendPageData ($page) {
-          if ($page.frontmatter.keywords) {
-            const meta = $page.frontmatter.meta
-            $page.frontmatter.meta = meta ? [
-              ...meta,
-              {
-                name: 'keywords',
-                content: $page.frontmatter.keywords
-              }
-            ] : [
-              {
-                name: 'keywords',
-                content: $page.frontmatter.keywords
-              }
-            ]
-          }
-          if (/^\/(post|code)\/.+?$/.test($page.path)) {
-            $page.frontmatter.sidebar = 'auto'
-          }
-          if (/^\/op\/.+?$/.test($page.path)) {
-            $page.frontmatter.metaTitle = `${$page.title} | 个人服务器运维指南 | 山月行`
+          const number = $page.path.split(/[\/\.]/g)[3]
+          if (/\d+/.test(number)) {
+            const issue = _.get(issuesByNumber, number, {})
+            const labels = _.map(issue.labels, 'name').filter(_.identity)
+            $page.frontmatter.meta = [{
+              name: 'keywords',
+              content: ['大厂面试', '每日一题', ...labels].join(',')
+            }]
+            if (issue === null) {
+              console.log(number)
+            }
+            $page.frontmatter.description = issue.body | _.slice(_.get(issue.comment, 'body', desc), 0, 240) 
           }
         }
       }

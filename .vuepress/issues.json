@@ -222,14 +222,14 @@
       }
     ],
     "comment": {
-      "id": "MDEyOklzc3VlQ29tbWVudDU1MzE4Mjg3OQ==",
-      "body": "待答",
+      "id": "MDEyOklzc3VlQ29tbWVudDU2OTAxODI3NQ==",
+      "body": "错误不抛出，交给catch处理，然鹅并不能预先知道错误类型。。。",
       "star": {
-        "totalCount": 0
+        "totalCount": 1
       },
       "author": {
-        "login": "shfshanyue",
-        "url": "https://github.com/shfshanyue"
+        "login": "baihech",
+        "url": "https://github.com/baihech"
       }
     }
   },
@@ -551,7 +551,7 @@
   {
     "id": "MDU6SXNzdWU1MjA5NTU1MDI=",
     "number": 26,
-    "title": "【Q025】简述 socket 建立的过程",
+    "title": "【Q025】简述 TCP socket 建立的过程",
     "body": "",
     "labels": [
       {
@@ -565,7 +565,7 @@
       "id": "MDEyOklzc3VlQ29tbWVudDU1MzE4MjMyNQ==",
       "body": "一图胜千言\r\n\r\n![image](https://user-images.githubusercontent.com/13389461/68817970-5e11d000-06be-11ea-85ee-5d2496d14c63.png)\r\n",
       "star": {
-        "totalCount": 2
+        "totalCount": 3
       },
       "author": {
         "login": "shfshanyue",
@@ -2582,7 +2582,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDU2NDkwNDYwMQ==",
-      "body": "`inotify`，但是内核对文件监控的数量也有限制，可以更改如下设置\r\n\r\n``` bash\r\nfs.inotify.max_user_watches = 524288\r\n```",
+      "body": "1. 在 node 中调用 API `fs.watch`\r\n1. 在 linux 中原理是 `inotify`，macos 中原理是 `FSEvents`，windows 中原理是 ` ReadDirectoryChangesW`\r\n1. 由于内核对文件监控更加细粒度，更加敏感，当每次修改文件时可能触发内核多次调用，需要防抖\r\n1. 注意软链接，读写权限等文件系统属性\r\n\r\n可参考文章 [How to Watch for Files Changes in Node.js](https://thisdavej.com/how-to-watch-for-files-changes-in-node-js/) 及 [精读《如何利用 Nodejs 监听文件夹》](https://github.com/dt-fe/weekly/blob/v2/059.%E7%B2%BE%E8%AF%BB%E3%80%8A%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8%20Nodejs%20%E7%9B%91%E5%90%AC%E6%96%87%E4%BB%B6%E5%A4%B9%E3%80%8B.md)",
       "star": {
         "totalCount": 0
       },
@@ -3454,6 +3454,396 @@
         "name": "c",
         "group": "server",
         "alias": "C语言"
+      }
+    ],
+    "comment": null
+  },
+  {
+    "id": "MDU6SXNzdWU1NDg0MTM1MTQ=",
+    "number": 168,
+    "title": "【Q167】每个指针所占的存储空间是多少",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzQ1MjU2MzU2",
+        "name": "c",
+        "group": "server",
+        "alias": "C语言"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU3MzMwNDg5MQ==",
+      "body": "与字长有关。如果是64位系统，则占八个字节，32位系统，则占四个字节。可以用 `sizeof` 测试\r\n\r\n``` c\r\n#include <stdio.h>\r\n\r\nint main() {\r\n  int *p;\r\n\r\n  printf(\"size: %d\", sizeof(p));\r\n}\r\n```",
+      "star": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU1NDg3MTA3OTM=",
+    "number": 169,
+    "title": "【Q168】在 js 中如何把类数组转化为数组",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js",
+        "group": "fe"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU3MzY3MTY0Mg==",
+      "body": "首先，什么是类数组(Array Like)？\r\n\r\n**一个简单的定义，如果一个对象有 `length` 属性值，则它就是类数组**\r\n\r\n那常见的类数组有哪些呢？\r\n\r\n这在 DOM 中甚为常见，如各种元素检索 API 返回的都是类数组，如 `document.getElementsByTagName`，`document.querySelectorAll` 等等。除了 DOM API 中，常见的 `function` 中的 `arguments` 也是类数组\r\n\r\n那如何把类数组转化为数组呢？这是类数组操作时一个典型的场景，也是一个典型的面试题\r\n\r\n以下我们将以 `{ length: 3 }` 来指代类数组，来作为演示\r\n\r\n<!--more-->\r\n\r\n## ES6+\r\n\r\n`ES6` 中有现成的 API：`Array.from`，极为简单\r\n\r\n``` js\r\n// [undefined, undefined, undefined]\r\nArray.from({ length: 3 })\r\n```\r\n\r\n除了 `Array.from` 还有更简单的运算符 `...` 扩展运算符，不过它只能作用于 `iterable` 对象，即拥有 `Symbol(Symbol.iterator)` 属性值\r\n\r\n拥有 `Symbol(Symbol.iterator)` 属性值，意味着可以使用 `for of` 来循环迭代\r\n\r\n``` js\r\n// 适用于 iterable 对象\r\n[...document.querySelectorAll('div')]\r\n```\r\n\r\n但是严格意义上来说，它不能把类数组转化为数组，如 `{ length: 3 }`。它将会抛出异常\r\n\r\n``` js\r\n// Uncaught TypeError: object is not iterable (cannot read property Symbol(Symbol.iterator))\r\n[...{length: 3}]\r\n```\r\n\r\n## ES5\r\n\r\n在此之前，我们先不使用 `{ length: 3 }`，使用以下数据来代表类数组\r\n\r\n``` js\r\nconst arrayLike = {\r\n  0: 3,\r\n  1: 4,\r\n  2: 5,\r\n  length: 3\r\n}\r\n```\r\n\r\n在 `ES5` 中可以借用 `Array API` 通过 `call/apply` 改变 `this` 或者 `arguments` 来完成转化。\r\n\r\n最常见的转换是 `Array.prototype.slice`\r\n\r\n``` js\r\nArray.prototype.slice.call(arrayLike)\r\n```\r\n\r\n**当然由于借用 `Array API`，一切以数组为输入，并以数组为输出的 API 都可以来做数组转换，如**\r\n\r\n+ `Array` (借用 arguments)\r\n+ `Array.prototype.concat` (借用 arguments)\r\n+ `Array.prototype.slice` (借用 this)\r\n+ `Array.prototype.map` (借用 this)\r\n+ `Array.prototype.filter` (借用 this)\r\n\r\n``` js\r\nArray.apply(null, arrayLike)\r\nArray.prototype.concat.apply([], arrayLike)\r\nArray.prototype.slice.call(arrayLike)\r\nArray.prototype.map.call(arrayLike, x => x)\r\nArray.prototype.filter.call(arrayLike, x => 1)\r\n```\r\n\r\n此时一切正常，但是忘了一个特例，稀疏数组。在此之前，先做一个题，以下代码输出多少\r\n\r\n``` js\r\n// 该代码输出多少\r\nArray(100).map(x => 1)\r\n```\r\n\r\n> 参考 [Array(100).map(x => 1) 结果是多少](https://github.com/shfshanyue/Daily-Question/issues/170)\r\n\r\n## 稀疏数组 (sparse array)\r\n\r\n使用 `Array(n)` 将会创建一个稀疏数组，为了节省空间，稀疏数组内含非真实元素，在控制台上将以 `empty` 显示，如下所示\r\n\r\n`[,,,]` 与 `Array(3)` 都将返回稀疏数组\r\n\r\n``` js\r\n> [,,,]\r\n[empty × 3]\r\n> Array(3)\r\n[empty × 3]\r\n```\r\n\r\n当类数组为 `{ length: 3 }` 时，一切将类数组做为 `this` 的方法将都返回稀疏数组，而将类数组做为 `arguments` 的方法将都返回密集数组\r\n\r\n## 总结\r\n\r\n由上总结，把类数组转化成数组最靠谱的方式是以下三个\r\n\r\n``` js\r\nArray.from(arrayLike)\r\nArray.apply(null, arrayLike)\r\nArray.prototype.concat.apply([], arrayLike)\r\n```\r\n\r\n以下几种方式需要考虑稀疏数组的转化\r\n\r\n``` js\r\nArray.prototype.filter.call(divs, x => 1)\r\nArray.prototype.map.call(arrayLike, x => x)\r\nArray.prototype.filter.call(arrayLike, x => 1)\r\n```\r\n\r\n以下方法要注意是否是 `iterable object`\r\n\r\n``` js\r\n[...arrayLike]\r\n```",
+      "star": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU1NDg3MzAxNjc=",
+    "number": 170,
+    "title": "【Q169】Array(100).map(x => 1) 结果是多少",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js",
+        "group": "fe"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU3Mzk2MTEwNQ==",
+      "body": "> 那如何生成100个元素为1的数组呢？\r\n\r\n```ts\r\nArray(100).fill(1)\r\n```",
+      "star": {
+        "totalCount": 2
+      },
+      "author": {
+        "login": "Chersquwn",
+        "url": "https://github.com/Chersquwn"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU1NDg4MzUzMDY=",
+    "number": 171,
+    "title": "【Q170】什么是文件描述符 (file descriptor)",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjkxMDQ3MDQ2",
+        "name": "os",
+        "group": "base",
+        "alias": "操作系统"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU3MzU5OTE0MA==",
+      "body": "`fd` 在内核中通常表示为非负整数，当进程新建或者打开文件时，内核将会返回一个文件描述符，使用它可以用来读写文件。\r\n\r\n另外，新建 `socket` 时也会产生一个文件描述符。\r\n\r\n另外，有三个特殊的文件描述符，用以表示标准输入，标准输出及标准错误\r\n\r\n+ `STDIN_FILENO`: 0\r\n+ `STDOUT_FILENO`: 1\r\n+ `STDERR_FILENO`: 2",
+      "star": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU1NDkzNTkzNjc=",
+    "number": 172,
+    "title": "【Q171】在服务器内如何得知自己的公网IP",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU0NzI4NDM2",
+        "name": "linux",
+        "group": "base"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU3NDAyMzI2NQ==",
+      "body": "有现成的公网IP服务提供，根据 TCP 连接获得真实 IP 地址\r\n\r\n``` bash\r\n$ curl ifconfig.me\r\n```",
+      "star": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU1NDk0MTQ3MjE=",
+    "number": 173,
+    "title": "【Q172】C语言中 printf 与 puts 有什么区别",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzQ1MjU2MzU2",
+        "name": "c",
+        "group": "server",
+        "alias": "C语言"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU3NDA2NjU1Ng==",
+      "body": "```c\r\n// 支持各种格式\r\nint printf(const char *__restrict__ __format, ...);\r\n\r\n// 只支持字符串输出到 stdout，适用于只有字符串时\r\nint puts(const char *__s);\r\n```",
+      "star": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU1NDk0NTk5NDI=",
+    "number": 174,
+    "title": "【Q173】简述 UDP socket 建立的过程",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE0",
+        "name": "network",
+        "group": "base",
+        "alias": "计算机网络"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU3NDA5OTY3MQ==",
+      "body": "一图胜千言\r\n\r\n![image](https://user-images.githubusercontent.com/13389461/72334798-e3365700-36f8-11ea-9bd8-1bfd59118c01.png)\r\n",
+      "star": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU1NDk1MjUwMzc=",
+    "number": 175,
+    "title": "【Q174】TCP 三次握手发生在 socket 建立的哪一步",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzQ1MjU2MzU2",
+        "name": "c",
+        "group": "server",
+        "alias": "C语言"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE0",
+        "name": "network",
+        "group": "base",
+        "alias": "计算机网络"
+      }
+    ],
+    "comment": null
+  },
+  {
+    "id": "MDU6SXNzdWU1NDk1MjUzNDA=",
+    "number": 176,
+    "title": "【Q175】如何使用 css 写一个魔方",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIw",
+        "name": "css",
+        "group": "fe"
+      }
+    ],
+    "comment": null
+  },
+  {
+    "id": "MDU6SXNzdWU1NDk1NzgyNjA=",
+    "number": 177,
+    "title": "【Q176】如何在数组中找出三个数之和为N",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjkwMDg5OTM2",
+        "name": "algorithm",
+        "group": "base",
+        "alias": "算法与数据结构"
+      }
+    ],
+    "comment": null
+  },
+  {
+    "id": "MDU6SXNzdWU1NDk2MjY5NjQ=",
+    "number": 178,
+    "title": "【Q177】如何在 url 中传递数组",
+    "body": "可以参考 [arrays in query params](https://medium.com/raml-api/arrays-in-query-params-33189628fa68)",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js",
+        "group": "fe"
+      }
+    ],
+    "comment": null
+  },
+  {
+    "id": "MDU6SXNzdWU1NTAwMjQ0NjM=",
+    "number": 179,
+    "title": "【Q178】如何使用 css 写一个有 3D 效果的立方体",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIw",
+        "name": "css",
+        "group": "fe"
+      }
+    ],
+    "comment": null
+  },
+  {
+    "id": "MDU6SXNzdWU1NTAxNzM3ODM=",
+    "number": 180,
+    "title": "【Q179】ssh 如何设置 IP whiteList",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU0NzI4NDM2",
+        "name": "linux",
+        "group": "base"
+      }
+    ],
+    "comment": null
+  },
+  {
+    "id": "MDU6SXNzdWU1NTAyNDUxMTk=",
+    "number": 181,
+    "title": "【Q180】当执行 SQL 语句 select * from user where id = 1 时发什么了什么",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzEz",
+        "name": "db",
+        "group": "server",
+        "alias": "数据库"
+      }
+    ],
+    "comment": null
+  },
+  {
+    "id": "MDU6SXNzdWU1NTA4NjI4NDc=",
+    "number": 182,
+    "title": "【Q181】如何用一行代码实现 compose 函数",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js",
+        "group": "fe"
+      }
+    ],
+    "comment": null
+  },
+  {
+    "id": "MDU6SXNzdWU1NTEyNzc0MDg=",
+    "number": 183,
+    "title": "【Q182】简述 TCP 的四次挥手，三次挥手可以吗",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE0",
+        "name": "network",
+        "group": "base",
+        "alias": "计算机网络"
+      }
+    ],
+    "comment": false
+  },
+  {
+    "id": "MDU6SXNzdWU1NTEyOTEwMjA=",
+    "number": 184,
+    "title": "【Q183】tcp 中 time_wait 堆积过多会有什么问题，为什么它超时时间这么长",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE0",
+        "name": "network",
+        "group": "base",
+        "alias": "计算机网络"
+      }
+    ],
+    "comment": null
+  },
+  {
+    "id": "MDU6SXNzdWU1NTE3NzQ4OTE=",
+    "number": 185,
+    "title": "【Q184】有没有使用过 css variable，它解决了哪些问题",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIw",
+        "name": "css",
+        "group": "fe"
+      }
+    ],
+    "comment": null
+  },
+  {
+    "id": "MDU6SXNzdWU1NTE3ODAwOTM=",
+    "number": 186,
+    "title": "【Q185】谈谈你对 styled-component 的看法",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIw",
+        "name": "css",
+        "group": "fe"
+      }
+    ],
+    "comment": null
+  },
+  {
+    "id": "MDU6SXNzdWU1NTE5MTYyNTY=",
+    "number": 187,
+    "title": "【Q186】写一个关于全排列，全组合的函数",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjkwMDg5OTM2",
+        "name": "algorithm",
+        "group": "base",
+        "alias": "算法与数据结构"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDU3NjAwMTMxOA==",
+      "body": "## `Arragement`\r\n\r\n## `Combination`",
+      "star": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU1NTIyOTkyODU=",
+    "number": 188,
+    "title": "【Q187】当编辑 graphql 的 query 时，如何在编辑器中自动补全",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjkyOTk0Mjk2",
+        "name": "graphql",
+        "group": "server"
       }
     ],
     "comment": null
