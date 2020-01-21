@@ -1,8 +1,18 @@
 const _ = require('lodash')
 const header = require('./header')
 const issues = require('./issues')
+const labels = require('./labels')
 
 const issuesByNumber = _.keyBy(issues, 'number')
+const labelsByName = _.keyBy(labels, 'name')
+const GROUP_MAP = {
+  fe: '前端',
+  server: '后端',
+  devops: 'devops',
+  open: '开放式问题',
+  base: '计算机基础'
+}
+
 
 const desc = '每天至少一个问题，有关前端，后端，graphql，devops，微服务以及软技能，促进个人职业成长，敲开大厂之门。'
 
@@ -91,14 +101,16 @@ module.exports = {
           const number = $page.path.split(/[\/\.]/g)[3]
           if (/\d+/.test(number)) {
             const issue = _.get(issuesByNumber, number, {})
-            const labels = _.map(issue.labels, 'name').filter(_.identity)
+            const labels = _.flatMap(issue.labels, label => {
+              if (!label) { return null }
+              label = labelsByName[label.name]
+              const labels = [label.alias, label.name, GROUP_MAP[label.group]]
+              return labels
+            }).filter(_.identity)
             $page.frontmatter.meta = [{
               name: 'keywords',
               content: ['大厂面试', '每日一题', ...labels].join(',')
             }]
-            if (issue === null) {
-              console.log(number)
-            }
             $page.frontmatter.description = issue.body | _.slice(_.get(issue.comment, 'body', desc), 0, 240) 
           }
         }
