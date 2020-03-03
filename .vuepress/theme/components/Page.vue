@@ -27,6 +27,9 @@ import PageEdit from '@theme/components/PageEdit.vue'
 import PageNav from '@theme/components/PageNav.vue'
 
 import request from '../util/api'
+import isMobile from 'ismobilejs'
+
+const mobile = isMobile()
 
 function getCode () {
   if (localStorage.code) {
@@ -78,7 +81,7 @@ export default {
   },
   computed: {
     isLock () {
-      return this.lock ? Math.random() > 0.01 : false
+      return !mobile.any && this.lock ? Math.random() > 0.01 : false
       /* return false */
     }
   },

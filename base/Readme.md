@@ -72,3 +72,4 @@
 + [【Q188】大数乘法和大数加法](algorithm/189.html)
 + [【Q192】简述你们前端项目中资源的缓存配置策略](http/193.html)
 + [【Q199】如何判断文件中的换行符是 LF 还是 CRLF](linux/200.html)
++ [【Q206】no-cache 与 no-store 的区别是什么](http/207.html)

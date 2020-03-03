@@ -2,6 +2,8 @@
 
 我在 github 上新建了一个仓库 [日问](https://github.com/shfshanyue/Daily-Question)，每天一道面试题，有关前端，后端，devops以及软技能，促进职业成长，敲开大厂之门，欢迎交流
 
+在我的博客 [shfshanyue/blog](https://github.com/shfshanyue/blog) 会对比较难的问题进行讲解。
+
 并且记录我的面试经验
 
 + [前端面试题小记](https://q.shanyue.tech/fe/)
