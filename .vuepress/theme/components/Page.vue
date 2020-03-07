@@ -111,14 +111,14 @@ export default {
     font-weight 600
 
 .theme-default-content.lock
-  .content__default
-    :nth-child(3)
+  .content__default >
+    :nth-child(8)
       opacity .5
 
-    :nth-child(4)
+    :nth-child(9)
       opacity .2
 
-    :nth-child(n+5)
+    :nth-child(n+10)
       display none
 
   .content-lock
