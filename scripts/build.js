@@ -117,13 +117,18 @@ async function generateHeaders () {
   const allLabels = _.keyBy(LABELS, 'name')
   const headers = _.map(labels, label => {
     const children = _.get(label, 'issues.nodes').map(x => [`${label.name}/${x.number}`, x.title.slice(6) + (x.comments.totalCount ? '⭐️' : '')])
-    return {
-      name: label.name,
-      title: allLabels[label.name].alias || label.name,
-      collabsable: false,
-      children: [[`${label.name}/`, '目录'], ...children]
+    try {
+      return {
+        name: label.name,
+        title: allLabels[label.name].alias || label.name,
+        collabsable: false,
+        children: [[`${label.name}/`, '目录'], ...children]
+      }
+    } catch (e) {
+      console.log(label)
+      return
     }
-  })
+  }).filter(x => x)
   const groups = _.groupBy(_.sortBy(headers, 'name'), label => `/${allLabels[label.name].group}/`)
   for (const group of _.keys(groups)) {
     groups[group] = [
