@@ -1,5 +1,9 @@
 # 面经大全
 
+> 本文永久地址: [大厂面经大全](https://q.shanyue.tech/interview.html)，将会持续更新和补充
+
+> [每天一道面试题](https://github.com/shfshanyue/Daily-Question)
+
 ### 各大厂
 
 + [“寒冬”三年经验前端面试总结（含头条、百度、饿了么、滴滴等）](https://juejin.im/post/5d9c2005f265da5bb977c55e)
@@ -31,6 +35,8 @@
 
 ### 头条
 
++ [字节跳动今日头条前端面经（4轮技术面+hr面）(**超强实习生**)](https://juejin.im/post/5e6a14b1f265da572978a1d3)
++ [字节跳动 前端校招 一二三面+hr面](https://juejin.im/post/5e61136ee51d4527196d6019)
 + [半年工作经验今日头条和美团面试题面经分享](https://juejin.im/post/5b03e79951882542891913e8)
 + [2018头条春招前端实习生面试题目总结](https://juejin.im/post/5adc5d2f51882567183eb4a9)
 + [头条前端实习岗凉经有感](https://juejin.im/post/5ca463ae6fb9a05e6b44c6fd)
@@ -309,3 +315,20 @@
 + 【👍 104】[「面经：面试 ThoughtWorks | 掘金技术征文」](https://juejin.im/post/5acef99f6fb9a028d1417ce3)
 + 【👍 104】[年底面试之JavaScript总结（用心收集）](https://juejin.im/post/5e464c4ef265da5756324a2b)
 + 【👍 104】[前端面试题-设计一个弹窗](http://hpoenixf.com/前端面试题-设计一个弹窗.html)
+
+## 关注我
+
+欢迎关注公众号【互联网大厂招聘】，作者将在公众号里持续推送各个大厂的招聘职位及要求，并与大厂面试官以及招聘负责人直通，感兴趣的可以直接与负责人交流。
+
+另外，作者也将持续推送优质的大厂面试经验，各种大厂独家面试题以及优秀文章分享，不限于前端，后端，运维和系统设计。
+
+我在 github 上新建了一个仓库 [每日一题](https://github.com/shfshanyue/Daily-Question)，每天一道面试题，欢迎交流。
+
++ [前端面试题小记](https://q.shanyue.tech/fe/)
++ [计算机基础面试题小计](https://q.shanyue.tech/base/)
+
+![更多大厂招聘，面试面经，技能要求，请关注公众号【互联网大厂招聘】](http://mmbiz.qpic.cn/mmbiz_jpg/w7L7YMmnfhic7ooecF6PU5cGlHoakmTNBwKXf6VCC5TfAiagrmiahQ2kFxYLibPYgicicWsEgAFwsOrrOS16Bw2eml0w/0)
+
+扫码添加我的微信，一定要**备注面试**，进入面试群，或者与我交流。
+
+![加我微信拉你进入面试交流群](https://shanyue.tech/wechat.jpeg)
