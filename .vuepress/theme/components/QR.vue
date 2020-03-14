@@ -1,8 +1,8 @@
 <template>
   <div class="qr">
-    <img src="./qr.jpg" alt="山月行" width="120" height="120" loading="lazy">
+    <img src="http://mmbiz.qpic.cn/mmbiz_jpg/w7L7YMmnfhic7ooecF6PU5cGlHoakmTNBwKXf6VCC5TfAiagrmiahQ2kFxYLibPYgicicWsEgAFwsOrrOS16Bw2eml0w/0" alt="山月行" width="120" height="120" loading="lazy">
     <p class="we-intro">
-      如果你对前端，后端，DevOps，个人服务器或运维感兴趣的话，可以关注我的公众号<span class="we-highlight">全栈成长之路</span>。
+      欢迎关注公众号<span class="we-highlight">全栈成长之路</span>。如果你是大厂招聘负责人，欢迎投递内推信息。如果你是候选人，将持续为你推送大厂内推机会及面经。
     </p>
   </div>
 </template>
