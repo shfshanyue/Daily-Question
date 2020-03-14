@@ -15,7 +15,7 @@
   "devDependencies": {},
   "scripts": {
     "doc": "node scripts/build",
-    "issues": "node scripts/build-issues.js",
+    "issues": "node scripts/build.js",
     "dev": "vuepress dev",
     "build": "vuepress build",
     "ncu": "ncu"
