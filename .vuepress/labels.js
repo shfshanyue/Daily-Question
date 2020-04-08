@@ -14,6 +14,10 @@ module.exports = [
     group: 'open'
   },
   {
+    name: '爬虫',
+    group: 'server'
+  },
+  {
     name: 'node',
     group: 'fe'
   },
