@@ -1,6 +1,6 @@
 # 前端大厂面经
 
-> 本文永久地址: [大厂面经大全](https://q.shanyue.tech/interview.html)，将会持续更新和补充
+> 本文永久地址: [大厂面经大全](https://q.shanyue.tech/interviews/fe.html)，将会持续更新和补充
 
 > [每天一道面试题](https://github.com/shfshanyue/Daily-Question)
 
