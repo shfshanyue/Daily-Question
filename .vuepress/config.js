@@ -30,6 +30,7 @@ module.exports = {
       { text: '周刊', link: '/weekly/' },
       // { text: '三年面经', link: '/interviews/2018.html' },
       { text: '大厂面经', link: '/interview.html' },
+      { text: '大厂内推', link: '/infer/ali-ascp.md' },
       { text: '计算机基础', link: '/base/' },
       { text: '前端', link: '/fe/' },
       { text: '后端', link: '/server/' },
@@ -44,6 +45,19 @@ module.exports = {
         ['2017', '2017年面试记'],
         ['2018', '2018年面试记'],
         ['2019', '2019年面试记']
+      ],
+      '/infer/': [
+        {
+          "name": "阿里",
+          "title": "阿里",
+          "collabsable": false,
+          "children": [
+            [
+              "ali-ascp",
+              "供应链平台事业部"
+            ]
+          ]
+        }
       ],
       '/weekly/': [
         ['', '所有历史'],
