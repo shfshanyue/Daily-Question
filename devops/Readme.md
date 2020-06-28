@@ -18,3 +18,8 @@
 + [【Q143】docker-compose 部署 docker 时，如何把宿主机的环境变量注入到容器中](docker/144.html)
 + [【Q165】什么是公有云，私有云，混合云以及多重云](devops/166.html)
 + [【Q250】刚刚启动了一个服务，如何知道这个服务对应的端口号是多少](devops/252.html)
++ [【Q303】在 k8s 中如何自定义 CRD 资源](k8s/305.html)
++ [【Q304】service mesh 是什么，能够解决什么问题](k8s/306.html)
++ [【Q323】在 k8s 中如何通过日志查看某条请求进入的 pod](k8s/325.html)
++ [【Q352】k8s 中如何删除所有 Evicted 状态的 pod](k8s/355.html)
++ [【Q353】k8s 中 Deployment 与 StatefulSet 有什么区别](k8s/356.html)

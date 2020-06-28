@@ -174,7 +174,12 @@ async function generateMd () {
   for (const group of _.keys(GROUP_MAP)) {
     const title = '# 目录\n'
     const content = issues.filter(x => {
-      return x.labels.nodes.some(label => labels[label.name].group === group)
+      try {
+        return x.labels.nodes.some(label => labels[label.name].group === group)
+      } catch (e) {
+        console.log(x)
+        return true
+      }
     }).map(issue => {
       const labelName = issue.labels.nodes.filter(label => labels[label.name].group === group)[0].name
       return `+ [${issue.title}](${labelName}/${issue.number}.html)`

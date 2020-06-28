@@ -103,9 +103,22 @@ module.exports = [
     group: 'server',
   },
   {
+    name: 'serverless',
+    group: 'server',
+  },
+  {
     name: 'micro-service',
     alias: '微服务',
     group: 'server'
+  },
+  {
+    name: 'data-structure',
+    alias: '数据结构',
+    group: 'base'
+  },
+  {
+    name: 'shell',
+    group: 'base'
   },
   {
     name: 'webpack',
