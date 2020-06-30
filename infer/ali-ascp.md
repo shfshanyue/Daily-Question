@@ -41,15 +41,15 @@
 
 1. 图片防盗链原理是什么
 
-5. 随着 http2 的发展，webpack 有没有更好的打包方案
+1. 随着 http2 的发展，webpack 有没有更好的打包方案
 
 1. package-lock.json 有什么作用，如果项目中没有它会怎么样，举例说明
 
-6. 如何使用 react/vue 实现一个 message API
+1. 如何使用 react/vue 实现一个 message API
 
 1. 前端如何进行多分支部署
 
-6. 在 Node 应用中如何利用多核心CPU的优势
+1. 在 Node 应用中如何利用多核心CPU的优势
 
 ## 社招内推
 

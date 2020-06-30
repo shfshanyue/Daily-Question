@@ -54,7 +54,18 @@ module.exports = {
           "children": [
             [
               "ali-ascp",
-              "供应链平台事业部"
+              "供应链-平台事业部"
+            ]
+          ]
+        },
+        {
+          "name": "头条",
+          "title": "头条",
+          "collabsable": false,
+          "children": [
+            [
+              "toutiao-media-arch",
+              "字节跳动-视频架构-前端"
             ]
           ]
         }
