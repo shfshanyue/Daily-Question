@@ -68,6 +68,17 @@ module.exports = {
               "字节跳动-视频架构-前端"
             ]
           ]
+        },
+        {
+          "name": "腾讯",
+          "title": "腾讯",
+          "collabsable": false,
+          "children": [
+            [
+              "tencent-csig",
+              "腾讯-CSIG-智慧零售-前端"
+            ]
+          ]
         }
       ],
       '/weekly/': [

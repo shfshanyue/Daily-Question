@@ -30,16 +30,14 @@
 + [16年毕业的前端er在杭州求职ing](https://juejin.im/post/5a64541bf265da3e2d338862)
 + [面试分享：专科半年经验面试阿里前端P6+总结(附面试真题及答案)](https://juejin.im/post/5a92c23b5188257a6b06110b)
 + [三年前端，面试思考（头条蚂蚁美团offer）](https://juejin.im/post/5bd97627f265da39651c0a4b)
-+ [面试分享：2018阿里巴巴前端面试总结 | 掘金技术征文](https://juejin.im/post/5ab0da85f265da23866fb9b7)
 
 更多面经请转至 [大厂面经大全](https://q.shanyue.tech/interviews/fe.html)
 
 ### 头条
 
-+ [字节跳动今日头条前端面经（4轮技术面+hr面）(**超强实习生**)](https://juejin.im/post/5e6a14b1f265da572978a1d3)
++ [字节跳动今日头条前端面经（4轮技术面+hr面](https://juejin.im/post/5e6a14b1f265da572978a1d3)
 + [字节跳动 前端校招 一二三面+hr面](https://juejin.im/post/5e61136ee51d4527196d6019)
 + [半年工作经验今日头条和美团面试题面经分享](https://juejin.im/post/5b03e79951882542891913e8)
-+ [2018头条春招前端实习生面试题目总结](https://juejin.im/post/5adc5d2f51882567183eb4a9)
 
 更多面经请转至 [大厂面经大全](https://q.shanyue.tech/interviews/fe.html)
 
@@ -47,10 +45,15 @@
 
 + [腾讯前端面试篇（一）](https://juejin.im/post/5c19c1b6e51d451d1e06c163)
 + [腾讯校招前端三面,虐完继续撸|掘金技术征文](https://juejin.im/post/59c907d46fb9a00a4746e2db)
-+ [前端面经分享 | 腾讯](https://juejin.im/post/5ce9f666e51d45777621baf7)
 + [鹅厂视频部笔试及面试问题整理](https://juejin.im/post/5b2cd3f7e51d4558a75e857a)
 
 更多面经请转至 [大厂面经大全](https://q.shanyue.tech/interviews/fe.html)
+
+## 大厂内推
+
++ [阿里-供应链平台事业部-前端-校招/社招](https://q.shanyue.tech/infer/ali-ascp.html)
++ [字节-视频架构组-前端-社招](https://q.shanyue.tech/infer/toutiao-media-arch.html)
++ [腾讯-CSIG智慧零售-前端-社招](https://q.shanyue.tech/infer/tencent-csig.html)
 
 ## 大厂内推与大厂面经推送
 
@@ -60,7 +63,7 @@
   <img src="http://mmbiz.qpic.cn/mmbiz_jpg/w7L7YMmnfhic7ooecF6PU5cGlHoakmTNBwKXf6VCC5TfAiagrmiahQ2kFxYLibPYgicicWsEgAFwsOrrOS16Bw2eml0w/0" loading="lazy" width="260">
 </div>
 
-如果你想在网站及公众号上发布招聘，请添加我的微信 `shanyue-bot`，我将与你在以下几个方面进行讨论，并共同拟定模拟面试题在我公众号上发布招聘信息
+如果你想在网站及公众号上发布招聘，请添加我的微信 `shanyue-94`，我将与你在以下几个方面进行讨论，并共同拟定模拟面试题在我公众号上发布招聘信息
 
 1. 业务描述，及其业务发展与前景
 1. 职位描述，及其技术侧重于偏向
