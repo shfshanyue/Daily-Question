@@ -27,6 +27,12 @@
 ### [DevOps](https://q.shanyue.tech/devops/)
 ### [开放式问题](https://q.shanyue.tech/open/)
 
+## 大厂内推
+
++ [阿里-供应链平台事业部-前端-校招/社招](https://q.shanyue.tech/infer/ali-ascp.html)
++ [字节-视频架构组-前端-社招](https://q.shanyue.tech/infer/toutiao-media-arch.html)
++ [腾讯-CSIG智慧零售-前端-社招](https://q.shanyue.tech/infer/tencent-csig.html)
+
 ## 大厂面经
 
 ### 阿里
@@ -53,12 +59,6 @@
 
 更多面经请转至 [大厂面经大全](https://q.shanyue.tech/interviews/fe.html)
 
-## 大厂内推
-
-+ [阿里-供应链平台事业部-前端-校招/社招](https://q.shanyue.tech/infer/ali-ascp.html)
-+ [字节-视频架构组-前端-社招](https://q.shanyue.tech/infer/toutiao-media-arch.html)
-+ [腾讯-CSIG智慧零售-前端-社招](https://q.shanyue.tech/infer/tencent-csig.html)
-
 ## 大厂内推与大厂面经推送
 
 关注公众号【互联网大厂招聘】，将持续推送大厂的面试经验与大厂的内推，直达招聘负责人或团队负责人
@@ -67,7 +67,7 @@
   <img src="http://mmbiz.qpic.cn/mmbiz_jpg/w7L7YMmnfhic7ooecF6PU5cGlHoakmTNBwKXf6VCC5TfAiagrmiahQ2kFxYLibPYgicicWsEgAFwsOrrOS16Bw2eml0w/0" loading="lazy" width="260">
 </div>
 
-如果你想在网站及公众号上发布招聘，请添加我的微信 `shanyue-94`，我将与你在以下几个方面进行讨论，并共同拟定模拟面试题在我公众号上发布招聘信息
+如果你想在网站及公众号上发布招聘，请添加我的微信 `shanyue94`，我将与你在以下几个方面进行讨论，并共同拟定模拟面试题在我公众号上发布招聘信息
 
 1. 业务描述，及其业务发展与前景
 1. 职位描述，及其技术侧重于偏向
