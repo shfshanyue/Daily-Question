@@ -48,17 +48,6 @@ module.exports = {
       ],
       '/infer/': [
         {
-          "name": "阿里",
-          "title": "阿里",
-          "collabsable": false,
-          "children": [
-            [
-              "ali-ascp",
-              "供应链-平台事业部"
-            ]
-          ]
-        },
-        {
           "name": "头条",
           "title": "头条",
           "collabsable": false,
@@ -66,6 +55,21 @@ module.exports = {
             [
               "toutiao-media-arch",
               "字节跳动-视频架构-前端"
+            ],
+            [
+              "toutiao-dsp",
+              "字节跳动-海外广告-前端"
+            ]
+          ]
+        },
+        {
+          "name": "阿里",
+          "title": "阿里",
+          "collabsable": false,
+          "children": [
+            [
+              "ali-ascp",
+              "供应链-平台事业部"
             ]
           ]
         },
