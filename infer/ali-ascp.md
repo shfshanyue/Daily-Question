@@ -6,7 +6,7 @@
 
 最近一位阿里 P7 的朋友说道他们部门即**供应链平台事业部**在招人，于是我与他聊了下大致的方向如下
 
-![](https://user-gold-cdn.xitu.io/2020/4/19/17191d71e7c0c844?w=916&h=4019&f=png&s=1874255)
+![](./assets/ali-ascp-intro.png)
 
 图文太长，我简要总结一下，大佬很 nice，如果你要了解更多，可以拉到最后加他微信进一步了解
 
@@ -25,10 +25,9 @@
 
 ## 面试题自测
 
-![](https://user-gold-cdn.xitu.io/2020/4/19/17191dbdbde3c7f4?w=923&h=1085&f=png&s=754645)
+![](./assets/ali-ascp-interview.png)
 
-
-![](https://user-gold-cdn.xitu.io/2020/4/20/17197b013db2c6b8?w=718&h=248&f=png&s=87849)
+![](./assets/ali-ascp-interview2.png)
 
 另外，我与他也精心拟了一份面试题作为参考，主要偏向于本次招聘的方向。**可以答对一半就可以投递简历了**
 
@@ -61,5 +60,4 @@
 
 ## 个人微信投递简历：
 
-
-![](https://user-gold-cdn.xitu.io/2020/4/19/17191be088348117?w=512&h=512&f=png&s=261171)
+![](./assets/we-lemon.jpeg)
