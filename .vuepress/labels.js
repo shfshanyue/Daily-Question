@@ -81,6 +81,10 @@ module.exports = [
     group: 'base'
   },
   {
+    name: 'tcp',
+    group: 'base'
+  },
+  {
     name: 'docker',
     group: 'devops'
   },
