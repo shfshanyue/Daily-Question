@@ -26,3 +26,6 @@
 + [【Q341】为什么在 mysql 不能够使用 = null](344.html)
 + [【Q342】`A, B` 复合索引时，`A=? and B=?` 与 `B=? and A=?` 效果是否一致](345.html)
 + [【Q345】postgres 中 Index Scan 与 Index Only Scan 有何区别](348.html)
++ [【Q366】如何保存数据库与缓存的双写一致性](371.html)
++ [【Q379】你们的后端项目的数据库索引做了哪些优化](384.html)
++ [【Q381】什么是覆盖索引](386.html)

@@ -23,3 +23,7 @@
 + [【Q323】在 k8s 中如何通过日志查看某条请求进入的 pod](k8s/325.html)
 + [【Q352】k8s 中如何删除所有 Evicted 状态的 pod](k8s/355.html)
 + [【Q353】k8s 中 Deployment 与 StatefulSet 有什么区别](k8s/356.html)
++ [【Q400】如何评估一台服务器的 CPU 性能](devops/407.html)
++ [【Q407】什么是 CPU 缓存，如何查看缓存命中率](devops/414.html)
++ [【Q409】什么是 BNF 与 ABNF](devops/416.html)
++ [【Q413】如何在生产环境部署一个 Node 应用](devops/420.html)

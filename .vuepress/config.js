@@ -150,7 +150,7 @@ module.exports = {
             }).filter(_.identity)
             $page.frontmatter.meta = [{
               name: 'keywords',
-              content: ['大厂面试', '每日一题', ...labels].join(',')
+              content: ['大厂面试', ...labels, issue.title.slice(6)].join(',')
             }]
             $page.frontmatter.description = issue.body | _.slice(_.get(issue.comment, 'body', desc), 0, 240) 
           }
