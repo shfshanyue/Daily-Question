@@ -18,7 +18,7 @@ const desc = '每天至少一个问题，有关前端，后端，graphql，devop
 
 module.exports = {
   base: '/',
-  title: '日问',
+  title: '大厂面试每日一题',
   description: desc,
   head: [
     ['link', { rel: 'shortcut icon', href: '/favicon.ico', type: 'image/x-icon' }]
@@ -150,9 +150,9 @@ module.exports = {
             }).filter(_.identity)
             $page.frontmatter.meta = [{
               name: 'keywords',
-              content: ['大厂面试', ...labels, _.slice(issue.title, 6)].join(',')
+              content: ['大厂面试', ...labels, _.slice(issue.title, 6).join('')].join(',')
             }]
-            $page.frontmatter.description = issue.body || _.slice(_.get(issue.comment, 'body', desc), 0, 240) 
+            $page.frontmatter.description = issue.body || _.slice(_.get(issue.comment, 'body', desc), 0, 240).join('')
           }
         }
       }
