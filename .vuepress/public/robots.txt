@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://q.shanyue.tech/sitemap.xml

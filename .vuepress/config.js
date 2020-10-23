@@ -103,6 +103,11 @@ module.exports = {
     // displayAllHeaders: true
   },
   plugins: [
+    [
+      'sitemap', {
+        hostname: 'https://q.shanyue.tech'
+      },
+    ],
     [ 
       '@vuepress/google-analytics',
       {
