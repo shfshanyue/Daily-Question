@@ -21,7 +21,9 @@ module.exports = {
   title: '大厂面试每日一题',
   description: desc,
   head: [
-    ['link', { rel: 'shortcut icon', href: '/favicon.ico', type: 'image/x-icon' }]
+    ['link', { rel: 'shortcut icon', href: '/favicon.ico', type: 'image/x-icon' }],
+    // 设置 Google 的 Search Console
+    ['meta', { name: 'google-site-verification', content: '_rNB9Nt0ukzWmMfhXSSxCHUAeeMs24OiuhGm4QjdwXA'}]
   ],
   themeConfig: {
     repo: 'shfshanyue/Daily-Question',
@@ -145,6 +147,7 @@ module.exports = {
         },
         extendPageData ($page) {
           const number = $page.path.split(/[\/\.]/g)[3]
+
           // 根据 Issues 设置 TDK
           if (/\d+/.test(number)) {
             const issue = _.get(issuesByNumber, number, {})
@@ -157,6 +160,9 @@ module.exports = {
             $page.frontmatter.meta = [{
               name: 'keywords',
               content: ['大厂面试', ...labels, _.slice(issue.title, 6).join('')].join(',')
+            }, {
+              name: 'google-site-verification',
+              content: '_rNB9Nt0ukzWmMfhXSSxCHUAeeMs24OiuhGm4QjdwXA'
             }]
             $page.frontmatter.description = issue.body || _.slice(_.get(issue.comment, 'body', issue.title), 0, 240).join('')
           }

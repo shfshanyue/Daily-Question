@@ -430,3 +430,5 @@
 + [【Q429】实现一个函数用来解析 URL 的 querystring](../fe/js/436.html)
 + [【Q430】如何把 DOM 转化为图片](../fe/dom/437.html)
 + [【Q431】http 状态码 401 和 403 有什么区别](../base/http/438.html)
++ [【Q432】如何给 graphql 设计合理的 Rate Limit](../server/graphql/439.html)
++ [【Q433】在C语言中，void 是什么意思](../server/c/440.html)
