@@ -140,6 +140,7 @@ module.exports = {
         },
         extendPageData ($page) {
           const number = $page.path.split(/[\/\.]/g)[3]
+          // 根据 Issues 设置 TDK
           if (/\d+/.test(number)) {
             const issue = _.get(issuesByNumber, number, {})
             const labels = _.flatMap(issue.labels, label => {
@@ -152,7 +153,7 @@ module.exports = {
               name: 'keywords',
               content: ['大厂面试', ...labels, _.slice(issue.title, 6).join('')].join(',')
             }]
-            $page.frontmatter.description = issue.body || _.slice(_.get(issue.comment, 'body', desc), 0, 240).join('')
+            $page.frontmatter.description = issue.body || _.slice(_.get(issue.comment, 'body', issue.title), 0, 240).join('')
           }
         }
       }

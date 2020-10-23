@@ -190,7 +190,7 @@ async function generateMd () {
 
   // 创建 tag 目录
   for (const label of LABELS) {
-    const title = '# 目录\n'
+    const title = `# ${label.name}常见面试题总结\n`
     const content = issues.filter(x => {
       return x.labels.nodes.some(l => label.name === l.name)
     }).map(issue => {
