@@ -151,11 +151,26 @@ function getIssueMd (issue) {
   return md
 }
 
+// 逻辑和 getIssueMd 有重复，最好重写...
+async function generateIssues (issues) {
+  const newIssues = issues.map(issue => {
+    const comments = _.get(issue, 'comments.nodes', [])
+    const comment = comments.length > 0 ? (_.maxBy(comments, 'reactions.totalCount') || comments[0]): ''
+    labels = issue.labels.nodes.some(label => labels[label.name].group === group)
+    issue.comment = comment
+    issue.labels = labels
+    return _.omit(issue, ['comments'])
+  })
+  fs.writeFileSync(path.resolve(__dirname, '../.vuepress', 'issues.json'), JSON.stringify(newIssues, null, 2))
+}
+
 // 生成所有的 Markdown
 async function generateMd () {
   const issues = await getIssues()
   const labels = _.keyBy(LABELS, 'name')
   const dir = path.resolve(__dirname, '..')
+
+  generateIssues(issues)
 
   // 创建目录
   for (const label of LABELS) {
@@ -167,9 +182,6 @@ async function generateMd () {
     }
   }
 
-  // 所有的 Issue
-  const allIssues = _.keyBy(_.map(issues, issue => _.pick(issue, ['title', 'number'])), 'number')
-
   // 创建 category 目录
   for (const group of _.keys(GROUP_MAP)) {
     const title = '# 目录\n'
@@ -178,6 +190,7 @@ async function generateMd () {
         return x.labels.nodes.some(label => labels[label.name].group === group)
       } catch (e) {
         console.log(x)
+        console.log('这个 Issue 应该没有打标签')
         return true
       }
     }).map(issue => {
@@ -199,6 +212,8 @@ async function generateMd () {
     const md = title + content
     fs.writeFileSync(path.resolve(dir, label.group, label.name, 'Readme.md'), md)
   }
+
+  fs.writeFileSync(path.resolve(__dirname, '../.vuepress', 'issues.json'), JSON.stringify(issues, null, 2))
 
   // 创建 history.md
   const historyMd = '# 历史记录\n' + issues.map(issue => {
