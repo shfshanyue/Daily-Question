@@ -125,7 +125,7 @@ module.exports = {
               path: '/',
               frontmatter: {
                 home: true,
-                heroText: '日问',
+                heroText: '互联网大厂面试每日一题',
                 heroImage: './logo.png',
                 tagline: '山月的全栈进阶之路',
                 actionText: '历史记录  →',
