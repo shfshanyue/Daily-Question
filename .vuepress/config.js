@@ -157,9 +157,10 @@ module.exports = {
               const labels = [label.alias, label.name, GROUP_MAP[label.group]]
               return labels
             }).filter(_.identity)
+            const keywords = issue.title.slice(6).split(/[,，!！?？]/g)
             $page.frontmatter.meta = [{
               name: 'keywords',
-              content: ['大厂面试', ...labels, _.slice(issue.title, 6).join('')].join(',')
+              content: ['大厂面试', ...labels, ...keywords].join(',')
             }, {
               name: 'google-site-verification',
               content: '_rNB9Nt0ukzWmMfhXSSxCHUAeeMs24OiuhGm4QjdwXA'

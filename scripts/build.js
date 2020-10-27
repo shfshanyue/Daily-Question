@@ -156,10 +156,14 @@ async function generateIssues (issues) {
   const newIssues = issues.map(issue => {
     const comments = _.get(issue, 'comments.nodes', [])
     const comment = comments.length > 0 ? (_.maxBy(comments, 'reactions.totalCount') || comments[0]): ''
-    labels = issue.labels.nodes.some(label => labels[label.name].group === group)
-    issue.comment = comment
-    issue.labels = labels
-    return _.omit(issue, ['comments'])
+    labels = issue.labels.nodes
+    const x = {
+      ..._.omit(issue, ['comments']),
+      comment,
+      labels
+    }
+    console.log(x)
+    return x
   })
   fs.writeFileSync(path.resolve(__dirname, '../.vuepress', 'issues.json'), JSON.stringify(newIssues, null, 2))
 }
@@ -170,7 +174,7 @@ async function generateMd () {
   const labels = _.keyBy(LABELS, 'name')
   const dir = path.resolve(__dirname, '..')
 
-  generateIssues(issues)
+  await generateIssues(issues)
 
   // 创建目录
   for (const label of LABELS) {
@@ -190,6 +194,7 @@ async function generateMd () {
         return x.labels.nodes.some(label => labels[label.name].group === group)
       } catch (e) {
         console.log(x)
+        console.log(e)
         console.log('这个 Issue 应该没有打标签')
         return true
       }
@@ -213,10 +218,8 @@ async function generateMd () {
     fs.writeFileSync(path.resolve(dir, label.group, label.name, 'Readme.md'), md)
   }
 
-  fs.writeFileSync(path.resolve(__dirname, '../.vuepress', 'issues.json'), JSON.stringify(issues, null, 2))
-
   // 创建 history.md
-  const historyMd = '# 历史记录\n' + issues.map(issue => {
+  const historyMd = '# 互联网大厂面试题目汇总\n' + issues.map(issue => {
     try {
       return `+ [${issue.title}](../${labels[issue.labels.nodes[0].name].group}/${issue.labels.nodes[0].name}/${issue.number}.html)`
     } catch (e) {
