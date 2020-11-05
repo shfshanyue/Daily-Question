@@ -50,3 +50,4 @@
 + [【Q421】如何实现无限累加的一个函数](428.html)
 + [【Q422】JS 如何实现一个同步的 sleep 函数](429.html)
 + [【Q429】实现一个函数用来解析 URL 的 querystring](436.html)
++ [【Q435】JS 如何实现一个 sleep/delay 函数](442.html)

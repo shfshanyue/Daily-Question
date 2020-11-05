@@ -162,7 +162,6 @@ async function generateIssues (issues) {
       comment,
       labels
     }
-    console.log(x)
     return x
   })
   fs.writeFileSync(path.resolve(__dirname, '../.vuepress', 'issues.json'), JSON.stringify(newIssues, null, 2))
@@ -188,7 +187,7 @@ async function generateMd () {
 
   // 创建 category 目录
   for (const group of _.keys(GROUP_MAP)) {
-    const title = '# 目录\n'
+    const title = `# ${GROUP_MAP[group]}常见面试题总结\n`
     const content = issues.filter(x => {
       try {
         return x.labels.nodes.some(label => labels[label.name].group === group)

@@ -1,4 +1,4 @@
-# 历史记录
+# 互联网大厂面试题目汇总
 + [【Q001】网站开发中，如何实现图片的懒加载](../fe/html/1.html)
 + [【Q002】当 ping 一个 IP 地址时发生了什么](../base/network/2.html)
 + [【Q003】什么是防抖和节流，他们的应用场景有哪些](../fe/js/3.html)
@@ -432,3 +432,5 @@
 + [【Q431】http 状态码 401 和 403 有什么区别](../base/http/438.html)
 + [【Q432】如何给 graphql 设计合理的 Rate Limit](../server/graphql/439.html)
 + [【Q433】在C语言中，void 是什么意思](../server/c/440.html)
++ [【Q434】当服务器资源返回 304 时与那些 HTTP 响应头有关](../base/http/441.html)
++ [【Q435】JS 如何实现一个 sleep/delay 函数](../fe/js/442.html)

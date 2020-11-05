@@ -791,14 +791,14 @@
       }
     ],
     "comment": {
-      "id": "MDEyOklzc3VlQ29tbWVudDU1NDgxODIzMw==",
-      "body": "* 1XX 表示消息\r\n* 2XX 表示成功\r\n* 3XX 表示重定向\r\n* 4XX 表示客户端错误\r\n* 5XX 表示服务端错误\r\n\r\n#### 常见的状态码\r\n\r\n* 200\r\n> 最喜欢见到的状态码，表示请求成功\r\n\r\n* 301\r\n> 永久重定向\r\n\r\n* 302\r\n> 临时重定向\r\n\r\n* 304\r\n> 自上次请求，未修改的文件\r\n\r\n* 400\r\n> 错误的请求\r\n\r\n* 401\r\n> 未被授权，需要身份验证，例如token信息等等\r\n\r\n* 403\r\n> 请求被拒绝\r\n\r\n* 404\r\n> 资源缺失，接口不存在，或请求的文件不存在等等\r\n\r\n* 500\r\n> 服务器端的未知错误\r\n\r\n* 502\r\n> 网关错误\r\n\r\n* 503\r\n> 服务暂时无法使用\r\n",
+      "id": "MDEyOklzc3VlQ29tbWVudDcxNzI5NjU1MA==",
+      "body": "原文地址: <https://shanyue.tech/post/http-status.html>\r\n\r\n*   肯定会碰到: 101/200/301/302/304/400/404/502\r\n*   可能会碰到: 101/200/201/204/206/301/304/307/400/401/403/404/405/413/418/422/429/500/501/502/503/504\r\n\r\n101 Switch Protocol\r\n-------------------\r\n\r\n升级协议，如从 http 到 ws，此时需要反向代理支持，如 Nginx，在 Nginx 配置 websockt 如下:\r\n\r\n```\r\nlocation / {\r\n  proxy_http_version 1.1;\r\n  proxy_set_header Upgrade $http_upgrade;\r\n  proxy_set_header Connection  $connection_upgrade;\r\n}\r\n\r\n\r\n```\r\n\r\n示例:\r\n\r\n![101](https://shanyue.tech/assets/img/101.071b734b.png)\r\n\r\n200 Ok\r\n------\r\n\r\n表示资源请求成功，也是最常见到的状态码\r\n\r\n示例:\r\n\r\n```\r\n$ curl https://shanyue.tech --head\r\nHTTP/2 200\r\n\r\n\r\n```\r\n\r\n201 Created\r\n-----------\r\n\r\n资源创建成功，多用于 POST 请求\r\n\r\n204 No Content\r\n--------------\r\n\r\n响应不会返回 Body，一般由以下两种情况\r\n\r\n1.  与 Options/Delete 请求搭配\r\n2.  打点类\r\n\r\n示例一: 掘金为 Options 请求的状态码设置为 204\r\n\r\n![掘金为 Options 请求的状态码设置为 204](https://shanyue.tech/assets/img/204.5355a3b7.png)\r\n\r\n示例二: 知乎为 Delete 请求的状态码设置为 204，以下请求为取消关注\r\n\r\n![掘金为 Delete 请求的状态码设置为 204](https://shanyue.tech/assets/img/204-del.ee530dd7.png)\r\n\r\n示例三: 当你在知乎看段子时，不妨打开控制台，会发现一个是 204 的状态码\r\n\r\n```\r\n\r\ncurl 'https://www.zhihu.com/sc-profiler' \\\r\n  -H 'content-type: application/json' \\\r\n  --data-binary '[[\"i\",\"production.heifetz.main.desktop.v1.Collector.screen.1536_960.count\",1,1]]' \\\r\n  --compressed -vvv\r\n< HTTP/2 204\r\n< server: CLOUD ELB 1.0.0\r\n< date: Thu, 22 Oct 2020 07:46:30 GMT\r\n< content-type: text/html\r\n< vary: Accept-Encoding\r\n< x-backend-response: 0.002\r\n< cache-control: no-cache, no-store, must-revalidate, private, max-age=0\r\n\r\n\r\n```\r\n\r\n206 Partial Content\r\n-------------------\r\n\r\n当请求多媒体数据数据较大时，会进行分片传输。当你在B站观看视频，打开开发者工具，会发现许多 206 状态码以及响应头 Content-Range\r\n\r\n示例:\r\n\r\n![B站上的视频资源请求状态码为206](https://shanyue.tech/assets/img/206.94474e79.png)\r\n\r\n301 Moved Permanently\r\n---------------------\r\n\r\n永久重定向。http 转向 https时，有时会使用 301，如 B 站。\r\n\r\n```\r\n$ curl www.bilibili.com -vvv\r\n< HTTP/1.1 301 Moved Permanently\r\n< Server: Tengine\r\n< Date: Thu, 22 Oct 2020 08:04:59 GMT\r\n< Content-Type: text/html\r\n< Content-Length: 239\r\n< Connection: keep-alive\r\n< Location: https://www.bilibili.com/\r\n\r\n\r\n```\r\n\r\n302 Found\r\n---------\r\n\r\n暂时重定向。http 转向 https时，有时也会使用 302，如知乎\r\n\r\n```\r\n$ curl www.zhihu.com -vvv\r\n< HTTP/1.1 302 Found\r\n< Location: https://www.zhihu.com/\r\n< Content-Length: 0\r\n< X-NWS-LOG-UUID: 16068764905156850032\r\n< Connection: keep-alive\r\n< Server: Lego Server\r\n< Date: Thu, 22 Oct 2020 08:20:29 GMT\r\n< X-Cache-Lookup: Return Directly\r\n\r\n\r\n```\r\n\r\n304 Not Modified\r\n----------------\r\n\r\n资源已被缓存，与之相关的响应头部有：\r\n\r\n*   `ETag`\r\n*   `last-modified`/`if-modified-since`\r\n\r\n一般用作 `index.html` 等不带 hash 的资源，由于示例太多，这里就不举例了\r\n\r\n307 Temporary Redirect\r\n----------------------\r\n\r\n暂时重定向。也可作为 http 到 https 的重定向。还有一种用途用作 HSTS，当谷歌浏览器发现某 http 资源已被加入到 HSTS 列表，浏览器内部会通过 307 作重定向\r\n\r\n示例:\r\n\r\n![山月个人博客网站的 HSTS](https://shanyue.tech/assets/img/307-shanyue.5f2e9bb3.png)\r\n\r\n![Stackoverflow 中的307](https://shanyue.tech/assets/img/307-stack.914347b0.png)\r\n\r\n> [http 状态码中 301，302和307有什么区别](https://github.com/shfshanyue/Daily-Question/issues/37)\r\n\r\n*   301，Moved Permanently。永久重定向，该操作比较危险，需要谨慎操作：如果设置了301，但是一段时间后又想取消，但是浏览器中已经有了缓存，还是会重定向。\r\n*   302，Found。临时重定向，但是会在重定向的时候改变 method: 把 POST 改成 GET，于是有了 307\r\n*   307，Temporary Redirect。临时重定向，在重定向时不会改变 method\r\n\r\n400 Bad Request\r\n---------------\r\n\r\n对于服务器无法理解的参数，将会使用 400 作为返回码\r\n\r\n示例一: 当 Content-Type: JSON 时，服务器解析 JSON 却失败\r\n\r\n```\r\nHTTP/1.1 400 Bad Request\r\nContent-Length: 35\r\n\r\n{\"message\":\"Problems parsing JSON\"}\r\n\r\n\r\n```\r\n\r\n401 Unauthorized\r\n----------------\r\n\r\n当没有权限的用户请求需要带有权限的资源时，会返回 401，此时携带正确的权限凭证再试一次可以解决问题\r\n\r\n有时认证失败也会返回 401\r\n\r\n示例一: 知乎登录时密码不正确\r\n\r\n![知乎登录失败时](https://shanyue.tech/assets/img/401.bd2d099f.png)\r\n\r\n示例二: Github中错误的凭证信息请求带权限资源\r\n\r\n```\r\n$ curl -i https://api.github.com -u foo:bar\r\n> HTTP/1.1 401 Unauthorized\r\n\r\n> {\r\n>   \"message\": \"Bad credentials\",\r\n>   \"documentation_url\": \"https://developer.github.com/v3\"\r\n> }\r\n\r\n\r\n```\r\n\r\n403 Forbidden\r\n-------------\r\n\r\n我就是不想让你访问，不管你的权限凭证是否正确！\r\n\r\n> In summary, a 401 Unauthorized response should be used for missing or bad authentication, and a 403 Forbidden response should be used afterwards, when the user is authenticated but isn’t authorized to perform the requested operation on the given resource.\r\n\r\n*   [403与401状态码有什么区别](https://stackoverflow.com/questions/3297048/403-forbidden-vs-401-unauthorized-http-responses)\r\n\r\n404 Not Found\r\n-------------\r\n\r\n未找到资源\r\n\r\n405 Method Not Allowed\r\n----------------------\r\n\r\n我需要 POST 这条资源，你去 GET 个锤子\r\n\r\n413 Payload Too Large\r\n---------------------\r\n\r\n不要给我扔这么大的 Body，我处理不过来\r\n\r\n418 I'm A Teapot\r\n----------------\r\n\r\n我是一个茶壶\r\n\r\n我要抛咖啡，你却扔给我一个茶壶？\r\n\r\n也可以用来处理不合法的参数校验，我想要个字符串，你给了我一个整数？\r\n\r\n422 Unprocessable Entity\r\n------------------------\r\n\r\n常用来处理不合法的参数校验。\r\n\r\nGithub 上给某个项目点赞时，故意设置一个不正确的参数命名，会返回状态码 422\r\n\r\n![422](https://shanyue.tech/assets/img/422.c4c88739.png)\r\n\r\n429 Too Many Request\r\n--------------------\r\n\r\n请求过多被限流。\r\n\r\n超过某一个 API 的 Rate Limit 规则，会被限流，返回 429 状态码\r\n\r\n示例: 在 Sentry 中异常上报过于频繁被限流\r\n\r\n500 Internal Server Error\r\n-------------------------\r\n\r\n服务器内部错误，很有可能是应用层未捕获错误而导致整个服务挂掉\r\n\r\n502 Bad Gateway\r\n---------------\r\n\r\nNginx 上常见，从上游应用层未返回响应，上游应用层挂了\r\n\r\n## 503 Service Unavailable\r\n\r\n由于大量流量造成服务忙，稍等一下说不定就能用了\r\n\r\n## 504 Gateway Timeout\r\n\r\n网关超时，上游应用层迟迟未响应\r\n\r\n",
       "reactions": {
         "totalCount": 1
       },
       "author": {
-        "login": "jiayankai",
-        "url": "https://github.com/jiayankai"
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
       }
     }
   },
@@ -1679,14 +1679,14 @@
       }
     ],
     "comment": {
-      "id": "MDEyOklzc3VlQ29tbWVudDU2NTg5MTI5OA==",
-      "body": "强缓存 协商缓存",
+      "id": "MDEyOklzc3VlQ29tbWVudDcyMDg4ODE1OA==",
+      "body": "Http 缓存分为以下两种，两者都是通过 HTTP 响应头控制缓存\r\n\r\n1. 强制缓存\r\n1. 协商缓存\r\n\r\n## 强制缓存\r\n\r\n再次请求时无需再向服务器发送请求\r\n\r\n``` bash\r\n              client         server\r\nGET /a.ab389z.js ------->\r\n                      <------- 200 OK\r\n(再也不会发请求)\r\n```\r\n\r\n与之相关的 Response Headers 有以下几个\r\n\r\n+ `Expires`\r\n\r\n  这个头部也是丧心病狂：使用绝对时间，且有固定的格式 <https://tools.ietf.org/html/rfc822#section-5.1>\r\n\r\n  ``` bash\r\n  Expires: Mon, 25 Oct 2021 20:11:12 GMT\r\n  ```\r\n\r\n+ `Cache-Control`，具有强大的缓存控制能力\r\n\r\n  常用的有以下两个\r\n\r\n  + `no-cache`，每次请求需要校验服务器资源的新鲜度\r\n  + `max-age=31536000`，浏览器在一年内都不需要向服务器请求资源\r\n\r\n## 协商缓存\r\n\r\n再次请求时，需要向服务器校验新鲜度，如果资源是新鲜的，返回 304，从浏览器获取资源\r\n\r\n``` bash\r\n           client         server\r\nGET /a.js   ----------->\r\n                   <----------- 200 OK\r\nGET /a.js   ----------->\r\n                   <----------- 304 Not Modified\r\n```\r\n\r\n与之相关的 Response Headers 有以下几个\r\n\r\n+ `Last-Modified`/`Modified-Since`\r\n+ `Etag`",
       "reactions": {
-        "totalCount": 0
+        "totalCount": 1
       },
       "author": {
-        "login": "Owner-X",
-        "url": "https://github.com/Owner-X"
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
       }
     }
   },
@@ -2386,10 +2386,10 @@
       }
     ],
     "comment": {
-      "id": "MDEyOklzc3VlQ29tbWVudDU2MzkyNTM2Ng==",
-      "body": "不一定，由服务器中 `ETag` 的生成算法决定。详见 [#112](https://github.com/shfshanyue/Daily-Question/issues/112)\r\n\r\n比如 `nginx` 中的 `etag` 由 `last_modified` 与 `content_length` 组成，而 `last_modified` 又由 `mtime` 组成\r\n\r\n当编辑文件却未更改文件内容时，或者 `touch file`，`mtime` 也会改变，此时 `etag` 改变，但是文件内容没有更改。",
+      "id": "MDEyOklzc3VlQ29tbWVudDcxNjI2NzE4MA==",
+      "body": "> 比如 nginx 中的 etag 由 last_modified 与 content_length 组成，而 last_modified 又由 mtime 组成。\r\n> \r\n> 那Etag是怎么解决last_modified，当编辑文件却未更改文件时间的问题？\r\n\r\n1. 此时文件大小有可能发生更改，ETag 会改变\r\n1. 此时文件大小没有发生更改，ETag 不会改变。但这需要极其苛刻的条件：1s 内更改文件，并且保持文件大小不变。这种情况出现概率很低，因此忽略了",
       "reactions": {
-        "totalCount": 0
+        "totalCount": 1
       },
       "author": {
         "login": "shfshanyue",
@@ -4289,7 +4289,7 @@
       "id": "MDEyOklzc3VlQ29tbWVudDU5OTE5MjU5MA==",
       "body": "no-cache 可以在本地缓存，可以在代理服务器缓存，但是这个缓存要服务器验证才可以使用 \r\nno-store 是禁用缓冲，本地和代理服务器都不缓冲，每次都从服务器获取",
       "reactions": {
-        "totalCount": 2
+        "totalCount": 1
       },
       "author": {
         "login": "lijiayi01",
@@ -7421,7 +7421,17 @@
         "name": "react"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDcyMDg3MTg1OA==",
+      "body": "react16\r\n1.setstae 以后会把update队列加入到mount 里面 如果他在生命周期里面 其实他是进行批量去更新的 如果他是在生命周期里面去set 其实数据同步的。如果想要拿到最新的就需要脱离react生命周期，和react事件流 比如在setTimeout里面set值 他拿到的数据就是最新的。",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "hqylss111",
+        "url": "https://github.com/hqylss111"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU2NzI3MzYwMTU=",
@@ -8485,5 +8495,41 @@
         "url": "https://github.com/shfshanyue"
       }
     }
+  },
+  {
+    "id": "MDU6SXNzdWU3MzMyNjMxMjI=",
+    "number": 441,
+    "title": "【Q434】当服务器资源返回 304 时与那些 HTTP 响应头有关",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjgwMDkyMDA5",
+        "name": "http"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDcxOTYzNTkyNg==",
+      "body": "304 Not Modified，表示资源没有发生过改变。\r\n与协商缓存有关，也就是Last-Modify和Etag两个http响应头，在获取资源之前先判断缓存资源是否发生过改变。\r\nno-cache表示使用缓存资源时，都向服务器请求验证。\r\nno-store才表示不使用任何形式的缓存。",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "buzuosheng",
+        "url": "https://github.com/buzuosheng"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU3MzQxNTU5OTE=",
+    "number": 442,
+    "title": "【Q435】JS 如何实现一个 sleep/delay 函数",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": ""
   }
 ]

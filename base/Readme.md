@@ -1,4 +1,4 @@
-# 目录
+# 计算机基础常见面试题总结
 + [【Q002】当 ping 一个 IP 地址时发生了什么](network/2.html)
 + [【Q004】如何获取一个进程的内存并监控](linux/4.html)
 + [【Q025】简述 TCP socket 建立的过程](network/26.html)
@@ -117,3 +117,4 @@
 + [【Q426】TCP 报文中的选项 Window scale 是什么意思](tcp/433.html)
 + [【Q427】TCP 报文中的 ack number 如何计算](tcp/434.html)
 + [【Q431】http 状态码 401 和 403 有什么区别](http/438.html)
++ [【Q434】当服务器资源返回 304 时与那些 HTTP 响应头有关](http/441.html)
