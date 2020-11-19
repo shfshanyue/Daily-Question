@@ -14,9 +14,9 @@
 
 ---
 
-> 说到个人服务器，如果你是新人的话，在阿里云有优惠，这里有连接进行购买：[阿里云新人优惠服务器](https://www.aliyun.com/minisite/goods?userCode=4sm8juxu)。可以跟着我的系列文章 [跟着山月管理个人服务器](https://shanyue.tech/op/) 来学习。如果你对服务器完全没有概念，建议购买配置 `1核2G`，也就八十来快钱。如果对云主机有所了解，建议购买配置 `2核4G`。
+> 说到个人服务器，如果你是新人的话，在阿里云有优惠，这里有连接进行购买：[阿里云新人优惠服务器](https://www.aliyun.com/1111/pintuan-share?ptCode=MTY5MzQ0Mjc1MzQyODAwMHx8MTE0fDE%3D&userCode=4sm8juxu)。可以跟着我的系列文章 [跟着山月管理个人服务器](https://shanyue.tech/op/) 来学习。如果你对服务器完全没有概念，建议购买配置 `1核2G`，也就八十来快钱。如果对云主机有所了解，建议购买配置 `2核4G`。
 
-+ **[阿里云新人优惠服务器](https://www.aliyun.com/minisite/goods?userCode=4sm8juxu)**
++ **[阿里云新人优惠服务器](https://www.aliyun.com/1111/pintuan-share?ptCode=MTY5MzQ0Mjc1MzQyODAwMHx8MTE0fDE%3D&userCode=4sm8juxu)**
 + **[跟着山月管理个人服务器](https://shanyue.tech/op/)**
 
 ## 分类
