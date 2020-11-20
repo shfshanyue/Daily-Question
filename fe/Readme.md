@@ -199,3 +199,5 @@
 + [【Q429】实现一个函数用来解析 URL 的 querystring](js/436.html)
 + [【Q430】如何把 DOM 转化为图片](dom/437.html)
 + [【Q435】JS 如何实现一个 sleep/delay 函数](js/442.html)
++ [【Q436】如何实现一个 sample 函数，从数组中随机取一个元素](js/443.html)
++ [【Q437】浏览器的剪切板中如何监听复制事件](dom/444.html)

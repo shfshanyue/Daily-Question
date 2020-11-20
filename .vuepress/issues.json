@@ -14,7 +14,7 @@
       "id": "MDEyOklzc3VlQ29tbWVudDU0OTEzMzE0NQ==",
       "body": "懒加载，顾名思义，在当前网页，滑动页面到能看到图片的时候再加载图片\r\n\r\n故问题拆分成两个：\r\n\r\n1. 如何判断图片出现在了当前视口 （即如何判断我们能够看到图片）\r\n2. 如何控制图片的加载\r\n\r\n## 方案一\r\n\r\n### 如何判断图片出现在了当前视口\r\n\r\n`clientTop`，`offsetTop`，`clientHeight` 以及 `scrollTop` 各种关于图片的高度作比对\r\n\r\n这些高度都代表了什么意思？\r\n\r\n这我以前有可能是知道的，那时候我比较单纯，喜欢死磕。我现在想通了，背不过的东西就不要背了\r\n\r\n**所以它有一个问题：复杂琐碎不好理解！**\r\n\r\n仅仅知道它静态的高度还不够，我们还需要知道动态的\r\n\r\n**如何动态？监听 `window.scroll` 事件**\r\n\r\n### 如何控制图片的加载\r\n\r\n``` html\r\n<img data-src=\"shanyue.jpg\">\r\n```\r\n\r\n首先设置一个临时属性 `data-src`，控制加载时使用 `src` 代替 `data-src`\r\n\r\n## 方案二\r\n\r\n改进一下\r\n\r\n### 如何判断图片出现在了当前视口\r\n\r\n引入一个新的 API， **`Element.getBoundingClientRect()` 方法返回元素的大小及其相对于视口的位置。**\r\n\r\n<img alt=\"getBoundingClientRect示例图\" src=\"https://mdn.mozillademos.org/files/15087/rect.png\">\r\n\r\n那如何判断图片出现在了当前视口呢，根据示例图示意，代码如下，这个就比较好理解了，就可以很容易地背会(就可以愉快地去面试了)。\r\n\r\n``` js\r\n// clientHeight 代表当前视口的高度\r\nimg.getBoundingClientRect().top < document.documentElement.clientHeight\r\n```\r\n\r\n**监听 `window.scroll` 事件也优化一下**\r\n\r\n加个节流器，提高性能。工作中一般使用 `lodash.throttle` 就可以了，万能的 `lodash` 啊！\r\n\r\n``` js\r\n_.throttle(func, [wait=0], [options={}])\r\n```\r\n\r\n参考 [什么是防抖和节流，他们的应用场景有哪些](https://github.com/shfshanyue/Daily-Question/issues/3)\r\n\r\n## 方案三\r\n\r\n再改进一下\r\n\r\n### 如何判断图片出现在了当前视口\r\n\r\n**方案二使用的方法是: `window.scroll` 监听 `Element.getBoundingClientRect()` 并使用 `_.throttle` 节流**\r\n\r\n**一系列组合动作太复杂了，于是浏览器出了一个三合一事件: `IntersectionObserver` API，一个能够监听元素是否到了当前视口的事件，一步到位！**\r\n\r\n事件回调的参数是 [IntersectionObserverEntry](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry) 的集合，代表关于是否在可见视口的一系列值\r\n\r\n其中，`entry.isIntersecting` 代表目标元素可见\r\n\r\n``` javascript\r\nconst observer = new IntersectionObserver((changes) => {\r\n  // changes: 目标元素集合\r\n  changes.forEach((change) => {\r\n    // intersectionRatio\r\n    if (change.isIntersecting) {\r\n      const img = change.target\r\n      img.src = img.dataset.src\r\n      observer.unobserve(img)\r\n    }\r\n  })\r\n})\r\n\r\nobserver.observe(img)\r\n```\r\n\r\n**当然，`IntersectionObserver` 除了给图片做懒加载外，还可以对单页应用资源做预加载。**\r\n\r\n如在 `next.js v9` 中，会对视口内的资源做预加载，可以参考 [next 9 production optimizations](https://nextjs.org/blog/next-9#production-optimizations)\r\n\r\n``` jsx\r\n<Link href=\"/about\">\r\n  <a>关于山月</a>\r\n</Link>\r\n```\r\n\r\n## 方案四\r\n\r\n浏览器觉得懒加载这事可以交给自己做，你们开发者加个属性就好了。实在是...！\r\n\r\n``` html\r\n<img src=\"shanyue.jpg\" loading=\"lazy\">\r\n```\r\n\r\n不过目前浏览器兼容性不太好，关于 `loading` 属性的文章也可以查看 [Native image lazy-loading for the web!](https://addyosmani.com/blog/lazy-loading/)\r\n",
       "reactions": {
-        "totalCount": 7
+        "totalCount": 8
       },
       "author": {
         "login": "shfshanyue",
@@ -60,7 +60,7 @@
       "id": "MDEyOklzc3VlQ29tbWVudDY1Mzg5OTIzNw==",
       "body": "## 防抖 (debounce)\r\n\r\n防抖，顾名思义，防止抖动，以免把一次事件误认为多次，敲键盘就是一个每天都会接触到的防抖操作。\r\n\r\n想要了解一个概念，必先了解概念所应用的场景。在 JS 这个世界中，有哪些防抖的场景呢\r\n\r\n1. 登录、发短信等按钮避免用户点击太快，以致于发送了多次请求，需要防抖\r\n1. 调整浏览器窗口大小时，resize 次数过于频繁，造成计算过多，此时需要一次到位，就用到了防抖\r\n1. 文本编辑器实时保存，当无任何更改操作一秒后进行保存\r\n\r\n代码如下，可以看出来**防抖重在清零 `clearTimeout(timer)`**\r\n\r\n``` js\r\nfunction debounce (f, wait) {\r\n  let timer\r\n  return (...args) => {\r\n    clearTimeout(timer)\r\n    timer = setTimeout(() => {\r\n      f(...args)\r\n    }, wait)\r\n  }\r\n}\r\n```\r\n\r\n## 节流 (throttle)\r\n\r\n节流，顾名思义，控制水的流量。控制事件发生的频率，如控制为1s发生一次，甚至1分钟发生一次。与服务端(server)及网关(gateway)控制的限流 (Rate Limit) 类似。\r\n\r\n1. `scroll` 事件，每隔一秒计算一次位置信息等\r\n1. 浏览器播放事件，每个一秒计算一次进度信息等\r\n1. input 框实时搜索并发送请求展示下拉列表，每隔一秒发送一次请求 (也可做防抖)\r\n\r\n代码如下，可以看出来**节流重在加锁 `timer=timeout`**\r\n\r\n``` js\r\nfunction throttle (f, wait) {\r\n  let timer\r\n  return (...args) => {\r\n    if (timer) { return }\r\n    timer = setTimeout(() => {\r\n      f(...args)\r\n      timer = null\r\n    }, wait)\r\n  }\r\n}\r\n```\r\n\r\n## 总结 (简要答案)\r\n\r\n+ 防抖：防止抖动，单位时间内事件触发会被重置，避免事件被误伤触发多次。**代码实现重在清零 `clearTimeout`**。防抖可以比作等电梯，只要有一个人进来，就需要再等一会儿。业务场景有避免登录按钮多次点击的重复提交。\r\n+ 节流：控制流量，单位时间内事件只能触发一次，与服务器端的限流 (Rate Limit) 类似。**代码实现重在开锁关锁 `timer=timeout; timer=null`**。节流可以比作过红绿灯，每等一个红灯时间就可以过一批。",
       "reactions": {
-        "totalCount": 3
+        "totalCount": 5
       },
       "author": {
         "login": "shfshanyue",
@@ -198,7 +198,7 @@
       "id": "MDEyOklzc3VlQ29tbWVudDU1MTM1MTM2Nw==",
       "body": "提供一个较少提过的方法，使用 `grid`，它是做二维布局的，但是只有一个子元素时，一维布局与二维布局就一样了。结合 `justify-content`/`justify-items` 和 `align-content/align-items` 就有四种方案\r\n\r\n效果可以见 [codepen](https://codepen.io/shanyue/pen/ZEERzzL)\r\n\r\n``` css\r\n.container {\r\n  display: grid;\r\n  justify-content: center;\r\n  align-content: center;\r\n}\r\n```\r\n\r\n\r\n``` css\r\n.container {\r\n  display: grid;\r\n  justify-content: center;\r\n  align-items: center;\r\n}\r\n```\r\n\r\n\r\n``` css\r\n.container {\r\n  display: grid;\r\n  justify-items: center;\r\n  align-content: center;\r\n}\r\n```\r\n\r\n\r\n``` css\r\n.container {\r\n  display: grid;\r\n  justify-items: center;\r\n  align-items: center;\r\n}\r\n```\r\n",
       "reactions": {
-        "totalCount": 3
+        "totalCount": 4
       },
       "author": {
         "login": "shfshanyue",
@@ -313,7 +313,7 @@
       "id": "MDEyOklzc3VlQ29tbWVudDU2ODk2MjY4Mg==",
       "body": "```js\r\nimport React, { useEffect, useState } from \"react\";\r\n\r\nfunction App() {\r\n    const [count, setCount] = useState(0);\r\n    useEffect(() => {\r\n        const timer = setInterval(() => {\r\n            setCount(count => count + 1)\r\n        }, 1000)\r\n\r\n        return () => {\r\n           clearInterval(timer)\r\n        }\r\n    }, [])\r\n\r\n    return <h1>{count}</h1>\r\n}\r\n```",
       "reactions": {
-        "totalCount": 14
+        "totalCount": 15
       },
       "author": {
         "login": "mexyx",
@@ -771,7 +771,7 @@
       "id": "MDEyOklzc3VlQ29tbWVudDU5NDQ3MDkwMg==",
       "body": "## svg实现方案\r\n\r\n```xml\r\n<svg classname=\"loading\" viewbox=\"25 25 50 50\">\r\n  <circle cx=\"50\" cy=\"50\" r=\"25\" classname=\"path\" fill=\"none\" />\r\n</svg>\r\n```\r\n```css\r\n.loading {\r\n  width: 50px;\r\n  height: 50px;\r\n  animation: rotate 2s linear 0s infinite;\r\n}\r\n.path {\r\n  animation: dash 2s ease-in-out infinite;\r\n  stroke: #00b390;\r\n  stroke-width: 2;\r\n  stroke-dasharray: 90 150;\r\n  stroke-dashoffset: 0;\r\n  stroke-linecap: round;\r\n}\r\n\r\n@keyframes rotate {\r\n  from {\r\n    tranform: rotate(0deg);\r\n  } \r\n  to {\r\n    tranform: rotate(360deg);\r\n  }\r\n}\r\n\r\n@keyframes dash {\r\n  0% {\r\n    stroke-dasharray:  1 150;\r\n    stroke-dashoffset: 0;\r\n  } \r\n  50% {\r\n    stroke-dasharray: 90 150;\r\n    stroke-dashoffset: -40px;\r\n  }\r\n  100% {\r\n    stroke-dasharray: 90 150;\r\n    stroke-dashoffset: -120px;\r\n  }\r\n}\r\n```\r\n\r\n",
       "reactions": {
-        "totalCount": 1
+        "totalCount": 2
       },
       "author": {
         "login": "hellojackhui",
@@ -2191,7 +2191,17 @@
         "name": "js"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDcyOTM4NzI3MA==",
+      "body": "## 步骤\r\n\r\n1. 注册 npm 账号 https://www.npmjs.com/\r\n2. 本地通过命令行 `npm login` 登陆\r\n3. 进入到项目目录下（与 package.json 同级），在 package.json 中指定发布文件、文件夹\r\n```json\r\n{\r\n  \"name\": \"pkg-xxx\",\r\n  \"version\": \"0.0.1\",\r\n  \"main\": \"lib/index.js\",\r\n  \"module\": \"esm/index.js\",\r\n  \"typings\": \"types/index.d.ts\",\r\n  \"files\": [\r\n    \"CHANGELOG.md\",\r\n    \"lib\",\r\n    \"esm\",\r\n    \"dist\",\r\n    \"types\",\r\n  ],\r\n  ...\r\n}\r\n```\r\n执行 `npm publish --registry=https://registry.npmjs.org/` 即可发布\r\n\r\n## 其他\r\n\r\n还可以配合 [GitHub Packages](https://docs.github.com/en/free-pro-team@latest/packages/using-github-packages-with-your-projects-ecosystem/configuring-npm-for-use-with-github-packages) 发布",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "wangkailang",
+        "url": "https://github.com/wangkailang"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU1MzM5MTQ3NDA=",
@@ -4203,7 +4213,17 @@
         "name": "js"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDcyODc3MTU1NQ==",
+      "body": "```js\r\nconst oldJson = { a: 1 }\r\nconst newJson = JSON.parse(JSON.stringify(oldJson))\r\noldJson.a = 2\r\nconsole.log(oldJson) // {a: 2}\r\nconsole.log(newJson) // {a: 1}\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "coderwuhe",
+        "url": "https://github.com/coderwuhe"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU1NjkzMjAxNTM=",
@@ -4370,7 +4390,17 @@
         "name": "react"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDcyNTMzMDE1Nw==",
+      "body": "能想到的只有两个场景\r\n1. 作为props传递的函数，集合memo一起使用；\r\n2. 作为更新触发的依赖项\r\n主要目的是为了避免高昂的计算和不必要的重复渲染",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "newwangyiyang",
+        "url": "https://github.com/newwangyiyang"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU1NzUxNTEzNTk=",
@@ -4644,10 +4674,7 @@
       "reactions": {
         "totalCount": 0
       },
-      "author": {
-        "login": "iceytea",
-        "url": "https://github.com/iceytea"
-      }
+      "author": null
     }
   },
   {
@@ -4831,10 +4858,7 @@
       "reactions": {
         "totalCount": 0
       },
-      "author": {
-        "login": "iceytea",
-        "url": "https://github.com/iceytea"
-      }
+      "author": null
     }
   },
   {
@@ -5061,7 +5085,17 @@
         "name": "前端工程化"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDcyNDU5NjU0Mg==",
+      "body": "在linux系统中，我通常通过 `ps -aux |grep 服务名` 查看服务端口",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "wangedison",
+        "url": "https://github.com/wangedison"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU1ODk5NDAwODU=",
@@ -5273,10 +5307,7 @@
       "reactions": {
         "totalCount": 0
       },
-      "author": {
-        "login": "iceytea",
-        "url": "https://github.com/iceytea"
-      }
+      "author": null
     }
   },
   {
@@ -5438,7 +5469,17 @@
         "name": "react"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDcyNTMzMTg2OA==",
+      "body": "闭包 ➕ 链表",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "newwangyiyang",
+        "url": "https://github.com/newwangyiyang"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU1OTkzMjk2NjE=",
@@ -5550,7 +5591,17 @@
         "name": "react"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDcyNTMzMjM5MQ==",
+      "body": "1. mobx\r\n2. useContext ➕ useReducer",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "newwangyiyang",
+        "url": "https://github.com/newwangyiyang"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU2MDI2OTQ4NTg=",
@@ -7648,10 +7699,7 @@
       "reactions": {
         "totalCount": 1
       },
-      "author": {
-        "login": "iceytea",
-        "url": "https://github.com/iceytea"
-      }
+      "author": null
     }
   },
   {
@@ -7994,7 +8042,17 @@
         "name": "linux"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDcyNDYwNTYyNg==",
+      "body": "CPU 缓存介于 CPU 和内存之间，缓存的是热点的内存数据。这些缓存按照大小不同分为 L1、L2、L3 等三级缓存，其中 L1 和 L2 在同一个cpu核中， 而在同一个CPU插槽中的多个核共享一个 L3 缓存。\r\n\r\n缓存命中率，即直接通过缓存获取数据的请求次数，占所有数据请求次数的百分比。当可以直接通过缓存获取到需要的数据，则命中缓存；否则需要从磁盘等地方读取获取数据。缓存命中率越高，表示直接从缓存获取数据的次数越多，程序执行效率越高。\r\n使用cachestat 可以查看整个个操作系统缓存的读写命中情况：\r\ncachestat安装方式：\r\n`sudo apt install perf-tools-unstable`\r\n\r\n下面以1秒间隔输出三组缓存信息：\r\n```\r\n$ sudo cachestat 1\r\nCounting cache functions... Output every 1 seconds.\r\n    HITS   MISSES  DIRTIES    RATIO   BUFFERS_MB   CACHE_MB\r\n    1989        0       13   100.0%          501       2600\r\n   12969        0     1412   100.0%          501       2600\r\n   16798        0     2803   100.0%          501       2600\r\n```\r\n从结果可以看到，HITS 是缓存命中的次数；MISSES是缓存未命中的次数；DIRTIES是表示新增到缓存中的脏页数；BUFFERS_MB 表示 Buffers 的大小，单位为MB；CACHED_MB表示Cache 的大小，单位为MB。\r\n",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "wangedison",
+        "url": "https://github.com/wangedison"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU2ODQxODc1NjA=",
@@ -8441,7 +8499,17 @@
         "name": "dom"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDczMDI1MDg5MA==",
+      "body": "https://www.zhangxinxu.com/study/201708/svg-foreignobject-dom-to-image.html\r\n看到这样一篇文章",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "js-ding",
+        "url": "https://github.com/js-ding"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU3Mjc0NDkxNDg=",
@@ -8530,6 +8598,66 @@
         "name": "js"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDcyNTg2NzU3Nw==",
+      "body": "```javascript\r\nfunction delay(time) {\r\n    return new Promise((resolve)=> {\r\n        setTimeout(() => {\r\n            resolve()\r\n        }, time)\r\n    })\r\n}\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "yuuk",
+        "url": "https://github.com/yuuk"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU3NDEyMjEyMjM=",
+    "number": 443,
+    "title": "【Q436】如何实现一个 sample 函数，从数组中随机取一个元素",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDcyODg0ODc5OQ==",
+      "body": "function sample(arr){\r\n  const index = Math.floor(Math.random() * arr.length )\r\n  return arr[index]\r\n}",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "eriksyuan",
+        "url": "https://github.com/eriksyuan"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU3NDMwMDA4MzY=",
+    "number": 444,
+    "title": "【Q437】浏览器的剪切板中如何监听复制事件",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzY5MDg5MzQ2",
+        "name": "dom"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDcyOTM0MzcxNw==",
+      "body": "在HTML元素上\r\n```html\r\n<input oncopy='cb'>\r\n```\r\n在JS中获取具体元素\r\n```js\r\ndocument.querySelector('p').oncopy = cb\r\ndocument.oncopy = cb\r\n```\r\n或者\r\n```js\r\ndocument.querySelector('p').addEventListener('copy',cb)\r\ndocument.addEventListener('copy',cb)\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "nishuzumi",
+        "url": "https://github.com/nishuzumi"
+      }
+    }
   }
 ]

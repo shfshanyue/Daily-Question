@@ -146,7 +146,7 @@ function getIssueMd (issue) {
   const more = `::: tip Issue \r\n 欢迎在 Issue 中交流与讨论: [Issue ${issue.number}](https://github.com/shfshanyue/Daily-Question/issues/${issue.number}) \r\n:::`
   const comments = _.get(issue, 'comments.nodes', [])
   const comment = comments.length > 0 ? (_.maxBy(comments, 'reactions.totalCount') || comments[0]): ''
-  const author = comment ?  `::: tip Author \r\n回答者: [${comment.author.login}](${comment.author.url}) \r\n:::` : ''
+  const author = comment && comment.author ?  `::: tip Author \r\n回答者: [${comment.author.login}](${comment.author.url}) \r\n:::` : ''
   const md = [title, body, more, author, comment.body].join('\r\n\r\n')
   return md
 }
