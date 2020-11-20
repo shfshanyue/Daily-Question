@@ -64,7 +64,7 @@
 关注公众号【互联网大厂招聘】，将持续推送大厂的面试经验与大厂的内推，直达招聘负责人或团队负责人
 
 <div align="center">
-  <img src="http://mmbiz.qpic.cn/mmbiz_jpg/w7L7YMmnfhic7ooecF6PU5cGlHoakmTNBwKXf6VCC5TfAiagrmiahQ2kFxYLibPYgicicWsEgAFwsOrrOS16Bw2eml0w/0" loading="lazy" width="260">
+  <img src="https://q.shanyue.tech/we.jpg" loading="lazy" width="260">
 </div>
 
 如果你想在网站及公众号上发布招聘，请添加我的微信 `shanyue94`，我将与你在以下几个方面进行讨论，并共同拟定模拟面试题在我公众号上发布招聘信息
