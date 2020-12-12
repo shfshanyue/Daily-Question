@@ -8,12 +8,16 @@
     "args": "^5.0.1",
     "axios": "^0.20.0",
     "ismobilejs": "^1.1.1",
+    "isomorphic-unfetch": "^3.1.0",
     "lodash": "^4.17.20",
     "npm-check-updates": "^7.1.1",
+    "unfetch": "^4.2.0",
     "vuepress": "^1.5.3",
     "vuepress-plugin-sitemap": "^2.3.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@types/axios": "^0.14.0"
+  },
   "scripts": {
     "doc": "node scripts/build",
     "issues": "node scripts/build.js",
