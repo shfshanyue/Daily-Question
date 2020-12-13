@@ -94,3 +94,4 @@
 + [【Q428】在 nginx 中如何配置负载均衡](server/435.html)
 + [【Q432】如何给 graphql 设计合理的 Rate Limit](graphql/439.html)
 + [【Q433】在C语言中，void 是什么意思](c/440.html)
++ [【Q438】数据库设计时 char 与 varchar 有什么区别](db/445.html)

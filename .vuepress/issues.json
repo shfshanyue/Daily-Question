@@ -198,7 +198,7 @@
       "id": "MDEyOklzc3VlQ29tbWVudDU1MTM1MTM2Nw==",
       "body": "提供一个较少提过的方法，使用 `grid`，它是做二维布局的，但是只有一个子元素时，一维布局与二维布局就一样了。结合 `justify-content`/`justify-items` 和 `align-content/align-items` 就有四种方案\r\n\r\n效果可以见 [codepen](https://codepen.io/shanyue/pen/ZEERzzL)\r\n\r\n``` css\r\n.container {\r\n  display: grid;\r\n  justify-content: center;\r\n  align-content: center;\r\n}\r\n```\r\n\r\n\r\n``` css\r\n.container {\r\n  display: grid;\r\n  justify-content: center;\r\n  align-items: center;\r\n}\r\n```\r\n\r\n\r\n``` css\r\n.container {\r\n  display: grid;\r\n  justify-items: center;\r\n  align-content: center;\r\n}\r\n```\r\n\r\n\r\n``` css\r\n.container {\r\n  display: grid;\r\n  justify-items: center;\r\n  align-items: center;\r\n}\r\n```\r\n",
       "reactions": {
-        "totalCount": 4
+        "totalCount": 5
       },
       "author": {
         "login": "shfshanyue",
@@ -3980,7 +3980,17 @@
         "name": "前端工程化"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDczNjU2ODYxOA==",
+      "body": "window.performance.timing,详细的可以看下这篇文章[前端性能优化衡量指标](https://serverless-action.com/fontend/fe-optimization/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E8%A1%A1%E9%87%8F%E6%8C%87%E6%A0%87.html#performance-api)",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "nieyao",
+        "url": "https://github.com/nieyao"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU1NTU1MjcyMDY=",
@@ -4955,15 +4965,12 @@
       }
     ],
     "comment": {
-      "id": "MDEyOklzc3VlQ29tbWVudDU5OTA3OTQ4Mw==",
-      "body": "使用 `async`/`await` 实现\r\n\r\n``` js\r\nconst user1 = getUser(1)\r\nconst user2 = getUser(2)\r\nconst user3 = getUser(3)\r\n\r\nconst u1 =  await user1\r\nconst u2 =  await user2\r\nconst u3 =  await user3\r\n```",
+      "id": "MDEyOklzc3VlQ29tbWVudDY2OTI2ODU1Nw==",
+      "body": "```js\r\nlet req1 = () => fetch(`https://github.com/shfshanyue/Daily-Question/issues?page=1&q=is%3Aissue+is%3Aopen`);\r\n\r\nlet req2 = () => fetch(`https://github.com/shfshanyue/Daily-Question/issues?page=2&q=is%3Aissue+is%3Aopen`);\r\n\r\nlet req3 = () => fetch(`https://github.com/shfshanyue/Daily-Question/issues?page=3&q=is%3Aissue+is%3Aopen`);\r\n\r\n// promise.all\r\nconst res = await Promise.all([req1(), req2(), req3()]);\r\n\r\nconst res1 = req1()\r\nconst res2 = req2()\r\nconst res3 = req3()\r\n\r\n// await\r\nconst u1 =  await res1\r\nconst u2 =  await res2\r\nconst u3 =  await res3\r\n\r\n```\r\n\r\n![image](https://user-images.githubusercontent.com/57755075/89433879-71e1f280-d775-11ea-8772-6c26e58d29c3.png)\r\n",
       "reactions": {
-        "totalCount": 0
+        "totalCount": 1
       },
-      "author": {
-        "login": "shfshanyue",
-        "url": "https://github.com/shfshanyue"
-      }
+      "author": null
     }
   },
   {
@@ -6728,7 +6735,17 @@
         "name": "js"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDczMzQ0Mzk5NQ==",
+      "body": "1. 创建了一个新对象\r\n2. 链接到原型\r\n3. 绑定this指向\r\n4.返回这个对象\r\n\r\n```js\r\nfunction _new() {\r\n let obj = {}\r\n let Con = [].shift.call(arguments)\r\n obj.__proto__ = Con.prototype\r\n let result = Con.apply(obj, arguments)\r\n return typeof obj === 'object' ? obj : {}\r\n}\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "XJHxjh0118",
+        "url": "https://github.com/XJHxjh0118"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU2MzYxOTEwMjE=",
@@ -7308,7 +7325,17 @@
         "name": "react"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDczODUyMTA3OA==",
+      "body": "应该是1吧，在state被update之前count一直还是0",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "zckpp",
+        "url": "https://github.com/zckpp"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU2Njk2MjU4MTY=",
@@ -8238,7 +8265,17 @@
         "name": "os"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDczODAwODA5Nw==",
+      "body": "`exit code` 代表一个进程的返回码，通过系统调用 `exit_group` 来触发。在 `POSIX` 中，`0` 代表正常的返回码，`1-255` 代表异常返回码，一般主动抛出的错误码都是 `1`。\r\n\r\n这里有一张关于异常码的附表 [Appendix E. Exit Codes With Special Meanings](http://www.tldp.org/LDP/abs/html/exitcodes.html)。\r\n\r\n异常码在操作系统中随处可见，以下是一个关于 `cat` 命令的异常以及它的 `exit code`，并使用 `strace` 追踪系统调用。\r\n\r\n``` bash\r\n$ cat a\r\ncat: a: No such file or directory\r\n\r\n# 使用 strace 查看 cat 的系统调用\r\n# -e 只显示 write 与 exit_group 的系统调用\r\n$ strace -e write,exit_group cat a\r\nwrite(2, \"cat: \", 5cat: )                    = 5\r\nwrite(2, \"a\", 1a)                        = 1\r\nwrite(2, \": No such file or directory\", 27: No such file or directory) = 27\r\nwrite(2, \"\\n\", 1\r\n)                       = 1\r\nexit_group(1)                           = ?\r\n+++ exited with 1 +++\r\n```\r\n\r\n从系统调用的最后一行可以看出，该进行的 `exit code` 是 1，并把错误信息输出到 `stderr` (标准错误的 fd 为2) 中\r\n\r\n## 如何查看 exit code\r\n\r\n从 `strace` 中可以来判断进程的 `exit code`，但是不够方便过于冗余，特别身处 shell 编程环境中。\r\n\r\n**有一种简单的方法，通过 `echo $?` 来确认返回码**\r\n\r\n``` bash\r\n$ cat a\r\ncat: a: No such file or directory\r\n\r\n$ echo $?\r\n1\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU2ODUzMjM3ODQ=",
@@ -8410,7 +8447,17 @@
         "name": "dom"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDczODAwNDk1NQ==",
+      "body": "> 我们假定用户正面向（浏览器）视窗或网页，而 HTML 元素沿着其相对于用户的一条虚构的 z 轴排开，层叠上下文就是对这些 HTML 元素的一个三维构想。众 HTML 元素基于其元素属性按照优先级顺序占据这个空间。\r\n\r\n其中，`z-index` 会影响这个层级的优先性",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU2OTQzNjU5ODU=",
@@ -8455,7 +8502,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDcwNzA4MDU0OQ==",
-      "body": "通过 `proxy_pass` 与 `upstream` 即可实现最为简单的负载均衡。如下配置会对流量均匀地导向 `172.168.0.1`，`172.168.0.2` 与 `172.168.0.3` 三个服务器\r\n\r\n``` conf\r\nhttp {\r\n  upstream backend {\r\n      server 172.168.0.1;\r\n      server 172.168.0.2;\r\n      server 172.168.0.3;\r\n  }\r\n\r\n  server {\r\n      listen 80;\r\n      location / {\r\n          proxy_pass http://backend;\r\n      }\r\n  }\r\n}\r\n```\r\n\r\n关于负载均衡的策略大致有以下四种种\r\n\r\n1. round_robin，轮询\r\n1. weighted_round_robin，加权轮询\r\n1. ip_hash\r\n1. least_conn\r\n\r\n## Round_Robin\r\n\r\n轮询，`nginx` 默认的负载均衡策略就是轮询，假设负载三台服务器节点为 A、B、C，则每次流量的负载结果为 ABCABC\r\n\r\n## Weighted_Round_Robin\r\n\r\n加权轮询，根据关键字 weight 配置权重，如下则平均没来四次请求，会有八次打在 A，会有一次打在 B，一次打在 C\r\n\r\n``` conf\r\nupstream backend {\r\n  server 172.168.0.1 weight=8;\r\n  server 172.168.0.2 weight=1;\r\n  server 172.168.0.3 weight=1;\r\n}\r\n```\r\n\r\n## IP_hash\r\n\r\n对每次的 IP 地址进行 Hash，进而选择合适的节点，如此，每次用户的流量请求将会打在固定的服务器上，利于缓存，也更利于 AB 测试等。\r\n\r\n``` conf\r\nupstream backend {\r\n  server 172.168.0.1;\r\n  server 172.168.0.2;\r\n  server 172.168.0.3;\r\n  ip_hash;\r\n}\r\n```\r\n\r\n## Least Connection\r\n\r\n选择连接数最少的服务器节点优先负载\r\n\r\n``` conf\r\nupstream backend {\r\n  server 172.168.0.1;\r\n  server 172.168.0.2;\r\n  server 172.168.0.3;\r\n  least_conn;\r\n}\r\n```\r\n\r\n说到最后，这些负载均衡策略对于应用开发者至关重要，而基础开发者更看重如何实现这些策略，如这四种负载算法如何实现？请参考以后的文章",
+      "body": "通过 `proxy_pass` 与 `upstream` 即可实现最为简单的负载均衡。如下配置会对流量均匀地导向 `172.168.0.1`，`172.168.0.2` 与 `172.168.0.3` 三个服务器\r\n\r\n``` conf\r\nhttp {\r\n  upstream backend {\r\n      server 172.168.0.1;\r\n      server 172.168.0.2;\r\n      server 172.168.0.3;\r\n  }\r\n\r\n  server {\r\n      listen 80;\r\n      location / {\r\n          proxy_pass http://backend;\r\n      }\r\n  }\r\n}\r\n```\r\n\r\n关于负载均衡的策略大致有以下四种种\r\n\r\n1. round_robin，轮询\r\n1. weighted_round_robin，加权轮询\r\n1. ip_hash\r\n1. least_conn\r\n\r\n## Round_Robin\r\n\r\n轮询，`nginx` 默认的负载均衡策略就是轮询，假设负载三台服务器节点为 A、B、C，则每次流量的负载结果为 ABCABC\r\n\r\n## Weighted_Round_Robin\r\n\r\n加权轮询，根据关键字 weight 配置权重，如下则平均没来四次请求，会有八次打在 A，会有一次打在 B，一次打在 C\r\n\r\n``` conf\r\nupstream backend {\r\n  server 172.168.0.1 weight=8;\r\n  server 172.168.0.2 weight=1;\r\n  server 172.168.0.3 weight=1;\r\n}\r\n```\r\n\r\n## IP_hash\r\n\r\n对每次的 IP 地址进行 Hash，进而选择合适的节点，如此，每次用户的流量请求将会打在固定的服务器上，利于缓存，也更利于 AB 测试等。\r\n\r\n``` conf\r\nupstream backend {\r\n  server 172.168.0.1;\r\n  server 172.168.0.2;\r\n  server 172.168.0.3;\r\n  ip_hash;\r\n}\r\n```\r\n\r\n## Least Connection\r\n\r\n选择连接数最少的服务器节点优先负载\r\n\r\n``` conf\r\nupstream backend {\r\n  server 172.168.0.1;\r\n  server 172.168.0.2;\r\n  server 172.168.0.3;\r\n  least_conn;\r\n}\r\n```\r\n\r\n说到最后，**这些负载均衡策略对于应用开发者至关重要，而基础开发者更看重如何实现这些策略**，如这四种负载算法如何实现？请参考以后的文章",
       "reactions": {
         "totalCount": 0
       },
@@ -8477,14 +8524,14 @@
       }
     ],
     "comment": {
-      "id": "MDEyOklzc3VlQ29tbWVudDcwMzU2NjM0MQ==",
-      "body": "关于路由中解析 querystring，无论前端开发还是后端开发都无时无刻在使用这项功能，即使几乎没有人手动解析过它。这里来实现一个简单粗暴的解析函数\r\n\r\n1. 如何使用正则解析 qs\r\n1. 如何正确转义汉字\r\n1. 如何正确处理数组\r\n\r\n为此总结出以下用例用以检查解析函数的正确性\r\n\r\n``` js\r\n// {}\r\n'https://shanyue.tech' \r\n\r\n// {a: ''}\r\n'https://shanyue.tech?a' \r\n\r\n// {name: '山月'}\r\n'https://shanyue.tech?name=%E5%B1%B1%E6%9C%88'    \r\n\r\n// {name: '山月', a: 3}                \r\n'https://shanyue.tech?name=%E5%B1%B1%E6%9C%88&a=3'            \r\n\r\n// {name: '山月', a: [3, 4]}\r\n'https://shanyue.tech?name=%E5%B1%B1%E6%9C%88&a=3&a=4'   \r\n\r\n// {name: '山月', a: 3}\r\n'https://shanyue.tech?name=%E5%B1%B1%E6%9C%88&a=3#hash' \r\n```\r\n\r\n纯碎使用 `javascript` 完成解析函数，而不利用浏览器 DOM 特性 API，代码如下所示，细节在注释中体现\r\n\r\n``` js\r\nfunction parse(url) {\r\n  // 通过 decodeURIComponent 来转义字符\r\n  // 夹杂在 ? 与 # 之前的字符及时 qs，使用 /\\?([^/?#:]+)#?/ 正则来抽取\r\n  // 使用正则从 URL 中解析出 querystring\r\n  // 通过 Optional Chain 来避免空值错误\r\n  const queryString = decodeURIComponent(url).match(/\\?([^/?#:]+)#?/)?.[1]\r\n\r\n  if (!queryString) { return {} }\r\n\r\n  queryObj = queryString.split('&').reduce((params, block) => {\r\n    // 如果未赋值，则默认为空字符串\r\n    const [k, v = ''] = block.split('=')\r\n\r\n    if (params[k] !== undefined) {\r\n      // 处理 key 出现多次的情况，设置为数组\r\n      params[k] = [].concat(params[k], v)\r\n    } else {\r\n      params[k] = v\r\n    }\r\n    return params\r\n  }, {})\r\n  return queryObj\r\n}\r\n```\r\n\r\n如果引入浏览器特性 API，问题就简单很多迎刃而解，所涉及到的 API 有两个，这里不做展开\r\n\r\n1. `new URL(url)`\r\n1. `new URLSearchParams(paramsString)`",
+      "id": "MDEyOklzc3VlQ29tbWVudDcwODEzMzUxMg==",
+      "body": "一开始`decodeURIComponent(url)`是否不妥，如果query string中的value带有`=`等字符并且已经被`encodeURIComponent`，如`http://example.com?tag=test&title=1%2B1%3D2`中`title=1+1=2`，使用parse解析的结果是错误的。使用`params[k] = decodeURIComponent(v)`是不是更好",
       "reactions": {
-        "totalCount": 0
+        "totalCount": 1
       },
       "author": {
-        "login": "shfshanyue",
-        "url": "https://github.com/shfshanyue"
+        "login": "ly023",
+        "url": "https://github.com/ly023"
       }
     }
   },
@@ -8506,8 +8553,8 @@
         "totalCount": 0
       },
       "author": {
-        "login": "js-ding",
-        "url": "https://github.com/js-ding"
+        "login": "markgong-gd",
+        "url": "https://github.com/markgong-gd"
       }
     }
   },
@@ -8539,7 +8586,17 @@
         "name": "server"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDczNzk5ODYyNQ==",
+      "body": "对于 Rest API 而言可根据特定的 API 来进行*限流(Rate Limit)*设计\r\n\r\n然而，GraphQL 只有一个 API，无法根据此来限流，一般情况下根据 `Field` 来进行限流，为了更好地设计及声明限流条件，可自定义 `Directive`，如下所示\r\n\r\n``` gql\r\ntype Query {\r\n  todos: [Todo!]! @rateLimit(window: \"1s\", max: 100)\r\n}\r\n```\r\n\r\n可参考以下两个 npm package\r\n\r\n+ [graphql-rate-limit](https://github.com/teamplanes/graphql-rate-limit)\r\n+ [graphql-rate-limit-directive](https://github.com/ravangen/graphql-rate-limit)",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU3Mjc5MDU1MzQ=",
@@ -8622,14 +8679,14 @@
       }
     ],
     "comment": {
-      "id": "MDEyOklzc3VlQ29tbWVudDcyODg0ODc5OQ==",
-      "body": "function sample(arr){\r\n  const index = Math.floor(Math.random() * arr.length )\r\n  return arr[index]\r\n}",
+      "id": "MDEyOklzc3VlQ29tbWVudDczMDgzNjY2NQ==",
+      "body": "> Math.random() 函数返回一个浮点,  伪随机数在范围从0到小于1，用数学表示就是 [0, 1)，可以利用它来实现 `sample` 函数\r\n\r\n``` js\r\nArray.prototype.sample = function () { return this[Math.floor(Math.random()*this.length)] }\r\n```",
       "reactions": {
-        "totalCount": 0
+        "totalCount": 1
       },
       "author": {
-        "login": "eriksyuan",
-        "url": "https://github.com/eriksyuan"
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
       }
     }
   },
@@ -8659,5 +8716,31 @@
         "url": "https://github.com/nishuzumi"
       }
     }
+  },
+  {
+    "id": "MDU6SXNzdWU3NjEzNzkwNTI=",
+    "number": 445,
+    "title": "【Q438】数据库设计时 char 与 varchar 有什么区别",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzEz",
+        "name": "db"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU3NjUyMTc2MDQ=",
+    "number": 447,
+    "title": "【Q439】JSONP 的原理是什么，如何实现",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": ""
   }
 ]

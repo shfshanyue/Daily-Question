@@ -407,7 +407,7 @@
         ],
         [
           "linux/424",
-          "什么是 exit code"
+          "什么是 exit code⭐️"
         ],
         [
           "linux/425",
@@ -549,7 +549,7 @@
         ],
         [
           "os/424",
-          "什么是 exit code"
+          "什么是 exit code⭐️"
         ],
         [
           "os/425",
@@ -787,6 +787,10 @@
         [
           "db/386",
           "什么是覆盖索引⭐️"
+        ],
+        [
+          "db/445",
+          "数据库设计时 char 与 varchar 有什么区别"
         ]
       ]
     },
@@ -817,7 +821,7 @@
         ],
         [
           "graphql/439",
-          "如何给 graphql 设计合理的 Rate Limit"
+          "如何给 graphql 设计合理的 Rate Limit⭐️"
         ]
       ]
     },
@@ -1054,7 +1058,7 @@
         ],
         [
           "server/439",
-          "如何给 graphql 设计合理的 Rate Limit"
+          "如何给 graphql 设计合理的 Rate Limit⭐️"
         ]
       ]
     },
@@ -1280,7 +1284,7 @@
         ],
         [
           "dom/432",
-          "什么是层叠上下文 (stacking context)"
+          "什么是层叠上下文 (stacking context)⭐️"
         ],
         [
           "dom/437",
@@ -1498,7 +1502,7 @@
         ],
         [
           "js/341",
-          "js 中在 new 的时候发生了什么"
+          "js 中在 new 的时候发生了什么⭐️"
         ],
         [
           "js/358",
@@ -1559,6 +1563,10 @@
         [
           "js/444",
           "浏览器的剪切板中如何监听复制事件⭐️"
+        ],
+        [
+          "js/447",
+          "JSONP 的原理是什么，如何实现"
         ]
       ]
     },
@@ -1808,7 +1816,7 @@
         ],
         [
           "react/373",
-          "关于 React hooks 的 caputre value，以下输出多少"
+          "关于 React hooks 的 caputre value，以下输出多少⭐️"
         ],
         [
           "react/374",
@@ -1981,7 +1989,7 @@
         ],
         [
           "前端工程化/190",
-          "performance API 中什么指标可以衡量首屏时间"
+          "performance API 中什么指标可以衡量首屏时间⭐️"
         ],
         [
           "前端工程化/192",

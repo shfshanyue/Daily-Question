@@ -436,3 +436,5 @@
 + [【Q435】JS 如何实现一个 sleep/delay 函数](../fe/js/442.html)
 + [【Q436】如何实现一个 sample 函数，从数组中随机取一个元素](../fe/js/443.html)
 + [【Q437】浏览器的剪切板中如何监听复制事件](../fe/dom/444.html)
++ [【Q438】数据库设计时 char 与 varchar 有什么区别](../server/db/445.html)
++ [【Q439】JSONP 的原理是什么，如何实现](../fe/js/447.html)
