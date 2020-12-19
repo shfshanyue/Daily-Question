@@ -2,6 +2,7 @@ const _ = require('lodash')
 const header = require('./header')
 const issues = require('./issues')
 const labels = require('./labels')
+const meta = require('../data/meta')
 
 const issuesByNumber = _.keyBy(issues, 'number')
 const labelsByName = _.keyBy(labels, 'name')
@@ -157,7 +158,7 @@ module.exports = {
               const labels = [label.alias, label.name, GROUP_MAP[label.group]]
               return labels
             }).filter(_.identity)
-            const keywords = issue.title.slice(6).split(/[,，!！?？]/g)
+            const keywords = meta[number] ? meta[number].keywords.split(',') : issue.title.slice(6).split(/[,，!！?？]/g)
             $page.frontmatter.meta = [{
               name: 'keywords',
               content: ['大厂面试', ...labels, ...keywords].join(',')
