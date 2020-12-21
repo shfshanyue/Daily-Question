@@ -1,6 +1,7 @@
 {
   "1": {
-    "keywords": "懒加载,懒加载的作用,懒加载原理,懒加载的原理和实现,懒加载和预加载,图片懒加载,路由懒加载,懒加载和预加载的区别,lazyload"
+    "keywords": "懒加载,懒加载的作用,懒加载原理,懒加载的原理和实现,懒加载和预加载,图片懒加载,路由懒加载,懒加载和预加载的区别,lazyload",
+    "description": ""
   },
   "2": {
     "keywords": "ping IP地址,ping原理,计算机网络,ping IP测试,ping 命令,ping 端口测试,ping时发生了什么"
@@ -13,5 +14,9 @@
   },
   "6": {
     "keywords": "线上bug分析,接口报错,API报错,如何定位代码异常,线上bug,定位线上bug,报警系统,sentry,zipkin,调试代码"
+  },
+  "456": {
+    "keywords": "async与defer的区别,async script,defer script",
+    "description": "​一图胜千言。​以下图片取自 whatwg 的规范，可以说是关于 async 和 defer 最权威的图文解释了，简单且一目了然！了解之后还有一道代码题目等着你呢"
   }
 }

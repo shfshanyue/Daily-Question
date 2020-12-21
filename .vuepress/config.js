@@ -166,7 +166,7 @@ module.exports = {
               name: 'google-site-verification',
               content: '_rNB9Nt0ukzWmMfhXSSxCHUAeeMs24OiuhGm4QjdwXA'
             }]
-            $page.frontmatter.description = issue.body || _.slice(_.get(issue.comment, 'body', issue.title), 0, 240).join('')
+            $page.frontmatter.description = meta[number] && meta[number].description ? meta[number].description : (issue.body || _.slice(_.get(issue.comment, 'body', issue.title), 0, 240).join(''))
           }
         }
       }
