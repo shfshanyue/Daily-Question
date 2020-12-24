@@ -15,9 +15,6 @@
   "6": {
     "keywords": "线上bug分析,接口报错,API报错,如何定位代码异常,线上bug,定位线上bug,报警系统,sentry,zipkin,调试代码"
   },
-  "7": {
-
-  },
   "275": {
     "keywords": "http2,头部压缩,首部压缩,http头部压缩的原理,HPACK,哈夫曼编码及静态索引表,header table size",
     "description": "为了减少 HTTP/1 多余的头部开销和提升性能，HTTP/2 使用 HPACK 压缩格式压缩请求和响应标头元数据，其具体原理是哈夫曼算法和静态索引表"

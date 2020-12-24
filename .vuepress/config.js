@@ -19,7 +19,7 @@ const desc = '每天至少一个问题，有关前端，后端，graphql，devop
 
 module.exports = {
   base: '/',
-  title: '大厂面试每日一题',
+  title: '大厂面试题每日一题',
   description: desc,
   head: [
     ['link', { rel: 'shortcut icon', href: '/favicon.ico', type: 'image/x-icon' }],
@@ -161,12 +161,13 @@ module.exports = {
             const keywords = meta[number] ? meta[number].keywords.split(',') : issue.title.slice(6).split(/[,，!！?？]/g)
             $page.frontmatter.meta = [{
               name: 'keywords',
-              content: ['大厂面试', ...labels, ...keywords].join(',')
+              content: ['前端面试题', ...labels, ...keywords].join(',')
             }, {
               name: 'google-site-verification',
               content: '_rNB9Nt0ukzWmMfhXSSxCHUAeeMs24OiuhGm4QjdwXA'
             }]
             $page.frontmatter.description = meta[number] && meta[number].description ? meta[number].description : (issue.body || _.slice(_.get(issue.comment, 'body', issue.title), 0, 240).join(''))
+            $page.frontmatter.metaTitle = `${$page.title} | 前端面试题`
           }
         }
       }
