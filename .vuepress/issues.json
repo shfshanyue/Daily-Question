@@ -81,7 +81,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDU0OTM0MjE4MQ==",
-      "body": "通过 `ps` 可以获知一个进程所占用的内存\r\n\r\n``` bash\r\n$ ps -O rss -p 3506\r\n  PID   RSS S TTY          TIME COMMAND\r\n 3506  6984 S pts/1    00:00:00 vim\r\n```\r\n\r\n如果要监控内存，肯定使用对进程万能的命令 `pidstat` （PS: 这名字一听就知道是干嘛的）\r\n\r\n``` bash\r\n# -r 显示内存信息\r\n# -p 指定 pid\r\n# 1: 每个一秒打印一次\r\n$ pidstat -r -p 3506 1\r\nLinux 3.10.0-957.21.3.el7.x86_64 (shanyue)      11/04/19        _x86_64_        (2 CPU)\r\n\r\n20:47:35      UID       PID  minflt/s  majflt/s     VSZ    RSS   %MEM  Command\r\n20:47:36        0      3506      0.00      0.00  139940   6984   0.18  vim\r\n20:47:37        0      3506      0.00      0.00  139940   6984   0.18  vim\r\n20:47:38        0      3506      0.00      0.00  139940   6984   0.18  vim\r\n20:47:39        0      3506      0.00      0.00  139940   6984   0.18  vim\r\n20:47:40        0      3506      0.00      0.00  139940   6984   0.18  vim\r\n20:47:41        0      3506      0.00      0.00  139940   6984   0.18  vim\r\n```\r\n\r\n`pidstat` 是属于 `sysstat` 下的 linux 性能工具，但在 mac 中，如何定位内存的变化？此时可以使用万能的 `top/htop`\r\n\r\n ``` bash\r\n $ htop -p 31796\r\n ```\r\n\r\n![image](https://user-images.githubusercontent.com/13389461/86353210-7b210080-bc99-11ea-9885-8e5ca1b909b5.png)\r\n\r\n## 总结\r\n\r\n简而言之，有以下三个命令\r\n\r\n1. `pidstat -r`\r\n1. `htop/top -p`\r\n1. `ps -O rss -p`\r\n\r\n关于更多指标的监控可以参考我的文章: [linux 各项监控指标小记](https://shanyue.tech/op/linux-monitor.html)",
+      "body": "通过 `ps` 可以获知一个进程所占用的内存\r\n\r\n``` bash\r\n$ ps -O rss -p 3506\r\n  PID   RSS S TTY          TIME COMMAND\r\n 3506  6984 S pts/1    00:00:00 vim\r\n```\r\n\r\n如果要**监控**内存，需要使用对进程万能的命令 `pidstat` （PS: 这名字一听就知道是干嘛的）\r\n\r\n``` bash\r\n# -r 显示内存信息\r\n# -p 指定 pid\r\n# 1: 每个一秒打印一次\r\n$ pidstat -r -p 3506 1\r\nLinux 3.10.0-957.21.3.el7.x86_64 (shanyue)      11/04/19        _x86_64_        (2 CPU)\r\n\r\n20:47:35      UID       PID  minflt/s  majflt/s     VSZ    RSS   %MEM  Command\r\n20:47:36        0      3506      0.00      0.00  139940   6984   0.18  vim\r\n20:47:37        0      3506      0.00      0.00  139940   6984   0.18  vim\r\n20:47:38        0      3506      0.00      0.00  139940   6984   0.18  vim\r\n20:47:39        0      3506      0.00      0.00  139940   6984   0.18  vim\r\n20:47:40        0      3506      0.00      0.00  139940   6984   0.18  vim\r\n20:47:41        0      3506      0.00      0.00  139940   6984   0.18  vim\r\n```\r\n\r\n`pidstat` 是属于 `sysstat` 下的 linux 性能工具，但在 mac 中，如何定位内存的变化？此时可以使用万能的 `top/htop`\r\n\r\n ``` bash\r\n $ htop -p 31796\r\n ```\r\n\r\n![image](https://user-images.githubusercontent.com/13389461/86353210-7b210080-bc99-11ea-9885-8e5ca1b909b5.png)\r\n\r\n## 总结\r\n\r\n简而言之，有以下三个命令\r\n\r\n1. `pidstat -r`，只在 linux 环境下使用\r\n1. `htop/top -p`\r\n1. `ps -O rss -p`\r\n\r\n关于更多指标的监控可以参考我的文章: [linux 各项监控指标小记](https://shanyue.tech/op/linux-monitor.html)",
       "reactions": {
         "totalCount": 0
       },
@@ -104,7 +104,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDU0OTM0NTU1Ng==",
-      "body": "1. 测试环境有没有问题，有问题可以在测试环境测试\r\n1. 有没有异常报警系统，如 `sentry`，如果有在 `sentry` 中查看堆栈信息以及相关上下文，定位代码\r\n1. 如果堆栈信息不足够找到问题，看有没有链路追踪工具，如 `zipkin`。从 `sentry` 中找到 `requestId`，在数据库日志/上下游链路日志中查找对应 `requestId` 的日志\r\n1. 查看接口相关代码 \r\n\r\n既然报错，那么一定会在异常上报系统中找到 `Issue` 进行定位。最怕的是那种接口没报错，但是业务方反馈数据有误的问题了，只能开了 debug，进行代码调试了",
+      "body": "通常按照以下步骤进行定位\r\n\r\n1. 测试环境是否能够复现，若复现在测试环境测试并修复\r\n1. 有没有异常报警系统，如 `sentry`，如果有在 `sentry` 中查看异常堆栈信息以及相关上下文，定位代码\r\n1. 如果堆栈信息不足够找到问题，看有没有链路追踪工具，如 `zipkin`。从 `sentry` 中找到 `requestId/traceId`，通过 `requestId` 定位相关的数据库日志/上下游服务链路日志\r\n1. 如果以上都不行，查看接口相关代码\r\n\r\n既然报错，那么一定会在异常上报系统中找到这条问题进行定位。如果在报警系统中没有定位到问题，可以查看\r\n\r\n1. 报警系统是否已限流，致使无法上报\r\n1. 复现异常时，抓包查看报警相关的 API，查看是否已上报\r\n\r\n最怕的是那种接口没报错，但是业务方反馈数据有误的问题了，只能开了 debug，进行代码调试了",
       "reactions": {
         "totalCount": 0
       },
@@ -241,14 +241,14 @@
       }
     ],
     "comment": {
-      "id": "MDEyOklzc3VlQ29tbWVudDU2NDM3MTk0OQ==",
-      "body": "简单描述就是: 性能更好，解决无法监听数组变化问题",
+      "id": "MDEyOklzc3VlQ29tbWVudDczNDEyNTk0Mw==",
+      "body": "1. Vue2.x通过给每个对象添加`getter setter`属性去改变对象,实现对数据的观测,Vue3.x通过Proxy代理目标对象,且一开始只代理最外层对象,嵌套对象`lazy by default` ,性能会更好\r\n2. 支持数组索引修改,对象属性的增加,删除\r\n",
       "reactions": {
-        "totalCount": 0
+        "totalCount": 1
       },
       "author": {
-        "login": "xiaoai7904",
-        "url": "https://github.com/xiaoai7904"
+        "login": "hefeng1208",
+        "url": "https://github.com/hefeng1208"
       }
     }
   },
@@ -731,7 +731,17 @@
         "name": "js"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDc0ODczMjQwNw==",
+      "body": "bind函数多次调用会已第一次绑定的this为准，softbind已最后一次绑定传入的this为准；",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "newwangyiyang",
+        "url": "https://github.com/newwangyiyang"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU1MjM0MTkyNDM=",
@@ -2527,7 +2537,17 @@
         "name": "node"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDc1MDkxNjg3NQ==",
+      "body": "Koa 每个中间件都会被执行两次，其中最先进入的会最后出来，如同穿过一个洋葱，因此成为洋葱模型",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU1MzU3ODcwMDU=",
@@ -3774,7 +3794,17 @@
         "name": "js"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDc0NDQwMjE0Ng==",
+      "body": "在 URL 中如何传递数组这种复杂的数据，完全**取决于项目中前后端成员关于复杂数据在 URL 中传输的约定**，一般情况下可以使用以下方式来传递数组\r\n\r\n``` js\r\na=3&a=4&a=5\r\n\r\na=3,4,5\r\n\r\na[]=3&a[]=4&a[]=5\r\n\r\na[0]=3&a[1]=4&a[2]=5\r\n```\r\n\r\n但同样，需要后端开发者写一个 `querystring.parse` 来对指定的格式解析进行支持，同时也有对各种复杂 qs 支持较好的 package，比如：\r\n\r\n+ [qs: 据说是对 querystring 复杂对象解析最好的库](https://github.com/ljharb/qs#parsing-arrays)",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU1NTAwMjQ0NjM=",
@@ -4316,14 +4346,14 @@
       }
     ],
     "comment": {
-      "id": "MDEyOklzc3VlQ29tbWVudDU5OTE5MjU5MA==",
-      "body": "no-cache 可以在本地缓存，可以在代理服务器缓存，但是这个缓存要服务器验证才可以使用 \r\nno-store 是禁用缓冲，本地和代理服务器都不缓冲，每次都从服务器获取",
+      "id": "MDEyOklzc3VlQ29tbWVudDcxOTYxMTUzNw==",
+      "body": "`no-cache` 和 `no-store` 用作控制缓存，被服务器通过响应头 `Cache-Control` 传递给客户端\r\n\r\n## `no-store`\r\n\r\n**永远都不要在客户端存储资源**，每次永远都要从原始服务器获取资源\r\n\r\n## `no-cache`\r\n\r\n可以在客户端存储资源，但每次都**必须去服务器做新鲜度校验**，来决定从服务器获取最新资源 (200) 还是从客户端读取缓存 (304)，即所谓的协商缓存\r\n\r\n> [当服务器资源返回 304 时与那些 HTTP 响应头有关](https://github.com/shfshanyue/Daily-Question/issues/441)\r\n\r\n一般情况下对于 `index.html` 或者现代构建环境下不加 hash 的静态资源都需要设置 `Cache-Control: no-cache`，用来强制每次在服务器端的新鲜度校验。\r\n\r\n相当于以下响应头\r\n\r\n``` bash\r\nCache-Control: max-age=0, must-revalidate\r\n```\r\n\r\n## 相关问题\r\n\r\n+ [【Q434】当服务器资源返回 304 时与那些 HTTP 响应头有关](https://github.com/shfshanyue/Daily-Question/issues/441)\r\n+ [【Q079】简述 HTTP 的缓存机制](https://github.com/shfshanyue/Daily-Question/issues/80)",
       "reactions": {
-        "totalCount": 1
+        "totalCount": 2
       },
       "author": {
-        "login": "lijiayi01",
-        "url": "https://github.com/lijiayi01"
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
       }
     }
   },
@@ -5524,7 +5554,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDYxNDAzMTYyOA==",
-      "body": "`HPACK` 协议，其中原理是哈夫曼编码及索引表 (看来常用的数据结构及算法要有所了解)，以下内容摘自 [谷歌开发者文档：http2](https://developers.google.com/web/fundamentals/performance/http2/)\r\n\r\n> 每个 HTTP 传输都承载一组标头，这些标头说明了传输的资源及其属性。 在 HTTP/1.x 中，此元数据始终以纯文本形式，通常会给每个传输增加 500–800 字节的开销。如果使用 HTTP Cookie，增加的开销有时会达到上千字节。 （请参阅测量和控制协议开销。） 为了减少此开销和提升性能，HTTP/2 使用 HPACK 压缩格式压缩请求和响应标头元数据，这种格式采用两种简单但是强大的技术：\r\n>\r\n> 1. 这种格式支持通过静态霍夫曼代码对传输的标头字段进行编码，从而减小了各个传输的大小。\r\n> 1. 这种格式要求客户端和服务器同时维护和更新一个包含之前见过的标头字段的索引列表（换句话说，它可以建立一个共享的压缩上下文），此列表随后会用作参考，对之前传输的值进行有效编码。\r\n\r\n实践出真知，通过 `wireshark` 抓包分析 http2 的报文对理解 http2 收益颇多。\r\n\r\n> 你要有知识，你就得参加变革现实的实践。你要知道梨子的滋味，你就得变革梨子，亲口吃一吃。你要知道原子的组织同性质，你就得实行物理学和化学的实验，变革原子的情况。你要知道革命的理论和方法，你就得参加革命。\r\n\r\n以下是关于抓包信息的截图\r\n\r\n**http2 通过 `Settings` 帧设置 header table size，进行首部压缩**\r\n\r\n![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/3f1a9d380a4d47a4aabbbd98af4d3f90~tplv-k3u1fbpfcp-zoom-1.image)\r\n\r\n**http2 通过首部压缩后，:method 伪标头在索引表中的 Index 为 2**\r\n\r\n![](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6b1281937b584bffaa0bbcb9d5621341~tplv-k3u1fbpfcp-zoom-1.image)\r\n\r\n关于常用的标头会存储在静态索引表固定的位置，详见 <https://httpwg.org/specs/rfc7541.html#static.table.definition>\r\n\r\n\r\n![](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2cef31dd10e64340b49caf35cbc01759~tplv-k3u1fbpfcp-zoom-1.image)",
+      "body": "`HPACK` 协议，其中原理是**哈夫曼编码**及**索引表** (看来常用的数据结构及算法要有所了解)，以下内容摘自 [谷歌开发者文档：http2](https://developers.google.com/web/fundamentals/performance/http2/)\r\n\r\n> 每个 HTTP 传输都承载一组标头，这些标头说明了传输的资源及其属性。 在 HTTP/1.x 中，此元数据始终以纯文本形式，通常会给每个传输增加 500–800 字节的开销。如果使用 HTTP Cookie，增加的开销有时会达到上千字节。 （请参阅测量和控制协议开销。） 为了减少此开销和提升性能，HTTP/2 使用 HPACK 压缩格式压缩请求和响应标头元数据，这种格式采用两种简单但是强大的技术：\r\n>\r\n> 1. 这种格式支持通过静态霍夫曼代码对传输的标头字段进行编码，从而减小了各个传输的大小。\r\n> 1. 这种格式要求客户端和服务器同时维护和更新一个包含之前见过的标头字段的索引列表（换句话说，它可以建立一个共享的压缩上下文），此列表随后会用作参考，对之前传输的值进行有效编码。\r\n\r\n实践出真知，通过 `wireshark` 抓包分析 http2 的报文对理解 http2 收益颇多。\r\n\r\n> 你要有知识，你就得参加变革现实的实践。你要知道梨子的滋味，你就得变革梨子，亲口吃一吃。你要知道原子的组织同性质，你就得实行物理学和化学的实验，变革原子的情况。你要知道革命的理论和方法，你就得参加革命。\r\n\r\n以下是关于抓包信息的截图\r\n\r\n**http2 通过 `Settings` 帧设置 header table size，进行首部压缩**\r\n\r\n![HTTP2 Settings](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/3f1a9d380a4d47a4aabbbd98af4d3f90~tplv-k3u1fbpfcp-zoom-1.image)\r\n\r\n**http2 通过首部压缩后，:method 伪标头在索引表中的 Index 为 2**\r\n\r\n![HTTP2 Index](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6b1281937b584bffaa0bbcb9d5621341~tplv-k3u1fbpfcp-zoom-1.image)\r\n\r\n关于**常用的标头会存储在静态索引表固定的位置**，详见 <https://httpwg.org/specs/rfc7541.html#static.table.definition>\r\n\r\n![](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2cef31dd10e64340b49caf35cbc01759~tplv-k3u1fbpfcp-zoom-1.image)",
       "reactions": {
         "totalCount": 0
       },
@@ -8516,7 +8546,7 @@
     "id": "MDU6SXNzdWU3MDkwODUxMzQ=",
     "number": 436,
     "title": "【Q429】实现一个函数用来解析 URL 的 querystring",
-    "body": "示例，如\r\n\r\n``` js\r\nconst url = 'https://shanyue.tech?a=3&b=4&c=5'\r\n\r\nconst qs = {\r\n  a: 3,\r\n  b: 4,\r\n  c: 5\r\n}\r\n```",
+    "body": "示例，如\r\n\r\n``` js\r\nconst url = 'https://shanyue.tech?a=3&b=4&c=5'\r\n\r\n// 解析后得到 qs 如下\r\nconst qs = {\r\n  a: 3,\r\n  b: 4,\r\n  c: 5\r\n}\r\n```\r\n\r\n镜像问题: [【Q440】实现一个函数用来对 URL 的 querystring 进行编码](https://github.com/shfshanyue/Daily-Question/issues/448)",
     "labels": [
       {
         "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
@@ -8524,14 +8554,14 @@
       }
     ],
     "comment": {
-      "id": "MDEyOklzc3VlQ29tbWVudDcwODEzMzUxMg==",
-      "body": "一开始`decodeURIComponent(url)`是否不妥，如果query string中的value带有`=`等字符并且已经被`encodeURIComponent`，如`http://example.com?tag=test&title=1%2B1%3D2`中`title=1+1=2`，使用parse解析的结果是错误的。使用`params[k] = decodeURIComponent(v)`是不是更好",
+      "id": "MDEyOklzc3VlQ29tbWVudDcwMzU2NjM0MQ==",
+      "body": "关于路由中解析 querystring，无论前端开发还是后端开发都无时无刻在使用这项功能，即使几乎没有人手动解析过它。这里来实现一个简单粗暴的解析函数\r\n\r\n1. 如何使用正则解析 qs\r\n1. 如何正确转义汉字\r\n1. 如何正确处理数组\r\n1. **如何处理各种复杂的嵌套对象**\r\n\r\n> 关于如何实现复杂嵌套对象，边界条件过多，强烈推荐一个 npm 库 [qs](https://github.com/ljharb/qs)\r\n\r\n为此总结出以下用例用以检查解析函数的正确性\r\n\r\n``` js\r\n// {}\r\n'https://shanyue.tech' \r\n\r\n// {a: ''}\r\n'https://shanyue.tech?a' \r\n\r\n// {name: '山月'}\r\n'https://shanyue.tech?name=%E5%B1%B1%E6%9C%88'    \r\n\r\n// {name: '山月', a: 3}                \r\n'https://shanyue.tech?name=%E5%B1%B1%E6%9C%88&a=3'            \r\n\r\n// {name: '山月', a: [3, 4]}\r\n'https://shanyue.tech?name=%E5%B1%B1%E6%9C%88&a=3&a=4'   \r\n\r\n// {name: '山月', a: 3}\r\n'https://shanyue.tech?name=%E5%B1%B1%E6%9C%88&a=3#hash' \r\n\r\n// {name: '1+1=2'}\r\n'https://shanyue.tech?name=1%2B1%3D2' \r\n```\r\n\r\n纯碎使用 `javascript` 完成解析函数，而不利用浏览器 DOM 特性 API，代码如下所示，细节在注释中体现\r\n\r\n``` js\r\nfunction parse(url) {\r\n\r\n  // 一、夹杂在 ? 与 # 之前的字符就是 qs，使用 /\\?([^/?#:]+)#?/ 正则来抽取\r\n  // 使用正则从 URL 中解析出 querystring\r\n  // 二、通过 Optional Chain 来避免空值错误\r\n  const queryString = url.match(/\\?([^/?#:]+)#?/)?.[1]\r\n\r\n  if (!queryString) { return {} }\r\n\r\n  queryObj = queryString.split('&').reduce((params, block) => {\r\n    // 三、如果未赋值，则默认为空字符串\r\n    const [_k, _v = ''] = block.split('=')\r\n    // 四、通过 decodeURIComponent 来转义字符，切记不可出现在最开头，以防 ?tag=test&title=1%2B1%3D2 出错\r\n    const k = decodeURIComponent(_k)\r\n    const v = decodeURIComponent(_v)\r\n\r\n    if (params[k] !== undefined) {\r\n      // 处理 key 出现多次的情况，设置为数组\r\n      params[k] = [].concat(params[k], v)\r\n    } else {\r\n      params[k] = v\r\n    }\r\n    return params\r\n  }, {})\r\n  return queryObj\r\n}\r\n```\r\n\r\n如果引入浏览器特性 API，问题就简单很多迎刃而解，所涉及到的 API 有两个，这里不做展开\r\n\r\n1. `new URL(url)`\r\n1. `new URLSearchParams(paramsString)`",
       "reactions": {
         "totalCount": 1
       },
       "author": {
-        "login": "ly023",
-        "url": "https://github.com/ly023"
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
       }
     }
   },
@@ -8739,6 +8769,285 @@
       {
         "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
         "name": "js"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDc0Nzc5ODEyMg==",
+      "body": "摘自山月的博客，原文地址: <https://shanyue.tech/code/jsonp/>\r\n\r\n## 一个正常的请求: JSON\r\n\r\n正常发请求时，`curl` 示例:\r\n\r\n``` bash\r\n$ curl https://shanyue.tech/api/user?id=100\r\n\r\n{\r\n  \"id\": 100,\r\n  \"name\": \"shanyue\",\r\n  \"wechat\": \"xxxxx\",\r\n  \"phone\": \"183xxxxxxxx\"\r\n}\r\n```\r\n\r\n使用 `fetch` 发送请求，示例:\r\n\r\n``` js\r\nconst data = await fetch('https://shanyue.tech/api/user?id=100', {\r\n  headers: {\r\n    'content-type': 'application/json',\r\n  },\r\n  method: 'GET',\r\n}).then(res => res.json())\r\n```\r\n\r\n请求数据后，使用一个函数来处理数据\r\n\r\n``` js\r\nhandleData(data)\r\n```\r\n\r\n## 一个 JSONP 请求\r\n\r\n`JSONP`，全称 `JSON with Padding`，为了解决跨域的问题而出现。虽然它只能处理 GET 跨域，虽然现在基本上都使用 CORS 跨域，但仍然要知道它，毕竟**面试会问**。\r\n\r\n`curl` 示例\r\n\r\n``` bash\r\n$ curl https://shanyue.tech/api/user?id=100&callback=padding\r\n\r\npadding({\r\n  \"id\": 100,\r\n  \"name\": \"shanyue\",\r\n  \"wechat\": \"xxxxx\",\r\n  \"phone\": \"183xxxxxxxx\"\r\n})\r\n```\r\n\r\n对于正常的请求有何不同一目了然: **多了一个 callback=padding, 并且响应数据被 padding 包围**，这就是 JSONP\r\n\r\n\r\n**那请求数据后，如何处理数据呢？此时的 padding 就是处理数据的函数**\r\n\r\n``` js\r\nwindow.padding = handleData\r\n```\r\n\r\n这里实现一个 jsonp 函数\r\n\r\n``` js\r\nfunction jsonp_simple ({ url, onData, params }) {\r\n  const script = document.createElement('script')\r\n\r\n  // 一、默认 callback 函数为 padding\r\n  script.src = `${url}?${stringify({ callback: 'padding', ...params })}`\r\n  // 二、使用 onData 作为 window.padding 函数，接收数据\r\n  window['padding'] = onData\r\n\r\n  document.body.appendChild(script)\r\n}\r\n```\r\n\r\n此时会有一个问题: **window.padding 函数会污染全局，如果有多个请求发送如何处理？**\r\n\r\n**使 jsonp 的回调函数名作为一个随机变量**，代码如下\r\n\r\n``` js\r\nfunction jsonp ({ url, onData, params }) {\r\n  const script = document.createElement('script')\r\n\r\n  // 一、为了避免全局污染，使用一个随机函数名\r\n  const cbFnName = `JSONP_PADDING_${Math.random().toString().slice(2)}`\r\n  // 二、默认 callback 函数为 cbFnName\r\n  script.src = `${url}?${stringify({ callback: cbFnName, ...params })}`\r\n  // 三、使用 onData 作为 cbFnName 回调函数，接收数据\r\n  window[cbFnName] = onData;\r\n\r\n  document.body.appendChild(script)\r\n}\r\n\r\n// 发送 JSONP 请求\r\njsonp({\r\n  url: 'http://localhost:10010',\r\n  params: { id: 10000 },\r\n  onData (data) {\r\n    console.log('Data:', data)\r\n  }\r\n})\r\n```\r\n\r\n## 代码附录\r\n\r\n完整代码可见[山月博客的 github 仓库](https://github.com/shfshanyue/blog/tree/master/code): <https://github.com/shfshanyue/blog/tree/master/code/jsonp/>\r\n\r\n**JSONP 实现完整代码:**\r\n\r\n``` js\r\nfunction stringify (data) {\r\n  const pairs = Object.entries(data)\r\n  const qs = pairs.map(([k, v]) => {\r\n    let noValue = false\r\n    if (v === null || v === undefined || typeof v === 'object') {\r\n      noValue = true\r\n    }\r\n    return `${encodeURIComponent(k)}=${noValue ? '' : encodeURIComponent(v)}`\r\n  }).join('&')\r\n  return qs\r\n}\r\n\r\nfunction jsonp ({ url, onData, params }) {\r\n  const script = document.createElement('script')\r\n\r\n  // 一、为了避免全局污染，使用一个随机函数名\r\n  const cbFnName = `JSONP_PADDING_${Math.random().toString().slice(2)}`\r\n  // 二、默认 callback 函数为 cbFnName\r\n  script.src = `${url}?${stringify({ callback: cbFnName, ...params })}`\r\n  // 三、使用 onData 作为 cbFnName 回调函数，接收数据\r\n  window[cbFnName] = onData;\r\n\r\n  document.body.appendChild(script)\r\n}\r\n```\r\n\r\n**JSONP 服务端适配相关代码:**\r\n\r\n``` js\r\nconst http = require('http')\r\nconst url = require('url')\r\nconst qs = require('querystring')\r\n\r\nconst server = http.createServer((req, res) => {\r\n  const { pathname, query } = url.parse(req.url)\r\n  const params = qs.parse(query)\r\n\r\n  const data = { name: 'shanyue', id: params.id }\r\n\r\n  if (params.callback) {\r\n    str = `${params.callback}(${JSON.stringify(data)})`\r\n    res.end(str)\r\n  } else {\r\n    res.end()\r\n  }\r\n\r\n})\r\n\r\nserver.listen(10010, () => console.log('Done'))\r\n```\r\n\r\n**JSONP 页面调用相关代码**\r\n\r\n``` html\r\n\r\n<!DOCTYPE html>\r\n<html lang=\"en\">\r\n<head>\r\n  <meta charset=\"UTF-8\">\r\n  <title></title>\r\n</head>\r\n<body>\r\n  <script src=\"./index.js\" type=\"text/javascript\"></script>\r\n  <script type=\"text/javascript\">\r\n  jsonp({\r\n    url: 'http://localhost:10010',\r\n    params: { id: 10000 },\r\n    onData (data) {\r\n      console.log('Data:', data)\r\n    }\r\n  })\r\n  </script>\r\n</body>\r\n</html>\r\n```\r\n\r\n## JSONP 实现代码示例演示\r\n\r\n从中克隆代码: [山月博客的 github 仓库](https://github.com/shfshanyue/blog/tree/master/code)\r\n\r\n### 文件结构\r\n\r\n+ `index.js`: jsonp 的简单与复杂实现\r\n+ `server.js`: 服务器接口形式\r\n+ `demo.html`: 前端如何调用 JSONP\r\n\r\n### 快速演示\r\n\r\n``` js\r\n// 开启服务端\r\n$ node server.js\r\n\r\n// 对 demo.html 起一个服务，并且按照提示在浏览器中打开地址，应该是 http://localhost:5000\r\n// 观察控制台输出 JSONP 的回调结果\r\n$ serve .\r\n```\r\n",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU3NjU0OTM2Mjg=",
+    "number": 448,
+    "title": "【Q440】实现一个函数用来对 URL 的 querystring 进行编码",
+    "body": "示例，如\r\n\r\n``` js\r\nconst data = {\r\n  a: 3,\r\n  b: 4,\r\n  c: 5\r\n}\r\n\r\n// 对 data 编码后得到 querystring 如下\r\nconst qs = 'a=3&b=4&c=5'\r\n```\r\n\r\n镜像问题: [【Q429】实现一个函数用来解析 URL 的 querystring](https://github.com/shfshanyue/Daily-Question/issues/436)",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDc0NDM0ODYwMw==",
+      "body": "先上几个测试用例:\r\n\r\n``` js\r\n// a=3&b=4\r\nstringify({ a: 3, b: 4 })\r\n\r\n// a=3&b=\r\nstringify({ a: 3, b: null })\r\n\r\n// a=3&%E5%B1%B1=%E6%9C%88\r\nstringify({ a: 3, '山': '月' })\r\n```\r\n\r\n只做一些基本的功能，满足以下条件\r\n\r\n1. 对 null/undefined/object 编码为空字符\r\n1. 对 key/value 记得 encodeURIComponent\r\n1. 不考虑数组及嵌套对象等复杂操作\r\n\r\n``` js\r\nfunction stringify (data) {\r\n  const pairs = Object.entries(data)\r\n  const qs = pairs.map(([k, v]) => {\r\n    let noValue = false\r\n    if (v === null || v === undefined || typeof v === 'object') {\r\n      noValue = true\r\n    }\r\n    return `${encodeURIComponent(k)}=${noValue ? '' : encodeURIComponent(v)}`\r\n  }).join('&')\r\n  return qs\r\n}\r\n```\r\n\r\n这是一个最简单对 querystring 进行编码的函数，如果需要更复杂的需求如嵌套对象与数组可以参考 [qs](https://github.com/ljharb/qs)",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU3NzA1MTgzOTc=",
+    "number": 449,
+    "title": "【Q441】v8 是如何执行一段 JS 代码的",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDc0NzgzMzMyNA==",
+      "body": "## 参考几篇文章\r\n\r\n+ [V8是如何执行JavaScript代码的？](https://zhuanlan.zhihu.com/p/96502646)\r\n+ [[译]JavaScript是如何工作的：深入V8引擎&编写优化代码的5个技巧](https://zhuanlan.zhihu.com/p/57898561)\r\n+ [JavaScript 引擎 V8 执行流程概述](https://zhuanlan.zhihu.com/p/111386872)",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU3NzA1MzU4MjY=",
+    "number": 450,
+    "title": "【Q442】http3 解决了什么问题",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjgwMDkyMDA5",
+        "name": "http"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDc0Nzg0NDg2NA==",
+      "body": "`http3` 基于 `UDP` 协议，这是与以前版本的 http 最大的不同，可以解决 http2 TCP 连接阻塞的问题。",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU3NzA1MzcyMDk=",
+    "number": 451,
+    "title": "【Q443】实现一个数组扁平化的函数 flatten ",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU3NzA1MzgyMDg=",
+    "number": 452,
+    "title": "【Q444】介绍隐藏页面中某个元素的几种方法",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIw",
+        "name": "css"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU3NzA1Mzk1NzM=",
+    "number": 453,
+    "title": "【Q445】实现一个数组去重函数 unique",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU3NzA1NDA5Njk=",
+    "number": 454,
+    "title": "【Q446】如何实现页面文本不可复制",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDc0ODE2ODY4OQ==",
+      "body": "有 CSS 和 JS 两种方法，以下任选其一或结合使用\r\n\r\n使用 CSS 如下：\r\n\r\n``` css\r\nuser-select: none;\r\n```\r\n\r\n或使用 JS 如下\r\n\r\n``` js\r\ndocument.body.onselectstart = e => {  \r\n  e.preventDefault();\r\n}\r\n```",
+      "reactions": {
+        "totalCount": 1
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU3NzA5NjUyNDU=",
+    "number": 455,
+    "title": "【Q447】如何实现一个数组洗牌函数 shuffle",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDc0ODE1MjU2Mw==",
+      "body": "``` js\r\nconst shuffle = (list) => list.sort((x, y) => Math.random() - 0.5)\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU3NzE2MTE4MzA=",
+    "number": 456,
+    "title": "【Q448】异步加载 JS 脚本时，async 与 defer 有何区别",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDc0ODk5MzM5OA==",
+      "body": "> 以下图片取自 whatwg 的规范，可以说是最权威的图文解释了，详细参考[原文](https://html.spec.whatwg.org/multipage/scripting.html#the-script-element)\r\n\r\n![async 与 defer 区别](https://html.spec.whatwg.org/images/asyncdefer.svg)\r\n\r\n在*正常情况下*，即 `<script>` 没有任何额外属性标记的情况下，有几点共识\r\n\r\n1. JS 的脚本分为**加载、解析、执行**几个步骤，简单对应到图中就是 `fetch` (加载) 和 `execution` (解析并执行)\r\n2. **JS 的脚本加载(fetch)且执行(execution)会阻塞 DOM 的渲染**，因此 JS 一般放到最后头\r\n\r\n而 `defer` 与 `async` 的区别如下:\r\n\r\n+ 相同点: **异步加载 (fetch)** \r\n+ 不同点:\r\n  + async 加载(fetch)完成后立即执行 (execution)；\r\n  + defer 加载(fetch)完成后延迟到 DOM 解析完成后才会执行(execution)**，但会在事件 `DomContentLoaded` 之前\r\n\r\n## 拓展\r\n\r\n当以下 `index.js` 加载时，属性是 `async` 与 `defer` 时，输出有何不同？\r\n\r\n**index.html**\r\n\r\n``` html\r\n<!DOCTYPE html>\r\n<html lang=\"en\">\r\n<head>\r\n  <meta charset=\"UTF-8\">\r\n  <title></title>\r\n</head>\r\n<body>\r\n  <script src=\"index.js\" defer></script>\r\n  <script>\r\n    console.log('Start')\r\n    document.addEventListener('DOMContentLoaded', () => {\r\n      console.log('DCL')\r\n    })\r\n  </script>\r\n</body>\r\n</html>\r\n```\r\n\r\n**index.js**\r\n\r\n``` js\r\nconsole.log('Async Script')\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU3NzIyMTMwMTQ=",
+    "number": 457,
+    "title": "【Q449】vue3 中，如何监听数组的变化",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjU4MzU0NDc5",
+        "name": "vue"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU3NzIyMTUyNDE=",
+    "number": 458,
+    "title": "【Q450】Vue 中 nextTick 的实现原理是什么",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU4MzU0NDc5",
+        "name": "vue"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDc0OTAwOTQzMw==",
+      "body": "+ Promise\r\n+ MutationObserver\r\n+ setImmediate\r\n+ setTimeout",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU3NzIyMTg5NDU=",
+    "number": 459,
+    "title": "【Q451】同一进程的线程共享那些资源",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjkxMDQ3MDQ2",
+        "name": "os"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIy",
+        "name": "server"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDc0OTAwODU5Ng==",
+      "body": "+ 堆\r\n+ 全局变量\r\n+ 文件",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU3NzMwNDI0MzI=",
+    "number": 460,
+    "title": "【Q452】现代框架如 React、Vue 相比原生开发有什么优势",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjU4MzQ3NDIy",
+        "name": "react"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjU4MzU0NDc5",
+        "name": "vue"
       }
     ],
     "comment": ""
