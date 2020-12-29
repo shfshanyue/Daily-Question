@@ -1,4 +1,5 @@
 # react常见面试题总结
++ [【Q008】当新入职一家公司时，如何快速搭建开发环境并让应用跑起来](9.html)
 + [【Q010】了解 React 中的 ErrorBoundary 吗，它有那些使用场景](11.html)
 + [【Q013】有没有使用过 react hooks，它带来了那些便利](14.html)
 + [【Q014】如何使用 react hooks 实现一个计数器的组件](15.html)

@@ -142,7 +142,7 @@ async function generateHeaders () {
 // 根据 Issue 生成 Markdown
 function getIssueMd (issue) {
   const title = `# ${issue.title.slice(6)}`
-  const body = issue.body && `::: tip 更多描述 \r\n ${issue.body} \r\n:::`
+  const body = issue.body && `::: tip 更多描述 \r\n ${issue.body} \r\n::: `
   const more = `::: tip Issue \r\n 欢迎在 Issue 中交流与讨论: [Issue ${issue.number}](https://github.com/shfshanyue/Daily-Question/issues/${issue.number}) \r\n:::`
   const comments = _.get(issue, 'comments.nodes', [])
   const comment = comments.length > 0 ? (_.maxBy(comments, 'reactions.totalCount') || comments[0]): ''

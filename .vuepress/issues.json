@@ -35,9 +35,9 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDU0OTMzNjQ4Nw==",
-      "body": "从 `ping` 的 `man` 手册就可以看出来，`ping` 实际上发送了 `ICMP ECHO_REQUEST` 的报文\r\n\r\n> ping -- send ICMP ECHO_REQUEST packets to network hosts\r\n\r\n通过让目标 IP 地址返回 `ICMP ECHO_RESPONSE` 报文来判断 IP 可不可达",
+      "body": "从 `ping` 的 `man` 手册就可以看出来，`ping` 实际上发送了 **`ICMP ECHO_REQUEST`** 的报文\r\n\r\n> ping -- send ICMP ECHO_REQUEST packets to network hosts\r\n\r\n通过让目标 IP 地址返回 **`ICMP ECHO_RESPONSE`** 报文来判断 IP 可不可达。\r\n\r\n`ICMP` 分为 `Query` 查询报文及 `Error Message` 报文，ping 为查询报文。",
       "reactions": {
-        "totalCount": 2
+        "totalCount": 3
       },
       "author": {
         "login": "shfshanyue",
@@ -104,7 +104,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDU0OTM0NTU1Ng==",
-      "body": "通常按照以下步骤进行定位\r\n\r\n1. 测试环境是否能够复现，若复现在测试环境测试并修复\r\n1. 有没有异常报警系统，如 `sentry`，如果有在 `sentry` 中查看异常堆栈信息以及相关上下文，定位代码\r\n1. 如果堆栈信息不足够找到问题，看有没有链路追踪工具，如 `zipkin`。从 `sentry` 中找到 `requestId/traceId`，通过 `requestId` 定位相关的数据库日志/上下游服务链路日志\r\n1. 如果以上都不行，查看接口相关代码\r\n\r\n既然报错，那么一定会在异常上报系统中找到这条问题进行定位。如果在报警系统中没有定位到问题，可以查看\r\n\r\n1. 报警系统是否已限流，致使无法上报\r\n1. 复现异常时，抓包查看报警相关的 API，查看是否已上报\r\n\r\n最怕的是那种接口没报错，但是业务方反馈数据有误的问题了，只能开了 debug，进行代码调试了",
+      "body": "通常按照以下步骤进行定位\r\n\r\n1. 测试环境是否能够复现，若复现在测试环境测试并修复\r\n1. 有没有异常报警系统，如 `sentry`，如果有在 `sentry` 中查看异常堆栈信息以及相关上下文，定位代码\r\n1. 如果堆栈信息不足够找到问题，看有没有链路追踪工具，如 `zipkin`。从 `sentry` 中找到 `requestId/traceId`，通过 `requestId` 结合 `kibana` / `ElasticSearch` 定位相关的数据库日志/上下游服务链路日志\r\n1. 如果以上都不行，查看接口相关代码\r\n\r\n既然报错，那么一定会在异常上报系统中找到这条问题进行定位。如果在报警系统中没有定位到问题，可以查看\r\n\r\n1. 报警系统是否已限流，致使无法上报\r\n1. 复现异常时，抓包查看报警相关的 API，查看是否已上报\r\n\r\n最怕的是那种接口没报错，但是业务方反馈数据有误的问题了，只能开了 debug，进行代码调试了",
       "reactions": {
         "totalCount": 0
       },
@@ -169,11 +169,23 @@
       {
         "id": "MDU6TGFiZWwxNjU2MTA0NTgx",
         "name": "devops"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjU4MzQ3NDIy",
+        "name": "react"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjU4MzU0NDc5",
+        "name": "vue"
+      },
+      {
+        "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+        "name": "前端工程化"
       }
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDU0OTM1MTAyOA==",
-      "body": "这要看这家公司的基础设施怎么样了（当然面试时，最好在反问面试官环节问问这个问题）\r\n\r\n+ 查看是否有 `dockerfile`，如果有跟着 `dockerfile` 跑命令\r\n+ 查看是否有 `CI/CD`，如果有跟着 `CI/CD` 部署的脚本跑命令\r\n\r\n如果都没有，那只能到处问人自求多福了\r\n\r\n不过鉴于本地环境与开发环境部署的有可能不同（特别是前端，开发时需要起个 server），也有几个点需要注意\r\n\r\n1. 前端有可能在本地环境启动时需要依赖前端部署时所产生的文件，所以有时需要先正常部署一遍，再试着按照本地环境启动 (即需要先 `npm run build` 一下，再 `npm run dev`)\r\n1. 别忘了设置环境变量",
+      "body": "这要看这家公司的基础设施怎么样了（当然面试时，最好在反问面试官环节问问这个问题）\r\n\r\n+ 查看是否有 `dockerfile`，如果有跟着 `dockerfile` 跑命令\r\n+ 查看是否有 `CI/CD`，如果有跟着 `CI/CD` 部署的脚本跑命令\r\n\r\n如果都没有，那只能到处问人自求多福了\r\n\r\n不过鉴于本地环境与开发环境部署的有可能不同（特别是前端，开发时需要起个 server），也有几个点需要注意\r\n\r\n1. 前端有可能在本地环境启动时需要依赖前端部署时所产生的文件，所以有时需要**先正常部署一遍，再试着按照本地环境启动 (即需要先 `npm run build` 一下，再 `npm run dev`)**\r\n1. 别忘了设置环境变量",
       "reactions": {
         "totalCount": 0
       },
@@ -4524,7 +4536,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDU5NDk3MjkzOA==",
-      "body": "### 跨域\r\n\r\n协议，域名，端口，三者有一不一样，就是跨域\r\n\r\n### 如何解决跨域\r\n\r\n目前有两种最常见的解决方案：\r\n\r\n1. CORS，在服务器端设置几个响应头\r\n1. Reverse Proxy，在 nginx/traefik/haproxy 等反向代理服务器中设置为同一域名\r\n",
+      "body": "## 跨域\r\n\r\n**协议**，**域名**，**端口**，三者有一不一样，就是跨域\r\n\r\n案例一：`www.baidu.com` 与 `zhidao.baidu.com` 是跨域\r\n\r\n## 如何解决跨域\r\n\r\n目前有两种最常见的解决方案：\r\n\r\n1. CORS，在服务器端设置几个响应头\r\n1. Reverse Proxy，在 nginx/traefik/haproxy 等反向代理服务器中设置为同一域名\r\n",
       "reactions": {
         "totalCount": 0
       },
