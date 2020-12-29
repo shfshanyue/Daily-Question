@@ -1,23 +1,43 @@
 {
   "1": {
     "keywords": "懒加载,懒加载的作用,懒加载原理,懒加载的原理和实现,懒加载和预加载,图片懒加载,路由懒加载,懒加载和预加载的区别,lazyload",
-    "description": "懒加载，在现代浏览器环境下可以通过 IntersectionObserver API 轻松实现，甚至一个 loading=lazy 即可搞定"
+    "description": "懒加载，在现代浏览器环境下可以通过 IntersectionObserver API 轻松实现，甚至一个 loading=lazy 即可搞定。"
   },
   "2": {
-    "keywords": "ping IP地址,ping原理,计算机网络,ping IP测试,ping 命令,ping 端口测试,ping时发生了什么"
+    "keywords": "ping IP地址,ping原理,计算机网络,ping IP测试,ping 命令,ping 端口测试,ping时发生了什么",
+    "description": "当在 linux 中执行命令 ping 时，实际上发送了 ICMP ECHO_REQUEST 报文信息进行查询，通过让目标 IP 地址返回 ICMP ECHO_RESPONSE 报文来判断 IP 是否可达"
   },
   "3": {
-    "keywords": "防抖和节流,throttle,debounce,防抖和节流的区别,防抖和节流的应用场景"
+    "keywords": "防抖和节流,throttle,debounce,防抖和节流的区别,防抖和节流的应用场景",
+    "description": "防抖(debounce)和节流(throttle)无论在实际工作场景还是面试中，都会经常碰到。而了解防抖和节流的应用场景至关重要，这里深入讲解并代码实现"
   },
   "4": {
-    "keywords": "操作系统,监控进程内存,linux怎么看进程内存,mac怎么看进程内存,htop,top,htop查看进程内存,ps"
+    "keywords": "操作系统,监控进程内存,linux怎么看进程内存,mac怎么看进程内存,htop,top,htop查看进程内存,ps",
+    "description": "维护后端服务器系统时，常会出现内存过大发生 OOM 的事情，那我们如何得知某个进程的内存，获知后又如何监控进程？在个人服务器中，可使用 ps、pidstat 和 top"
   },
   "6": {
-    "keywords": "线上bug分析,接口报错,API报错,如何定位代码异常,线上bug,定位线上bug,报警系统,sentry,zipkin,调试代码"
+    "keywords": "线上bug分析,接口报错,API报错,如何定位代码异常,线上bug,定位线上bug,报警系统,sentry,zipkin,调试代码",
+    "description": "在一个运维完备的企业中，通常会使用 Sentry、Zipkin、Kibana、Elasticsearch 等运维手段辅助后端程序员调试代码，发现并解决 bug 及性能问题"
+  },
+  "7": {
+    "keywords": "SQL,Top N By Group,复杂SQL查询",
+    "description": "关于 SQL 查询中的 Group Top N 问题，一般使用 SQL 语句的自连接来实现"
+  },
+  "9": {
+    "keywords": "devops,docker,cicd,前端开发环境,前端部署,后端部署",
+    "description": "如何启动一个项目，取决于公司的基础设施水平，一般来说，照着 Dockerfile 跑就完事了，哪还有以下事项需要注意"
+  },
+  "10": {
+    "keywords": "flex,grid,布局,layout,垂直居中布局",
+    "description": "使用 CSS 实现垂直居中，最新技术可以使用 Flex 及 Grid 实现"
   },
   "20": {
     "keywords": "选中复制实现,全选复制实现,Selection API,execCommand,点击复制代码",
     "description": "在一些技术类社区中，可一键点击实现所有代码复制，一般使用 Selection API 与 execCommand 实现"
+  },
+  "182": {
+    "keywords": "compose,lodash.flowRight,组合函数,redux,react",
+    "description": "componse 函数经常在各个框架中以工具函数出现，而它的实现也仅仅需要一行代码"
   },
   "275": {
     "keywords": "http2,头部压缩,首部压缩,http头部压缩的原理,HPACK,哈夫曼编码及静态索引表,header table size",
