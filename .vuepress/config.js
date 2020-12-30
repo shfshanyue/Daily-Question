@@ -169,7 +169,7 @@ module.exports = {
             $page.frontmatter.description = meta[number] && meta[number].description ? meta[number].description : (issue.body || _.slice(_.get(issue.comment, 'body', issue.title), 0, 240).join(''))
             $page.frontmatter.metaTitle = `${$page.title} | 前端面试题`
           } else {
-            $page.frontmatter.metaTitle = `${$page.title} | Vue | React | JS | Mysql | 面试题`
+            $page.frontmatter.metaTitle = `${$page.title || '大厂前端面试题每日一题'} | Vue | React | JS | Mysql | 面试题`
           }
         }
       }
