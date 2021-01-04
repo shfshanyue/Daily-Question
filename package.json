@@ -4,15 +4,15 @@
   "description": "勤学如春起之苗，不见其增，日有所长；辍学如磨刀之石，不见其损，日有所亏。",
   "main": "index.js",
   "dependencies": {
-    "@vuepress/plugin-google-analytics": "^1.5.3",
+    "@vuepress/plugin-google-analytics": "^1.7.1",
     "args": "^5.0.1",
-    "axios": "^0.20.0",
+    "axios": "^0.21.1",
     "ismobilejs": "^1.1.1",
     "isomorphic-unfetch": "^3.1.0",
     "lodash": "^4.17.20",
-    "npm-check-updates": "^7.1.1",
+    "npm-check-updates": "^10.2.5",
     "unfetch": "^4.2.0",
-    "vuepress": "^1.5.3",
+    "vuepress": "^1.7.1",
     "vuepress-plugin-sitemap": "^2.3.1"
   },
   "devDependencies": {

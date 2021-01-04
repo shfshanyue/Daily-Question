@@ -20,7 +20,7 @@ const desc = '每天至少一个问题，有关前端，后端，graphql，devop
 module.exports = {
   base: '/',
   title: '大厂面试题每日一题',
-  description: desc,
+  // description: desc,
   head: [
     ['link', { rel: 'shortcut icon', href: '/favicon.ico', type: 'image/x-icon' }],
     // 设置 Google 的 Search Console
