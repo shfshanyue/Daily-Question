@@ -31,7 +31,7 @@ module.exports = {
     nav: [
       { text: '主页', link: '/' },
       { text: '周刊', link: '/weekly/' },
-      // { text: '三年面经', link: '/interviews/2018.html' },
+      { text: '我的面经', link: '/interviews/2018.html' },
       { text: '大厂面经', link: '/interview.html' },
       { text: '大厂内推', link: '/infer/ali-ascp.md' },
       { text: '计算机基础', link: '/base/' },
@@ -47,7 +47,11 @@ module.exports = {
       '/interviews/': [
         ['2017', '2017年面试记'],
         ['2018', '2018年面试记'],
-        ['2019', '2019年面试记']
+        ['2019', '2019年面试记'],
+        ['2020', '2020年面试记'],
+        ['meituan', '2020美团面试记'],
+        ['fe', '2020年整理前端面试资料'],
+        ['2021-01-04', '2020裸辞面试记'],
       ],
       '/infer/': [
         {
