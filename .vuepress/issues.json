@@ -9125,7 +9125,17 @@
         "name": "vue"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDc1MzkxNDg0NQ==",
+      "body": "前端路由实现的本质是**监听url变化**，实现方式有两种：Hash模式和History模式，无需刷新页面就能重新加载相应的页面。\r\nHash url的格式为`www.a.com/#/`，当#后的哈希值发生变化时，通过hashchange事件监听，然后页面跳转。\r\nHistory url通过`history.pushState`和`history.replaceState`改变url。\r\n两种模式的区别：\r\n\r\n- hash只能改变#后的值，而history模式可以随意设置同源url；\r\n- hash只能添加字符串类的数据，而history可以通过API添加多种类型的数据；\r\n- hash的历史记录只显示之前的`www.a.com`而不会显示hash值，而history的每条记录都会进入到历史记录；\r\n- hash无需后端配置且兼容性好，而history需要配置`index.html`用于匹配不到资源的情况。",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "buzuosheng",
+        "url": "https://github.com/buzuosheng"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU3Nzc0MDgzMjU=",
