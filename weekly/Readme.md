@@ -208,7 +208,7 @@
 + [【Q207】什么是隔离级](../server/db/208.html)
 + [【Q208】在 postgres 中如何查看慢查询语句](../server/db/209.html)
 + [【Q209】如何得知一条 SQL 执行的时长？](../server/db/210.html)
-+ [【Q210】如何判断当前环境时移动端还是PC端](../fe/dom/211.html)
++ [【Q210】如何判断当前环境是移动端还是PC端](../fe/dom/211.html)
 + [【Q211】React hooks 中 useCallback 的使用场景是什么](../fe/react/212.html)
 + [【Q212】在 postgres/mysql 中如何判断当前版本是多少](../server/db/213.html)
 + [【Q213】什么是隔离级，都有哪些隔离级](../server/db/214.html)

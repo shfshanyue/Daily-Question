@@ -81,7 +81,7 @@
 + [【Q203】对于已经 import 但未实际使用的模块使用 webpack 还会对它打包吗？](webpack/204.html)
 + [【Q204】Node 中如何判断一个路径是文件还是文件夹](node/205.html)
 + [【Q205】Code Splitting 的原理是什么](webpack/206.html)
-+ [【Q210】如何判断当前环境时移动端还是PC端](dom/211.html)
++ [【Q210】如何判断当前环境是移动端还是PC端](dom/211.html)
 + [【Q211】React hooks 中 useCallback 的使用场景是什么](react/212.html)
 + [【Q214】input 中监听值的变化是在监听什么事件](dom/215.html)
 + [【Q215】什么是跨域，如何解决跨域问题](js/216.html)
