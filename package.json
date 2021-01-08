@@ -16,7 +16,8 @@
     "vuepress-plugin-sitemap": "^2.3.1"
   },
   "devDependencies": {
-    "@types/axios": "^0.14.0"
+    "@types/axios": "^0.14.0",
+    "vercel": "^21.0.1"
   },
   "scripts": {
     "doc": "node scripts/build",
