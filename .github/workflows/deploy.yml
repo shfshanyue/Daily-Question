@@ -3,13 +3,13 @@ name: deploy to aliyun oss
 on:
   push:
     barches:
-      - master
-  issues:
-    types: [labeled, edited]
-  issue_comment:
-    types: [created, edited]
-  schedule:
-  - cron:  '50 20 * * *'
+      - main
+  # issues:
+  #   types: [labeled, edited]
+  # issue_comment:
+  #   types: [created, edited]
+  # schedule:
+  # - cron:  '50 20 * * *'
 
 jobs:
   build:
