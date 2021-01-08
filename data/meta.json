@@ -52,6 +52,7 @@
     "description": "​一图胜千言。​以下图片取自 whatwg 的规范，可以说是关于 async 和 defer 区别最权威的图文解释了，简单且一目了然！了解之后还有一道代码题目等着你呢"
   },
   "459": {
+    "keywords": "mysql性能问题,mysql offset 过大",
     "description": "mysql 查询时 offset 过大，影响性能，我们将通过聚簇索引来解决这一个问题"
   }
 }
