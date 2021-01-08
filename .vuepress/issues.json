@@ -9217,7 +9217,17 @@
         "name": "db"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDc1NjUwOTkwNQ==",
+      "body": "``` sql\r\nSELECT * FROM User LIMIT 1000000, 10\r\n```\r\n\r\n如上语句，跳过 1000000 行用户，取其后的 10 个用户。**其中 offset 过大，将会进行 1000000 行扫描，导致磁盘 IO 多大，拖垮数据库**\r\n\r\n解决方案也很简单: **取出这10个用户的 ID，由于查询 ID 使用聚簇索引，避免 100000 行的磁盘 IO，再通过子查询找到这 10 个用户的所有数据**\r\n\r\n更多链接: [Mysql index configuration](https://stackoverflow.com/questions/1612957/mysql-index-configuration)",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU3Nzc0NzY4NDE=",

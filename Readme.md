@@ -91,7 +91,7 @@ description: 每天至少一个面试题，并附以答案及讨论。有关前�
 
 ## 官方网站
 
-[日问网站](https://q.shanyue.tech) 的技术栈由 `vuepress` + `github GraphQL api` + `github actions` + `alioss` + `alicdn` 组成。具体流程在[如果你只想搭建一个博客](https://shanyue.tech/op/if-you-want-a-blog.html)中可窥一二。
+[日问网站](https://q.shanyue.tech) 的技术栈由 `vuepress` + `github GraphQL api` + `github actions` + `alioss` + `alicdn` 组成。具体流程在[如果你只想搭建一个博客](https://shanyue.tech/no-vps/if-you-want-a-blog.html)中可窥一二。
 
 每当创建问题与回答问题时，官网将由 `github actions` 自动构建，并自动部署上线。当然，因为构建以及CDN刷新可能需要一些时间。至于更多的影响因素可以参考问题 [【Q094】你们的前端代码上线部署一次需要多长时间，需要人为干预吗](https://github.com/shfshanyue/Daily-Question/issues/95)
 
