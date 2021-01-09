@@ -8996,7 +8996,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDc0ODk5MzM5OA==",
-      "body": "> 以下图片取自 whatwg 的规范，可以说是最权威的图文解释了，详细参考[原文](https://html.spec.whatwg.org/multipage/scripting.html#the-script-element)\r\n\r\n![async 与 defer 区别](https://html.spec.whatwg.org/images/asyncdefer.svg)\r\n\r\n在*正常情况下*，即 `<script>` 没有任何额外属性标记的情况下，有几点共识\r\n\r\n1. JS 的脚本分为**加载、解析、执行**几个步骤，简单对应到图中就是 `fetch` (加载) 和 `execution` (解析并执行)\r\n2. **JS 的脚本加载(fetch)且执行(execution)会阻塞 DOM 的渲染**，因此 JS 一般放到最后头\r\n\r\n而 `defer` 与 `async` 的区别如下:\r\n\r\n+ 相同点: **异步加载 (fetch)** \r\n+ 不同点:\r\n  + async 加载(fetch)完成后立即执行 (execution)；\r\n  + defer 加载(fetch)完成后延迟到 DOM 解析完成后才会执行(execution)**，但会在事件 `DomContentLoaded` 之前\r\n\r\n## 拓展\r\n\r\n当以下 `index.js` 加载时，属性是 `async` 与 `defer` 时，输出有何不同？\r\n\r\n**index.html**\r\n\r\n``` html\r\n<!DOCTYPE html>\r\n<html lang=\"en\">\r\n<head>\r\n  <meta charset=\"UTF-8\">\r\n  <title></title>\r\n</head>\r\n<body>\r\n  <script src=\"index.js\" defer></script>\r\n  <script>\r\n    console.log('Start')\r\n    document.addEventListener('DOMContentLoaded', () => {\r\n      console.log('DCL')\r\n    })\r\n  </script>\r\n</body>\r\n</html>\r\n```\r\n\r\n**index.js**\r\n\r\n``` js\r\nconsole.log('Async Script')\r\n```",
+      "body": "> 以下图片取自 whatwg 的规范，可以说是最权威的图文解释了，详细参考[原文](https://html.spec.whatwg.org/multipage/scripting.html#the-script-element)\r\n\r\n![async 与 defer 区别](https://html.spec.whatwg.org/images/asyncdefer.svg)\r\n\r\n在*正常情况下*，即 `<script>` 没有任何额外属性标记的情况下，有几点共识\r\n\r\n1. JS 的脚本分为**加载、解析、执行**几个步骤，简单对应到图中就是 `fetch` (加载) 和 `execution` (解析并执行)\r\n2. **JS 的脚本加载(fetch)且执行(execution)会阻塞 DOM 的渲染**，因此 JS 一般放到最后头\r\n\r\n而 `defer` 与 `async` 的区别如下:\r\n\r\n+ 相同点: **异步加载 (fetch)** \r\n+ 不同点:\r\n  + async 加载(fetch)完成后立即执行 (execution)，因此可能会阻塞 DOM 解析；\r\n  + defer 加载(fetch)完成后延迟到 DOM 解析完成后才会执行(execution)**，但会在事件 `DomContentLoaded` 之前\r\n\r\n## 拓展\r\n\r\n当以下 `index.js` 加载时，属性是 `async` 与 `defer` 时，输出有何不同？\r\n\r\n**index.html**\r\n\r\n``` html\r\n<!DOCTYPE html>\r\n<html lang=\"en\">\r\n<head>\r\n  <meta charset=\"UTF-8\">\r\n  <title></title>\r\n</head>\r\n<body>\r\n  <script src=\"index.js\" defer></script>\r\n  <script>\r\n    console.log('Start')\r\n    document.addEventListener('DOMContentLoaded', () => {\r\n      console.log('DCL')\r\n    })\r\n  </script>\r\n</body>\r\n</html>\r\n```\r\n\r\n**index.js**\r\n\r\n``` js\r\nconsole.log('Async Script')\r\n```",
       "reactions": {
         "totalCount": 0
       },
@@ -9243,6 +9243,42 @@
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDc1MzU3MTgxMw==",
       "body": "## 01 Referer: 当前页面的访问源\r\n\r\nReferer 指当前请求页面的来源页面的地址，用以判断当前页面的访问源。一般用以反爬，比如**图片防盗链**通过判断 `Referer` 是否目标网站而对图片替换为禁止标志的图片。\r\n\r\n## 02 User-Agent: 当前页面的用户代理，如浏览器等\r\n\r\nUser-Agent 指请求当前页面的用户代理，用以标识请求方环境，如浏览器等，如果没有这个字符串可以视为爬虫。同时为了避免伪造用户代理，可以对 User-Agent 进行**限流**，但同时也有随机生成 UA 的库\r\n\r\n+ [random-useragent](https://github.com/skratchdot/random-useragent)\r\n\r\n## 03 Rate-Limit: 限流\r\n\r\n+ 对 IP 地址进行限流\r\n+ 对 UA 进行限流\r\n\r\n",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU3ODIwODY5MzE=",
+    "number": 469,
+    "title": "【Q461】如何计算白屏时间和首屏时间",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE2",
+        "name": "html"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU3ODIwOTA5NTg=",
+    "number": 470,
+    "title": "【Q462】JS 如何翻转一个字符串",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDc1NjczNjA5Ng==",
+      "body": "``` js\r\nconst reverse = s => s.split('').reverse().join('')\r\n```",
       "reactions": {
         "totalCount": 0
       },
