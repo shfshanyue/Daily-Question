@@ -43,6 +43,10 @@
     "keywords": "http2,头部压缩,首部压缩,http头部压缩的原理,HPACK,哈夫曼编码及静态索引表,header table size",
     "description": "为了减少 HTTP/1 多余的头部开销和提升性能，HTTP/2 使用 HPACK 压缩格式压缩请求和响应标头元数据，其具体原理是哈夫曼算法和静态索引表"
   },
+  "379": {
+    "keywords": "rIC原理,requestIdleCallback",
+    "description": "requestIdleCallback 维护一个队列，将在浏览器空闲时间内执行。它属于 Background Tasks API (opens new window)，你可以使用 setTimeout 来模拟实现"
+  },
   "451": {
     "keywords": "数组扁平化,flatten,ES2019,Array.prototype.flatten",
     "description": "数组扁平化 flatten 在工作中会遇到很多次，面试官也会问你很多次，由于过于常用，ES2019 已把它标准化"
