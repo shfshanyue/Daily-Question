@@ -2327,7 +2327,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDU2MjkwNjgyNg==",
-      "body": "`gzip` 使用了 `LZ77` 算法与 `Huffman` 编码来压缩文件，重复度越高的文件可压缩的空间就越大。",
+      "body": "一句话：`gzip` 的核心是 `Deflate`，而它使用了 `LZ77` 算法与 `Huffman` 编码来压缩文件，重复度越高的文件可压缩的空间就越大。\r\n\r\n因此 `gzip` 用于 HTTP 文件传输中，比如 JS、CSS 等。在 HTTP Response 报文中，用 `Content-Encoding` 指明使用 gzip 压缩，而以下响应头在大部分生产环境的响应报文中都可以看到！比如你现在立刻马上可以打开[我的网站](https://q.shanyue.tech)或者[百度](https://www.baidu.com)试一试。\r\n\r\n``` bash\r\n# Request Header\r\nAccept-Encoding: gzip, deflate, br\r\n\r\n# Reponse Header\r\nContent-Encoding: gzip\r\n```\r\n\r\n`gzip` 一般在反向代理那一层，如 `nginx` 进行处理，直接使用 C 语言编写，压缩性能较高\r\n\r\n``` nginx\r\ngzip on;\r\n```\r\n\r\n## LZ77\r\n\r\n## Huffman",
       "reactions": {
         "totalCount": 0
       },
@@ -6357,7 +6357,17 @@
         "name": "js"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDc1Nzc3MDg3MQ==",
+      "body": "`Promise.race = function (promises) {\r\n   return new Promise((resolve, reject) => {\r\n     promises.forEach((p,index) => {\r\n         Promise.resolve(p).then(\r\n            value => {resolve(value)},\r\n            reason => {\r\n              reject(reason)\r\n            }\r\n         )\r\n     })\r\n  })\r\n}`",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "codelou",
+        "url": "https://github.com/codelou"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU2MzA0NjU4MTY=",
@@ -8916,7 +8926,7 @@
       "id": "MDEyOklzc3VlQ29tbWVudDc1NjE1OTA1OA==",
       "body": "## 01 display: none\r\n\r\n通过 CSS 操控 display，移出文档流\r\n\r\n``` css\r\ndisplay: none;\r\n```\r\n\r\n## 02 opacity: 0\r\n\r\n透明度为0，仍在文档流中，当作用于其上的事件(如点击)仍有效\r\n\r\n``` css\r\nopacity: 0;\r\n```\r\n\r\n## 03 visibility: hidden\r\n\r\n透明度为0，仍在文档流中，**当作用于其上的事件(如点击)无效**，这也是 `visibility:hidden` 与 `opacity: 0` 的区别\r\n\r\n``` css\r\nvisibility: hidden;\r\n```\r\n\r\n## 03 绝对定位于当前页面的不可见位置\r\n\r\n``` css\r\nposition: absolute;\r\ntop: -9000px;\r\nleft: -9000px;\r\n```",
       "reactions": {
-        "totalCount": 1
+        "totalCount": 2
       },
       "author": {
         "login": "shfshanyue",
@@ -9287,5 +9297,18 @@
         "url": "https://github.com/shfshanyue"
       }
     }
+  },
+  {
+    "id": "MDU6SXNzdWU3ODM5MDIwNzQ=",
+    "number": 471,
+    "title": "【Q463】前端如何实现文件上传功能",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": ""
   }
 ]

@@ -43,6 +43,10 @@
     "keywords": "http2,头部压缩,首部压缩,http头部压缩的原理,HPACK,哈夫曼编码及静态索引表,header table size",
     "description": "为了减少 HTTP/1 多余的头部开销和提升性能，HTTP/2 使用 HPACK 压缩格式压缩请求和响应标头元数据，其具体原理是哈夫曼算法和静态索引表"
   },
+  "451": {
+    "keywords": "数组扁平化,flatten,ES2019,Array.prototype.flatten",
+    "description": "数组扁平化 flatten 在工作中会遇到很多次，面试官也会问你很多次，由于过于常用，ES2019 已把它标准化"
+  },
   "452": {
     "keywords": "visibility:hidden",
     "description": "隐藏页面中某个元素的方式有以下四种方法：visibility、display、opacity及不可见位置，其中的区别见下描述"
