@@ -112,13 +112,13 @@ export default {
 
 .theme-default-content.lock
   .content__default >
-    :nth-child(8)
+    :nth-child(5)
       opacity .5
 
-    :nth-child(9)
+    :nth-child(6)
       opacity .2
 
-    :nth-child(n+10)
+    :nth-child(n+7)
       display none
 
   .content-lock
