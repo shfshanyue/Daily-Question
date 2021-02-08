@@ -1500,7 +1500,7 @@
       "id": "MDEyOklzc3VlQ29tbWVudDU2OTA3NDAyNQ==",
       "body": "- 虚拟 DOM 最大的优势在于抽象了原本的渲染过程，实现了跨平台的能力，而不仅仅局限于浏览器的 DOM，可以是安卓和 IOS 的原生组件，可以是近期很火热的小程序，也可以是各种 GUI。\r\n-  vdom 把渲染过程抽象化了，从而使得组件的抽象能力也得到提升，并且可以适配 DOM 以外的渲染目标。\r\n\r\n\r\n- Virtual DOM 在牺牲(牺牲很关键)部分性能的前提下，增加了可维护性，这也是很多框架的通性。\r\n实现了对 DOM 的集中化操作，在数据改变时先对虚拟 DOM 进行修改，再反映到真实的 DOM中，用最小的代价来更新DOM，提高效率(提升效率要想想是跟哪个阶段比提升了效率，别只记住了这一条)。\r\n- 打开了函数式 UI 编程的大门。\r\n- 可以渲染到 DOM 以外的端，使得框架跨平台，比如 ReactNative，React VR 等。\r\n- 可以更好的实现 SSR，同构渲染等。这条其实是跟上面一条差不多的。\r\n- 组件的高度抽象化。\r\n\r\n> 虚拟 DOM 的缺点\r\n- 首次渲染大量 DOM 时，由于多了一层虚拟 DOM 的计算，会比 innerHTML 插入慢。\r\n- 虚拟 DOM 需要在内存中的维护一份 DOM 的副本(更上面一条其实也差不多，上面一条是从速度上，这条是空间上)。\r\n- 如果虚拟 DOM 大量更改，这是合适的。但是单一的，频繁的更新的话，虚拟 DOM 将会花费更多的时间处理计算的工作。所以，如果你有一个DOM 节点相对较少页面，用虚拟 DOM，它实际上有可能会更慢。但对于大多数单页面应用，这应该都会更快。\r\n",
       "reactions": {
-        "totalCount": 6
+        "totalCount": 7
       },
       "author": {
         "login": "libin1991",
@@ -2000,7 +2000,17 @@
         "name": "algorithm"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDc3NDA0OTQ5Nw==",
+      "body": "leetcode149\r\n1. 用双向链表+哈希。\r\n```javascript\r\n/**\r\n * @param {number} capacity\r\n */\r\nvar LRUCache = function (capacity) {\r\n    this.capacity = capacity;\r\n    this.map = new Map();\r\n    this.cache = new DoubleList();\r\n};\r\nclass Node {\r\n    constructor(k, val) {\r\n        this.k = k;\r\n        this.val = val;\r\n        this.pre = null;\r\n        this.next = null;\r\n    }\r\n}\r\nclass DoubleList {\r\n    constructor() {\r\n        this.size = 0;\r\n        this.head = new Node(0, 0);\r\n        this.tail = new Node(0, 0);\r\n        this.head.next = this.tail;\r\n        this.tail.pre = this.head;\r\n    }\r\n    addLast(x) {\r\n        const { head, tail } = this;\r\n        x.pre = tail.pre;\r\n        x.next = tail;\r\n        tail.pre.next = x;\r\n        tail.pre = x;\r\n        this.size++;\r\n    }\r\n    remove(x) {\r\n        x.pre.next = x.next;\r\n        x.next.pre = x.pre;\r\n        this.size--;\r\n    }\r\n    removeFirst() {\r\n        const { head, tail } = this;\r\n        if (head.next === tail) return null;\r\n        let first = head.next;\r\n        this.remove(first);\r\n        return first;\r\n    }\r\n}\r\n\r\n/** \r\n * @param {number} key\r\n * @return {number}\r\n */\r\nLRUCache.prototype.get = function (key) {\r\n    const { cache, map } = this;\r\n    if (map.has(key)) {\r\n        let x = map.get(key);\r\n        cache.remove(x);\r\n        cache.addLast(x);\r\n        return map.get(key).val;\r\n    } else {\r\n        return -1;\r\n    }\r\n};\r\n\r\n/** \r\n * @param {number} key \r\n * @param {number} value\r\n * @return {void}\r\n */\r\nLRUCache.prototype.put = function (key, value) {\r\n    const { cache, map,size } = this;\r\n    const addRecently = function(key,value){\r\n        let x = new Node(key,value);\r\n        cache.addLast(x);\r\n        map.set(key,x);\r\n    }\r\n    if (map.has(key)) {\r\n        let x = map.get(key);\r\n        cache.remove(x);\r\n        map.delete(key);\r\n        addRecently(key,value);\r\n    }else{\r\n        if(cache.size=== this.capacity){\r\n            let x = cache.removeFirst();\r\n            map.delete(x.k);\r\n        }\r\n        addRecently(key,value);\r\n    }\r\n};\r\n```\r\n2. Map的巧妙使用\r\nmap放入数据是按顺序的，最新放入的数据在迭代器最后\r\n而且map的entries方法，还有keys方法，会返回一个迭代器，迭代器调用next也是顺序返回，所以返回第一个的值就是最老的，找到并删除即可\r\n```javascript\r\n/**\r\n * @param {number} capacity\r\n */\r\nvar LRUCache = function (capacity) {\r\n    this.capacity = capacity;\r\n    this.map = new Map();\r\n};\r\n\r\n/** \r\n * @param {number} key\r\n * @return {number}\r\n */\r\nLRUCache.prototype.get = function (key) {\r\n    const map = this.map;\r\n    let val = map.get(key);\r\n    if (val !== undefined) {\r\n        map.delete(key);\r\n        map.set(key, val);\r\n        return val;\r\n    } else {\r\n        return -1;\r\n    }\r\n\r\n};\r\n\r\n/** \r\n * @param {number} key \r\n * @param {number} value\r\n * @return {void}\r\n */\r\nLRUCache.prototype.put = function (key, value) {\r\n    const { map, capacity } = this\r\n    if (map.has(key)) map.delete(key);\r\n    map.set(key, value);\r\n    if (map.size > capacity) {\r\n        map.delete(map.entries().next().value[0])\r\n    }\r\n};\r\n```\r\n",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "manyyuri",
+        "url": "https://github.com/manyyuri"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU1MzI2MzUxNDc=",
@@ -7423,7 +7433,17 @@
         "name": "css"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDc3MTM2MDkyMw==",
+      "body": "``` css\r\n@media (prefers-color-scheme: dark) {\r\n    :root{\r\n    }\r\n}\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU2Njk5NDgzNTg=",
@@ -9353,6 +9373,127 @@
       {
         "id": "MDU6TGFiZWwxNjUxNDAyMzIw",
         "name": "css"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDc2OTczMzExOQ==",
+      "body": "使用 Grid 布局可以轻松解决这个问题:\r\n\r\n``` html\r\n<div class=\"container\">\r\n  <div class=\"item\"></div>\r\n  <div class=\"item\"></div>\r\n  <div class=\"item\"></div>\r\n  <div class=\"item\"></div>\r\n  <div class=\"item\"></div>\r\n  <div class=\"item\"></div>\r\n</div>\r\n```\r\n\r\n``` css\r\n@media (min-width: 1024px) {\r\n  .container {\r\n    grid-template-columns: repeat(3,minmax(0,1fr));\r\n  }\r\n}\r\n\r\n@media (min-width: 768px) {\r\n  .container {\r\n    grid-template-columns: repeat(2,minmax(0,1fr));\r\n  }\r\n}\r\n\r\n.conainer {\r\n  display: grid;\r\n  grid-gap: 1rem;\r\n  gap: 1rem;\r\n}\r\n```\r\n\r\n``` html\r\n<div class=\"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4\"></div>\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU3OTc3MDYxOTQ=",
+    "number": 474,
+    "title": "【Q466】在 SSR 项目中如何判断当前环境时服务器端还是浏览器端",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU4MzQ3NDIy",
+        "name": "react"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU3OTc4OTM2NjY=",
+    "number": 475,
+    "title": "【Q467】前端打包时 cjs、es、umd 模块有何不同",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+        "name": "前端工程化"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU3OTg5MTA1NjY=",
+    "number": 476,
+    "title": "【Q468】前端开发中如何进行多主题配置",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIw",
+        "name": "css"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU3OTg5MTg5MTg=",
+    "number": 477,
+    "title": "【Q469】HTML 中的 input 标签有哪些 type",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE2",
+        "name": "html"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU3OTkyNzA4NjQ=",
+    "number": 478,
+    "title": "【Q470】什么是 Data URL",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE2",
+        "name": "html"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDc3MjQ5ODI0MA==",
+      "body": "Data URL是将图片转换为base64直接嵌入到了网页中，使用`<img src=\"data:[MIME type];base64\"/>`这种方式引用图片，不需要再发请求获取图片。\r\n使用Data URL也有一些缺点：\r\n- base64编码后的图片会比原来的体积大三分之一左右。\r\n- Data URL形式的图片不会缓存下来，每次访问页面都要被下载一次。可以将Data URL写入到CSS文件中随着CSS被缓存下来。",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "buzuosheng",
+        "url": "https://github.com/buzuosheng"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU4MDI4NDg2OTA=",
+    "number": 479,
+    "title": "【Q471】如何自定义滚动条的样式",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIw",
+        "name": "css"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDc3NDU4ODQwMA==",
+      "body": "滚动条相关样式都是伪元素，以 `scrollbar` 打头，有以下伪元素，从 `-webkit` 中可见兼容性一般，不过无所谓，现在 Chrome 浏览器占大头\r\n\r\n+   `::-webkit-scrollbar` — 整个滚动条.\r\n+   `::-webkit-scrollbar-button` — 滚动条上的按钮 (上下箭头).\r\n+   `::-webkit-scrollbar-thumb` — 滚动条上的滚动滑块.\r\n+   `::-webkit-scrollbar-track` — 滚动条轨道.\r\n+   `::-webkit-scrollbar-track-piece` — 滚动条没有滑块的轨道部分.\r\n+   `::-webkit-scrollbar-corner` — 当同时有垂直滚动条和水平滚动条时交汇的部分.\r\n+   `::-webkit-resizer` — 某些元素的corner部分的部分样式(例:textarea的可拖动按钮).\r\n\r\n但其实最常用的是以下几个伪元素：**滚动条、滑块、轨道**，如下滚动条设置成功\r\n\r\n``` css\r\n::-webkit-scrollbar {\r\n    width: 6px;\r\n    height: 6px\r\n}\r\n\r\n::-webkit-scrollbar-track {\r\n    border-radius: 3px;\r\n    background: rgba(0,0,0);\r\n    box-shadow: inset 0 0 5px rgba(0,0,0,.08)\r\n}\r\n\r\n::-webkit-scrollbar-thumb {\r\n    border-radius: 3px;\r\n    background: rgba(0,0,1);\r\n    box-shadow: inset 0 0 10px rgba(0,0,0,.2)\r\n}\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU4MDMyMjI5OTY=",
+    "number": 480,
+    "title": "【Q472】什么是 HTML 的实体编码",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE2",
+        "name": "html"
       }
     ],
     "comment": ""
