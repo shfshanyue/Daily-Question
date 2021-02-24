@@ -60,7 +60,7 @@
       "id": "MDEyOklzc3VlQ29tbWVudDY1Mzg5OTIzNw==",
       "body": "## 防抖 (debounce)\r\n\r\n防抖，顾名思义，防止抖动，以免把一次事件误认为多次，敲键盘就是一个每天都会接触到的防抖操作。\r\n\r\n想要了解一个概念，必先了解概念所应用的场景。在 JS 这个世界中，有哪些防抖的场景呢\r\n\r\n1. 登录、发短信等按钮避免用户点击太快，以致于发送了多次请求，需要防抖\r\n1. 调整浏览器窗口大小时，resize 次数过于频繁，造成计算过多，此时需要一次到位，就用到了防抖\r\n1. 文本编辑器实时保存，当无任何更改操作一秒后进行保存\r\n\r\n代码如下，可以看出来**防抖重在清零 `clearTimeout(timer)`**\r\n\r\n``` js\r\nfunction debounce (f, wait) {\r\n  let timer\r\n  return (...args) => {\r\n    clearTimeout(timer)\r\n    timer = setTimeout(() => {\r\n      f(...args)\r\n    }, wait)\r\n  }\r\n}\r\n```\r\n\r\n## 节流 (throttle)\r\n\r\n节流，顾名思义，控制水的流量。控制事件发生的频率，如控制为1s发生一次，甚至1分钟发生一次。与服务端(server)及网关(gateway)控制的限流 (Rate Limit) 类似。\r\n\r\n1. `scroll` 事件，每隔一秒计算一次位置信息等\r\n1. 浏览器播放事件，每个一秒计算一次进度信息等\r\n1. input 框实时搜索并发送请求展示下拉列表，每隔一秒发送一次请求 (也可做防抖)\r\n\r\n代码如下，可以看出来**节流重在加锁 `timer=timeout`**\r\n\r\n``` js\r\nfunction throttle (f, wait) {\r\n  let timer\r\n  return (...args) => {\r\n    if (timer) { return }\r\n    timer = setTimeout(() => {\r\n      f(...args)\r\n      timer = null\r\n    }, wait)\r\n  }\r\n}\r\n```\r\n\r\n## 总结 (简要答案)\r\n\r\n+ 防抖：防止抖动，单位时间内事件触发会被重置，避免事件被误伤触发多次。**代码实现重在清零 `clearTimeout`**。防抖可以比作等电梯，只要有一个人进来，就需要再等一会儿。业务场景有避免登录按钮多次点击的重复提交。\r\n+ 节流：控制流量，单位时间内事件只能触发一次，与服务器端的限流 (Rate Limit) 类似。**代码实现重在开锁关锁 `timer=timeout; timer=null`**。节流可以比作过红绿灯，每等一个红灯时间就可以过一批。",
       "reactions": {
-        "totalCount": 5
+        "totalCount": 6
       },
       "author": {
         "login": "shfshanyue",
@@ -4590,7 +4590,17 @@
         "name": "open"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDc4MTc3MzYzNw==",
+      "body": "三年高级五年架构",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "Bob4F",
+        "url": "https://github.com/Bob4F"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU1NzU5MjUwMTM=",
@@ -9061,7 +9071,17 @@
         "name": "vue"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDc3NTc3OTYzNA==",
+      "body": "不需要额外监听，因为 Proxy 代理后的数据，数组的修改也是可以监听到的，reactive 之后直接修改即可。",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "18sby",
+        "url": "https://github.com/18sby"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU3NzIyMTUyNDE=",
@@ -9496,6 +9516,160 @@
         "name": "html"
       }
     ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDc4Mjg2MzY4MA==",
+      "body": "- 不可分的空格:＆nbsp;\r\n- <(小于符号):＆lt;\r\n- (大于符号):＆gt;\r\n- ＆(与符号):＆amp;\r\n- ″(双引号):＆quot;\r\n- '(单引号):'＆apos;\r\n- ……",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "kglive",
+        "url": "https://github.com/kglive"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU4MDM0OTcyMzE=",
+    "number": 481,
+    "title": "【Q473】关于模块化，什么是 amd 和 umd",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDc3NTY3OTUxOA==",
+      "body": "**amd**\r\n\r\n``` js\r\ndefine(['jquery', 'underscore'], function ($, _) {});\r\n```\r\n\r\n**umd**\r\n\r\n``` js\r\n(function (root, factory) {\r\n  if (typeof define === 'function' && define.amd) {\r\n    // AMD\r\n    define(['jquery'], factory);\r\n  } else if (typeof exports === 'object') {\r\n    // CommonJS\r\n    module.exports = factory(require('jquery'));\r\n  } else {\r\n    // 全局变量\r\n    root.returnExports = factory(root.jQuery);\r\n  }\r\n}(this, function ($) {\r\n  // ...\r\n}));\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU4MDM2NTk2MjU=",
+    "number": 482,
+    "title": "【Q474】简单介绍以下浏览器中的 module",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
     "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU4MDQxODQ3NTE=",
+    "number": 483,
+    "title": "【Q475】什么是 commonjs2 ",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU4MDcxNjEwNjM=",
+    "number": 484,
+    "title": "【Q476】textarea 如何禁止拉伸",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE2",
+        "name": "html"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDc3ODE0MTY5MQ==",
+      "body": "使用 CSS 样式可以避免拉伸\r\n\r\n``` css\r\ntextarea {\r\n  resize: none;\r\n}\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU4MDc3NTkyMzc=",
+    "number": 485,
+    "title": "【Q477】在 Canvas 中如何处理跨域的图片",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE2",
+        "name": "html"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU4MTE2MDMyNTA=",
+    "number": 486,
+    "title": "【Q478】如何实现容器中子元素三个三列布局，子元素两个则两列布局",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIw",
+        "name": "css"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU4MTQwMzgwMzA=",
+    "number": 487,
+    "title": "【Q479】前端上传文件时如何读取文件内容",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDc4MzgzMTgyNw==",
+      "body": "``` js\r\nconst content = await new Response(file).text()\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU4MTUyMTkyODk=",
+    "number": 488,
+    "title": "【Q480】你最喜欢的三个 js 库是什么",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDc4NDkxNDY0Ng==",
+      "body": "\r\n这三个库是我喜欢也用的相当多的库，如果是自己的项目基本上都用了:\r\n\r\n1. [next](https://npm.devtool.tech/next)\r\n2. [swr](https://npm.devtool.tech/swr)\r\n3. [graphql](https://npm.devtool.tech/graphql)\r\n\r\n此外，[npm.devtool](https://npm.devtool.tech/) 中收集了最流行的 1000 个库，可以去瞧瞧\r\n\r\n## next\r\n\r\nVercel 出品\r\n\r\n> The React Framework for Production.\r\n\r\n好用！一点基于它的 SSR，一点基于它的开箱即用。\r\n\r\n1. SSR，如果你想提高你的前端水平，那就使用 Next 做一个同构的项目吧，其中遇到的问题比纯客户端渲染更有挑战力，更加棘手。严格来说这是一个需要部署在服务器上的服务器项目，你需要对服务器端开始了解，可能遇到内存爆掉，需要记录服务器日志，需要 Metric 监控内存、CPU 等，需要报警等。而这些在平常的前端项目接触不到。同构要求一份代码既能在 Node 环境中运行，又能在浏览器中运行，其中也会遇到一些问题，比如一个库客户端可以加载服务端不行，或者相反。或者一个疏忽让客户端打包了一个特别大的包(其实仅仅服务端需要)，造成页面加载过慢。\r\n1. 开箱即用，内置路由、ts支持、webpack 配置等等。即使你想扩展你的 webpack 配置，仅仅需要在 `next.config.js` 添加几行代码。而不像 `create-react-app` 基本上都要 `eject`，从而需要管理许多配置\r\n\r\n## swr\r\n\r\n``` js\r\nconst { data: projects, error } = useSWR('/api/projects')\r\n```\r\n\r\n或者一个可选的库: `React-Query`。\r\n\r\n同样也是 Vercel 出品\r\n\r\n最大的好处就是通过 `hooks` 形式加载数据，简单方便。与 `React-Query` 相比，个人感觉:\r\n\r\n1. `react-query` 对于 `mutation` 可使用 hooks，支持更多选项 (如 keepPreviousData)，功能更多，更适合 API 复杂的项目\r\n1. `swr` 相对轻量，可随处使用，不像 react-query 需要在父组件设置 Provider 等，只有读请求的小项目可以用 swr\r\n\r\n## graphql\r\n\r\nGraphQL，按需请求数据。可以简单对接数据库、第三方服务，并扔到客户端，由于面向字段(field)，所以更容易针对字段进行缓存。\r\n\r\n同时也更有利于客户端，`graphql` 的强类型很容易通过 AST 转化为 types，因此客户端请求数据时的 ts 可以根据 query 自动生成。\r\n\r\n现在，Github 最新的 API 也是 graphql 形式的",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   }
 ]

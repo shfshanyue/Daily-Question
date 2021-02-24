@@ -12,3 +12,5 @@
 + [【Q469】HTML 中的 input 标签有哪些 type](477.html)
 + [【Q470】什么是 Data URL](478.html)
 + [【Q472】什么是 HTML 的实体编码](480.html)
++ [【Q476】textarea 如何禁止拉伸](484.html)
++ [【Q477】在 Canvas 中如何处理跨域的图片](485.html)
