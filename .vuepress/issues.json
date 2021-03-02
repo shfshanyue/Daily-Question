@@ -4639,7 +4639,17 @@
         "name": "js"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDc4Njk5MDU2Ng==",
+      "body": "![image](https://user-images.githubusercontent.com/19162008/109372242-850c0980-78e3-11eb-8fe6-ecb15fa5e480.png)\r\n\r\nheap（堆）：对象被分配在堆中，堆是一个用来表示一大块（通常是非结构化的）内存区域的计算机术语。\r\nstack（栈）：函数调用形成了一个由若干帧组成的栈。\r\nWebAPIS：囊括 Web 强大脚本能力的每个 API 参考资料， 包括 DOM 、所有相关的 APIs 及可以用来构建 Web 的相关接口。\r\n队列（event queue || Callback Queue）：一个 JavaScript 运行时包含了一个待处理消息的消息队列。每一个消息都关联着一个用以处理这个消息的回调函数\r\n\r\n\r\n[event loop 运行图解](http://latentflip.com/loupe/?code=c2V0VGltZW91dChmdW5jdGlvbigpewogICAgY29uc29sZS5sb2coJzEnKQp9LDApOwoKbmV3oCBQcm9taXNlKGZ1bmN0aW9uKHJlc29sdmUpewoKoCBjb25zb2xlLmxvZygnMicpOwoKoCByZXNvbHZlKCk7Cgp9KS50aGVuKGZ1bmN0aW9uKCl7Cgpjb25zb2xlLmxvZygnMycpCgp9KTsKCmNvbnNvbGUubG9nKCc0Jyk7Cg%3D%3D!!!PGJ1dHRvbj5DbGljayBtZSE8L2J1dHRvbj4%3D)\r\n\r\n```\r\nsetTimeout(() => {\r\n    console.log(1)\r\n}, 100)\r\nconsole.log(2);\r\nsetTimeout(() => {\r\n    console.log(3)\r\n}, 0)\r\n// 2\r\n// 1\r\n// 3\r\n```\r\n\r\n![未标题-1](https://user-images.githubusercontent.com/19162008/109375818-9c0a2600-78fa-11eb-8a0f-1d65394fb6a6.gif)\r\n\r\n\r\n\r\n看图我们可以了解到，setTimeout(() => {console.log(1)}, 0) 会在Stack执行，在放入WebAPIs中当成一个匿名函数执行，匿名函数执行完毕之后会放入Callback Queue 中。\r\nconsole.log(2) 则直接被推入Stack 中执行。\r\n\r\nsetTimeout(() => {console.log(3)}, 0) 同样的执行后放入WebAPIs中当成一个匿名函数执行，在放入Callback Queue中。当同步任务执行完之后，才会将Callback Queue 队列中的方法推入Stack中。\r\n\r\n**因为JS是单线程的，单线程就意味着，所有任务需要排队，前一个任务结束，才会执行后一个任务。为了解决排除等待问题，JS的任务分为同步任务（synchronous）和异步任务（asynchronous）。\r\n所有同步任务都在主线程上执行，形成一个Stac）。异步任务（如果是WebAPI 则会进入WebAPI，例如ajax setTimeout）不进入主线程，而是进入另一 Callback Queue。同步任务顺序执行，只有执行栈中的同步任务执行完了，系统才回读取任务队列中可以执行的异步任务，才会把此异步任务从事件队列中放入执行栈中执行，如此循环，直至所有任务执行完毕。**\r\n\r\n**这就是EventLoop**\r\n\r\n\r\n",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "martin-yin",
+        "url": "https://github.com/martin-yin"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU1NzU5MzgwOTU=",
@@ -7995,7 +8005,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDY3NTUxOTA0NQ==",
-      "body": "简单实现如下：\r\n\r\n``` js\r\nfunction once (f) {\r\n  let result\r\n  let revoked = false\r\n  \r\n  return (...args) => {\r\n    if (revoked) return result\r\n    const r = f(...args)\r\n    revoked = true\r\n    result = r\r\n    return r\r\n  }\r\n}\r\n```\r\n\r\n``` js\r\n> const f = () => {console.log('call'); return 3;}\r\n< undefined\r\n\r\n> once_f = once(f)\r\n< (...args) => {\r\n    if (revoked) return result\r\n    const r = f(...args)\r\n    revoked = true\r\n    result = r\r\n  }\r\n\r\n// 第一次调用\r\n> once_f()\r\n< call\r\n< 3\r\n\r\n// 第二次调用，没有打印 call\r\n> once_f()\r\n< 3\r\n```",
+      "body": "简单实现如下：\r\n\r\n``` js\r\nfunction once (f) {\r\n  let result\r\n  let revoked = false\r\n  \r\n  return (...args) => {\r\n    if (revoked) return result\r\n    const r = f(...args)\r\n    revoked = true\r\n    result = r\r\n    return r\r\n  }\r\n}\r\n```\r\n\r\n测试一下\r\n\r\n``` js\r\n> const f = () => {console.log('call'); return 3;}\r\n< undefined\r\n\r\n> once_f = once(f)\r\n< (...args) => {\r\n    if (revoked) return result\r\n    const r = f(...args)\r\n    revoked = true\r\n    result = r\r\n  }\r\n\r\n// 第一次调用\r\n> once_f()\r\n< call\r\n< 3\r\n\r\n// 第二次调用，没有打印 call\r\n> once_f()\r\n< 3\r\n```\r\n\r\n[once](https://npm.devtool.tech/once) 是社区使用最广泛的一个库，代码实现与上大同小异，然而每月下载量可达上亿，比 vue/react/angular 三者一个月的下载量加起来还要高一倍",
       "reactions": {
         "totalCount": 0
       },
@@ -9397,7 +9407,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDc2OTczMzExOQ==",
-      "body": "使用 Grid 布局可以轻松解决这个问题:\r\n\r\n``` html\r\n<div class=\"container\">\r\n  <div class=\"item\"></div>\r\n  <div class=\"item\"></div>\r\n  <div class=\"item\"></div>\r\n  <div class=\"item\"></div>\r\n  <div class=\"item\"></div>\r\n  <div class=\"item\"></div>\r\n</div>\r\n```\r\n\r\n``` css\r\n@media (min-width: 1024px) {\r\n  .container {\r\n    grid-template-columns: repeat(3,minmax(0,1fr));\r\n  }\r\n}\r\n\r\n@media (min-width: 768px) {\r\n  .container {\r\n    grid-template-columns: repeat(2,minmax(0,1fr));\r\n  }\r\n}\r\n\r\n.conainer {\r\n  display: grid;\r\n  grid-gap: 1rem;\r\n  gap: 1rem;\r\n}\r\n```\r\n\r\n``` html\r\n<div class=\"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4\"></div>\r\n```",
+      "body": "页面布局元素如下，item 数量不固定\r\n\r\n``` html\r\n<div class=\"container\">\r\n  <div class=\"item\"></div>\r\n  <div class=\"item\"></div>\r\n  <div class=\"item\"></div>\r\n  <div class=\"item\"></div>\r\n  <div class=\"item\"></div>\r\n  <div class=\"item\"></div>\r\n</div>\r\n```\r\n\r\n使用 Grid 布局可以轻松解决这个问题，如若使用其它方案，控制好等分的同时再控制好间距也是一个十分头疼的问题:\r\n\r\n1. `grid-template-columns`: 控制等分\r\n2. `gap`: 控制间隙\r\n\r\n``` css\r\n@media (min-width: 1024px) {\r\n  .container {\r\n    grid-template-columns: repeat(3,minmax(0,1fr));\r\n  }\r\n}\r\n\r\n@media (min-width: 768px) {\r\n  .container {\r\n    grid-template-columns: repeat(2,minmax(0,1fr));\r\n  }\r\n}\r\n\r\n.conainer {\r\n  display: grid;\r\n  gap: 1rem;\r\n}\r\n```\r\n\r\n`TailwindCSS` 是一款非常方便的 CSS 原子类框架，只需要一行即可搞定\r\n\r\n``` html\r\n<div class=\"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4\"></div>\r\n```",
       "reactions": {
         "totalCount": 0
       },
@@ -9639,7 +9649,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDc4MzgzMTgyNw==",
-      "body": "``` js\r\nconst content = await new Response(file).text()\r\n```",
+      "body": "``` html\r\n<input type=\"file\" id=\"input\" onchange=\"handleFiles(this.files)\">\r\n```\r\n\r\n在浏览器中，通过 `input[type=file]` 来点击上传文件，此时监听 `onChange` 事件，可以获取到 `File` 对象，其中从中可以读取文件内容\r\n\r\n而读取文件内容，需要转化 `File/Blob` 到 `Text`，一般使用以下两种方案\r\n\r\n## FileReader API\r\n\r\n这是最常用处理上传文件的 API，但是却繁琐冗余难记，每次使用基本上都要查文档！\r\n\r\n`FileReader API` 用以读取 File/Blob 内容，正因为繁琐难记，以下实现一个 `readBlob` 函数读取内容。\r\n\r\n``` js\r\nfunction readBlob (blob) {\r\n  return new Promise(resolve => {\r\n    const reader = new FileReader()\r\n    reader.onload = function (e) {\r\n      resolve(e.target.result)  \r\n    }\r\n    reader.readAsText(blob)\r\n  })\r\n}\r\n```\r\n\r\n## Response API\r\n\r\n而是用 `Response API` 只需要一行内容\r\n\r\n``` js\r\nconst readBlob = (blob) => new Response(blob).text()\r\n```",
       "reactions": {
         "totalCount": 0
       },
