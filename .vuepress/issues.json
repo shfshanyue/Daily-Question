@@ -7826,7 +7826,7 @@
       "id": "MDEyOklzc3VlQ29tbWVudDY3MTQxNTAyMw==",
       "body": "1 => 3 => 4 => 2 => 5 => 6 => 0",
       "reactions": {
-        "totalCount": 1
+        "totalCount": 2
       },
       "author": null
     }
@@ -9467,7 +9467,17 @@
         "name": "html"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDc5MDQ0Mzk5Mg==",
+      "body": "## button\r\n没有默认行为的按钮，上面显示 value 属性的值，默认为空。\r\n\r\n``` html\r\n<input  type=\"button\" name=\"button\" />\r\n```\r\n\r\n## checkbox\r\n复选框，可设为选中或未选中。\r\n\r\n``` html\r\n<input  type=\"checkbox\" name=\"checkbox\"/>\r\n```\r\n\r\n## color\r\n用于指定颜色的控件；在支持的浏览器中，激活时会打开取色器。\r\n\r\n``` html\r\n<input  type=\"color\" name=\"color\"/>\r\n```\r\n\r\n## date\r\n输入日期的控件（年、月、日，不包括时间）。在支持的浏览器激活时打开日期选择器或年月日的数字滚轮。\r\n\r\n``` html\r\n<input  type=\"date\" name=\"date\"/>\r\n```\r\n\r\n## datetime-local\r\n输入日期和时间的控件，不包括时区。在支持的浏览器激活时打开日期选择器或年月日的数字滚轮。\r\n\r\n``` html\r\n<input  type=\"datetime-local\" name=\"datetime-local\"/>\r\n```\r\n\r\n## email\r\n编辑邮箱地址的区域。类似 text 输入，但在支持的浏览器和带有动态键盘的设备上会有确认参数和相应的键盘。\r\n\r\n``` html\r\n<input type=\"email\" name=\"email\"/>\r\n```\r\n\r\n## file\r\n让用户选择文件的控件。使用accept属性规定控件能选择的文件类型。\r\n\r\n``` html\r\n<input type=\"file\" accept=\"image/*, text/*\" name=\"file\"/>\r\n```\r\n\r\n## hidden\r\n不显示的控件，其值仍会提交到服务器。举个例子，右边就是一个隐形的控件。\r\n\r\n``` html\r\n\r\n```\r\n\r\n## image\r\n带图像的 submit 按钮。显示的图像由 src 属性规定。如果 src 缺失，alt 属性就会显示。\r\n\r\n``` html\r\n<input type=\"image\" name=\"image\" src=\"\" alt=\"image input\"/>\r\n```\r\n\r\n## month\r\n输入年和月的控件，没有时区。\r\n\r\n``` html\r\n<input type=\"month\" name=\"month\"/>\r\n```\r\n\r\n## number\r\n用于输入数字的控件。如果支持的话，会显示滚动按钮并提供缺省验证（即只能输入数字）。拥有动态键盘的设备上会显示数字键盘。\r\n\r\n``` html\r\n<input  type=\"number\" name=\"number\"/>\r\n```\r\n\r\n## password\r\n单行的文本区域，其值会被遮盖。如果站点不安全，会警告用户。\r\n\r\n``` html\r\n<input  type=\"password\" name=\"password\"/>\r\n```\r\n\r\n## radio\r\n单选按钮，允许在多个拥有相同 name 值的选项中选中其中一个。\r\n\r\n``` html\r\n<input type=\"radio\" name=\"radio\"/>\r\n```\r\n\r\n## range\r\n此控件用于输入不需要精确的数字。控件是一个范围组件，默认值为正中间的值。同时使用htmlattrdefmin   和 htmlattrdefmax来规定值的范围。\r\n\r\n``` html\r\n<input type=\"range\" name=\"range\" min=\"0\" max=\"25\"/>\r\n```\r\n\r\n## reset\r\n此按钮将表单的所有内容重置为默认值。不推荐。\r\n\r\n``` html\r\n<input  type=\"reset\" name=\"reset\"/>\r\n```\r\n\r\n## search\r\n用于搜索字符串的单行文字区域。输入文本中的换行会被自动去除。在支持的浏览器中可能有一个删除按钮，用于清除整个区域。拥有动态键盘的设备上的回车图标会变成搜索图标。\r\n\r\n``` html\r\n<input  type=\"search\" name=\"search\"/>\r\n```\r\n\r\n## submit\r\n用于提交表单的按钮。\r\n\r\n``` html\r\n<input type=\"submit\" name=\"submit\"/>\r\n```\r\n\r\n## tel\r\n用于输入电话号码的控件。拥有动态键盘的设备上会显示电话数字键盘。\r\n\r\n``` html\r\n<input  type=\"tel\" name=\"tel\"/>\r\n```\r\n\r\n## text\r\n默认值。单行的文本区域，输入中的换行会被自动去除。\r\n\r\n``` html\r\n<input type=\"text\" name=\"text\"/>\r\n```\r\n\r\n## time\r\n用于输入时间的控件，不包括时区。\r\n\r\n``` html\r\n<input  type=\"time\" name=\"time\"/>\r\n```\r\n\r\n## url\r\n用于输入 URL 的控件。类似 text 输入，但有验证参数，在支持动态键盘的设备上有相应的键盘。\r\n\r\n``` html\r\n<input type=\"url\" name=\"url\"/>\r\n```\r\n\r\n## week\r\n用于输入以年和周数组成的日期，不带时区。\r\n\r\n``` html\r\n<input type=\"week\" name=\"week\"/>\r\n```\r\n",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU3OTkyNzA4NjQ=",
@@ -9527,14 +9537,14 @@
       }
     ],
     "comment": {
-      "id": "MDEyOklzc3VlQ29tbWVudDc4Mjg2MzY4MA==",
-      "body": "- 不可分的空格:＆nbsp;\r\n- <(小于符号):＆lt;\r\n- (大于符号):＆gt;\r\n- ＆(与符号):＆amp;\r\n- ″(双引号):＆quot;\r\n- '(单引号):'＆apos;\r\n- ……",
+      "id": "MDEyOklzc3VlQ29tbWVudDc4ODU2NzY2NQ==",
+      "body": "HTML 实体是一段以连字号（&）开头、以分号（;）结尾的字符串。用以显示不可见字符及保留字符 (如 HTML 标签)\r\n\r\n在前端，一般为了避免 XSS 攻击，会将 `<>` 编码为 `&lt;` 与 `&gt;`，这些就是 HTML 实体编码。\r\n\r\n在 [whatwg](https://html.spec.whatwg.org/multipage/named-characters.html#named-character-references) 中可查看实体编码数据。\r\n\r\n在 HTML 转义时，仅仅只需要对六个字符进行编码: `&`, `<`, `>`, `\"`, `'`,  `\\``。可使用 [he](https://npm.devtool.tech/he) 这个库进行编码及转义\r\n\r\n``` js\r\n// 实体编码\r\n> he.encode('<img src=\"\"></img>')\r\n< \"&#x3C;img src=&#x22;&#x22;&#x3E;&#x3C;/img&#x3E;\"\r\n\r\n// 转义\r\n> he.escape('<img src=\"\"></img>')\r\n< \"&lt;img src=&quot;&quot;&gt;&lt;/img&gt;\"\r\n```",
       "reactions": {
-        "totalCount": 0
+        "totalCount": 1
       },
       "author": {
-        "login": "kglive",
-        "url": "https://github.com/kglive"
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
       }
     }
   },
@@ -9551,7 +9561,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDc3NTY3OTUxOA==",
-      "body": "**amd**\r\n\r\n``` js\r\ndefine(['jquery', 'underscore'], function ($, _) {});\r\n```\r\n\r\n**umd**\r\n\r\n``` js\r\n(function (root, factory) {\r\n  if (typeof define === 'function' && define.amd) {\r\n    // AMD\r\n    define(['jquery'], factory);\r\n  } else if (typeof exports === 'object') {\r\n    // CommonJS\r\n    module.exports = factory(require('jquery'));\r\n  } else {\r\n    // 全局变量\r\n    root.returnExports = factory(root.jQuery);\r\n  }\r\n}(this, function ($) {\r\n  // ...\r\n}));\r\n```",
+      "body": "`amd` 是一种浏览器中的模块格式，关键字为 `define`，`cjs` 是一种 Node 中的模块格式，也是广为人所熟悉的 `require/exports`。\r\n\r\n而 `umd` 是 `amd` 与 `cjs` 两种格式的兼容。既可以跑在浏览器，又可以跑在 Node 中\r\n\r\n**amd**\r\n\r\n``` js\r\ndefine(['jquery', 'underscore'], function ($, _) {});\r\n```\r\n\r\n**umd**\r\n\r\n``` js\r\n(function (root, factory) {\r\n  if (typeof define === 'function' && define.amd) {\r\n    // AMD\r\n    define(['jquery'], factory);\r\n  } else if (typeof exports === 'object') {\r\n    // CommonJS\r\n    module.exports = factory(require('jquery'));\r\n  } else {\r\n    // 全局变量\r\n    root.returnExports = factory(root.jQuery);\r\n  }\r\n}(this, function ($) {\r\n  // ...\r\n}));\r\n```",
       "reactions": {
         "totalCount": 0
       },
@@ -9681,5 +9691,18 @@
         "url": "https://github.com/shfshanyue"
       }
     }
+  },
+  {
+    "id": "MDU6SXNzdWU4MjAxMjgwODg=",
+    "number": 489,
+    "title": "【Q481】网站设置字体时，如何设置优先使用系统默认字体",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIw",
+        "name": "css"
+      }
+    ],
+    "comment": ""
   }
 ]
