@@ -185,7 +185,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDU0OTM1MTAyOA==",
-      "body": "这要看这家公司的基础设施怎么样了（当然面试时，最好在反问面试官环节问问这个问题）\r\n\r\n+ 查看是否有 `dockerfile`，如果有跟着 `dockerfile` 跑命令\r\n+ 查看是否有 `CI/CD`，如果有跟着 `CI/CD` 部署的脚本跑命令\r\n\r\n如果都没有，那只能到处问人自求多福了\r\n\r\n不过鉴于本地环境与开发环境部署的有可能不同（特别是前端，开发时需要起个 server），也有几个点需要注意\r\n\r\n1. 前端有可能在本地环境启动时需要依赖前端部署时所产生的文件，所以有时需要**先正常部署一遍，再试着按照本地环境启动 (即需要先 `npm run build` 一下，再 `npm run dev`)**\r\n1. 别忘了设置环境变量",
+      "body": "\r\n新人入职新上手项目，如何把它跑起来，这是所有人都会碰到的问题：所有人都是从新手开始的。\r\n\r\n有可能你会脱口而出：`npm run dev/npm start`，但实际工作中，处处藏坑，往往没这么简单。\r\n\r\n1. 查看是否有 `CI/CD`，如果有跟着 `CI/CD` 部署的脚本跑命令\r\n1. 查看是否有 `dockerfile`，如果有跟着 `dockerfile` 跑命令\r\n1. 查看 npm scripts 中是否有 dev/start，尝试 `npm run dev/npm start`\r\n1. 查看是否有文档，如果有跟着文档走。为啥要把文档放到最后一个？原因你懂的\r\n\r\n但即便是十分谨慎，也有可能遇到以下几个叫苦不迭、浪费了一下午时间的坑:\r\n\r\n1. 前端有可能在**本地环境启动时需要依赖前端构建时所产生的文件**，所以有时需要**先正常部署一遍，再试着按照本地环境启动 (即需要先 `npm run build` 一下，再 `npm run dev/npm start`)**。(比如，一次我们的项目 npm run dev 时需要 webpack DllPlugin 构建后的东西）\r\n1. 别忘了设置环境变量或者配置文件\r\n\r\n因此，设置一个少的 script，可以很好地避免后人踩坑，更重要的是，可以避免后人骂你\r\n\r\n``` json\r\n{\r\n  \"scripts\": {\r\n    \"start\": \"npm run dev\",\r\n    \"config\": \"node assets && node config\",\r\n    \"build\": \"webpack\",\r\n    // 设置一个 dev 的钩子，在 npm run dev 前执行，此处有可能不是必须的\r\n    \"predev\": \"npm run build\",\r\n    \"dev\": \"webpack-dev-server --inline --progress\"\r\n  }\r\n}\r\n```\r\n\r\n## npm run dev 与 npm start 的区别\r\n\r\n对于一个**纯生成静态页面打包**的前端项目而言，它们是没有多少区别的：生产环境的部署只依赖于构建生成的资源，更不依赖 npm scripts。可见 [如何部署前端项目](https://shanyue.tech/frontend-engineering/docker.html)。\r\n\r\n使用 `create-react-app` 生成的项目，它的 npm script 中只有 `npm start`\r\n\r\n``` json\r\n{\r\n  \"start\": \"react-scripts start\",\r\n  \"build\": \"react-scripts build\",\r\n  \"test\": \"react-scripts test\",\r\n  \"eject\": \"react-scripts eject\"\r\n}\r\n```\r\n\r\n使用 `vuepress` 生成的项目，它的 npm script 中只有 `npm run dev`\r\n\r\n``` json\r\n{\r\n  \"dev\": \"vuepress dev\",\r\n  \"build\": \"vuepress build\"\r\n}\r\n```\r\n\r\n在一个**面向服务端**的项目中，如 `next`、`nuxt` 与 `nest`。dev 与 start 的区别趋于明显，一个为生产环境，一个为开发环境\r\n\r\n+ dev: 在开发环境启动项目，一般带有 watch 选项，监听文件变化而重启服务，此时会耗费大量的 CPU 性能，不宜放在生产环境\r\n+ start: 在生产环境启动项目\r\n\r\n在 `nest` 项目中进行配置\r\n\r\n``` json\r\n{\r\n  \"start\": \"nest start\",\r\n  \"dev\": \"nest start --watch\"\r\n}\r\n```",
       "reactions": {
         "totalCount": 0
       },
@@ -438,7 +438,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDU1MjA5OTE2NQ==",
-      "body": "它一般可以使用第三方库 [clipboard.js](https://github.com/zenorocha/clipboard.js) 来实现，源码很简单，可以读一读\r\n\r\n主要有两个要点\r\n\r\n1. 选中: `Selection API`\r\n1. 复制: `document.execCommand`\r\n\r\n## 选中: Selection API\r\n\r\n选中主要利用了 [Selection API](https://developer.mozilla.org/en-US/docs/Web/API/Selection)\r\n\r\n选中的代码如下\r\n\r\n``` js\r\nconst selection = window.getSelection();\r\nconst range = document.createRange();\r\n\r\nrange.selectNodeContents(element);\r\nselection.removeAllRanges();\r\nselection.addRange(range);\r\n\r\nselectedText = selection.toString();\r\n```\r\n\r\n取消选中的代码如下\r\n\r\n``` js\r\nwindow.getSelection().removeAllRanges();\r\n```\r\n\r\n它有现成的第三方库可以使用: [select.js](https://github.com/zenorocha/select)\r\n\r\n## 复制: execCommand\r\n\r\n复制就比较简单了，`execCommand`\r\n\r\n``` js\r\ndocument.exec('copy')\r\n```",
+      "body": "它一般可以使用第三方库 [clipboard.js](https://github.com/zenorocha/clipboard.js) 来实现，源码很简单，可以读一读\r\n\r\n主要有两个要点\r\n\r\n1. 选中: `Selection API`\r\n1. 复制: `document.execCommand`\r\n\r\n## 选中: Selection API/Range API\r\n\r\n选中主要利用了 [Selection API](https://developer.mozilla.org/en-US/docs/Web/API/Selection) 与 Range API\r\n\r\n选中的代码如下\r\n\r\n``` js\r\nconst selection = window.getSelection();\r\nconst range = document.createRange();\r\n\r\n// RangeAPI: 制造区域\r\nrange.selectNodeContents(element);\r\n\r\n// Selection: 选中区域\r\nselection.addRange(range);\r\n\r\nselectedText = selection.toString();\r\n```\r\n\r\n取消选中的代码如下\r\n\r\n``` js\r\nwindow.getSelection().removeAllRanges();\r\n```\r\n\r\n它有现成的第三方库可以使用: [select.js](https://github.com/zenorocha/select)\r\n\r\n## 复制: execCommand\r\n\r\n复制就比较简单了，`execCommand`\r\n\r\n``` js\r\ndocument.exec('copy')\r\n```",
       "reactions": {
         "totalCount": 0
       },
@@ -1651,7 +1651,17 @@
         "name": "micro-service"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDgwNDU3OTY5Mg==",
+      "body": "建立一张表存储长链和短链接的对应关系，把长链接按照规则或随机生成短链接，且要保证短链接生成后唯一\r\n每次点击短链接的时候，就去查询长链接出来替换就可以了\r\n\r\n工作需要，用过百度提供的转短链接服务！！！\r\n",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "maqiang123",
+        "url": "https://github.com/maqiang123"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU1MzA3MjMzNzQ=",
@@ -1687,7 +1697,17 @@
         "name": "webpack"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDgwNTUyMDc5OA==",
+      "body": "HMR（Hot Module Replacement），热更新又称热替换，基于 webpack-dev-server。\r\n第一步：webpack 对文件系统进行 watch 打包到内存中\r\n第二步：devServer 通知浏览器端文件发生改变，在这一阶段，sockjs 是服务端和浏览器端之间的桥梁，在启动 devServer 的时候，sockjs 在服务端和浏览器端建立了一个 webSocket 长连接，以便将 webpack 编译和打包的各个阶段状态告知浏览器\r\n第三步：webpack-dev-server/client 接收到服务端消息做出响应\r\n第四步：webpack 接收到最新 hash 值验证并请求模块代码\r\n第五步：HotModuleReplacement.runtime 对模块进行热更新\r\n第六步：调用accept 方法，及时将新后的内容插入到页面中",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "wjw-gavin",
+        "url": "https://github.com/wjw-gavin"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU1MzA3MjQ0NjY=",
@@ -1786,7 +1806,17 @@
         "name": "前端工程化"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDgwNTU0MTQ4NQ==",
+      "body": "减少http请求次数：\r\nCSS Sprites, JS、CSS源码压缩、图片大小适当控制；\r\n网页Gzip，CDN托管，data缓存 ，图片服务器。\r\n尽量减少内联样式\r\n将脚本放在底部 \r\n少用全局变量、缓存DOM节点查找的结果\r\n图片预加载\r\n按需加载",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "wjw-gavin",
+        "url": "https://github.com/wjw-gavin"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU1MzA3MjUzODQ=",
@@ -2560,10 +2590,10 @@
       }
     ],
     "comment": {
-      "id": "MDEyOklzc3VlQ29tbWVudDc1MDkxNjg3NQ==",
-      "body": "Koa 每个中间件都会被执行两次，其中最先进入的会最后出来，如同穿过一个洋葱，因此成为洋葱模型",
+      "id": "MDEyOklzc3VlQ29tbWVudDgwMDAzMjkzMw==",
+      "body": "# 四十行代码实现一个 koa\r\n\r\n当我们在深入学习一个框架或者库时，为了了解它的思想及设计思路，也为了更好地使用和避免无意的 Bug，有时很有必要研究源码。对于 koa 这种极为简单，而应用却很广泛的框架/库更应该了解它的源码。\r\n\r\n而为了验证我们是否已足够了解它，可以实现一个仅仅具备核心功能的迷你的库。正所谓，麻雀虽小，五脏俱全。\r\n\r\n`删繁就简三秋树`，这里只用四十行代码实现一个小型的却具有其核心功能的 koa。\r\n\r\n> **源码实现：<https://github.com/shfshanyue/koa-mini>**\r\n\r\n![](https://cdn.jsdelivr.net/gh/shfshanyue/blog@latest/node/assets/koa.jpg)\r\n\r\n这是一个拥有 koa 几乎所有核心功能最简化的示例：\r\n\r\n``` js\r\nconst Koa = require('koa')\r\nconst app = new Koa()\r\n\r\napp.use(async (ctx, next) => {\r\n  console.log('Middleware 1 Start')\r\n  await next()\r\n  console.log('Middleware 1 End')\r\n})\r\n\r\napp.use(async (ctx, next) => {\r\n  console.log('Middleware 2 Start')\r\n  await next()\r\n  console.log('Middleware 2 End')\r\n\r\n  ctx.body = 'hello, world'\r\n})\r\n\r\napp.listen(3000)\r\n\r\n// output\r\n// Middleware 1 Start\r\n// Middleware 2 Start\r\n// Middleware 2 End\r\n// Middleware 1 End\r\n```\r\n\r\n在这个最简化的示例中，可以看到有三个清晰的模块，分别如下：\r\n\r\n+ Application: 基本服务器框架\r\n+ Context: 服务器框架基本数据结构的封装，用以 http 请求解析及响应\r\n+ Middleware: 中间件，也是洋葱模型的核心机制\r\n\r\n![](https://cdn.jsdelivr.net/gh/shfshanyue/blog@latest/node/assets/koa-module.jpg)\r\n\r\n我们开始逐步实现这三个模块：\r\n\r\n## 抛开框架，来写一个简单的 server\r\n\r\n我们先基于 node 最基本的 `http API` 来启动一个 http 服务，并通过它来实现最简版的 koa：\r\n\r\n``` js\r\nconst http = require('http')\r\n\r\nconst server = http.createServer((req, res) => {\r\n  res.end('hello, world')\r\n})\r\n\r\nserver.listen(3000)\r\n```\r\n\r\n而要实现最简版的 `koa` 示例如下，我把最简版的这个 koa 命名为 `koa-mini`\r\n\r\n``` js\r\nconst Koa = require('koa-mini')\r\nconst app = new Koa()\r\n\r\napp.use(async (ctx, next) => {\r\n  console.log('Middleware 1 Start')\r\n  await next()\r\n  console.log('Middleware 1 End')\r\n})\r\n\r\napp.use(async (ctx, next) => {\r\n  console.log('Middleware 2 Start')\r\n  await next()\r\n  console.log('Middleware 2 End')\r\n\r\n  ctx.body = 'hello, world'\r\n})\r\n\r\napp.listen(3000)\r\n```\r\n\r\n## 构建 Application\r\n\r\n首先完成 `Appliacation` 的大体框架：\r\n\r\n+ `app.listen`: 处理请求及响应，并且监听端口\r\n+ `app.use`: 中间件函数，处理请求并完成响应\r\n\r\n只有简单的十几行代码，示例如下：\r\n\r\n``` js\r\nconst http = require('http')\r\n\r\nclass Application {\r\n  constructor () {\r\n    this.middleware = null \r\n  }\r\n\r\n  listen (...args) {\r\n    const server = http.createServer(this.middleware)\r\n    server.listen(...args)\r\n  }\r\n\r\n  // 这里依旧调用的是原生 http.createServer 的回调函数\r\n  use (middleware) {\r\n    this.middleware = middleware\r\n  }\r\n}\r\n```\r\n\r\n此时调用 `Application` 启动服务的代码如下:\r\n\r\n``` js\r\nconst app = new Appliacation()\r\n\r\napp.use((req, res) => {\r\n  res.end('hello, world')\r\n})\r\n\r\napp.listen(3000)\r\n```\r\n\r\n由于 `app.use` 的回调函数依然是原生的 `http.crateServer` 回调函数，而在 `koa` 中回调参数是一个 `Context` 对象。\r\n\r\n下一步要做的将是构建 `Context` 对象。\r\n\r\n## 构建 Context\r\n\r\n在 koa 中，`app.use` 的回调参数为一个 `ctx` 对象，而非原生的 `req/res`。因此在这一步要构建一个 `Context` 对象，并使用 `ctx.body` 构建响应：\r\n\r\n+ `app.use(ctx => ctx.body = 'hello, world')`: 通过在 `http.createServer` 回调函数中进一步封装 `Context` 实现\r\n+ `Context(req, res)`: 以 `request/response` 数据结构为主体构造 Context 对象\r\n\r\n核心代码如下，注意注释部分：\r\n\r\n``` js\r\nconst http = require('http')\r\n\r\nclass Application {\r\n  constructor () {}\r\n  use () {}\r\n\r\n  listen (...args) {\r\n    const server = http.createServer((req, res) => {\r\n      // 构造 Context 对象\r\n      const ctx = new Context(req, res)\r\n\r\n      // 此时处理为与 koa 兼容 Context 的 app.use 函数\r\n      this.middleware(ctx)\r\n\r\n      // ctx.body 为响应内容\r\n      ctx.res.end(ctx.body)\r\n    })\r\n    server.listen(...args)\r\n  }\r\n}\r\n\r\n// 构造一个 Context 的类\r\nclass Context {\r\n  constructor (req, res) {\r\n    this.req = req\r\n    this.res = res\r\n  }\r\n}\r\n```\r\n\r\n此时 `koa` 被改造如下，`app.use` 可以正常工作：\r\n\r\n``` js\r\nconst app = new Application()\r\n\r\napp.use(ctx => {\r\n  ctx.body = 'hello, world'\r\n})\r\n\r\napp.listen(7000)\r\n```\r\n\r\n实现以上的代码都很简单，现在就剩下一个最重要也是最核心的功能：洋葱模型\r\n\r\n## 洋葱模型及中间件改造\r\n\r\n上述工作只有简单的一个中间件，然而在现实中中间件会有很多个，如错误处理，权限校验，路由，日志，限流等等。因此我们要改造下 `app.middlewares`\r\n\r\n+ `app.middlewares`: 收集中间件回调函数数组，并并使用 `compose` 串联起来\r\n\r\n对所有中间件函数通过 `compose` 函数来达到抽象效果，它将对 `Context` 对象作为参数，来接收请求及处理响应：\r\n\r\n``` js\r\n// this.middlewares 代表所有中间件\r\n// 通过 compose 抽象\r\nconst fn = compose(this.middlewares)\r\nawait fn(ctx)\r\n\r\n// 当然，也可以写成这种形式，只要带上 ctx 参数\r\nawait compose(this.middlewares, ctx)\r\n```\r\n\r\n此时完整代码如下：\r\n\r\n``` js\r\nconst http = require('http')\r\n\r\nclass Application {\r\n  constructor () {\r\n    this.middlewares = []\r\n  }\r\n\r\n  listen (...args) {\r\n    const server = http.createServer(async (req, res) => {\r\n      const ctx = new Context(req, res)\r\n\r\n      // 对中间件回调函数串联，形成洋葱模型\r\n      const fn = compose(this.middlewares)\r\n      await fn(ctx)\r\n\r\n      ctx.res.end(ctx.body)\r\n    })\r\n    server.listen(...args)\r\n  }\r\n\r\n  use (middleware) {\r\n    // 中间件回调函数变为了数组\r\n    this.middlewares.push(middleware)\r\n  }\r\n}\r\n```\r\n\r\n接下来，着重完成 `compose` 函数\r\n\r\n### 完成 compose 函数的封装\r\n\r\n![](https://cdn.jsdelivr.net/gh/shfshanyue/blog@latest/node/assets/yangcong.png)\r\n\r\nkoa 的洋葱模型指出每一个中间件都像是洋葱的每一层，当从洋葱中心穿过时，每层都会一进一出穿过两次，且最先穿入的一层最后穿出。\r\n\r\n+ `middleware`: 第一个中间件将会执行\r\n+ `next`: 每个中间件将会通过 next 来执行下一个中间件\r\n\r\n我们如何实现所有的中间件的洋葱模型呢?\r\n\r\n我们看一看每一个 middleware 的 API 如下\r\n\r\n``` js\r\nmiddleware(ctx, next)\r\n```\r\n\r\n而每个中间件中的 `next` 是指执行下一个中间件，我们来把 `next` 函数提取出来，而 `next` 函数中又有 `next`，这应该怎么处理呢？\r\n\r\n``` js\r\nconst next = () => nextMiddleware(ctx, next)\r\nmiddleware(ctx, next(0))\r\n```\r\n\r\n是了，使用一个递归完成中间件的改造，并把中间件给连接起来，如下所示:\r\n\r\n``` js\r\n// dispatch(i) 代表执行第 i 个中间件\r\n\r\nconst dispatch = (i) => {\r\n  return middlewares[i](ctx, () => dispatch(i+1))\r\n}\r\ndispatch(0)\r\n```\r\n\r\n`dispatch(i)` 代表执行第 i 个中间件，而 `next()` 函数将会执行下一个中间件 `dispatch(i+1)`，于是我们使用递归轻松地完成了洋葱模型\r\n\r\n此时，再把递归的终止条件补充上: 当最后一个中间件函数执行 `next()` 时，直接返回\r\n\r\n``` js\r\nconst dispatch = (i) => {\r\n  const middleware = middlewares[i]\r\n  if (i === middlewares.length) {\r\n    return\r\n  }\r\n  return middleware(ctx, () => dispatch(i+1))\r\n}\r\nreturn dispatch(0)\r\n```\r\n\r\n最终的 `compose` 函数代码如下:\r\n\r\n``` js\r\nfunction compose (middlewares) {\r\n  return ctx => {\r\n    const dispatch = (i) => {\r\n      const middleware = middlewares[i]\r\n      if (i === middlewares.length) {\r\n        return\r\n      }\r\n      return middleware(ctx, () => dispatch(i+1))\r\n    }\r\n    return dispatch(0)\r\n  }\r\n}\r\n```\r\n\r\n至此，koa 的核心功能洋葱模型已经完成，写个示例来体验一下吧:\r\n\r\n``` js\r\nconst app = new Application()\r\n\r\napp.use(async (ctx, next) => {\r\n  ctx.body = 'hello, one'\r\n  await next()\r\n})\r\n\r\napp.use(async (ctx, next) => {\r\n  ctx.body = 'hello, two'\r\n  await next()\r\n})\r\n\r\napp.listen(7000)\r\n```\r\n\r\n此时还有一个小小的但不影响全局的不足：异常处理，下一步将会完成异常捕获的代码\r\n\r\n## 异常处理\r\n\r\n如果在你的后端服务中因为某一处报错，而把整个服务给挂掉了怎么办？\r\n\r\n我们只需要对中间件执行函数进行一次异常处理即可：\r\n\r\n``` js\r\ntry {\r\n  const fn = compose(this.middlewares)\r\n  await fn(ctx)\r\n} catch (e) {\r\n  console.error(e)\r\n  ctx.res.statusCode = 500\r\n  ctx.res.write('Internel Server Error')\r\n}\r\n```\r\n\r\n然而在日常项目中使用时，我们**必须**在框架层的异常捕捉之前就需要捕捉到它，来做一些异常结构化及异常上报的任务，此时会使用一个异常处理的中间件：\r\n\r\n``` js\r\n// 错误处理中间件\r\napp.use(async (ctx, next) => {\r\n  try {\r\n    await next();\r\n  }\r\n  catch (err) {\r\n    // 1. 异常结构化\r\n    // 2. 异常分类\r\n    // 3. 异常级别\r\n    // 4. 异常上报\r\n  }\r\n})\r\n```\r\n\r\n## 小结\r\n\r\n`koa` 的核心代码特别简单，如果你是一个 Node 工程师，非常建议在业务之余研究一下 koa 的源码，并且自己也实现一个最简版的 koa。\r\n\r\n我源码实现的仓库为：[koa-mini](https://github.com/shfshanyue/koa-mini)",
       "reactions": {
-        "totalCount": 0
+        "totalCount": 1
       },
       "author": {
         "login": "shfshanyue",
@@ -3210,15 +3240,12 @@
       }
     ],
     "comment": {
-      "id": "MDEyOklzc3VlQ29tbWVudDU2OTIxNzAyNg==",
-      "body": "> ``` js\r\n> const obj = {\r\n>   a: 3,\r\n>   b: 4,\r\n>   c: null,\r\n>   d: undefined,\r\n>   get e () {}\r\n> }\r\n> ```\r\n> \r\n> console.log(JSON.stringify(obj))\r\n>\r\n> 输出什么？\r\n\r\n``` js\r\n{\"a\":3,\"b\":4,\"c\":null}\r\n```\r\n\r\n对其中的 `undefined`，`function` 将在 `JSON.stringify` 时会忽略掉",
+      "id": "MDEyOklzc3VlQ29tbWVudDY2OTI5MTA4OQ==",
+      "body": "> > ```js\r\n> > const obj = {\r\n> >   a: 3,\r\n> >   b: 4,\r\n> >   c: null,\r\n> >   d: undefined,\r\n> >   get e () {}\r\n> > }\r\n> > ```\r\n> > \r\n> > \r\n> > console.log(JSON.stringify(obj))\r\n> > 输出什么？\r\n> \r\n> ```js\r\n> {\"a\":3,\"b\":4,\"c\":null}\r\n> ```\r\n> \r\n> 对其中的 `undefined`，`function` 将在 `JSON.stringify` 时会忽略掉\r\n\r\n`const obj` 中的 `get e () {}` 并不是函数，此处应该是重写了 `obj.e` 的 `get` 方法，因为 `get` 方法未定义返回值，因此在执行 `JSON.stringify` 时，执行 `obj.e` 的 `get` 方法，返回 `undefined`，因此被忽略\r\n\r\n让我们更改 `get` 方法的返回值\r\n![image](https://user-images.githubusercontent.com/57755075/89437679-76f57080-d77a-11ea-9208-2e80d6505d68.png)\r\n\r\n看到 666 了吧？",
       "reactions": {
-        "totalCount": 0
+        "totalCount": 1
       },
-      "author": {
-        "login": "shfshanyue",
-        "url": "https://github.com/shfshanyue"
-      }
+      "author": null
     }
   },
   {
@@ -4724,7 +4751,17 @@
         "name": "open"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDc5OTg3NzYwNw==",
+      "body": "体重有所成长，胖了不少",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "Akishimo",
+        "url": "https://github.com/Akishimo"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU1NzYzNzQyNDI=",
@@ -4826,7 +4863,17 @@
         "name": "js"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDc5MzUyMTk4Mw==",
+      "body": "```\r\nvar path = 'https://static-zh.wxb.com.cn/customer/form/2020/11/1758696796d.jpg'\r\nfunction clipImage(path){\r\n    const canvas = document.createElement('canvas')\r\n    canvas.width = 200\r\n    canvas.height = 100\r\n    const ctx = canvas.getContext('2d')\r\n    const img = document.createElement('img')\r\n    img.src = path\r\n    img.setAttribute(\"crossOrigin\",'Anonymous')\r\n    img.onload = function (){\r\n        ctx.drawImage(this,0,0,200,100)\r\n        console.log(canvas.toDataURL())\r\n    }\r\n}\r\nclipImage(path)\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "guanwanxiao",
+        "url": "https://github.com/guanwanxiao"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU1NzcyNTQwMTQ=",
@@ -5730,7 +5777,7 @@
       "id": "MDEyOklzc3VlQ29tbWVudDY4MTc0MzU2OA==",
       "body": "> inline 元素的 margin 与 padding 左右生效，上下不生效\r\n\r\n不是inline 下 margin 上下失效 ，padding 下 都生效吗 只不过不会撑大父元素而已 ",
       "reactions": {
-        "totalCount": 1
+        "totalCount": 2
       },
       "author": {
         "login": "fariellany",
@@ -8249,9 +8296,9 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDY4MDQxNjkxNw==",
-      "body": "这是一道前端基础与编程功底具备的面试题：\r\n\r\n+ 如果你前端基础强会了解 `document.querySelector(*)` 能够列出页面内所有标签\r\n+ 如果你编程能力强能够用递归快速实现同等的效果\r\n\r\n有三种 API 可以列出页面所有标签：\r\n\r\n1. `document.querySelector('*')`，标准规范实现\r\n1. `$$('*')`，devtools 实现\r\n1. `document.all`，非标准规范实现\r\n\r\n``` js\r\n> document.querySelectorAll('*')\r\n< NodeList(593) [html, head, meta, meta, meta, meta, meta, meta, meta, title, link#favicon, link, link#MainCss, link#mobile-style, link, link, link, script, script, script, script, script, script, script, link, script, link, link, script, input#_w_brink, body, a, div#home, div#header, div#blogTitle, a#lnkBlogLogo, img#blogLogo, h1, a#Header1_HeaderTitle.headermaintitle.HeaderMainTitle, h2, div#navigator, ul#navList, li, a#blog_nav_sitehome.menu, li, a#blog_nav_myhome.menu, li, a#blog_nav_newpost.menu, li, a#blog_nav_contact.menu, li, a#blog_nav_rss.menu, li, a#blog_nav_admin.menu, div.blogStats, span#stats_post_count, span#stats_article_count, span#stats-comment_count, div#main, div#mainContent, div.forFlow, div#post_detail, div#topics, div.post, h1.postTitle, a#cb_post_title_url.postTitle2.vertical-middle, span, div.clear, div.postBody, div#cnblogs_post_body.blogpost-body, p, p, strong, p, p, p, strong, div.cnblogs_code, pre, span, span, span, span, span, p, span, strong, pre, strong, span, strong, br, br, br, div.cnblogs_code, pre, span, span, p, p, …]\r\n[0 … 99]\r\n[100 … 199]\r\n[200 … 299]\r\n[300 … 399]\r\n[400 … 499]\r\n[500 … 592]\r\n__proto__: NodeList\r\n```\r\n\r\n使用 `document.querySelectorAll` 实现如下\r\n\r\n``` js\r\nconst maxBy = (list, keyBy) => list.reduce((x, y) => keyBy(x) > keyBy(y) ? x : y)\r\n\r\nfunction getFrequentTag () {\r\n  const tags = [...document.querySelectorAll('*')].map(x => x.tagName).reduce((o, tag) => { \r\n    o[tag] = o[tag] ? o[tag] + 1 : 1;\r\n    return o\r\n  }, {})\r\n  return maxBy(Object.entries(tags), tag => tag[1])\r\n}\r\n```\r\n\r\n使用 `element.children` 递归迭代如下 (最终结果多一个 document)\r\n\r\n``` js\r\nfunction getAllTags(el = document) {\r\n  const children = Array.from(el.children).reduce((x, y) => [...x, ...getAllTags(y)], [])\r\n  return children\r\n}\r\n\r\n// 或者通过 flatMap 实现\r\nfunction getAllTags(el = document) {\r\n  const children = Array.prototype.flatMap.call(el.children, x => getAllTags(x))\r\n  return [el, ...children]\r\n}\r\n```",
+      "body": "这是一道前端基础与编程功底具备的面试题：\r\n\r\n+ 如果你前端基础强会了解 `document.querySelector(*)` 能够列出页面内所有标签\r\n+ 如果你编程能力强能够用**递归**/**正则**快速实现同等的效果\r\n\r\n有三种 API 可以列出页面所有标签：\r\n\r\n1. `document.querySelector('*')`，标准规范实现\r\n1. `$$('*')`，devtools 实现\r\n1. `document.all`，非标准规范实现\r\n\r\n``` js\r\n> document.querySelectorAll('*')\r\n< NodeList(593) [html, head, meta, meta, meta, meta, meta, meta, meta, title, link#favicon, link, link#MainCss, link#mobile-style, link, link, link, script, script, script, script, script, script, script, link, script, link, link, script, input#_w_brink, body, a, div#home, div#header, div#blogTitle, a#lnkBlogLogo, img#blogLogo, h1, a#Header1_HeaderTitle.headermaintitle.HeaderMainTitle, h2, div#navigator, ul#navList, li, a#blog_nav_sitehome.menu, li, a#blog_nav_myhome.menu, li, a#blog_nav_newpost.menu, li, a#blog_nav_contact.menu, li, a#blog_nav_rss.menu, li, a#blog_nav_admin.menu, div.blogStats, span#stats_post_count, span#stats_article_count, span#stats-comment_count, div#main, div#mainContent, div.forFlow, div#post_detail, div#topics, div.post, h1.postTitle, a#cb_post_title_url.postTitle2.vertical-middle, span, div.clear, div.postBody, div#cnblogs_post_body.blogpost-body, p, p, strong, p, p, p, strong, div.cnblogs_code, pre, span, span, span, span, span, p, span, strong, pre, strong, span, strong, br, br, br, div.cnblogs_code, pre, span, span, p, p, …]\r\n[0 … 99]\r\n[100 … 199]\r\n[200 … 299]\r\n[300 … 399]\r\n[400 … 499]\r\n[500 … 592]\r\n__proto__: NodeList\r\n```\r\n\r\n使用 `document.querySelectorAll` 实现如下\r\n\r\n``` js\r\n// 实现一个 maxBy 方便找出出现次数最多的 HTML 标签\r\nconst maxBy = (list, keyBy) => list.reduce((x, y) => keyBy(x) > keyBy(y) ? x : y)\r\n\r\nfunction getFrequentTag () {\r\n  const tags = [...document.querySelectorAll('*')].map(x => x.tagName).reduce((o, tag) => { \r\n    o[tag] = o[tag] ? o[tag] + 1 : 1;\r\n    return o\r\n  }, {})\r\n  return maxBy(Object.entries(tags), tag => tag[1])\r\n}\r\n```\r\n\r\n使用 `element.children` 递归迭代如下 (最终结果多一个 document)\r\n\r\n``` js\r\nfunction getAllTags(el = document) {\r\n  const children = Array.from(el.children).reduce((x, y) => [...x, ...getAllTags(y)], [])\r\n  return children\r\n}\r\n\r\n// 或者通过 flatMap 实现\r\nfunction getAllTags(el = document) {\r\n  const children = Array.prototype.flatMap.call(el.children, x => getAllTags(x))\r\n  return [el, ...children]\r\n}\r\n```",
       "reactions": {
-        "totalCount": 0
+        "totalCount": 1
       },
       "author": {
         "login": "shfshanyue",
@@ -9374,7 +9421,7 @@
   {
     "id": "MDU6SXNzdWU3ODY1MzE3ODg=",
     "number": 472,
-    "title": "【Q464】什么是重排重绘，如何避免",
+    "title": "【Q464】什么是重排重绘，如何减少重拍重绘",
     "body": "",
     "labels": [
       {
@@ -9384,7 +9431,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDc2MDY2MDE4Nw==",
-      "body": "重排和重绘是关键渲染路径中的两步，可以参考另一个问题: [什么是关键渲染路径](https://q.shanyue.tech/fe/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/391.html)\r\n\r\n+ 重排(Reflow)：元素的位置发生变动时发生重排，也叫回流。此时在关键渲染路径中的 Layout 阶段，计算每一个元素在设备视口内的确切位置和大小。当一个元素位置发生变化时，其父元素及其后边的元素位置都可能发生变化，代价极高\r\n+ 重绘(Repaint): 元素的样式发生变动，但是位置没有改变。此时在关键渲染路径中的 Paint 阶段，将渲染树中的每个节点转换成屏幕上的实际像素，这一步通常称为绘制或栅格化\r\n\r\n另外，重排必定会造成重绘。以下是避免过多重拍重绘的方法\r\n\r\n1. 使用 `DocumentFragment` 进行 DOM 操作，不过现在原生操作很少也基本上用不到\r\n\r\n\r\n",
+      "body": "重排和重绘是关键渲染路径中的两步，可以参考另一个问题: [什么是关键渲染路径](https://q.shanyue.tech/fe/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/391.html)\r\n\r\n+ 重排(Reflow)：元素的位置发生变动时发生重排，也叫回流。此时在关键渲染路径中的 Layout 阶段，计算每一个元素在设备视口内的确切位置和大小。当一个元素位置发生变化时，其父元素及其后边的元素位置都可能发生变化，代价极高\r\n    ![](https://q.shanyue.tech/assets/layout.png)\r\n\r\n+ 重绘(Repaint): 元素的样式发生变动，但是位置没有改变。此时在关键渲染路径中的 Paint 阶段，将渲染树中的每个节点转换成屏幕上的实际像素，这一步通常称为绘制或栅格化\r\n    ![](https://q.shanyue.tech/assets/paint.png)\r\n\r\n另外，重排必定会造成重绘。以下是避免过多重拍重绘的方法\r\n\r\n1. 使用 `DocumentFragment` 进行 DOM 操作，不过现在原生操作很少也基本上用不到\r\n2. CSS 样式尽量批量修改\r\n3. 避免使用 table 布局\r\n4. 为元素提前设置好高宽，不因多次渲染改变位置\r\n\r\n\r\n",
       "reactions": {
         "totalCount": 0
       },
@@ -9441,7 +9488,17 @@
         "name": "前端工程化"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDc5MTQwNDU5MA==",
+      "body": "## cjs (commonjs)\r\n\r\n`commonjs` 是 Node 中的模块规范，通过 `require` 及 `exports` 进行导入导出 (进一步延伸的话，`module.exports` 属于 `commonjs2`)\r\n\r\n同时，webpack 也对 `cjs` 模块得以解析，因此 `cjs` 模块可以运行在 node 环境及 webpack 环境下的，但不能在浏览器中*直接*使用。但如果你写前端项目在 webpack 中，也可以理解为它在浏览器和 Node 都支持。\r\n\r\n比如，著名的全球下载量前十10的模块 [ms](https://npm.devtool.tech/ms) 只支持 `commonjs`，但并不影响它在前端项目中使用(通过webpack)，但是你想通过 cdn 的方式直接在浏览器中引入，估计就会出问题了\r\n\r\n``` js\r\n// sum.js\r\nexports.sum = (x, y) => x + y\r\n\r\n// index.js\r\nconst { sum } = require('./sum.js')\r\n```\r\n\r\n由于 `cjs` 为动态加载，可直接 `require` 一个变量\r\n\r\n``` js\r\nrequire(`./${a}`)\r\n```\r\n\r\n## esm (es module)\r\n\r\n`esm` 是 tc39 对于 js 模块的规范，**在 Node 及 浏览器中均会支持**，使用 `export/import` 进行模块导入导出\r\n\r\n``` js\r\n// sum.js\r\nexport const sum = (x, y) => x + y\r\n\r\n// index.js\r\nimport { sum } from './sum'\r\n```\r\n\r\n由于 `esm` 为静态导入，tc39 为动态加载模块定义了 API: `import(module)` 。\r\n\r\nesm 是未来的趋势，目前一些 CDN 厂商，前端构建工具均致力于 cjs 模块向 esm 的转化，比如 `skypack`、 `snowpack`、`vite` 等\r\n\r\n## umd\r\n\r\n一种兼容 `cjs` 与 `amd` 的模块，既可以在 node/webpack 环境中被 `require`，也可以在浏览器中直接用 CDN 被 `script.src` 引入\r\n\r\n``` js\r\n(function (root, factory) {\r\n  if (typeof define === 'function' && define.amd) {\r\n    // AMD\r\n    define(['jquery'], factory);\r\n  } else if (typeof exports === 'object') {\r\n    // CommonJS\r\n    module.exports = factory(require('jquery'));\r\n  } else {\r\n    // 全局变量\r\n    root.returnExports = factory(root.jQuery);\r\n  }\r\n}(this, function ($) {\r\n  // ...\r\n}));\r\n```\r\n",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU3OTg5MTA1NjY=",
@@ -9637,7 +9694,7 @@
     "id": "MDU6SXNzdWU4MTE2MDMyNTA=",
     "number": 486,
     "title": "【Q478】如何实现容器中子元素三个三列布局，子元素两个则两列布局",
-    "body": "",
+    "body": "及容器中有三个及以上元素，则三列布局\r\n容器只有两个元素，两列布局平分\r\n容器只有一个元素，一列布局全占",
     "labels": [
       {
         "id": "MDU6TGFiZWwxNjUxNDAyMzIw",
@@ -9701,6 +9758,153 @@
       {
         "id": "MDU6TGFiZWwxNjUxNDAyMzIw",
         "name": "css"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDc5MjY4NzQwMg==",
+      "body": "``` css\r\nfont-family: system-ui;\r\n```\r\n\r\n`system-ui` 将会自动选取系统默认字体作为字体，如 [`bootstrap` 的样式规则](https://github.com/twbs/bootstrap/blob/main/scss/_variables.scss#L419)\r\n\r\n``` scss\r\n$font-family-sans-serif: system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\" !default;\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU4MjIxOTkzNjU=",
+    "number": 490,
+    "title": "【Q482】现代化前端框架中如何进行调试",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU4MjQyNTE2MTk=",
+    "number": 491,
+    "title": "【Q483】如何使用 redis 计算 wordcount，并计算出现频率最高的词",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjY2OTk3OTM5",
+        "name": "redis"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU4MjUyMjQ2NjE=",
+    "number": 492,
+    "title": "【Q484】express 中间件的原理是什么",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzI2MDg3MTMx",
+        "name": "node"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU4MjU2ODY0OTE=",
+    "number": 493,
+    "title": "【Q485】写 CSS 时如何避免命名样式冲突",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIw",
+        "name": "css"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDc5Mzg4MTM3MA==",
+      "body": "\r\n## 1. BEM 式: `.home-page .home-page-btn`\r\n\r\n``` css\r\n.home-page {\r\n  .home-page-btn {}\r\n}\r\n```\r\n\r\nBEM 有一个缺点，就是有些太长，可适当简化，只包裹该页面组件的根类名，但有可能增加样式冲突的风险\r\n\r\n``` css\r\n.home-page {\r\n  .btn {}\r\n}\r\n```\r\n\r\n## 2. CSS Scoped\r\n\r\n`scoped css` 会对当前组件(scope)下所有元素生成唯一的属性或类名，对所有 CSS 规则将携带唯一属性实现作用域的命名保护\r\n\r\n``` css\r\n// 手动写\r\n.btn {}\r\n\r\n// 编译后\r\n.btn .jsx-1287234 {}\r\n\r\n```\r\n\r\n![css scoped demo](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2c0676b0f8cc4f40b925dcb983778dd8~tplv-k3u1fbpfcp-watermark.image)\r\n\r\n## 3. CSS Module\r\n\r\n+ [css-modules repo](https://github.com/css-modules/css-modules)\r\n+ [css-modules demo](https://css-modules.github.io/webpack-demo/)\r\n\r\n`module css` 会对类名进行 hash 化\r\n\r\n![css modules demo](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/072649f56f8f4f80afa226879b94a6bf~tplv-k3u1fbpfcp-watermark.image)\r\n",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU4MjkxMzkyODc=",
+    "number": 495,
+    "title": "【Q486】什么是前端工程化",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+        "name": "前端工程化"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU4MzcxMDI1NjE=",
+    "number": 496,
+    "title": "【Q487】OAuth 2.0 的原理是什么",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIy",
+        "name": "server"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU4MzcxMDI3MDc=",
+    "number": 497,
+    "title": "【Q488】JWT 的原理是什么",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIy",
+        "name": "server"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU4Mzc4MzI3NDc=",
+    "number": 498,
+    "title": "【Q489】如何实现一个函数 lodash.merge",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDgwNDE1MTc0Ng==",
+      "body": "`Array.prototype.flatMap` 已经是 EcmaScript 的标准，看一个例子，它的输出是多少？\r\n\r\n``` js\r\n[1, 2, [3], 4].flatMap(x => x + 1)\r\n//=> [2, 3, '31', 5]\r\n```\r\n\r\n很可惜，不是 `[2, 3, 4, 5]`，原因在于 `flatMap` 实际上是先 `map` 再 `flat`，实现如下\r\n\r\n``` js\r\nArray.prototype.flatMap = function (mapper) {\r\n  return this.map(mapper).flat()\r\n}\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU4NDA0MTc1MjI=",
+    "number": 499,
+    "title": "【Q490】如何实现一个 promise.any",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
       }
     ],
     "comment": ""
