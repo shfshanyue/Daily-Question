@@ -15,12 +15,6 @@ description: 每天至少一个面试题，并附以答案及讨论。有关前�
 
 > 夫君子之行，静以修身，俭以养德。非澹泊无以明志，非宁静无以致远。夫学须静也，才须学也，非学无以广才，非志无以成学。淫慢则不能励精，险躁则不能治性。**年与时驰，意与日去，遂成枯落，多不接世，悲守穷庐，将复何及！**
 
----
-
-> 说到个人服务器，如果你是新人的话，在阿里云有优惠，这里有连接进行购买：[阿里云新人优惠服务器](https://www.aliyun.com/1111/pintuan-share?ptCode=MTY5MzQ0Mjc1MzQyODAwMHx8MTE0fDE%3D&userCode=4sm8juxu)。可以跟着我的系列文章 [跟着山月管理个人服务器](https://shanyue.tech/op/) 来学习。如果你对服务器完全没有概念，建议购买配置 `1核2G`，也就八十来快钱。如果对云主机有所了解，建议购买配置 `2核4G`。
-
-+ **[阿里云新人优惠服务器](https://www.aliyun.com/1111/pintuan-share?ptCode=MTY5MzQ0Mjc1MzQyODAwMHx8MTE0fDE%3D&userCode=4sm8juxu)**
-+ **[跟着山月管理个人服务器](https://shanyue.tech/op/)**
 
 ## 分类
 
@@ -64,12 +58,6 @@ description: 每天至少一个面试题，并附以答案及讨论。有关前�
 
 ## 大厂内推与大厂面经推送
 
-关注公众号【互联网大厂招聘】，将持续推送大厂的面试经验与大厂的内推，直达招聘负责人或团队负责人
-
-<div align="center">
-  <img src="https://q.shanyue.tech/we.jpg" loading="lazy" width="260">
-</div>
-
 如果你想在网站及公众号上发布招聘，请添加我的微信 `shanyue94`，我将与你在以下几个方面进行讨论，并共同拟定模拟面试题在我公众号上发布招聘信息
 
 1. 业务描述，及其业务发展与前景
@@ -98,3 +86,15 @@ description: 每天至少一个面试题，并附以答案及讨论。有关前�
 ## 交流
 
 我是山月，你可以添加微信 `shanyue94` 与我交流，另外欢迎关注我的博客[山月行](https://shanyue.tech/)，我会在其中分享工作中遇到的一些前后端问题以及思考。
+
+
+社交:
+
+| [Github](https://github.com/shfshanyue) | [知乎](https://www.zhihu.com/people/shfshanyue) | [掘金](https://juejin.cn/user/1556564164489389) | [博客](https://shanyue.tech) |
+|-----------------------------------------|-----------------------------------------------|-----------------------------------------------|----------------------------|
+
+项目:
+
+| [极客时间返利](https://geek.shanyue.tech/) | [我的面试](https://q.shanyue.tech/)      | [诗词集](https://shici.xiange.tech)    |
+|------------------------------------|--------------------------------------|-------------------------------------|
+| [开发者工具箱](https://devtool.tech)     | [npm 在线执行](https://npm.devtool.tech) | [前端周刊](https://weekly.shanyue.tech) |

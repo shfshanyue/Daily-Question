@@ -13,6 +13,33 @@
           你也可以在文章<a href="https://github.com/shfshanyue/op-note/blob/master/blog-to-wechat.md">关于回复公众号扫码解锁全站的技术实现</a>中获得解锁代码，永久解锁本站全部文章
         </p>
       </div>
+      <div :style="{ border: '1px solid #eee', padding: '1rem', borderRadius: '6px' }">
+        <h2>
+          关于山月
+        </h2>
+        <div>我的项目：</div>
+        <ul>
+          <li>
+            <a href="https://geek.shanyue.tech">极客时间返利</a>
+          </li>
+          <li>
+            <a href="https://npm.devtool.tech">npm 在线执行</a>
+          </li>
+          <li>
+            <a href="https://geek.shanyue.tech">面试每日一题</a>
+          </li>
+          <li>
+            <a href="https://devtool.tech">开发者工具箱</a>
+          </li>
+          <li>
+            <a href="https://weekly.shanyue.tech">山月前端周刊</a>
+          </li>
+          <li>
+            <a href="https://shici.xiange.tech">诗词小站</a>
+          </li>
+        </ul>
+        <div>我的微信：shanyue94，欢迎交流</div>
+      </div>
     </div>
     <PageEdit />
 
