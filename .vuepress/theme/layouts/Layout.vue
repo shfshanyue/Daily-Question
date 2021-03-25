@@ -36,10 +36,11 @@
       v-else
       :sidebar-items="sidebarItems"
     >
-      <slot
-        name="page-top"
-        #top
-      />
+      <template #top>
+        <div :style="{ marginTop: '3.6rem', paddingTop: 0, paddingBottom: 0 }" class="theme-default-content">
+          <Bar/>
+        </div>
+      </template>
       <slot
         name="page-bottom"
         #bottom
@@ -54,10 +55,11 @@ import Navbar from '@theme/components/Navbar.vue'
 import Page from '@theme/components/Page.vue'
 import Sidebar from '@theme/components/Sidebar.vue'
 import QR from '@theme/components/QR.vue'
+import Bar from '@theme/components/Bar.vue'
 import { resolveSidebarItems } from '../util'
 
 export default {
-  components: { Home, Page, Sidebar, Navbar, QR },
+  components: { Home, Page, Sidebar, Navbar, QR, Bar },
 
   data () {
     return {

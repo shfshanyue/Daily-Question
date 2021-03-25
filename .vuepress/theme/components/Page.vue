@@ -150,4 +150,11 @@ export default {
 
   .content-lock
     display block
+
+
+.theme-default-content:not(.custom):nth-child(2)
+  padding-top 0
+
+.theme-default-content:not(.custom) div.content__default
+  margin-top 0
 </style>
