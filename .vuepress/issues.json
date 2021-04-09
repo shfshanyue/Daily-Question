@@ -60,7 +60,7 @@
       "id": "MDEyOklzc3VlQ29tbWVudDY1Mzg5OTIzNw==",
       "body": "## 防抖 (debounce)\r\n\r\n防抖，顾名思义，防止抖动，以免把一次事件误认为多次，敲键盘就是一个每天都会接触到的防抖操作。\r\n\r\n想要了解一个概念，必先了解概念所应用的场景。在 JS 这个世界中，有哪些防抖的场景呢\r\n\r\n1. 登录、发短信等按钮避免用户点击太快，以致于发送了多次请求，需要防抖\r\n1. 调整浏览器窗口大小时，resize 次数过于频繁，造成计算过多，此时需要一次到位，就用到了防抖\r\n1. 文本编辑器实时保存，当无任何更改操作一秒后进行保存\r\n\r\n代码如下，可以看出来**防抖重在清零 `clearTimeout(timer)`**\r\n\r\n``` js\r\nfunction debounce (f, wait) {\r\n  let timer\r\n  return (...args) => {\r\n    clearTimeout(timer)\r\n    timer = setTimeout(() => {\r\n      f(...args)\r\n    }, wait)\r\n  }\r\n}\r\n```\r\n\r\n## 节流 (throttle)\r\n\r\n节流，顾名思义，控制水的流量。控制事件发生的频率，如控制为1s发生一次，甚至1分钟发生一次。与服务端(server)及网关(gateway)控制的限流 (Rate Limit) 类似。\r\n\r\n1. `scroll` 事件，每隔一秒计算一次位置信息等\r\n1. 浏览器播放事件，每个一秒计算一次进度信息等\r\n1. input 框实时搜索并发送请求展示下拉列表，每隔一秒发送一次请求 (也可做防抖)\r\n\r\n代码如下，可以看出来**节流重在加锁 `timer=timeout`**\r\n\r\n``` js\r\nfunction throttle (f, wait) {\r\n  let timer\r\n  return (...args) => {\r\n    if (timer) { return }\r\n    timer = setTimeout(() => {\r\n      f(...args)\r\n      timer = null\r\n    }, wait)\r\n  }\r\n}\r\n```\r\n\r\n## 总结 (简要答案)\r\n\r\n+ 防抖：防止抖动，单位时间内事件触发会被重置，避免事件被误伤触发多次。**代码实现重在清零 `clearTimeout`**。防抖可以比作等电梯，只要有一个人进来，就需要再等一会儿。业务场景有避免登录按钮多次点击的重复提交。\r\n+ 节流：控制流量，单位时间内事件只能触发一次，与服务器端的限流 (Rate Limit) 类似。**代码实现重在开锁关锁 `timer=timeout; timer=null`**。节流可以比作过红绿灯，每等一个红灯时间就可以过一批。",
       "reactions": {
-        "totalCount": 6
+        "totalCount": 7
       },
       "author": {
         "login": "shfshanyue",
@@ -1681,8 +1681,8 @@
         "totalCount": 0
       },
       "author": {
-        "login": "jzenzhang",
-        "url": "https://github.com/jzenzhang"
+        "login": "izhangjinzhe",
+        "url": "https://github.com/izhangjinzhe"
       }
     }
   },
@@ -7205,7 +7205,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDY0Njk5MTA4Mw==",
-      "body": "实现了 `[Symbol.iterator]` 属性的对象即是 `Iterable` 对象，然后可以使用操作符 `for...of` 进行迭代\r\n\r\n``` js\r\n```\r\n\r\n详细参考 <https://javascript.info/iterable>",
+      "body": "实现了 `[Symbol.iterator]` 属性的对象即是 `Iterable` 对象，然后可以使用操作符 `for...of` 进行迭代\r\n\r\n``` js\r\n> l = [1, 2, 3, 4]\r\n< (4) [1, 2, 3, 4]\r\n> l[Symbol.iterator]\r\n< ƒ values() { [native code] }\r\n```\r\n\r\n详细参考 <https://javascript.info/iterable>",
       "reactions": {
         "totalCount": 0
       },
@@ -8984,9 +8984,9 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDc1MjY3NDg4MQ==",
-      "body": "在 ES2019 之前，可通过 **`reduce` + `concat`** 实现，由于 `Array.prototype.concat` 既可以连接数组又可以连接单项，十分巧妙\r\n\r\n``` js\r\nconst flatten = list => list.reduce( (a, b) => a.concat(b), [])\r\n```\r\n\r\n在 ES2019 之后，可通过 **`Array.prototype.flat`** 直接实现！",
+      "body": "在 ES2019 之前，可通过 **`reduce` + `concat`** 实现，由于 `Array.prototype.concat` 既可以连接数组又可以连接单项，十分巧妙\r\n\r\n``` js\r\nconst flatten = list => list.reduce( (a, b) => a.concat(b), [])\r\n```\r\n\r\n一个更简单的实现方式是 `Array.prototype.concat` 与 `...` 运算符\r\n\r\n``` js\r\nconst flatten = list => [].concat(...list)\r\n```\r\n\r\n如果要求深层数组打平，则如下实现\r\n\r\n``` js\r\nconst flatten = list => list.reduce( (a, b) => a.concat(Array.isArray(b) ? flatten(b) : b), [])\r\n```\r\n\r\n在 ES2019 之后，可通过 **`Array.prototype.flat`** 直接实现！",
       "reactions": {
-        "totalCount": 0
+        "totalCount": 1
       },
       "author": {
         "login": "shfshanyue",
@@ -9011,7 +9011,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDc1NjE1OTA1OA==",
-      "body": "## 01 display: none\r\n\r\n通过 CSS 操控 display，移出文档流\r\n\r\n``` css\r\ndisplay: none;\r\n```\r\n\r\n## 02 opacity: 0\r\n\r\n透明度为0，仍在文档流中，当作用于其上的事件(如点击)仍有效\r\n\r\n``` css\r\nopacity: 0;\r\n```\r\n\r\n## 03 visibility: hidden\r\n\r\n透明度为0，仍在文档流中，**当作用于其上的事件(如点击)无效**，这也是 `visibility:hidden` 与 `opacity: 0` 的区别\r\n\r\n``` css\r\nvisibility: hidden;\r\n```\r\n\r\n## 03 绝对定位于当前页面的不可见位置\r\n\r\n``` css\r\nposition: absolute;\r\ntop: -9000px;\r\nleft: -9000px;\r\n```",
+      "body": "## 01 display: none\r\n\r\n通过 CSS 操控 display，移出文档流\r\n\r\n``` css\r\ndisplay: none;\r\n```\r\n\r\n## 02 opacity: 0\r\n\r\n透明度为0，仍在文档流中，当作用于其上的事件(如点击)仍有效\r\n\r\n``` css\r\nopacity: 0;\r\n```\r\n\r\n## 03 visibility: hidden\r\n\r\n透明度为0，仍在文档流中，**但作用于其上的事件(如点击)无效**，这也是 `visibility:hidden` 与 `opacity: 0` 的区别\r\n\r\n``` css\r\nvisibility: hidden;\r\n```\r\n\r\n## 04 content-visibility\r\n\r\n移出文档流，但是再次显示时消耗性能低\r\n\r\n``` css\r\ncontent-visibility: hidden;\r\n```\r\n\r\n## 05 绝对定位于当前页面的不可见位置\r\n\r\n``` css\r\nposition: absolute;\r\ntop: -9000px;\r\nleft: -9000px;\r\n```\r\n\r\n## 06 字体大小设置为 0\r\n\r\n``` css\r\nfont-size: 0;\r\n```\r\n",
       "reactions": {
         "totalCount": 2
       },
@@ -9380,7 +9380,17 @@
         "name": "html"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDgwOTg4MTgxNA==",
+      "body": "\r\n白屏时间: window.performance.timing.domLoading - window.performance.timing.navigationStart\r\n\r\n首屏时间: window.performance.timing.domInteractive  - window.performace.timing.navigationStart",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "blue-skyyy",
+        "url": "https://github.com/blue-skyyy"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU3ODIwOTA5NTg=",
@@ -9688,7 +9698,17 @@
         "name": "html"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDgwOTg3OTQ1OQ==",
+      "body": "img.setAttribute(\"crossOrigin\", \"anonymous\");",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "blue-skyyy",
+        "url": "https://github.com/blue-skyyy"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU4MTE2MDMyNTA=",
@@ -9908,5 +9928,110 @@
       }
     ],
     "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU4NDE0OTkzODA=",
+    "number": 500,
+    "title": "【Q491】如何实现一个 Promise.all",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDgwNzkwMjE4Ng==",
+      "body": "有一次头条面试，一道手写题目是：如何手写实现 `promise.all`。\r\n\r\n我从来没有想过要手写实现 promise.all 函数，稍微一想，大概就是维护一个数组，把所有 promise 给 resolve 了之后都扔进去，这有啥子好问的。没想到，一上手还稍微有点棘手。\r\n\r\n先来看一个示例吧:\r\n\r\n``` js\r\nawait Promise.all([1, Promise.resolve(2)])\r\n//-> [1, 2]\r\n\r\nawait Promise.all([1, Promise.reject(2)])\r\n//-> Throw Error: 2\r\n```\r\n\r\n1. 传入一个数组，可包含 Promise，也可包含普通数据\r\n1. 数组中 Prmise 并行执行\r\n1. 但凡有一个 Promise 被 Reject 掉，Promise.all 失败\r\n\r\n``` js\r\nfunction pAll (promises) {\r\n  return new Promise((resolve, reject) => {\r\n    // 结果用一个数组维护\r\n    const r = []\r\n    const len = promises.length\r\n    let count = 0\r\n    for (let i = 0; i < len; i++) {\r\n      // Promise.resolve 确保把所有数据都转化为 Promise\r\n      Promise.resolve(promises[i]).then(o => { \r\n        // 因为 promise 是异步的，保持数组一一对应\r\n        r[i] = o;\r\n\r\n        // 如果数组中所有 promise 都完成，则返回结果数组\r\n        if (++count === len) {\r\n          resolve(r)\r\n        }\r\n        // 当发生异常时，直接 reject\r\n      }).catch(e => reject(e))\r\n    }\r\n  })\r\n}\r\n```\r\n\r\n为了测试，实现一个 sleep 函数\r\n\r\n``` js\r\nconst sleep = (seconds) => new Promise(resolve => setTimeout(() => resolve(seconds), seconds))\r\n```\r\n\r\n以下示例进行测试，没有问题\r\n\r\n``` js\r\npAll([1, 2, 3]).then(o => console.log(o))\r\npAll([\r\n  sleep(3000),\r\n  sleep(2000),\r\n  sleep(1000)\r\n]).then(o => console.log(o))\r\npAll([\r\n  sleep(3000),\r\n  sleep(2000),\r\n  sleep(1000),\r\n  Promise.reject(10000)\r\n]).then(o => console.log(o)).catch(e => console.log(e, '<- Error'))\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU4NDIwNDM2MjY=",
+    "number": 501,
+    "title": "【Q492】CSS 如何设置方格背景",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIw",
+        "name": "css"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU4NDI4ODI4OTI=",
+    "number": 502,
+    "title": "【Q493】如何取消请求的发送",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE2",
+        "name": "html"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDgxNDY4Njg4Mw==",
+      "body": "根据发送网络请求的API不同，取消方法不同\r\n- xhr\r\n- fetch \r\n- axios \r\n\r\n如果使用`XMLHttpRequest`发送请求可以使用`XMLHttpRequest.abort()`\r\n\r\n如果使用`fetch`发送请求可以使用`AbortController`\r\n```\r\nconst controller = new AbortController();\r\nconst signal = controller.signal;\r\nfetch('https://somewhere', { signal })\r\ncontroller.abort()\r\n```\r\n\r\n如果使用`axios`，取消原理同fetch\r\n```\r\nvar CancelToken = axios.CancelToken;\r\nvar source = CancelToken.source();\r\n\r\naxios.get('/https://somewhere', {\r\n  cancelToken: source.token\r\n}\r\n\r\nsource.cancel()\r\n```\r\n\r\n",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "evle",
+        "url": "https://github.com/evle"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU4NDQ2MDg3MTA=",
+    "number": 503,
+    "title": "【Q494】如何过滤数组中的 falsy value",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDgxMDI5NTYwMQ==",
+      "body": "falsy value 包含：`false`, `null`, `0`, `\"\"`, `undefined`, `NaN `\r\n\r\n使用以下即可过滤\r\n\r\n``` js\r\nfunction compact (array) {\r\n  return array.filter(Boolean)\r\n}\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU4NDk2NjM4OTE=",
+    "number": 504,
+    "title": "【Q495】如何把一个数组随机打乱",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDgxMjg2OTk5MA==",
+      "body": "使用原生实现，Math.rondom() - 0.5 有时大于0，有时小于0会达成这样的效果\r\n\r\n``` js\r\n[1, 2, 3, 4].sort((x, y) => Math.random() - 0.5)\r\n```\r\n\r\n借用 `lodash` 可更方便\r\n\r\n``` js\r\n_.shuffle([1, 2, 3, 4])\r\n//-> [3, 2, 4, 1]\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   }
 ]

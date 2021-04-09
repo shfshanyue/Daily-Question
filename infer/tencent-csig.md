@@ -1,16 +1,20 @@
 # 腾讯-CSIG-智慧零售-前端-社招
 
+> 最近山月新开了话题 [互联网大厂内推](https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MzA3MzU0MjIzMA==&action=getalbum&album_id=1411740238032240644#wechat_redirect)，打开话题在右上角点击订阅可实时订阅大厂内推最新消息，每周推送两个大厂的招聘，周末发布。
+
 ## 基础介绍
 
 + 岗位：智慧零售前端开发工程师
 + 职级：T8,T9,T10
-+ 知识全面且扎实，基础理论、算法、数据结构、网络协议，并能进行前后台开发的全栈型人才
++ 发布时间：2021-04-08
++ 有效时间：永久有效
++ 岗位要求：知识全面且扎实，基础理论、算法、数据结构、网络协议，并能进行前后台开发的全栈型人才
 
 ## 山月补充
 
 腾讯的一个好朋友说他们急招人，我与她经过短暂交流之后，对岗位的业务及特殊要求进行了总结
 
-![与腾讯小姐姐的交流](./assets/csig-fe.jpg)
+![与腾讯小姐姐的交流](https://cdn.jsdelivr.net/gh/shfshanyue/Daily-Question/infer/assets/csig-fe.jpg)
 
 1. 数据中台业务，对接诸多数据源，图表需求很多，过去要做很多图，最好有可视化经验 (画图的经验)
 1. 中后台业务，对前端复杂业务的处理能力有所要求
@@ -30,6 +34,6 @@
 ## 联系方式
 
 + 邮箱: `lemonye@tencent.com`
-+ 微信(如下扫码)
++ 微信(如下扫码并备注山月/面试/推荐)
 
-![](./assets/we-lemon.jpeg)
+![](https://cdn.jsdelivr.net/gh/shfshanyue/Daily-Question/infer/assets/we-lemon.jpeg)

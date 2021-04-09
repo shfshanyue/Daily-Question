@@ -244,3 +244,8 @@
 + [【Q486】什么是前端工程化](前端工程化/495.html)
 + [【Q489】如何实现一个函数 lodash.merge](js/498.html)
 + [【Q490】如何实现一个 promise.any](js/499.html)
++ [【Q491】如何实现一个 Promise.all](js/500.html)
++ [【Q492】CSS 如何设置方格背景](css/501.html)
++ [【Q493】如何取消请求的发送](html/502.html)
++ [【Q494】如何过滤数组中的 falsy value](js/503.html)
++ [【Q495】如何把一个数组随机打乱](js/504.html)

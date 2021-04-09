@@ -75,3 +75,6 @@
 + [【Q482】现代化前端框架中如何进行调试](490.html)
 + [【Q489】如何实现一个函数 lodash.merge](498.html)
 + [【Q490】如何实现一个 promise.any](499.html)
++ [【Q491】如何实现一个 Promise.all](500.html)
++ [【Q494】如何过滤数组中的 falsy value](503.html)
++ [【Q495】如何把一个数组随机打乱](504.html)
