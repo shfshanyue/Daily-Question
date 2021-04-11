@@ -7492,8 +7492,8 @@
   {
     "id": "MDU6SXNzdWU2Njk5NDE0NzQ=",
     "number": 375,
-    "title": "【Q370】如何使用 CSS 实现网站的暗黑模式",
-    "body": "",
+    "title": "【Q370】如何使用 CSS 实现网站的暗黑模式 (Dark Mode)",
+    "body": "可参考以下文章:\r\n\r\n1. [Dark mode in 5 minutes, with inverted lightness variables](https://lea.verou.me/2021/03/inverted-lightness-variables/)",
     "labels": [
       {
         "id": "MDU6TGFiZWwxNjUxNDAyMzIw",

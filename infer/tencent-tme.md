@@ -19,7 +19,7 @@
 1. 小程序，每一个坑都需要自己先踩
 1. 高流量，每一个细节问题都会放大
 
-![](./assets/yinyue-fe.jpg)
+![](https://cdn.jsdelivr.net/gh/shfshanyue/Daily-Question/infer/assets/yinyue-fe.jpg)
 
 如果你们还有需要了解的，可以向我咨询由我代问，或者你们直接加他微信
 
@@ -37,4 +37,4 @@
 + 邮箱: `fralinzhang@tencent.com`
 + 微信(如下扫码并备注山月/面试/推荐)
 
-![](./assets/we-shanyue.jpg)
+![](https://cdn.jsdelivr.net/gh/shfshanyue/Daily-Question/infer/assets/we-shanyue.jpg)
