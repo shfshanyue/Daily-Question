@@ -89,6 +89,10 @@ module.exports = {
             [
               "tencent-csig",
               "腾讯-CSIG-智慧零售-前端"
+            ],
+            [
+              "yinyue-fe",
+              "腾讯-音乐-TME研发部-前端"
             ]
           ]
         }
