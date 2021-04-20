@@ -9057,7 +9057,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDc0ODE2ODY4OQ==",
-      "body": "有 CSS 和 JS 两种方法，以下任选其一或结合使用\r\n\r\n使用 CSS 如下：\r\n\r\n``` css\r\nuser-select: none;\r\n```\r\n\r\n或使用 JS 如下\r\n\r\n``` js\r\ndocument.body.onselectstart = e => {  \r\n  e.preventDefault();\r\n}\r\n```",
+      "body": "有 CSS 和 JS 两种方法，以下任选其一或结合使用\r\n\r\n使用 CSS 如下：\r\n\r\n``` css\r\nuser-select: none;\r\n```\r\n\r\n或使用 JS 如下，监听 `selectstart` 事件，禁止选中。\r\n\r\n当用户选中一片区域时，将触发 `selectstart` 事件，Selection API 将会选中一片区域。禁止选中区域即可实现页面文本不可复制。\r\n\r\n``` js\r\ndocument.body.onselectstart = e => {  \r\n  e.preventDefault();\r\n}\r\n\r\ndocument.body.oncopy = e => {  \r\n  e.preventDefault();\r\n}\r\n```",
       "reactions": {
         "totalCount": 1
       },
@@ -10033,5 +10033,61 @@
         "url": "https://github.com/shfshanyue"
       }
     }
+  },
+  {
+    "id": "MDU6SXNzdWU4NTc3MjYwMjI=",
+    "number": 505,
+    "title": "【Q496】如何更好地给元素设置 z-index",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIw",
+        "name": "css"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU4NTc5MDUyOTc=",
+    "number": 506,
+    "title": "【Q497】React.setState 是同步还是异步的",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU4MzQ3NDIy",
+        "name": "react"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU4NjA4MTg4NDE=",
+    "number": 507,
+    "title": "【Q498】什么是服务器渲染 (SSR)",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU4MzQ3NDIy",
+        "name": "react"
+      },
+      {
+        "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+        "name": "前端工程化"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU4NjA4MjkzMTM=",
+    "number": 508,
+    "title": "【Q499】在 React 中如何实现代码分割 (code splitting)",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU4MzQ3NDIy",
+        "name": "react"
+      }
+    ],
+    "comment": ""
   }
 ]
