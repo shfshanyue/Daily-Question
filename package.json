@@ -9,7 +9,7 @@
     "axios": "^0.21.1",
     "ismobilejs": "^1.1.1",
     "isomorphic-unfetch": "^3.1.0",
-    "lodash": "^4.17.20",
+    "lodash": "^4.17.21",
     "npm-check-updates": "^10.2.5",
     "unfetch": "^4.2.0",
     "vuepress": "^1.7.1",
