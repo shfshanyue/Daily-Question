@@ -91,7 +91,7 @@ module.exports = {
               "腾讯-CSIG-智慧零售-前端"
             ],
             [
-              "yinyue-fe",
+              "tencent-tme",
               "腾讯-音乐-TME研发部-前端"
             ]
           ]

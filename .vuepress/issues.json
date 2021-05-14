@@ -199,7 +199,7 @@
     "id": "MDU6SXNzdWU1MTc1ODAwMTc=",
     "number": 10,
     "title": "【Q009】如何实现一个元素的水平垂直居中",
-    "body": "",
+    "body": "要求对行内元素与块状元素均可适用：\r\n\r\n可打开 codepen 进行调试: <https://codepen.io/shanyue/pen/XWMdabg>，以下是布局代码\r\n\r\n``` html\r\n<div class=\"container\">\r\n  <div class=\"item\">hello, world</div>\r\n</div>\r\n\r\n<div class=\"container\">\r\n  <div class=\"item\" style=\"width: 100px; height: 100px; background: #999;\"></div>\r\n</div>\r\n```\r\n\r\n``` scss\r\n.container {\r\n   // 把代码写在这里\r\n}\r\n\r\n.container {\r\n  height: 20rem;\r\n  background: #ccc;\r\n  margin: 1rem;\r\n}\r\n```",
     "labels": [
       {
         "id": "MDU6TGFiZWwxNjUxNDAyMzIw",
@@ -208,7 +208,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDU1MTM1MTM2Nw==",
-      "body": "提供一个较少提过的方法，使用 `grid`，它是做二维布局的，但是只有一个子元素时，一维布局与二维布局就一样了。结合 `justify-content`/`justify-items` 和 `align-content/align-items` 就有四种方案\r\n\r\n效果可以见 [codepen](https://codepen.io/shanyue/pen/ZEERzzL)\r\n\r\n``` css\r\n.container {\r\n  display: grid;\r\n  justify-content: center;\r\n  align-content: center;\r\n}\r\n```\r\n\r\n\r\n``` css\r\n.container {\r\n  display: grid;\r\n  justify-content: center;\r\n  align-items: center;\r\n}\r\n```\r\n\r\n\r\n``` css\r\n.container {\r\n  display: grid;\r\n  justify-items: center;\r\n  align-content: center;\r\n}\r\n```\r\n\r\n\r\n``` css\r\n.container {\r\n  display: grid;\r\n  justify-items: center;\r\n  align-items: center;\r\n}\r\n```\r\n",
+      "body": "提供一些现代浏览器下使用 `flex/grid` 的方法，不仅支持块状元素，而且支持行内元素，对固定高宽与不固定高宽皆可使用。\r\n\r\n使用 `flex`，以下是经典的垂直居中。\r\n\r\n``` css\r\n.container {\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n}\r\n```\r\n\r\n使用 `grid`，它是做二维布局的，但是只有一个子元素时，一维布局与二维布局就一样了。\r\n\r\n结合 `justify-content`/`justify-items` 和 `align-content/align-items` 就有四种方案\r\n\r\n效果可以见 [codepen](https://codepen.io/shanyue/pen/XWMdabg)\r\n\r\n``` css\r\n.container {\r\n  display: grid;\r\n  justify-content: center;\r\n  align-content: center;\r\n}\r\n```\r\n\r\n\r\n``` css\r\n.container {\r\n  display: grid;\r\n  justify-content: center;\r\n  align-items: center;\r\n}\r\n```\r\n\r\n\r\n``` css\r\n.container {\r\n  display: grid;\r\n  justify-items: center;\r\n  align-content: center;\r\n}\r\n```\r\n\r\n\r\n``` css\r\n.container {\r\n  display: grid;\r\n  justify-items: center;\r\n  align-items: center;\r\n}\r\n```\r\n\r\n三个属性略显啰嗦，其实只需两个属性即可:\r\n\r\n``` css\r\n.container {\r\n  display: grid;\r\n  place-items: center;\r\n}\r\n```\r\n\r\n``` css\r\n.container {\r\n  display: grid;\r\n  place-content: center;\r\n}\r\n```\r\n",
       "reactions": {
         "totalCount": 5
       },
@@ -428,7 +428,7 @@
   {
     "id": "MDU6SXNzdWU1MjA0MjExNDI=",
     "number": 20,
-    "title": "【Q019】如何实现选中复制的功能",
+    "title": "【Q019】浏览器中如何实现剪切板复制内容的功能",
     "body": "在一些博客系统，如掘金的博客中，可以复制代码，它是如何实现的",
     "labels": [
       {
@@ -438,7 +438,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDU1MjA5OTE2NQ==",
-      "body": "它一般可以使用第三方库 [clipboard.js](https://github.com/zenorocha/clipboard.js) 来实现，源码很简单，可以读一读\r\n\r\n主要有两个要点\r\n\r\n1. 选中: `Selection API`\r\n1. 复制: `document.execCommand`\r\n\r\n## 选中: Selection API/Range API\r\n\r\n选中主要利用了 [Selection API](https://developer.mozilla.org/en-US/docs/Web/API/Selection) 与 Range API\r\n\r\n选中的代码如下\r\n\r\n``` js\r\nconst selection = window.getSelection();\r\nconst range = document.createRange();\r\n\r\n// RangeAPI: 制造区域\r\nrange.selectNodeContents(element);\r\n\r\n// Selection: 选中区域\r\nselection.addRange(range);\r\n\r\nselectedText = selection.toString();\r\n```\r\n\r\n取消选中的代码如下\r\n\r\n``` js\r\nwindow.getSelection().removeAllRanges();\r\n```\r\n\r\n它有现成的第三方库可以使用: [select.js](https://github.com/zenorocha/select)\r\n\r\n## 复制: execCommand\r\n\r\n复制就比较简单了，`execCommand`\r\n\r\n``` js\r\ndocument.exec('copy')\r\n```",
+      "body": "它一般可以使用第三方库 [clipboard-copy](https://github.com/feross/clipboard-copy/blob/master/index.js) 来实现，源码很简单，可以读一读\r\n\r\n目前最为推荐的方式是使用 `Clipboard API` 进行实现\r\n\r\n``` js\r\nnavigator.clipboard.writeText(text)\r\n```\r\n\r\n而对于一些不支持 `Clipboard API` 的浏览器，使用以下 API 进行复制\r\n\r\n1. 选中: `Selection API`\r\n1. 复制: `document.execCommand` (已被废弃)\r\n\r\n## 选中: Selection API/Range API\r\n\r\n选中主要利用了 [Selection API](https://developer.mozilla.org/en-US/docs/Web/API/Selection) 与 Range API\r\n\r\n选中的代码如下\r\n\r\n``` js\r\nconst selection = window.getSelection();\r\nconst range = document.createRange();\r\n\r\n// RangeAPI: 制造区域\r\nrange.selectNodeContents(element);\r\n\r\n// Selection: 选中区域\r\nselection.addRange(range);\r\n\r\nselectedText = selection.toString();\r\n```\r\n\r\n取消选中的代码如下\r\n\r\n``` js\r\nwindow.getSelection().removeAllRanges();\r\n```\r\n\r\n它有现成的第三方库可以使用: [select.js](https://github.com/zenorocha/select)\r\n\r\n## 复制: execCommand\r\n\r\n复制就比较简单了，`execCommand`\r\n\r\n``` js\r\ndocument.execCommand('copy')\r\n```",
       "reactions": {
         "totalCount": 0
       },
@@ -1500,7 +1500,7 @@
       "id": "MDEyOklzc3VlQ29tbWVudDU2OTA3NDAyNQ==",
       "body": "- 虚拟 DOM 最大的优势在于抽象了原本的渲染过程，实现了跨平台的能力，而不仅仅局限于浏览器的 DOM，可以是安卓和 IOS 的原生组件，可以是近期很火热的小程序，也可以是各种 GUI。\r\n-  vdom 把渲染过程抽象化了，从而使得组件的抽象能力也得到提升，并且可以适配 DOM 以外的渲染目标。\r\n\r\n\r\n- Virtual DOM 在牺牲(牺牲很关键)部分性能的前提下，增加了可维护性，这也是很多框架的通性。\r\n实现了对 DOM 的集中化操作，在数据改变时先对虚拟 DOM 进行修改，再反映到真实的 DOM中，用最小的代价来更新DOM，提高效率(提升效率要想想是跟哪个阶段比提升了效率，别只记住了这一条)。\r\n- 打开了函数式 UI 编程的大门。\r\n- 可以渲染到 DOM 以外的端，使得框架跨平台，比如 ReactNative，React VR 等。\r\n- 可以更好的实现 SSR，同构渲染等。这条其实是跟上面一条差不多的。\r\n- 组件的高度抽象化。\r\n\r\n> 虚拟 DOM 的缺点\r\n- 首次渲染大量 DOM 时，由于多了一层虚拟 DOM 的计算，会比 innerHTML 插入慢。\r\n- 虚拟 DOM 需要在内存中的维护一份 DOM 的副本(更上面一条其实也差不多，上面一条是从速度上，这条是空间上)。\r\n- 如果虚拟 DOM 大量更改，这是合适的。但是单一的，频繁的更新的话，虚拟 DOM 将会花费更多的时间处理计算的工作。所以，如果你有一个DOM 节点相对较少页面，用虚拟 DOM，它实际上有可能会更慢。但对于大多数单页面应用，这应该都会更快。\r\n",
       "reactions": {
-        "totalCount": 7
+        "totalCount": 8
       },
       "author": {
         "login": "libin1991",
@@ -5974,7 +5974,7 @@
       "id": "MDEyOklzc3VlQ29tbWVudDYyNDA1NDE1Nw==",
       "body": "1. 取数组中前 k 个数做小顶堆，堆化\r\n1. 数组中的其它数逐一与堆顶元素比较，若大于堆顶元素，则插入该数\r\n\r\n时间复杂度 O(nlg(k))",
       "reactions": {
-        "totalCount": 0
+        "totalCount": 1
       },
       "author": {
         "login": "shfshanyue",
@@ -9464,7 +9464,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDc2OTczMzExOQ==",
-      "body": "页面布局元素如下，item 数量不固定\r\n\r\n``` html\r\n<div class=\"container\">\r\n  <div class=\"item\"></div>\r\n  <div class=\"item\"></div>\r\n  <div class=\"item\"></div>\r\n  <div class=\"item\"></div>\r\n  <div class=\"item\"></div>\r\n  <div class=\"item\"></div>\r\n</div>\r\n```\r\n\r\n使用 Grid 布局可以轻松解决这个问题，如若使用其它方案，控制好等分的同时再控制好间距也是一个十分头疼的问题:\r\n\r\n1. `grid-template-columns`: 控制等分\r\n2. `gap`: 控制间隙\r\n\r\n``` css\r\n@media (min-width: 1024px) {\r\n  .container {\r\n    grid-template-columns: repeat(3,minmax(0,1fr));\r\n  }\r\n}\r\n\r\n@media (min-width: 768px) {\r\n  .container {\r\n    grid-template-columns: repeat(2,minmax(0,1fr));\r\n  }\r\n}\r\n\r\n.conainer {\r\n  display: grid;\r\n  gap: 1rem;\r\n}\r\n```\r\n\r\n`TailwindCSS` 是一款非常方便的 CSS 原子类框架，只需要一行即可搞定\r\n\r\n``` html\r\n<div class=\"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4\"></div>\r\n```",
+      "body": "页面布局元素如下，item 数量不固定\r\n\r\n``` html\r\n<div class=\"container\">\r\n  <div class=\"item\"></div>\r\n  <div class=\"item\"></div>\r\n  <div class=\"item\"></div>\r\n  <div class=\"item\"></div>\r\n  <div class=\"item\"></div>\r\n  <div class=\"item\"></div>\r\n</div>\r\n```\r\n\r\n使用 Grid 布局可以轻松解决这个问题，如若使用其它方案，控制好等分的同时再控制好间距也是一个十分头疼的问题:\r\n\r\n1. `grid-template-columns`: 控制等分\r\n2. `gap`: 控制间隙\r\n\r\n``` css\r\n@media (min-width: 1024px) {\r\n  .container {\r\n    grid-template-columns: repeat(3,minmax(0,1fr));\r\n  }\r\n}\r\n\r\n@media (min-width: 768px) {\r\n  .container {\r\n    grid-template-columns: repeat(2,minmax(0,1fr));\r\n  }\r\n}\r\n\r\n.conainer {\r\n  display: grid;\r\n  gap: 1rem;\r\n}\r\n```\r\n\r\n`TailwindCSS` 是一款非常方便的 CSS 原子类框架，只需要一行即可搞定\r\n\r\n``` html\r\n<div class=\"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4\"></div>\r\n```\r\n\r\n但是这就够了吗？\r\n\r\n这远远不够，这也足够复杂！\r\n\r\n1. 需要媒体查询\r\n2. 需要人为设置 breakpoint，设置大小屏幕的边界\r\n\r\n## 终极解决方案\r\n\r\n`Grid` 布局可以自动判断容器大小，无论大小屏幕自动撑满并均分，请看以下属性\r\n\r\n``` css\r\n.container {\r\n  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr))\r\n}\r\n```\r\n\r\n1. `repeat`: 用以 N 整分\r\n1. `auto-fill`：表示自动填充\r\n2. `minmx`: 即书面意思，最小宽度为 `300px`\r\n\r\n[使用终极解决方案的在线页面](https://devtool.tech/fe-logo)",
       "reactions": {
         "totalCount": 0
       },
@@ -9977,14 +9977,14 @@
       }
     ],
     "comment": {
-      "id": "MDEyOklzc3VlQ29tbWVudDgxNDY4Njg4Mw==",
-      "body": "根据发送网络请求的API不同，取消方法不同\r\n- xhr\r\n- fetch \r\n- axios \r\n\r\n如果使用`XMLHttpRequest`发送请求可以使用`XMLHttpRequest.abort()`\r\n\r\n如果使用`fetch`发送请求可以使用`AbortController`\r\n```\r\nconst controller = new AbortController();\r\nconst signal = controller.signal;\r\nfetch('https://somewhere', { signal })\r\ncontroller.abort()\r\n```\r\n\r\n如果使用`axios`，取消原理同fetch\r\n```\r\nvar CancelToken = axios.CancelToken;\r\nvar source = CancelToken.source();\r\n\r\naxios.get('/https://somewhere', {\r\n  cancelToken: source.token\r\n}\r\n\r\nsource.cancel()\r\n```\r\n\r\n",
+      "id": "MDEyOklzc3VlQ29tbWVudDgyMzI1Njg1Mg==",
+      "body": "## 001 XHR 使用 `xhr.abort()`\r\n\r\n``` js\r\nconst xhr = new XMLHttpRequest(),\r\n    method = \"GET\",\r\n    url = \"https://developer.mozilla.org/\";\r\nxhr.open(method, url, true);\r\n\r\nxhr.send();\r\n\r\n// 取消发送请求\r\nxhr.abort();\r\n```\r\n\r\n## 002 fetch 使用 `AbortController` \r\n\r\n1. 发送请求时使用一个 `signal` 选项控制 fetch 请求\r\n2. `control.abort()` 用以取消请求发送\r\n3. 取消请求发送之后会得到异常 `AbortError`\r\n\r\n``` js\r\nconst controller = new AbortController()\r\nconst signal = controller.signal\r\n\r\nconst downloadBtn = document.querySelector('.download');\r\nconst abortBtn = document.querySelector('.abort');\r\n\r\ndownloadBtn.addEventListener('click', fetchVideo);\r\n\r\n// 点击取消按钮时，取消请求的发送\r\nabortBtn.addEventListener('click', function() {\r\n  controller.abort();\r\n  console.log('Download aborted');\r\n});\r\n\r\nfunction fetchVideo() {\r\n  ...\r\n  fetch(url, {signal}).then(function(response) {\r\n    ...\r\n  }).catch(function(e) {\r\n   // 请求被取消之后将会得到一个 AbortError\r\n    reports.textContent = 'Download error: ' + e.message;\r\n  })\r\n}\r\n```\r\n\r\n### 003 Axios: `xhr` 与 `http/https`\r\n\r\n`Axios` 中通过 `cancelToken` 取消请求发送\r\n\r\n``` js\r\nconst CancelToken = axios.CancelToken;\r\nconst source = CancelToken.source();\r\n\r\naxios.get('/user/12345', {\r\n  cancelToken: source.token\r\n}).catch(function (thrown) {\r\n  if (axios.isCancel(thrown)) {\r\n    console.log('Request canceled', thrown.message);\r\n  } else {\r\n    // handle error\r\n  }\r\n});\r\n\r\naxios.post('/user/12345', {\r\n  name: 'new name'\r\n}, {\r\n  cancelToken: source.token\r\n})\r\n\r\n// cancel the request (the message parameter is optional)\r\nsource.cancel('Operation canceled by the user.');\r\n```\r\n\r\n而其中的原理可分为两部分\r\n\r\n+ 浏览器端: 基于 XHR，`xhr.abort()`，见源码[axios/lib/adapters/xhr.js](https://github.com/axios/axios/blob/v0.21.1/lib/adapters/xhr.js#L165)\r\n+ Node端: 基于 http/https/follow-redirects，使用 `request.abort()`，见源码[axios/lib/adapters/http.js](https://github.com/axios/axios/blob/v0.21.1/lib/adapters/http.js#L289)",
       "reactions": {
-        "totalCount": 0
+        "totalCount": 1
       },
       "author": {
-        "login": "evle",
-        "url": "https://github.com/evle"
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
       }
     }
   },
@@ -10058,7 +10058,17 @@
         "name": "react"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDgyNzY1NDk0Mw==",
+      "body": "setState并不能保证是同步的，在生命周期函数和合成事件中是异步的，在原生事件和setTimeout中是同步的。",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "buzuosheng",
+        "url": "https://github.com/buzuosheng"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU4NjA4MTg4NDE=",
@@ -10075,7 +10085,17 @@
         "name": "前端工程化"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDgyNzUzODkzMw==",
+      "body": "服务端渲染SSR：在服务端将请求的所有资源生成HTML，客户端收到后可以直接渲染。",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "buzuosheng",
+        "url": "https://github.com/buzuosheng"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU4NjA4MjkzMTM=",
@@ -10089,5 +10109,139 @@
       }
     ],
     "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU4NjIzODMwODY=",
+    "number": 510,
+    "title": "【Q500】在 React 中如何做好性能优化",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU4MzQ3NDIy",
+        "name": "react"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDgyNzYwODA1NQ==",
+      "body": "- 代码分割\r\n- React.memo()、shouldComponentUpdate()等防止不必要的渲染\r\n- Fragments避免额外标记\r\n- 错误边界避免组件在出错时破坏整个应用",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "buzuosheng",
+        "url": "https://github.com/buzuosheng"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU4NjIzODkxOTk=",
+    "number": 511,
+    "title": "【Q501】在 React 中发现状态更新时卡顿，此时应该如何定位及优化",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU4MzQ3NDIy",
+        "name": "react"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU4NjI1MjMzODE=",
+    "number": 512,
+    "title": "【Q502】当多次重复点击按钮时，以下三个 Heading 是如何渲染的",
+    "body": "``` js\r\nimport React, { memo, useMemo, useState } from \"react\";\r\n\r\nconst Heading = memo(({ style, title }) => {\r\n  console.log(\"Rendered:\", title);\r\n\r\n  return <h1 style={style}>{title}</h1>;\r\n});\r\n\r\nexport default function App() {\r\n  const [count, setCount] = useState(0);\r\n\r\n  const normalStyle = {\r\n    backgroundColor: \"teal\",\r\n    color: \"white\",\r\n  };\r\n\r\n  const memoizedStyle = useMemo(() => {\r\n    return {\r\n      backgroundColor: \"red\",\r\n      color: \"white\",\r\n    };\r\n  }, []);\r\n\r\n  return (\r\n    <>\r\n      <button\r\n        onClick={() => {\r\n          setCount(count + 1);\r\n        }}\r\n      >\r\n        Increment {count}\r\n      </button>\r\n      <Heading style={memoizedStyle} title=\"Memoized\" />\r\n      <Heading style={normalStyle} title=\"Normal\" />\r\n      <Heading title=\"React.memo Normal\" />\r\n    </>\r\n  );\r\n}\r\n```",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU4MzQ3NDIy",
+        "name": "react"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDgyNzUzNjM0OQ==",
+      "body": "\"Memoized\"只在第一次渲染时打印一次，后续点击不刷新。\r\n\"Normal\"会在每次渲染时打印。\r\n\"React.memo Normal”只会在第一次渲染时打印一次。\r\n\r\n使用`useMemo`时，依赖数组为null，这意味着只会在首次渲染时，对memoizedStyle进行一次计算，后续不再计算。\r\n在渲染`<Heading />组件时，React.memo会先判断前后状态\r\n``` js\r\nmemoizedStyle === memoizedStyle  //true\r\n```\r\n由于状态始终是一个对象，自身始终是与自身相等的，所以不会导致重新渲染。\r\n\r\n没有使用`useMemo`时，每次点击，对`<Heading />`组件传入属性，React.memo判断\r\n``` js\r\n {\r\n    backgroundColor: \"teal\",\r\n    color: \"white\",\r\n  } ===  {\r\n    backgroundColor: \"teal\",\r\n    color: \"white\",\r\n  }  // false\r\n```\r\n每次都会传入一个新的对象，由于React.memo对prop进行浅比较，两个对象总是不相等的。\r\n如果需要进行深比较，可以对React.memo传入一个深比较函数作为第二个参数。\r\n\r\n\"React.memo Normal”的参数是字符串，相比对象的比较简单了很多，所以不会导致重新渲染。",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "buzuosheng",
+        "url": "https://github.com/buzuosheng"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU4NzM1Njk2NTE=",
+    "number": 513,
+    "title": "【Q503】Core Web Vitals 是什么，它有哪些指标",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+        "name": "前端工程化"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU4NzU5NDA0OTQ=",
+    "number": 514,
+    "title": "【Q504】画一个 100x100 的方框，其中文字可以正常换行，文字过多超过方框显示滚动条",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIw",
+        "name": "css"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU4NzcxMzQ5MzI=",
+    "number": 515,
+    "title": "【Q505】JS 中基础数据类型有哪些",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU4ODM3MjIwODM=",
+    "number": 518,
+    "title": "【Q506】Grid 布局如何实现类似 flex: row-reverse",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIw",
+        "name": "css"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU4ODY3MjcxMzI=",
+    "number": 520,
+    "title": "【Q507】如何创建一个数组大小为100，每个值都为0的数组",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg0MDYzOTY4Mg==",
+      "body": "` \r\n const arr = new Array(100); \r\n arr.fill(0)\r\n `",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "janyin",
+        "url": "https://github.com/janyin"
+      }
+    }
   }
 ]
