@@ -32,3 +32,7 @@
 + [【Q486】什么是前端工程化](495.html)
 + [【Q498】什么是服务器渲染 (SSR)](507.html)
 + [【Q503】Core Web Vitals 是什么，它有哪些指标](513.html)
++ [【Q508】dependencies 与 devDependencies 有何区别](521.html)
++ [【Q509】如何确认你们项目是否依赖某一个依赖项](522.html)
++ [【Q510】当你引入某一个依赖项时，你引入的是该依赖下的哪一个文件](523.html)
++ [【Q511】npm workspaces 解决了什么问题](524.html)

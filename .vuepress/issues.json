@@ -3603,7 +3603,17 @@
         "name": "devops"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg0Mjk5ODAzNQ==",
+      "body": "公有云就是阿里云 腾讯云 aws 等\r\n私有云 就是公司自己买物理机，在机房自己搭建网络，自己做虚拟机\r\n混合云 就是 公有云 + 私有云\r\n多重云 就是多个公有云",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "timtike",
+        "url": "https://github.com/timtike"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU1NDc1MzA5OTA=",
@@ -4191,7 +4201,17 @@
         "name": "前端工程化"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg0MjMzMzYyNg==",
+      "body": "锁定版本号，保证开发环境与生产环境的一致性",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU1NjI1OTIxMjI=",
@@ -9464,7 +9484,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDc2OTczMzExOQ==",
-      "body": "页面布局元素如下，item 数量不固定\r\n\r\n``` html\r\n<div class=\"container\">\r\n  <div class=\"item\"></div>\r\n  <div class=\"item\"></div>\r\n  <div class=\"item\"></div>\r\n  <div class=\"item\"></div>\r\n  <div class=\"item\"></div>\r\n  <div class=\"item\"></div>\r\n</div>\r\n```\r\n\r\n使用 Grid 布局可以轻松解决这个问题，如若使用其它方案，控制好等分的同时再控制好间距也是一个十分头疼的问题:\r\n\r\n1. `grid-template-columns`: 控制等分\r\n2. `gap`: 控制间隙\r\n\r\n``` css\r\n@media (min-width: 1024px) {\r\n  .container {\r\n    grid-template-columns: repeat(3,minmax(0,1fr));\r\n  }\r\n}\r\n\r\n@media (min-width: 768px) {\r\n  .container {\r\n    grid-template-columns: repeat(2,minmax(0,1fr));\r\n  }\r\n}\r\n\r\n.conainer {\r\n  display: grid;\r\n  gap: 1rem;\r\n}\r\n```\r\n\r\n`TailwindCSS` 是一款非常方便的 CSS 原子类框架，只需要一行即可搞定\r\n\r\n``` html\r\n<div class=\"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4\"></div>\r\n```\r\n\r\n但是这就够了吗？\r\n\r\n这远远不够，这也足够复杂！\r\n\r\n1. 需要媒体查询\r\n2. 需要人为设置 breakpoint，设置大小屏幕的边界\r\n\r\n## 终极解决方案\r\n\r\n`Grid` 布局可以自动判断容器大小，无论大小屏幕自动撑满并均分，请看以下属性\r\n\r\n``` css\r\n.container {\r\n  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr))\r\n}\r\n```\r\n\r\n1. `repeat`: 用以 N 整分\r\n1. `auto-fill`：表示自动填充\r\n2. `minmx`: 即书面意思，最小宽度为 `300px`\r\n\r\n[使用终极解决方案的在线页面](https://devtool.tech/fe-logo)",
+      "body": "页面布局元素如下，item 数量不固定\r\n\r\n``` html\r\n<div class=\"container\">\r\n  <div class=\"item\"></div>\r\n  <div class=\"item\"></div>\r\n  <div class=\"item\"></div>\r\n  <div class=\"item\"></div>\r\n  <div class=\"item\"></div>\r\n  <div class=\"item\"></div>\r\n</div>\r\n```\r\n\r\n使用 Grid 布局可以轻松解决这个问题，如若使用其它方案，控制好等分的同时再控制好间距也是一个十分头疼的问题:\r\n\r\n1. `grid-template-columns`: 控制等分\r\n2. `gap`: 控制间隙\r\n\r\n效果可见 [codepen](https://codepen.io/shanyue/pen/rNyLvBe)\r\n\r\n``` css\r\n@media (min-width: 768px) {\r\n  .container {\r\n    grid-template-columns: repeat(2, minmax(0,1fr));\r\n  }\r\n}\r\n\r\n@media (min-width: 1024px) {\r\n  .container {\r\n    grid-template-columns: repeat(3, minmax(0, 1fr));\r\n  }\r\n}\r\n\r\n.container {\r\n  display: grid;\r\n}\r\n\r\n.conainer {\r\n  gap: 1rem;\r\n}\r\n```\r\n\r\n`TailwindCSS` 是一款非常方便的 CSS 原子类框架，只需要一行即可搞定\r\n\r\n``` html\r\n<div class=\"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4\"></div>\r\n```\r\n\r\n但是这就够了吗？\r\n\r\n这远远不够，这也足够复杂！\r\n\r\n1. 需要媒体查询\r\n2. 需要人为设置 breakpoint，设置大小屏幕的边界\r\n\r\n## 终极解决方案\r\n\r\n`Grid` 布局可以自动判断容器大小，无论大小屏幕自动撑满并均分，请看以下属性\r\n\r\n``` css\r\n.container {\r\n  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr))\r\n}\r\n```\r\n\r\n1. `repeat`: 用以 N 整分\r\n1. `auto-fill`：表示自动填充\r\n2. `minmx`: 即书面意思，最小宽度为 `300px`\r\n\r\n[使用终极解决方案的在线页面](https://devtool.tech/fe-logo)",
       "reactions": {
         "totalCount": 0
       },
@@ -9500,7 +9520,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDc5MTQwNDU5MA==",
-      "body": "## cjs (commonjs)\r\n\r\n`commonjs` 是 Node 中的模块规范，通过 `require` 及 `exports` 进行导入导出 (进一步延伸的话，`module.exports` 属于 `commonjs2`)\r\n\r\n同时，webpack 也对 `cjs` 模块得以解析，因此 `cjs` 模块可以运行在 node 环境及 webpack 环境下的，但不能在浏览器中*直接*使用。但如果你写前端项目在 webpack 中，也可以理解为它在浏览器和 Node 都支持。\r\n\r\n比如，著名的全球下载量前十10的模块 [ms](https://npm.devtool.tech/ms) 只支持 `commonjs`，但并不影响它在前端项目中使用(通过webpack)，但是你想通过 cdn 的方式直接在浏览器中引入，估计就会出问题了\r\n\r\n``` js\r\n// sum.js\r\nexports.sum = (x, y) => x + y\r\n\r\n// index.js\r\nconst { sum } = require('./sum.js')\r\n```\r\n\r\n由于 `cjs` 为动态加载，可直接 `require` 一个变量\r\n\r\n``` js\r\nrequire(`./${a}`)\r\n```\r\n\r\n## esm (es module)\r\n\r\n`esm` 是 tc39 对于 js 模块的规范，**在 Node 及 浏览器中均会支持**，使用 `export/import` 进行模块导入导出\r\n\r\n``` js\r\n// sum.js\r\nexport const sum = (x, y) => x + y\r\n\r\n// index.js\r\nimport { sum } from './sum'\r\n```\r\n\r\n由于 `esm` 为静态导入，tc39 为动态加载模块定义了 API: `import(module)` 。\r\n\r\nesm 是未来的趋势，目前一些 CDN 厂商，前端构建工具均致力于 cjs 模块向 esm 的转化，比如 `skypack`、 `snowpack`、`vite` 等\r\n\r\n## umd\r\n\r\n一种兼容 `cjs` 与 `amd` 的模块，既可以在 node/webpack 环境中被 `require`，也可以在浏览器中直接用 CDN 被 `script.src` 引入\r\n\r\n``` js\r\n(function (root, factory) {\r\n  if (typeof define === 'function' && define.amd) {\r\n    // AMD\r\n    define(['jquery'], factory);\r\n  } else if (typeof exports === 'object') {\r\n    // CommonJS\r\n    module.exports = factory(require('jquery'));\r\n  } else {\r\n    // 全局变量\r\n    root.returnExports = factory(root.jQuery);\r\n  }\r\n}(this, function ($) {\r\n  // ...\r\n}));\r\n```\r\n",
+      "body": "## cjs (commonjs)\r\n\r\n`commonjs` 是 Node 中的模块规范，通过 `require` 及 `exports` 进行导入导出 (进一步延伸的话，`module.exports` 属于 `commonjs2`)\r\n\r\n同时，webpack 也对 `cjs` 模块得以解析，因此 `cjs` 模块可以运行在 node 环境及 webpack 环境下的，但不能在浏览器中*直接*使用。但如果你写前端项目在 webpack 中，也可以理解为它在浏览器和 Node 都支持。\r\n\r\n比如，著名的全球下载量前十10的模块 [ms](https://npm.devtool.tech/ms) 只支持 `commonjs`，但并不影响它在前端项目中使用(通过webpack)，但是你想通过 cdn 的方式直接在浏览器中引入，估计就会出问题了\r\n\r\n``` js\r\n// sum.js\r\nexports.sum = (x, y) => x + y\r\n\r\n// index.js\r\nconst { sum } = require('./sum.js')\r\n```\r\n\r\n由于 `cjs` 为动态加载，可直接 `require` 一个变量\r\n\r\n``` js\r\nrequire(`./${a}`)\r\n```\r\n\r\n## esm (es module)\r\n\r\n`esm` 是 tc39 对于 js 模块的规范，**在 Node 及 浏览器中均会支持**，使用 `export/import` 进行模块导入导出\r\n\r\n``` js\r\n// sum.js\r\nexport const sum = (x, y) => x + y\r\n\r\n// index.js\r\nimport { sum } from './sum'\r\n```\r\n\r\n由于 `esm` 为静态导入，tc39 为动态加载模块定义了 API: `import(module)` 。\r\n\r\nesm 是未来的趋势，目前一些 CDN 厂商，前端构建工具均致力于 cjs 模块向 esm 的转化，比如 `skypack`、 `snowpack`、`vite` 等\r\n\r\n示例: [array-uniq](https://npm.devtool.tech/array-uniq)\r\n\r\n## umd\r\n\r\n一种兼容 `cjs` 与 `amd` 的模块，既可以在 node/webpack 环境中被 `require`，也可以在浏览器中直接用 CDN 被 `script.src` 引入\r\n\r\n``` js\r\n(function (root, factory) {\r\n  if (typeof define === 'function' && define.amd) {\r\n    // AMD\r\n    define(['jquery'], factory);\r\n  } else if (typeof exports === 'object') {\r\n    // CommonJS\r\n    module.exports = factory(require('jquery'));\r\n  } else {\r\n    // 全局变量\r\n    root.returnExports = factory(root.jQuery);\r\n  }\r\n}(this, function ($) {\r\n  // ...\r\n}));\r\n```\r\n\r\n示例: [react-table](https://npm.devtool.tech/react-table), [antd](https://npm.devtool.tech/react-table)\r\n\r\n这三种模块方案大致如此，但是部分 npm package 也会同时打包出 commonjs/esm/umd 三种模块化格式，供不同需求的业务使用\r\n",
       "reactions": {
         "totalCount": 0
       },
@@ -9942,7 +9962,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDgwNzkwMjE4Ng==",
-      "body": "有一次头条面试，一道手写题目是：如何手写实现 `promise.all`。\r\n\r\n我从来没有想过要手写实现 promise.all 函数，稍微一想，大概就是维护一个数组，把所有 promise 给 resolve 了之后都扔进去，这有啥子好问的。没想到，一上手还稍微有点棘手。\r\n\r\n先来看一个示例吧:\r\n\r\n``` js\r\nawait Promise.all([1, Promise.resolve(2)])\r\n//-> [1, 2]\r\n\r\nawait Promise.all([1, Promise.reject(2)])\r\n//-> Throw Error: 2\r\n```\r\n\r\n1. 传入一个数组，可包含 Promise，也可包含普通数据\r\n1. 数组中 Prmise 并行执行\r\n1. 但凡有一个 Promise 被 Reject 掉，Promise.all 失败\r\n\r\n``` js\r\nfunction pAll (promises) {\r\n  return new Promise((resolve, reject) => {\r\n    // 结果用一个数组维护\r\n    const r = []\r\n    const len = promises.length\r\n    let count = 0\r\n    for (let i = 0; i < len; i++) {\r\n      // Promise.resolve 确保把所有数据都转化为 Promise\r\n      Promise.resolve(promises[i]).then(o => { \r\n        // 因为 promise 是异步的，保持数组一一对应\r\n        r[i] = o;\r\n\r\n        // 如果数组中所有 promise 都完成，则返回结果数组\r\n        if (++count === len) {\r\n          resolve(r)\r\n        }\r\n        // 当发生异常时，直接 reject\r\n      }).catch(e => reject(e))\r\n    }\r\n  })\r\n}\r\n```\r\n\r\n为了测试，实现一个 sleep 函数\r\n\r\n``` js\r\nconst sleep = (seconds) => new Promise(resolve => setTimeout(() => resolve(seconds), seconds))\r\n```\r\n\r\n以下示例进行测试，没有问题\r\n\r\n``` js\r\npAll([1, 2, 3]).then(o => console.log(o))\r\npAll([\r\n  sleep(3000),\r\n  sleep(2000),\r\n  sleep(1000)\r\n]).then(o => console.log(o))\r\npAll([\r\n  sleep(3000),\r\n  sleep(2000),\r\n  sleep(1000),\r\n  Promise.reject(10000)\r\n]).then(o => console.log(o)).catch(e => console.log(e, '<- Error'))\r\n```",
+      "body": "有一次头条面试，一道手写题目是：如何手写实现 `promise.all`。\r\n\r\n我从来没有想过要手写实现 promise.all 函数，稍微一想，大概就是维护一个数组，把所有 promise 给 resolve 了之后都扔进去，这有啥子好问的。没想到，一上手还稍微有点棘手。\r\n\r\n先来看一个示例吧:\r\n\r\n``` js\r\nawait Promise.all([1, Promise.resolve(2)])\r\n//-> [1, 2]\r\n\r\nawait Promise.all([1, Promise.reject(2)])\r\n//-> Throw Error: 2\r\n```\r\n\r\n1. 传入一个 Iterable，但大部分情况下是数组，以下以数组代替\r\n1. 传入一个数组，其中可包含 Promise，也可包含普通数据\r\n1. 数组中 Prmise 并行执行\r\n1. 但凡有一个 Promise 被 Reject 掉，Promise.all 失败\r\n1. 保持输出数组位置与输入数组一致\r\n1. 所有数据 resolve 之后，返回结果\r\n\r\n``` js\r\nfunction pAll (_promises) {\r\n  return new Promise((resolve, reject) => {\r\n    // Iterable => Array\r\n    const promises = Array.from(_promises)\r\n    // 结果用一个数组维护\r\n    const r = []\r\n    const len = promises.length\r\n    let count = 0\r\n    for (let i = 0; i < len; i++) {\r\n      // Promise.resolve 确保把所有数据都转化为 Promise\r\n      Promise.resolve(promises[i]).then(o => { \r\n        // 因为 promise 是异步的，保持数组一一对应\r\n        r[i] = o;\r\n\r\n        // 如果数组中所有 promise 都完成，则返回结果数组\r\n        if (++count === len) {\r\n          resolve(r)\r\n        }\r\n        // 当发生异常时，直接 reject\r\n      }).catch(e => reject(e))\r\n    }\r\n  })\r\n}\r\n```\r\n\r\n为了测试，实现一个 sleep 函数\r\n\r\n``` js\r\nconst sleep = (seconds) => new Promise(resolve => setTimeout(() => resolve(seconds), seconds))\r\n```\r\n\r\n以下示例进行测试，没有问题\r\n\r\n``` js\r\npAll([1, 2, 3]).then(o => console.log(o))\r\npAll([\r\n  sleep(3000),\r\n  sleep(2000),\r\n  sleep(1000)\r\n]).then(o => console.log(o))\r\npAll([\r\n  sleep(3000),\r\n  sleep(2000),\r\n  sleep(1000),\r\n  Promise.reject(10000)\r\n]).then(o => console.log(o)).catch(e => console.log(e, '<- Error'))\r\n```",
       "reactions": {
         "totalCount": 0
       },
@@ -10243,5 +10263,119 @@
         "url": "https://github.com/janyin"
       }
     }
+  },
+  {
+    "id": "MDU6SXNzdWU4OTMzNDY0NzQ=",
+    "number": 521,
+    "title": "【Q508】dependencies 与 devDependencies 有何区别",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+        "name": "前端工程化"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg0MzIxMTA2OA==",
+      "body": "对于业务代码而讲，他俩没有区别\r\n\r\n对于库开发者而言，是由区别的\r\n\r\n> 当安装一个依赖时，该依赖的 dep 与 devDep 都会被安装到项目中吗？\r\n> dep 会被安装",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU4OTMzNTA5Mzc=",
+    "number": 522,
+    "title": "【Q509】如何确认你们项目是否依赖某一个依赖项",
+    "body": "例: 你们项目中是否引用了 npm 库 [semver](https://npm.devtool.tech/semver)",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+        "name": "前端工程化"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU4OTMzNTIzMTY=",
+    "number": 523,
+    "title": "【Q510】当你引入某一个依赖项时，你引入的是该依赖下的哪一个文件",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+        "name": "前端工程化"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU4OTMzNTQyMzM=",
+    "number": 524,
+    "title": "【Q511】npm workspaces 解决了什么问题",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+        "name": "前端工程化"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU4OTM0MTY2NTI=",
+    "number": 525,
+    "title": "【Q512】如何检测并避免循环依赖",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzI2MDg3MTMx",
+        "name": "node"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU4OTQ5MzIzMDY=",
+    "number": 526,
+    "title": "【Q513】有没有使用过 async/await，他们的原理是什么",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU4OTQ5NTY3MjE=",
+    "number": 527,
+    "title": "【Q514】什么是闭包，闭包的应用有哪些地方",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU4OTUwMzQ2NjU=",
+    "number": 528,
+    "title": "【Q515】一道异步代码执行输出顺序问题",
+    "body": "``` js\r\nsetTimeout(() => {\r\n  console.log('A')\r\n  Promise.resolve().then(() => {\r\n    console.log('B')\r\n  })\r\n}, 1000)\r\n\r\nPromise.resolve().then(() => {\r\n  console.log('C')\r\n})\r\n\r\nnew Promise((resolve) => {\r\n  console.log('D')\r\n  resolve('')\r\n}).then(() => {\r\n  console.log('E')\r\n})\r\n\r\nasync function sum (a, b) {\r\n  console.log('F')\r\n}\r\n\r\nasync function asyncSum(a, b) {\r\n  await Promise.resolve()\r\n  console.log('G')\r\n  return Promise.resolve(a + b)\r\n}\r\n\r\nsum(3, 4)\r\nasyncSum(3, 4)\r\nconsole.log('H')\r\n```",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": ""
   }
 ]
