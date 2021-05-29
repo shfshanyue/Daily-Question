@@ -185,7 +185,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDU0OTM1MTAyOA==",
-      "body": "\r\n新人入职新上手项目，如何把它跑起来，这是所有人都会碰到的问题：所有人都是从新手开始的。\r\n\r\n有可能你会脱口而出：`npm run dev/npm start`，但实际工作中，处处藏坑，往往没这么简单。\r\n\r\n1. 查看是否有 `CI/CD`，如果有跟着 `CI/CD` 部署的脚本跑命令\r\n1. 查看是否有 `dockerfile`，如果有跟着 `dockerfile` 跑命令\r\n1. 查看 npm scripts 中是否有 dev/start，尝试 `npm run dev/npm start`\r\n1. 查看是否有文档，如果有跟着文档走。为啥要把文档放到最后一个？原因你懂的\r\n\r\n但即便是十分谨慎，也有可能遇到以下几个叫苦不迭、浪费了一下午时间的坑:\r\n\r\n1. 前端有可能在**本地环境启动时需要依赖前端构建时所产生的文件**，所以有时需要**先正常部署一遍，再试着按照本地环境启动 (即需要先 `npm run build` 一下，再 `npm run dev/npm start`)**。(比如，一次我们的项目 npm run dev 时需要 webpack DllPlugin 构建后的东西）\r\n1. 别忘了设置环境变量或者配置文件\r\n\r\n因此，设置一个少的 script，可以很好地避免后人踩坑，更重要的是，可以避免后人骂你\r\n\r\n``` json\r\n{\r\n  \"scripts\": {\r\n    \"start\": \"npm run dev\",\r\n    \"config\": \"node assets && node config\",\r\n    \"build\": \"webpack\",\r\n    // 设置一个 dev 的钩子，在 npm run dev 前执行，此处有可能不是必须的\r\n    \"predev\": \"npm run build\",\r\n    \"dev\": \"webpack-dev-server --inline --progress\"\r\n  }\r\n}\r\n```\r\n\r\n## npm run dev 与 npm start 的区别\r\n\r\n对于一个**纯生成静态页面打包**的前端项目而言，它们是没有多少区别的：生产环境的部署只依赖于构建生成的资源，更不依赖 npm scripts。可见 [如何部署前端项目](https://shanyue.tech/frontend-engineering/docker.html)。\r\n\r\n使用 `create-react-app` 生成的项目，它的 npm script 中只有 `npm start`\r\n\r\n``` json\r\n{\r\n  \"start\": \"react-scripts start\",\r\n  \"build\": \"react-scripts build\",\r\n  \"test\": \"react-scripts test\",\r\n  \"eject\": \"react-scripts eject\"\r\n}\r\n```\r\n\r\n使用 `vuepress` 生成的项目，它的 npm script 中只有 `npm run dev`\r\n\r\n``` json\r\n{\r\n  \"dev\": \"vuepress dev\",\r\n  \"build\": \"vuepress build\"\r\n}\r\n```\r\n\r\n在一个**面向服务端**的项目中，如 `next`、`nuxt` 与 `nest`。dev 与 start 的区别趋于明显，一个为生产环境，一个为开发环境\r\n\r\n+ dev: 在开发环境启动项目，一般带有 watch 选项，监听文件变化而重启服务，此时会耗费大量的 CPU 性能，不宜放在生产环境\r\n+ start: 在生产环境启动项目\r\n\r\n在 `nest` 项目中进行配置\r\n\r\n``` json\r\n{\r\n  \"start\": \"nest start\",\r\n  \"dev\": \"nest start --watch\"\r\n}\r\n```",
+      "body": "新人入职新上手项目，如何把它跑起来，这是所有人都会碰到的问题：所有人都是从新手开始的。\r\n\r\n有可能你会脱口而出：`npm run dev/npm start`，但实际工作中，处处藏坑，往往没这么简单。\r\n\r\n1. 查看是否有 `CI/CD`，如果有跟着 `CI/CD` 部署的脚本跑命令\r\n1. 查看是否有 `dockerfile`，如果有跟着 `dockerfile` 跑命令\r\n1. 查看 npm scripts 中是否有 dev/start，尝试 `npm run dev/npm start`\r\n1. 查看是否有文档，如果有跟着文档走。为啥要把文档放到最后一个？原因你懂的\r\n\r\n但即便是十分谨慎，也有可能遇到以下几个叫苦不迭、浪费了一下午时间的坑:\r\n\r\n1. 前端有可能在**本地环境启动时需要依赖前端构建时所产生的文件**，所以有时需要**先正常部署一遍，再试着按照本地环境启动 (即需要先 `npm run build` 一下，再 `npm run dev/npm start`)**。(比如，一次我们的项目 npm run dev 时需要 webpack DllPlugin 构建后的东西）\r\n1. 别忘了设置环境变量或者配置文件 (.env/consul/k8s-configmap)\r\n\r\n因此，设置一个少的 script，可以很好地避免后人踩坑，更重要的是，可以避免后人骂你，\r\n\r\n此时可设置 script hooks，如 `prepare`、`postinstall` 自动执行脚本，来完善该项目的基础设施\r\n\r\n``` json\r\n{\r\n  \"scripts\": {\r\n    \"start\": \"npm run dev\",\r\n    \"config\": \"node assets && node config\",\r\n    \"build\": \"webpack\",\r\n    // 设置一个钩子，在 npm install 后自动执行，此处有可能不是必须的\r\n    \"prepare\": \"npm run build\",\r\n    \"dev\": \"webpack-dev-server --inline --progress\"\r\n  }\r\n}\r\n```\r\n\r\n## npm run dev 与 npm start 的区别\r\n\r\n对于一个**纯生成静态页面打包**的前端项目而言，它们是没有多少区别的：生产环境的部署只依赖于构建生成的资源，更不依赖 npm scripts。可见 [如何部署前端项目](https://shanyue.tech/frontend-engineering/docker.html)。\r\n\r\n使用 `create-react-app` 生成的项目，它的 npm script 中只有 `npm start`\r\n\r\n``` json\r\n{\r\n  \"start\": \"react-scripts start\",\r\n  \"build\": \"react-scripts build\",\r\n  \"test\": \"react-scripts test\",\r\n  \"eject\": \"react-scripts eject\"\r\n}\r\n```\r\n\r\n使用 `vuepress` 生成的项目，它的 npm script 中只有 `npm run dev`\r\n\r\n``` json\r\n{\r\n  \"dev\": \"vuepress dev\",\r\n  \"build\": \"vuepress build\"\r\n}\r\n```\r\n\r\n在一个**面向服务端**的项目中，如 `next`、`nuxt` 与 `nest`。dev 与 start 的区别趋于明显，一个为生产环境，一个为开发环境\r\n\r\n+ dev: 在开发环境启动项目，一般带有 watch 选项，监听文件变化而重启服务，此时会耗费大量的 CPU 性能，不宜放在生产环境\r\n+ start: 在生产环境启动项目\r\n\r\n在 `nest` 项目中进行配置\r\n\r\n``` json\r\n{\r\n  \"start\": \"nest start\",\r\n  \"dev\": \"nest start --watch\"\r\n}\r\n```",
       "reactions": {
         "totalCount": 0
       },
@@ -199,7 +199,7 @@
     "id": "MDU6SXNzdWU1MTc1ODAwMTc=",
     "number": 10,
     "title": "【Q009】如何实现一个元素的水平垂直居中",
-    "body": "要求对行内元素与块状元素均可适用：\r\n\r\n可打开 codepen 进行调试: <https://codepen.io/shanyue/pen/XWMdabg>，以下是布局代码\r\n\r\n``` html\r\n<div class=\"container\">\r\n  <div class=\"item\">hello, world</div>\r\n</div>\r\n\r\n<div class=\"container\">\r\n  <div class=\"item\" style=\"width: 100px; height: 100px; background: #999;\"></div>\r\n</div>\r\n```\r\n\r\n``` scss\r\n.container {\r\n   // 把代码写在这里\r\n}\r\n\r\n.container {\r\n  height: 20rem;\r\n  background: #ccc;\r\n  margin: 1rem;\r\n}\r\n```",
+    "body": "要求对行内元素、块状元素及不定宽高的块状元素均可适用：\r\n\r\n可打开 codepen 进行调试: <https://codepen.io/shanyue/pen/XWMdabg>，以下是布局代码\r\n\r\n``` html\r\n<div class=\"container\">\r\n  <div class=\"item\" style=\"width: 100px; height: 100px; background: #999;\">\r\n    块状元素\r\n  </div>\r\n</div>\r\n\r\n<div class=\"container\">\r\n  <div class=\"item\">不定高宽的块状元素</div>\r\n</div>\r\n\r\n<div class=\"container\">\r\n  <span class=\"item\">行内元素</span>\r\n</div>\r\n```\r\n\r\n``` scss\r\n.container {\r\n   // 把代码写在这里\r\n}\r\n\r\n.container {\r\n  height: 20rem;\r\n  background: #ccc;\r\n  margin: 1rem;\r\n}\r\n```",
     "labels": [
       {
         "id": "MDU6TGFiZWwxNjUxNDAyMzIw",
@@ -392,7 +392,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDU2ODY1NTA5NQ==",
-      "body": "使用 `flex` 布局，左侧 `300px`，右侧 `flex-grow: 1`。`pug` 代码及 `css` 代码示例如下\r\n\r\n``` pug\r\n.container\r\n  .left\r\n  .main\r\n```\r\n\r\n``` css\r\n.container {\r\n  display: flex;\r\n}\r\n\r\n.left {\r\n  flex-basis: 300px;\r\n}\r\n\r\n.main {\r\n  flex-grow: 1;\r\n}\r\n```\r\n\r\n此处看起来比较圆满了，其实还有一个缺陷: **如果 .main 区域过大挤压 .left 区域怎么办**，此时还需要加一个禁止挤压\r\n\r\n``` css\r\n.left {\r\n  flex-basis: 300px;\r\n  flex-shrink: 0;\r\n}\r\n```\r\n\r\n## 总结\r\n\r\n使用 `flex` 进行如下布局\r\n\r\n``` pug\r\n.container\r\n  .left\r\n  .main\r\n```\r\n\r\n``` css\r\n.container {\r\n  display: flex;\r\n}\r\n\r\n.left {\r\n  flex-basis: 300px;\r\n  flex-shrink: 0;\r\n}\r\n\r\n.main {\r\n  flex-grow: 1;\r\n}\r\n```",
+      "body": "> 代码见 [左侧固定，右侧自适应 - Codepen](https://codepen.io/shanyue/pen/GRWmbyb)\r\n\r\n使用 `flex` 布局，左侧 `300px`，右侧 `flex-grow: 1`。`pug` 代码及 `css` 代码示例如下\r\n\r\n``` pug\r\n.container\r\n  .left\r\n  .main\r\n```\r\n\r\n``` css\r\n.container {\r\n  display: flex;\r\n}\r\n\r\n.left {\r\n  flex-basis: 300px;\r\n  flex-shrink: 0;\r\n}\r\n\r\n.main {\r\n  flex-grow: 1;\r\n}\r\n```\r\n\r\n如果只使用 Grid 布局，则代码会更加简单，只需要控制容器的 CSS 属性\r\n\r\n``` css\r\n.container {\r\n  display: grid;\r\n  grid-template-columns: 300px 1fr;\r\n}\r\n```",
       "reactions": {
         "totalCount": 1
       },
@@ -1971,7 +1971,7 @@
       "id": "MDEyOklzc3VlQ29tbWVudDU2MzA1MDQzMw==",
       "body": "要讲清楚，computed原理，首先得讲vue响应式原理，因为computed的实现是基于Watcher对象的。\r\n那么vue的响应式原理是什么呢，众所周知，vue是基于Object.defineProperty实现监听的。在vue初始化数据data和computed数据过程中。会涉及到以下几个对象：\r\n1. Observe对象\r\n2. Dep对象\r\n3. Watch对象\r\nObserve对象是在data执行响应式时候调用，因为computed属性基于响应式属性，所以其不需要创建Observe对象。\r\nDep对象主要功能是做依赖收集，有个属性维护多个Watch对象，当更新时候循环调用每个Watch执行更新。\r\nWatch对象主要是用于更新，而且是收集的重点对象。\r\n\r\n这里谈到computed计算属性，首先要知道，其有两种定义方式，一种是方法，另一种是get，set属性。而且，其内部监听的对象必须是已经定义响应式的属性，比如data的属性vuex的属性。\r\n\r\nvue在创建computed属性时候，会循环所有计算属性，每一个计算属性会创建一个watch，并且在通过defineProperty定义监听，在get中，计算属性工作是做依赖收集，在set中，计算属性重要工作是重新执行计算方法，这里需要多补充一句，因为computed是懒执行，也就是说第一次初始化之后，变不会执行计算，下一次变更执行重新计算是在set中。\r\n\r\n另一个补充点是依赖收集的时机，computed收集时机和data一样，是在组件挂载前，但是其收集对象是自己属性对应的watch，而data本身所有数据对应一个watch。\r\n\r\n以下附计算属性源码验证说法：\r\n\r\n```typescript\r\n\r\nfunction initComputed (vm: Component, computed: Object) {\r\n  // $flow-disable-line\r\n  const watchers = vm._computedWatchers = Object.create(null)\r\n  // computed properties are just getters during SSR\r\n  const isSSR = isServerRendering()\r\n\r\n  for (const key in computed) {\r\n    const userDef = computed[key]\r\n    const getter = typeof userDef === 'function' ? userDef : userDef.get\r\n    if (process.env.NODE_ENV !== 'production' && getter == null) {\r\n      warn(\r\n        `Getter is missing for computed property \"${key}\".`,\r\n        vm\r\n      )\r\n    }\r\n\r\n    if (!isSSR) {\r\n      // create internal watcher for the computed property.\r\n      watchers[key] = new Watcher(\r\n        vm,\r\n        getter || noop,\r\n        noop,\r\n        computedWatcherOptions\r\n      )\r\n    }\r\n\r\n    // component-defined computed properties are already defined on the\r\n    // component prototype. We only need to define computed properties defined\r\n    // at instantiation here.\r\n    if (!(key in vm)) {\r\n      defineComputed(vm, key, userDef)\r\n    } else if (process.env.NODE_ENV !== 'production') {\r\n      if (key in vm.$data) {\r\n        warn(`The computed property \"${key}\" is already defined in data.`, vm)\r\n      } else if (vm.$options.props && key in vm.$options.props) {\r\n        warn(`The computed property \"${key}\" is already defined as a prop.`, vm)\r\n      }\r\n    }\r\n  }\r\n}\r\n```\r\n可以看到，在执行new Watcher之前，会对计算属性做判断，判断其是否为函数，如果不是则取getter。这是因为计算属性有两种定义方式。之后第二步是执行deineCoumputed。这一步只是简单的调用defineProterty我就不贴代码了。\r\n\r\n关于计算属性的getter和setter定义如下：\r\n重点关注get的懒加载部分，和Watcher的定义\r\n```typescript\r\nfunction createComputedGetter (key) {\r\n  return function computedGetter () {\r\n    const watcher = this._computedWatchers && this._computedWatchers[key]\r\n    if (watcher) {\r\n      if (watcher.dirty) {\r\n        watcher.evaluate()\r\n      }\r\n      if (Dep.target) {\r\n        watcher.depend()\r\n      }\r\n      return watcher.value\r\n    }\r\n  }\r\n}\r\n\r\nfunction createGetterInvoker(fn) {\r\n  return function computedGetter () {\r\n    return fn.call(this, this)\r\n  }\r\n}\r\n```\r\n",
       "reactions": {
-        "totalCount": 3
+        "totalCount": 4
       },
       "author": {
         "login": "wython",
@@ -3513,7 +3513,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDY2NDgxMjkzOQ==",
-      "body": "通过把该 `cookie` 的过期时间改为过去时即可删除成功，具体操作的话可以通过操作两个字段来完成\r\n\r\n1. `max-age`: 将要过期的最大秒数，设置为 `-1` 即可删除\r\n1. `expires`: 将要过期的绝对时间，存储到 `cookies` 中需要通过 `date.toUTCString()` 处理，设置为过期时间即可删除\r\n\r\n很明显，`max-age` 更为简单\r\n\r\n``` js\r\n// max-age 设置为 -1 即可成功\r\ndocument.cookie = 'a=3; max-age=-1'\r\n```\r\n\r\n``` js\r\n> document.cookie\r\n< \"\"\r\n\r\n> document.cookie = 'a=3'\r\n< \"a=3\"\r\n\r\n> document.cookie\r\n< \"a=3\"\r\n\r\n// 把该字段的 max-age 设置为 -1\r\n> document.cookie = 'a=3; max-age=-1'\r\n< \"a=3; max-age=-1\"\r\n\r\n// 删除成功\r\n> document.cookie\r\n< \"\"\r\n```",
+      "body": "通过把该 `cookie` 的过期时间改为过去时即可删除成功，具体操作的话可以通过操作两个字段来完成\r\n\r\n1. `max-age`: 将要过期的最大秒数，设置为 `-1` 即可删除\r\n1. `expires`: 将要过期的绝对时间，存储到 `cookies` 中需要通过 `date.toUTCString()` 处理，设置为过期时间即可删除\r\n\r\n很明显，`max-age` 更为简单，以下代码可在命令行控制台中进行测试\r\n\r\n``` js\r\n// max-age 设置为 -1 即可成功\r\ndocument.cookie = 'a=3; max-age=-1'\r\n```\r\n\r\n``` js\r\n> document.cookie\r\n< \"\"\r\n\r\n> document.cookie = 'a=3'\r\n< \"a=3\"\r\n\r\n> document.cookie\r\n< \"a=3\"\r\n\r\n// 把该字段的 max-age 设置为 -1\r\n> document.cookie = 'a=3; max-age=-1'\r\n< \"a=3; max-age=-1\"\r\n\r\n// 删除成功\r\n> document.cookie\r\n< \"\"\r\n```",
       "reactions": {
         "totalCount": 0
       },
@@ -4007,7 +4007,17 @@
         "name": "css"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg0NjA3MzM3Nw==",
+      "body": "最为流行的 CSS-in-JS 方案",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU1NTE5MTYyNTY=",
@@ -4203,7 +4213,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDg0MjMzMzYyNg==",
-      "body": "锁定版本号，保证开发环境与生产环境的一致性",
+      "body": "用以锁定版本号，保证开发环境与生产环境的一致性，避免出现不兼容 API 导致生产环境报错\r\n\r\n在这个问题之前，需要了解下什么是 `semver`: [什么是 semver](https://github.com/shfshanyue/Daily-Question/issues/534)\r\n\r\n当我们在 `npm i` 某个依赖时，默认的版本号是最新版本号 `^1.2.3`，以 `^` 开头可最大限度地使用新特性，但是某些库不遵循该依赖可能出现问题\r\n\r\n**我们看没有 lock 时，线上环境的风险是如何产生的**\r\n\r\n+ `pkg 1.2.3`: 首次在开发环境安装 pkg 库，为此时最新版本 `1.2.3`，`dependencies` 依赖中显示 `^1.2.3`，实际安装版本为 `1.2.3`\r\n+ `pkg 1.19.0`: 在生产环境中上线项目，安装 pkg 库，此时最新版本为 `1.19.0`，满足 `dependencies` 中依赖 `^1.2.3` 范围，实际安装版本为 `1.19.0`，**但是  `pkg` 未遵从 semver 规范**，在此过程中引入了 Breaking Change，导致线上bug，且不可测难以调试\r\n\r\n而当有了 lock 文件时，每一个依赖的版本号都被锁死在了 lock 文件，每次依赖安装的版本号都从 lock 文件中进行获取，避免了不可测的依赖风险\r\n\r\n但此时依然有问题: 你使用的第三方库的 lockfile 问题。 因为你自己项目中所有依赖都会被锁死，但并不是依照你第三方依赖的 lockfile。\r\n\r\n**举例说明依赖的依赖的 lockfile 可能存在的问题**\r\n\r\n你自己的项目依赖 `react`，而 `object-assign` 是 `react` 的依赖\r\n\r\n对于 React 的依赖使用 `semver` 表示如下\r\n\r\n+ react@^17.0.2\r\n  + object-assign@^4.1.1\r\n\r\n在 React 的第三方库中 lockfile 中的库版本为\r\n\r\n+ react@17.0.2\r\n  + **object-assign@4.1.1**\r\n\r\n而在业务项目中 lockfile 中的库版本为 \r\n\r\n+ react@17.0.2\r\n  + **object-assign@4.10.10**: 与 react 的 lockfile 中的依赖不符\r\n\r\n此时的 `object-assign` 有可能会存在问题",
       "reactions": {
         "totalCount": 0
       },
@@ -4301,7 +4311,7 @@
   {
     "id": "MDU6SXNzdWU1Njg2NTM0NTY=",
     "number": 202,
-    "title": "【Q201】js 中什么是可选链",
+    "title": "【Q201】js 中什么是可选链操作符，如何访问数组",
     "body": "",
     "labels": [
       {
@@ -4324,7 +4334,7 @@
   {
     "id": "MDU6SXNzdWU1Njg5NTUzMjc=",
     "number": 203,
-    "title": "【Q202】如何实现一个深拷贝",
+    "title": "【Q202】如何实现一个深拷贝 (cloneDeep)",
     "body": "",
     "labels": [
       {
@@ -5549,8 +5559,8 @@
         "name": "dom"
       },
       {
-        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
-        "name": "js"
+        "id": "MDU6TGFiZWwxNjgwMDkyMDA5",
+        "name": "http"
       }
     ],
     "comment": {
@@ -6397,7 +6407,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDY2MDYxNjUyMA==",
-      "body": "`css specificity` 即 css 中关于选择器的权重，以下三种类型的选择器依次下降\r\n\r\n1. `id` 选择器，如 `#app`\r\n1. `class`、`attribute` 与 `pseudo-classes` 选择器，如 `.header`、`[type=\"radio\"]` 与 `:hover`\r\n1. `type` 标签选择器和伪元素选择器，如 `h1`、`p` 和 `::before`\r\n\r\n其中通配符选择器 `*`，组合选择器 `+ ~ >`，否定伪类选择器 `:not()` 对优先级无影响\r\n\r\n另有内联样式 `<div class=\"foo\" style=\"color: red;\"></div>` 及 `!important`(最高) 具有更高的权重\r\n\r\n> [`:not` 的优先级影响 - codepen](https://codepen.io/shanyue/pen/dyGQqBe) 可以看出 `:not` 对选择器的优先级无任何影响",
+      "body": "`css specificity` 即 css 中关于选择器的权重，以下三种类型的选择器依次下降\r\n\r\n1. `id` 选择器，如 `#app`\r\n1. `class`、`attribute` 与 `pseudo-classes` 选择器，如 `.header`、`[type=\"radio\"]` 与 `:hover`\r\n1. `type` 标签选择器和伪元素选择器，如 `h1`、`p` 和 `::before`\r\n\r\n其中通配符选择器 `*`，组合选择器 `+ ~ >`，否定伪类选择器 `:not()` 对优先级无影响\r\n\r\n另有内联样式 `<div class=\"foo\" style=\"color: red;\"></div>` 及 `!important`(最高) 具有更高的权重\r\n\r\n> [`:not` 的优先级影响 - codepen](https://codepen.io/shanyue/pen/dyGQqBe) 可以看出 `:not` 对选择器的优先级无任何影响\r\n\r\n> [CSS Specificity - codepen](https://codepen.io/shanyue/pen/XWMRQOw) 可以看出十几个 class 选择器也没有一个 id 选择器权重高",
       "reactions": {
         "totalCount": 0
       },
@@ -8306,17 +8316,13 @@
     "body": "",
     "labels": [
       {
-        "id": "MDU6TGFiZWwxNjUxNDAyMzE2",
-        "name": "html"
-      },
-      {
-        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
-        "name": "js"
+        "id": "MDU6TGFiZWwxNzY5MDg5MzQ2",
+        "name": "dom"
       }
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDY4MDQxNjkxNw==",
-      "body": "这是一道前端基础与编程功底具备的面试题：\r\n\r\n+ 如果你前端基础强会了解 `document.querySelector(*)` 能够列出页面内所有标签\r\n+ 如果你编程能力强能够用**递归**/**正则**快速实现同等的效果\r\n\r\n有三种 API 可以列出页面所有标签：\r\n\r\n1. `document.querySelector('*')`，标准规范实现\r\n1. `$$('*')`，devtools 实现\r\n1. `document.all`，非标准规范实现\r\n\r\n``` js\r\n> document.querySelectorAll('*')\r\n< NodeList(593) [html, head, meta, meta, meta, meta, meta, meta, meta, title, link#favicon, link, link#MainCss, link#mobile-style, link, link, link, script, script, script, script, script, script, script, link, script, link, link, script, input#_w_brink, body, a, div#home, div#header, div#blogTitle, a#lnkBlogLogo, img#blogLogo, h1, a#Header1_HeaderTitle.headermaintitle.HeaderMainTitle, h2, div#navigator, ul#navList, li, a#blog_nav_sitehome.menu, li, a#blog_nav_myhome.menu, li, a#blog_nav_newpost.menu, li, a#blog_nav_contact.menu, li, a#blog_nav_rss.menu, li, a#blog_nav_admin.menu, div.blogStats, span#stats_post_count, span#stats_article_count, span#stats-comment_count, div#main, div#mainContent, div.forFlow, div#post_detail, div#topics, div.post, h1.postTitle, a#cb_post_title_url.postTitle2.vertical-middle, span, div.clear, div.postBody, div#cnblogs_post_body.blogpost-body, p, p, strong, p, p, p, strong, div.cnblogs_code, pre, span, span, span, span, span, p, span, strong, pre, strong, span, strong, br, br, br, div.cnblogs_code, pre, span, span, p, p, …]\r\n[0 … 99]\r\n[100 … 199]\r\n[200 … 299]\r\n[300 … 399]\r\n[400 … 499]\r\n[500 … 592]\r\n__proto__: NodeList\r\n```\r\n\r\n使用 `document.querySelectorAll` 实现如下\r\n\r\n``` js\r\n// 实现一个 maxBy 方便找出出现次数最多的 HTML 标签\r\nconst maxBy = (list, keyBy) => list.reduce((x, y) => keyBy(x) > keyBy(y) ? x : y)\r\n\r\nfunction getFrequentTag () {\r\n  const tags = [...document.querySelectorAll('*')].map(x => x.tagName).reduce((o, tag) => { \r\n    o[tag] = o[tag] ? o[tag] + 1 : 1;\r\n    return o\r\n  }, {})\r\n  return maxBy(Object.entries(tags), tag => tag[1])\r\n}\r\n```\r\n\r\n使用 `element.children` 递归迭代如下 (最终结果多一个 document)\r\n\r\n``` js\r\nfunction getAllTags(el = document) {\r\n  const children = Array.from(el.children).reduce((x, y) => [...x, ...getAllTags(y)], [])\r\n  return children\r\n}\r\n\r\n// 或者通过 flatMap 实现\r\nfunction getAllTags(el = document) {\r\n  const children = Array.prototype.flatMap.call(el.children, x => getAllTags(x))\r\n  return [el, ...children]\r\n}\r\n```",
+      "body": "这是一道前端基础与编程功底具备的面试题：\r\n\r\n+ 如果你前端基础强会了解 `document.querySelector(*)` 能够列出页面内所有标签\r\n+ 如果你编程能力强能够用**递归**/**正则**快速实现同等的效果\r\n\r\n有三种 API 可以列出页面所有标签：\r\n\r\n1. `document.querySelector('*')`，标准规范实现\r\n1. `$$('*')`，devtools 实现\r\n1. `document.all`，非标准规范实现\r\n\r\n``` js\r\n> document.querySelectorAll('*')\r\n< NodeList(593) [html, head, meta, meta, meta, meta, meta, meta, meta, title, link#favicon, link, link#MainCss, link#mobile-style, link, link, link, script, script, script, script, script, script, script, link, script, link, link, script, input#_w_brink, body, a, div#home, div#header, div#blogTitle, a#lnkBlogLogo, img#blogLogo, h1, a#Header1_HeaderTitle.headermaintitle.HeaderMainTitle, h2, div#navigator, ul#navList, li, a#blog_nav_sitehome.menu, li, a#blog_nav_myhome.menu, li, a#blog_nav_newpost.menu, li, a#blog_nav_contact.menu, li, a#blog_nav_rss.menu, li, a#blog_nav_admin.menu, div.blogStats, span#stats_post_count, span#stats_article_count, span#stats-comment_count, div#main, div#mainContent, div.forFlow, div#post_detail, div#topics, div.post, h1.postTitle, a#cb_post_title_url.postTitle2.vertical-middle, span, div.clear, div.postBody, div#cnblogs_post_body.blogpost-body, p, p, strong, p, p, p, strong, div.cnblogs_code, pre, span, span, span, span, span, p, span, strong, pre, strong, span, strong, br, br, br, div.cnblogs_code, pre, span, span, p, p, …]\r\n[0 … 99]\r\n[100 … 199]\r\n[200 … 299]\r\n[300 … 399]\r\n[400 … 499]\r\n[500 … 592]\r\n__proto__: NodeList\r\n```\r\n\r\n使用 `document.querySelectorAll` 实现如下\r\n\r\n``` js\r\n// 实现一个 maxBy 方便找出出现次数最多的 HTML 标签\r\nconst maxBy = (list, keyBy) => list.reduce((x, y) => keyBy(x) > keyBy(y) ? x : y)\r\n\r\nfunction getFrequentTag () {\r\n  const tags = [...document.querySelectorAll('*')].map(x => x.tagName).reduce((o, tag) => { \r\n    o[tag] = o[tag] ? o[tag] + 1 : 1;\r\n    return o\r\n  }, {})\r\n  return maxBy(Object.entries(tags), tag => tag[1])\r\n}\r\n```\r\n\r\n使用 `element.children` 递归迭代如下 (最终结果多一个 document)\r\n\r\n``` js\r\nfunction getAllTags(el = document) {\r\n  const children = Array.from(el.children).reduce((x, y) => [...x, ...getAllTags(y)], [])\r\n  return children\r\n}\r\n\r\n// 或者通过 flatMap 实现\r\nfunction getAllTags(el = document) {\r\n  const children = Array.prototype.flatMap.call(el.children, x => getAllTags(x))\r\n  return [el, ...children]\r\n}\r\n```\r\n\r\n如果你已经快速答了上来，那么还有两道拓展的面试题在等着你\r\n\r\n1. 如何找到当前页面出现次数前三多的 HTML 标签\r\n2. 如过多个标签出现次数同样多，则取多个标签",
       "reactions": {
         "totalCount": 1
       },
@@ -8912,7 +8918,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDc0Nzc5ODEyMg==",
-      "body": "摘自山月的博客，原文地址: <https://shanyue.tech/code/jsonp/>\r\n\r\n## 一个正常的请求: JSON\r\n\r\n正常发请求时，`curl` 示例:\r\n\r\n``` bash\r\n$ curl https://shanyue.tech/api/user?id=100\r\n\r\n{\r\n  \"id\": 100,\r\n  \"name\": \"shanyue\",\r\n  \"wechat\": \"xxxxx\",\r\n  \"phone\": \"183xxxxxxxx\"\r\n}\r\n```\r\n\r\n使用 `fetch` 发送请求，示例:\r\n\r\n``` js\r\nconst data = await fetch('https://shanyue.tech/api/user?id=100', {\r\n  headers: {\r\n    'content-type': 'application/json',\r\n  },\r\n  method: 'GET',\r\n}).then(res => res.json())\r\n```\r\n\r\n请求数据后，使用一个函数来处理数据\r\n\r\n``` js\r\nhandleData(data)\r\n```\r\n\r\n## 一个 JSONP 请求\r\n\r\n`JSONP`，全称 `JSON with Padding`，为了解决跨域的问题而出现。虽然它只能处理 GET 跨域，虽然现在基本上都使用 CORS 跨域，但仍然要知道它，毕竟**面试会问**。\r\n\r\n`curl` 示例\r\n\r\n``` bash\r\n$ curl https://shanyue.tech/api/user?id=100&callback=padding\r\n\r\npadding({\r\n  \"id\": 100,\r\n  \"name\": \"shanyue\",\r\n  \"wechat\": \"xxxxx\",\r\n  \"phone\": \"183xxxxxxxx\"\r\n})\r\n```\r\n\r\n对于正常的请求有何不同一目了然: **多了一个 callback=padding, 并且响应数据被 padding 包围**，这就是 JSONP\r\n\r\n\r\n**那请求数据后，如何处理数据呢？此时的 padding 就是处理数据的函数**\r\n\r\n``` js\r\nwindow.padding = handleData\r\n```\r\n\r\n这里实现一个 jsonp 函数\r\n\r\n``` js\r\nfunction jsonp_simple ({ url, onData, params }) {\r\n  const script = document.createElement('script')\r\n\r\n  // 一、默认 callback 函数为 padding\r\n  script.src = `${url}?${stringify({ callback: 'padding', ...params })}`\r\n  // 二、使用 onData 作为 window.padding 函数，接收数据\r\n  window['padding'] = onData\r\n\r\n  document.body.appendChild(script)\r\n}\r\n```\r\n\r\n此时会有一个问题: **window.padding 函数会污染全局，如果有多个请求发送如何处理？**\r\n\r\n**使 jsonp 的回调函数名作为一个随机变量**，代码如下\r\n\r\n``` js\r\nfunction jsonp ({ url, onData, params }) {\r\n  const script = document.createElement('script')\r\n\r\n  // 一、为了避免全局污染，使用一个随机函数名\r\n  const cbFnName = `JSONP_PADDING_${Math.random().toString().slice(2)}`\r\n  // 二、默认 callback 函数为 cbFnName\r\n  script.src = `${url}?${stringify({ callback: cbFnName, ...params })}`\r\n  // 三、使用 onData 作为 cbFnName 回调函数，接收数据\r\n  window[cbFnName] = onData;\r\n\r\n  document.body.appendChild(script)\r\n}\r\n\r\n// 发送 JSONP 请求\r\njsonp({\r\n  url: 'http://localhost:10010',\r\n  params: { id: 10000 },\r\n  onData (data) {\r\n    console.log('Data:', data)\r\n  }\r\n})\r\n```\r\n\r\n## 代码附录\r\n\r\n完整代码可见[山月博客的 github 仓库](https://github.com/shfshanyue/blog/tree/master/code): <https://github.com/shfshanyue/blog/tree/master/code/jsonp/>\r\n\r\n**JSONP 实现完整代码:**\r\n\r\n``` js\r\nfunction stringify (data) {\r\n  const pairs = Object.entries(data)\r\n  const qs = pairs.map(([k, v]) => {\r\n    let noValue = false\r\n    if (v === null || v === undefined || typeof v === 'object') {\r\n      noValue = true\r\n    }\r\n    return `${encodeURIComponent(k)}=${noValue ? '' : encodeURIComponent(v)}`\r\n  }).join('&')\r\n  return qs\r\n}\r\n\r\nfunction jsonp ({ url, onData, params }) {\r\n  const script = document.createElement('script')\r\n\r\n  // 一、为了避免全局污染，使用一个随机函数名\r\n  const cbFnName = `JSONP_PADDING_${Math.random().toString().slice(2)}`\r\n  // 二、默认 callback 函数为 cbFnName\r\n  script.src = `${url}?${stringify({ callback: cbFnName, ...params })}`\r\n  // 三、使用 onData 作为 cbFnName 回调函数，接收数据\r\n  window[cbFnName] = onData;\r\n\r\n  document.body.appendChild(script)\r\n}\r\n```\r\n\r\n**JSONP 服务端适配相关代码:**\r\n\r\n``` js\r\nconst http = require('http')\r\nconst url = require('url')\r\nconst qs = require('querystring')\r\n\r\nconst server = http.createServer((req, res) => {\r\n  const { pathname, query } = url.parse(req.url)\r\n  const params = qs.parse(query)\r\n\r\n  const data = { name: 'shanyue', id: params.id }\r\n\r\n  if (params.callback) {\r\n    str = `${params.callback}(${JSON.stringify(data)})`\r\n    res.end(str)\r\n  } else {\r\n    res.end()\r\n  }\r\n\r\n})\r\n\r\nserver.listen(10010, () => console.log('Done'))\r\n```\r\n\r\n**JSONP 页面调用相关代码**\r\n\r\n``` html\r\n\r\n<!DOCTYPE html>\r\n<html lang=\"en\">\r\n<head>\r\n  <meta charset=\"UTF-8\">\r\n  <title></title>\r\n</head>\r\n<body>\r\n  <script src=\"./index.js\" type=\"text/javascript\"></script>\r\n  <script type=\"text/javascript\">\r\n  jsonp({\r\n    url: 'http://localhost:10010',\r\n    params: { id: 10000 },\r\n    onData (data) {\r\n      console.log('Data:', data)\r\n    }\r\n  })\r\n  </script>\r\n</body>\r\n</html>\r\n```\r\n\r\n## JSONP 实现代码示例演示\r\n\r\n从中克隆代码: [山月博客的 github 仓库](https://github.com/shfshanyue/blog/tree/master/code)\r\n\r\n### 文件结构\r\n\r\n+ `index.js`: jsonp 的简单与复杂实现\r\n+ `server.js`: 服务器接口形式\r\n+ `demo.html`: 前端如何调用 JSONP\r\n\r\n### 快速演示\r\n\r\n``` js\r\n// 开启服务端\r\n$ node server.js\r\n\r\n// 对 demo.html 起一个服务，并且按照提示在浏览器中打开地址，应该是 http://localhost:5000\r\n// 观察控制台输出 JSONP 的回调结果\r\n$ serve .\r\n```\r\n",
+      "body": "摘自山月的博客，原文地址: <https://shanyue.tech/code/jsonp/>\r\n\r\n\r\n## 一个正常的请求: JSON\r\n\r\n正常发请求时，`curl` 示例:\r\n\r\n``` bash\r\n$ curl https://shanyue.tech/api/user?id=100\r\n\r\n{\r\n  \"id\": 100,\r\n  \"name\": \"shanyue\",\r\n  \"wechat\": \"xxxxx\",\r\n  \"phone\": \"183xxxxxxxx\"\r\n}\r\n```\r\n\r\n使用 `fetch` 发送请求，示例:\r\n\r\n``` js\r\nconst data = await fetch('https://shanyue.tech/api/user?id=100', {\r\n  headers: {\r\n    'content-type': 'application/json',\r\n  },\r\n  method: 'GET',\r\n}).then(res => res.json())\r\n```\r\n\r\n请求数据后，使用一个函数来处理数据\r\n\r\n``` js\r\nhandleData(data)\r\n```\r\n\r\n## 一个 JSONP 请求\r\n\r\n`JSONP`，全称 `JSON with Padding`，为了解决跨域的问题而出现。虽然它只能处理 GET 跨域，虽然现在基本上都使用 CORS 跨域，但仍然要知道它，毕竟**面试会问**。\r\n\r\n`JSONP` 基于两个原理:\r\n\r\n1. 动态创建 `script`，使用 `script.src` 加载请求跨过跨域\r\n1. `script.src` 加载的脚本内容为 JSONP: 即 `PADDING(JSON)` 格式\r\n\r\n从上可知，使用 `JSONP` 跨域同样需要服务端的支持。`curl` 示例\r\n\r\n``` bash\r\n$ curl https://shanyue.tech/api/user?id=100&callback=padding\r\n\r\npadding({\r\n  \"id\": 100,\r\n  \"name\": \"shanyue\",\r\n  \"wechat\": \"xxxxx\",\r\n  \"phone\": \"183xxxxxxxx\"\r\n})\r\n```\r\n\r\n对于正常的请求有何不同一目了然: **多了一个 callback=padding, 并且响应数据被 padding 包围**，这就是 JSONP\r\n\r\n**那请求数据后，如何处理数据呢？此时的 padding 就是处理数据的函数**。我们只需要在前端实现定义好 padding 函数即可\r\n\r\n``` js\r\nwindow.padding = handleData\r\n```\r\n\r\n基于以上两个原理，这里实现一个简单 jsonp 函数：\r\n\r\n``` js\r\nfunction jsonp_simple ({ url, onData, params }) {\r\n  const script = document.createElement('script')\r\n\r\n  // 一、默认 callback 函数为 padding\r\n  script.src = `${url}?${stringify({ callback: 'padding', ...params })}`\r\n\r\n  // 二、使用 onData 作为 window.padding 函数，接收数据\r\n  window['padding'] = onData\r\n\r\n  // 三、动态加载脚本\r\n  document.body.appendChild(script)\r\n}\r\n\r\n// 发送 JSONP 请求\r\njsonp_simple({\r\n  url: 'http://localhost:10010',\r\n  params: { id: 10000 },\r\n  onData (data) {\r\n    console.log('Data:', data)\r\n  }\r\n})\r\n```\r\n\r\n此时会有一个问题: **window.padding 函数会污染全局变量，如果有多个 JSONP 请求发送如何处理？**\r\n\r\n**使 jsonp 的回调函数名作为一个随机变量，避免冲突**，代码如下\r\n\r\n``` js\r\nfunction jsonp ({ url, onData, params }) {\r\n  const script = document.createElement('script')\r\n\r\n  // 一、为了避免全局污染，使用一个随机函数名\r\n  const cbFnName = `JSONP_PADDING_${Math.random().toString().slice(2)}`\r\n\r\n  // 二、默认 callback 函数为 cbFnName\r\n  script.src = `${url}?${stringify({ callback: cbFnName, ...params })}`\r\n\r\n  // 三、使用 onData 作为 cbFnName 回调函数，接收数据\r\n  window[cbFnName] = onData;\r\n\r\n  document.body.appendChild(script)\r\n}\r\n\r\n// 发送 JSONP 请求\r\njsonp({\r\n  url: 'http://localhost:10010',\r\n  params: { id: 10000 },\r\n  onData (data) {\r\n    console.log('Data:', data)\r\n  }\r\n})\r\n```\r\n\r\n## 服务器端代码\r\n\r\n`JSONP` 需要服务端进行配合，返回 `JSON With Padding` 数据，代码如下:\r\n\r\n``` js\r\nconst http = require('http')\r\nconst url = require('url')\r\nconst qs = require('querystring')\r\n\r\nconst server = http.createServer((req, res) => {\r\n  const { pathname, query } = url.parse(req.url)\r\n  const params = qs.parse(query)\r\n\r\n  const data = { name: 'shanyue', id: params.id }\r\n\r\n  if (params.callback) {\r\n    // 服务端将要返回的字符串\r\n    str = `${params.callback}(${JSON.stringify(data)})`\r\n    res.end(str)\r\n  } else {\r\n    res.end()\r\n  }\r\n})\r\n\r\nserver.listen(10010, () => console.log('Done'))\r\n\r\n```\r\n\r\n## 完整代码附录\r\n\r\n完整代码可见[山月博客的 github 仓库](https://github.com/shfshanyue/blog/tree/master/code): <https://github.com/shfshanyue/blog/tree/master/code/jsonp/>\r\n\r\n**JSONP 实现完整代码:**\r\n\r\n``` js\r\nfunction stringify (data) {\r\n  const pairs = Object.entries(data)\r\n  const qs = pairs.map(([k, v]) => {\r\n    let noValue = false\r\n    if (v === null || v === undefined || typeof v === 'object') {\r\n      noValue = true\r\n    }\r\n    return `${encodeURIComponent(k)}=${noValue ? '' : encodeURIComponent(v)}`\r\n  }).join('&')\r\n  return qs\r\n}\r\n\r\nfunction jsonp ({ url, onData, params }) {\r\n  const script = document.createElement('script')\r\n\r\n  // 一、为了避免全局污染，使用一个随机函数名\r\n  const cbFnName = `JSONP_PADDING_${Math.random().toString().slice(2)}`\r\n  // 二、默认 callback 函数为 cbFnName\r\n  script.src = `${url}?${stringify({ callback: cbFnName, ...params })}`\r\n  // 三、使用 onData 作为 cbFnName 回调函数，接收数据\r\n  window[cbFnName] = onData;\r\n\r\n  document.body.appendChild(script)\r\n}\r\n```\r\n\r\n**JSONP 服务端适配相关代码:**\r\n\r\n``` js\r\nconst http = require('http')\r\nconst url = require('url')\r\nconst qs = require('querystring')\r\n\r\nconst server = http.createServer((req, res) => {\r\n  const { pathname, query } = url.parse(req.url)\r\n  const params = qs.parse(query)\r\n\r\n  const data = { name: 'shanyue', id: params.id }\r\n\r\n  if (params.callback) {\r\n    str = `${params.callback}(${JSON.stringify(data)})`\r\n    res.end(str)\r\n  } else {\r\n    res.end()\r\n  }\r\n\r\n})\r\n\r\nserver.listen(10010, () => console.log('Done'))\r\n```\r\n\r\n**JSONP 页面调用相关代码**\r\n\r\n``` html\r\n\r\n<!DOCTYPE html>\r\n<html lang=\"en\">\r\n<head>\r\n  <meta charset=\"UTF-8\">\r\n  <title></title>\r\n</head>\r\n<body>\r\n  <script src=\"./index.js\" type=\"text/javascript\"></script>\r\n  <script type=\"text/javascript\">\r\n  jsonp({\r\n    url: 'http://localhost:10010',\r\n    params: { id: 10000 },\r\n    onData (data) {\r\n      console.log('Data:', data)\r\n    }\r\n  })\r\n  </script>\r\n</body>\r\n</html>\r\n```\r\n\r\n## JSONP 实现代码示例演示\r\n\r\n+ 从中克隆代码: [山月博客的 github 仓库](https://github.com/shfshanyue/blog/tree/master/code)\r\n+ 从中克隆代码: [山月博客的 github 仓库](https://github.com/shfshanyue/blog/tree/master/code)\r\n+ 从中克隆代码: [山月博客的 github 仓库](https://github.com/shfshanyue/blog/tree/master/code)\r\n\r\n### 文件结构\r\n\r\n+ `index.js`: jsonp 的简单与复杂实现\r\n+ `server.js`: 服务器接口形式\r\n+ `demo.html`: 前端如何调用 JSONP\r\n\r\n### 快速演示\r\n\r\n``` js\r\n// 开启服务端\r\n$ node server.js\r\n\r\n// 对 demo.html 起一个服务，并且按照提示在浏览器中打开地址，应该是 http://localhost:5000\r\n// 观察控制台输出 JSONP 的回调结果\r\n$ serve .\r\n```\r\n\r\n",
       "reactions": {
         "totalCount": 0
       },
@@ -9407,8 +9413,8 @@
         "totalCount": 0
       },
       "author": {
-        "login": "blue-skyyy",
-        "url": "https://github.com/blue-skyyy"
+        "login": "hhhpw",
+        "url": "https://github.com/hhhpw"
       }
     }
   },
@@ -9725,8 +9731,8 @@
         "totalCount": 0
       },
       "author": {
-        "login": "blue-skyyy",
-        "url": "https://github.com/blue-skyyy"
+        "login": "hhhpw",
+        "url": "https://github.com/hhhpw"
       }
     }
   },
@@ -9962,7 +9968,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDgwNzkwMjE4Ng==",
-      "body": "有一次头条面试，一道手写题目是：如何手写实现 `promise.all`。\r\n\r\n我从来没有想过要手写实现 promise.all 函数，稍微一想，大概就是维护一个数组，把所有 promise 给 resolve 了之后都扔进去，这有啥子好问的。没想到，一上手还稍微有点棘手。\r\n\r\n先来看一个示例吧:\r\n\r\n``` js\r\nawait Promise.all([1, Promise.resolve(2)])\r\n//-> [1, 2]\r\n\r\nawait Promise.all([1, Promise.reject(2)])\r\n//-> Throw Error: 2\r\n```\r\n\r\n1. 传入一个 Iterable，但大部分情况下是数组，以下以数组代替\r\n1. 传入一个数组，其中可包含 Promise，也可包含普通数据\r\n1. 数组中 Prmise 并行执行\r\n1. 但凡有一个 Promise 被 Reject 掉，Promise.all 失败\r\n1. 保持输出数组位置与输入数组一致\r\n1. 所有数据 resolve 之后，返回结果\r\n\r\n``` js\r\nfunction pAll (_promises) {\r\n  return new Promise((resolve, reject) => {\r\n    // Iterable => Array\r\n    const promises = Array.from(_promises)\r\n    // 结果用一个数组维护\r\n    const r = []\r\n    const len = promises.length\r\n    let count = 0\r\n    for (let i = 0; i < len; i++) {\r\n      // Promise.resolve 确保把所有数据都转化为 Promise\r\n      Promise.resolve(promises[i]).then(o => { \r\n        // 因为 promise 是异步的，保持数组一一对应\r\n        r[i] = o;\r\n\r\n        // 如果数组中所有 promise 都完成，则返回结果数组\r\n        if (++count === len) {\r\n          resolve(r)\r\n        }\r\n        // 当发生异常时，直接 reject\r\n      }).catch(e => reject(e))\r\n    }\r\n  })\r\n}\r\n```\r\n\r\n为了测试，实现一个 sleep 函数\r\n\r\n``` js\r\nconst sleep = (seconds) => new Promise(resolve => setTimeout(() => resolve(seconds), seconds))\r\n```\r\n\r\n以下示例进行测试，没有问题\r\n\r\n``` js\r\npAll([1, 2, 3]).then(o => console.log(o))\r\npAll([\r\n  sleep(3000),\r\n  sleep(2000),\r\n  sleep(1000)\r\n]).then(o => console.log(o))\r\npAll([\r\n  sleep(3000),\r\n  sleep(2000),\r\n  sleep(1000),\r\n  Promise.reject(10000)\r\n]).then(o => console.log(o)).catch(e => console.log(e, '<- Error'))\r\n```",
+      "body": "> 代码可在线调试: [如何实现一个 Promise.all - codepen](https://codepen.io/shanyue/pen/JjWEqBL?editors=0010)\r\n\r\n有一次头条面试，一道手写题目是：如何手写实现 `promise.all`。\r\n\r\n我从来没有想过要手写实现 promise.all 函数，稍微一想，大概就是维护一个数组，把所有 promise 给 resolve 了之后都扔进去，这有啥子好问的。没想到，一上手还稍微有点棘手。\r\n\r\n先来看一个示例吧:\r\n\r\n``` js\r\nawait Promise.all([1, Promise.resolve(2)])\r\n//-> [1, 2]\r\n\r\nawait Promise.all([1, Promise.reject(2)])\r\n//-> Throw Error: 2\r\n```\r\n\r\n1. 传入一个 Iterable，但大部分情况下是数组，以下以数组代替\r\n1. 传入一个数组，其中可包含 Promise，也可包含普通数据\r\n1. 数组中 Prmise 并行执行\r\n1. 但凡有一个 Promise 被 Reject 掉，Promise.all 失败\r\n1. 保持输出数组位置与输入数组一致\r\n1. 所有数据 resolve 之后，返回结果\r\n\r\n``` js\r\nfunction pAll (_promises) {\r\n  return new Promise((resolve, reject) => {\r\n    // Iterable => Array\r\n    const promises = Array.from(_promises)\r\n    // 结果用一个数组维护\r\n    const r = []\r\n    const len = promises.length\r\n    let count = 0\r\n    for (let i = 0; i < len; i++) {\r\n      // Promise.resolve 确保把所有数据都转化为 Promise\r\n      Promise.resolve(promises[i]).then(o => { \r\n        // 因为 promise 是异步的，保持数组一一对应\r\n        r[i] = o;\r\n\r\n        // 如果数组中所有 promise 都完成，则返回结果数组\r\n        if (++count === len) {\r\n          resolve(r)\r\n        }\r\n        // 当发生异常时，直接 reject\r\n      }).catch(e => reject(e))\r\n    }\r\n  })\r\n}\r\n```\r\n\r\n为了测试，实现一个 sleep 函数\r\n\r\n``` js\r\nconst sleep = (seconds) => new Promise(resolve => setTimeout(() => resolve(seconds), seconds))\r\n```\r\n\r\n以下示例进行测试，没有问题\r\n\r\n``` js\r\npAll([1, 2, 3]).then(o => console.log(o))\r\npAll([\r\n  sleep(3000),\r\n  sleep(2000),\r\n  sleep(1000)\r\n]).then(o => console.log(o))\r\npAll([\r\n  sleep(3000),\r\n  sleep(2000),\r\n  sleep(1000),\r\n  Promise.reject(10000)\r\n]).then(o => console.log(o)).catch(e => console.log(e, '<- Error'))\r\n```",
       "reactions": {
         "totalCount": 0
       },
@@ -9992,13 +9998,17 @@
     "body": "",
     "labels": [
       {
+        "id": "MDU6TGFiZWwxNzY5MDg5MzQ2",
+        "name": "dom"
+      },
+      {
         "id": "MDU6TGFiZWwxNjUxNDAyMzE2",
         "name": "html"
       }
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDgyMzI1Njg1Mg==",
-      "body": "## 001 XHR 使用 `xhr.abort()`\r\n\r\n``` js\r\nconst xhr = new XMLHttpRequest(),\r\n    method = \"GET\",\r\n    url = \"https://developer.mozilla.org/\";\r\nxhr.open(method, url, true);\r\n\r\nxhr.send();\r\n\r\n// 取消发送请求\r\nxhr.abort();\r\n```\r\n\r\n## 002 fetch 使用 `AbortController` \r\n\r\n1. 发送请求时使用一个 `signal` 选项控制 fetch 请求\r\n2. `control.abort()` 用以取消请求发送\r\n3. 取消请求发送之后会得到异常 `AbortError`\r\n\r\n``` js\r\nconst controller = new AbortController()\r\nconst signal = controller.signal\r\n\r\nconst downloadBtn = document.querySelector('.download');\r\nconst abortBtn = document.querySelector('.abort');\r\n\r\ndownloadBtn.addEventListener('click', fetchVideo);\r\n\r\n// 点击取消按钮时，取消请求的发送\r\nabortBtn.addEventListener('click', function() {\r\n  controller.abort();\r\n  console.log('Download aborted');\r\n});\r\n\r\nfunction fetchVideo() {\r\n  ...\r\n  fetch(url, {signal}).then(function(response) {\r\n    ...\r\n  }).catch(function(e) {\r\n   // 请求被取消之后将会得到一个 AbortError\r\n    reports.textContent = 'Download error: ' + e.message;\r\n  })\r\n}\r\n```\r\n\r\n### 003 Axios: `xhr` 与 `http/https`\r\n\r\n`Axios` 中通过 `cancelToken` 取消请求发送\r\n\r\n``` js\r\nconst CancelToken = axios.CancelToken;\r\nconst source = CancelToken.source();\r\n\r\naxios.get('/user/12345', {\r\n  cancelToken: source.token\r\n}).catch(function (thrown) {\r\n  if (axios.isCancel(thrown)) {\r\n    console.log('Request canceled', thrown.message);\r\n  } else {\r\n    // handle error\r\n  }\r\n});\r\n\r\naxios.post('/user/12345', {\r\n  name: 'new name'\r\n}, {\r\n  cancelToken: source.token\r\n})\r\n\r\n// cancel the request (the message parameter is optional)\r\nsource.cancel('Operation canceled by the user.');\r\n```\r\n\r\n而其中的原理可分为两部分\r\n\r\n+ 浏览器端: 基于 XHR，`xhr.abort()`，见源码[axios/lib/adapters/xhr.js](https://github.com/axios/axios/blob/v0.21.1/lib/adapters/xhr.js#L165)\r\n+ Node端: 基于 http/https/follow-redirects，使用 `request.abort()`，见源码[axios/lib/adapters/http.js](https://github.com/axios/axios/blob/v0.21.1/lib/adapters/http.js#L289)",
+      "body": "## 001 XHR 使用 `xhr.abort()`\r\n\r\n``` js\r\nconst xhr = new XMLHttpRequest(),\r\n    method = \"GET\",\r\n    url = \"https://developer.mozilla.org/\";\r\nxhr.open(method, url, true);\r\n\r\nxhr.send();\r\n\r\n// 取消发送请求\r\nxhr.abort();\r\n```\r\n\r\n## 002 fetch 使用 `AbortController` \r\n\r\n> `AbortController` 文档见 [AbortSignal - MDN](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal)，它不仅可以取消 Fetch 请求发送，同样也可以取消事件的监听(通过 `addEventListener` 的第三个参数 `signal` 控制)\r\n\r\n1. 发送请求时使用一个 `signal` 选项控制 fetch 请求\r\n2. `control.abort()` 用以取消请求发送\r\n3. 取消请求发送之后会得到异常 `AbortError`\r\n\r\n``` js\r\nconst controller = new AbortController()\r\nconst signal = controller.signal\r\n\r\nconst downloadBtn = document.querySelector('.download');\r\nconst abortBtn = document.querySelector('.abort');\r\n\r\ndownloadBtn.addEventListener('click', fetchVideo);\r\n\r\n// 点击取消按钮时，取消请求的发送\r\nabortBtn.addEventListener('click', function() {\r\n  controller.abort();\r\n  console.log('Download aborted');\r\n});\r\n\r\nfunction fetchVideo() {\r\n  ...\r\n  fetch(url, {signal}).then(function(response) {\r\n    ...\r\n  }).catch(function(e) {\r\n   // 请求被取消之后将会得到一个 AbortError\r\n    reports.textContent = 'Download error: ' + e.message;\r\n  })\r\n}\r\n```\r\n\r\n### 003 Axios: `xhr` 与 `http/https`\r\n\r\n`Axios` 中通过 `cancelToken` 取消请求发送\r\n\r\n``` js\r\nconst CancelToken = axios.CancelToken;\r\nconst source = CancelToken.source();\r\n\r\naxios.get('/user/12345', {\r\n  cancelToken: source.token\r\n}).catch(function (thrown) {\r\n  if (axios.isCancel(thrown)) {\r\n    console.log('Request canceled', thrown.message);\r\n  } else {\r\n    // handle error\r\n  }\r\n});\r\n\r\naxios.post('/user/12345', {\r\n  name: 'new name'\r\n}, {\r\n  cancelToken: source.token\r\n})\r\n\r\n// cancel the request (the message parameter is optional)\r\nsource.cancel('Operation canceled by the user.');\r\n```\r\n\r\n而其中的原理可分为两部分\r\n\r\n+ 浏览器端: 基于 XHR，`xhr.abort()`，见源码[axios/lib/adapters/xhr.js](https://github.com/axios/axios/blob/v0.21.1/lib/adapters/xhr.js#L165)\r\n+ Node端: 基于 http/https/follow-redirects，使用 `request.abort()`，见源码[axios/lib/adapters/http.js](https://github.com/axios/axios/blob/v0.21.1/lib/adapters/http.js#L289)",
       "reactions": {
         "totalCount": 1
       },
@@ -10200,7 +10210,17 @@
         "name": "前端工程化"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg0ODM4Mjk0NQ==",
+      "body": "> 见文档 [Web Vitals](https://web.dev/vitals/)\r\n\r\n+ LCP: Largest Content Paint\r\n+ FID: Firtst Input Delay\r\n+ CLS: Cumulative Layout Shift\r\n\r\n|     | Good    | Needs improvement | Poor   |\r\n|-----|---------|-------------------|--------|\r\n| LCP | <=2.5s  | <=4s              | >4s    |\r\n| FID | <=100ms | <=300ms           | >300ms |\r\n| CLS | <=0.1   | <=0.25            | >0.25  |\r\n",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU4NzU5NDA0OTQ=",
@@ -10226,7 +10246,17 @@
         "name": "js"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg0ODM4MjI2OQ==",
+      "body": "七种，文档见 [基本数据类型 - MDN](https://developer.mozilla.org/zh-CN/docs/Glossary/Primitive)\r\n\r\n+ number\r\n+ bigint\r\n+ string\r\n+ undefined\r\n+ null\r\n+ symbol\r\n+ bool",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU4ODM3MjIwODM=",
@@ -10298,7 +10328,17 @@
         "name": "前端工程化"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg0ODM4MTU2OQ==",
+      "body": "``` bash\r\nyarn list | grep xxx\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU4OTMzNTIzMTY=",
@@ -10324,7 +10364,17 @@
         "name": "前端工程化"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg0ODM4MjU2Ng==",
+      "body": "多个包难以互相链接",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU4OTM0MTY2NTI=",
@@ -10350,7 +10400,17 @@
         "name": "js"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg0ODM4MTA0Mw==",
+      "body": "原理: 一个 Generator 与一个自动执行器",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU4OTQ5NTY3MjE=",
@@ -10363,7 +10423,17 @@
         "name": "js"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg0NjM3NDA1Mw==",
+      "body": "闭包是一个函数, 其可以记住并访问外部变量.\r\n\r\n在函数被创建时, 函数的隐藏属性 [[Environment]] 会记住函数被创建时的位置, 即当时的词法环境 Lexical Environment\r\n\r\n这样, 无论在哪里调用函数, 都会去到 [[Environment]] 所引用的词法环境\r\n\r\n当查找变量时, 先在词法环境内部查找, 当没有找到局部变量时, 前往当前词法环境所记录的外部词法环境查找\r\n\r\n我知道的闭包的应用: 封装私有变量和处理回调函数\r\n\r\n前端新人, 理解浅薄, 如果有错希望您指出\r\n\r\n学习来源为 [JavaScript.info/Closure](https://javascript.info/closure)",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "liweinandever",
+        "url": "https://github.com/liweinandever"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU4OTUwMzQ2NjU=",
@@ -10377,5 +10447,825 @@
       }
     ],
     "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU4OTgyMDUzMjk=",
+    "number": 529,
+    "title": "【Q516】HTML 标签有哪些行内元素",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIw",
+        "name": "css"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE2",
+        "name": "html"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg0NjA3MjEyOA==",
+      "body": "常见的标签有以下几种，可参考 [inline element](https://developer.mozilla.org/en-US/docs/Web/HTML/Inline_elements)\r\n\r\n+ a\r\n+ img\r\n+ picture\r\n+ span\r\n+ input\r\n+ textarea\r\n+ select\r\n+ label",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU4OTgyMjU1NDU=",
+    "number": 530,
+    "title": "【Q517】CSS如何设置一行超出显示省略号",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIw",
+        "name": "css"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg0NzY4ODY5OQ==",
+      "body": "``` css\r\noverflow: hidden;\r\ntext-overflow: ellipsis;\r\nwhite-space: nowrap;\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU4OTgyMjYxNjk=",
+    "number": 531,
+    "title": "【Q518】CSS如何设置多行超出显示省略号",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIw",
+        "name": "css"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg0NzY4NzQ3Ng==",
+      "body": "使用 `-webkit-line-clamp` 来设置多行超出显示省略号\r\n\r\n``` css\r\noverflow: hidden;\r\ndisplay: -webkit-box;\r\n-webkit-box-orient: vertical;\r\n-webkit-line-clamp: 2;\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU4OTg3MDgyMzQ=",
+    "number": 532,
+    "title": "【Q519】如何发布一个全局可执行命令的 npm package",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzI2MDg3MTMx",
+        "name": "node"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU4OTg3MDk3NjM=",
+    "number": 533,
+    "title": "【Q520】如何为一个项目指定 node 版本号",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+        "name": "前端工程化"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg0ODM3MTMwMw==",
+      "body": "属于一个项目的质量工程，如果对于版本不匹配将会报错(yarn)或警告(npm)，如果我们对于项目的 Node 版本号有特殊的需求，那我们需要在 `package.json` 中的 `engines` 字段中指定 Node 版本号\r\n\r\n> 更多质量工程问题，见 [如何保障项目质量](https://github.com/shfshanyue/Daily-Question/issues/552)\r\n\r\n``` json\r\n{\r\n  \"engines\": {\r\n    \"node\": \">=14.0.0\"\r\n  }\r\n}\r\n```\r\n\r\n我在本地把项目所需要的 node 版本号改成 `>=16.0.0`，而本地的 node 版本号为 `v8.17.0`，经过测试\r\n\r\nnpm 将会警告\r\n\r\n``` bash\r\nnpm WARN EBADENGINE Unsupported engine { package: 'next-app@1.0.0',\r\nnpm WARN EBADENGINE   required: { node: '>=16.0.0' },\r\nnpm WARN EBADENGINE   current: { node: 'v8.17.0', npm: '7.14.0' } }\r\n```\r\n\r\nyarn 将会报错\r\n\r\n``` bash\r\nerror next-app@1.0.0: The engine \"node\" is incompatible with this module. Expected version \">=16.0.0\". Got \"8.17.0\"\r\n```\r\n\r\n而如果我们项目中某些依赖所需要的 Node 版本号与项目运行时的 Node 版本号不匹配，也会报错(在yarn中)，无法正常运行项目",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU4OTg3MTExMTc=",
+    "number": 534,
+    "title": "【Q521】什么是 semver，~1.2.3 与 ^1.2.3 的版本号范围是多少",
+    "body": "当你 `npm install` 时，你安装的是哪一种形式",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+        "name": "前端工程化"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg0NjU5MjA3MA==",
+      "body": "`semver`，`Semantic Versioning` 语义化版本的缩写，文档可见 <https://semver.org/>，它由 `[major, minor, patch]` 三部分组成，其中\r\n\r\n+ `major`: 当你发了一个含有 Breaking Change 的 API\r\n+ `minor`:  当你新增了一个向后兼容的功能时\r\n+ `patch`: 当你修复了一个向后兼容的 Bug 时\r\n\r\n\r\n假设你的版本库中含有一个函数\r\n\r\n``` js\r\n// 假设原函数\r\nexport const sum = (x: number, y: number): number => x + y\r\n\r\n// Patch Version，修复小 Bug\r\nexport const sum = (x: number, y: number): number => x + y\r\n\r\n// Minor Version，向后兼容\r\nexport const sum = (...rest: number[]): number => rest.reduce((s, x) => s + x, 0)\r\n\r\n// Marjor Version，出现 Breaking Change\r\nexport const sub = () => {}\r\n```\r\n\r\n对于 `~1.2.3` 而言，它的版本号范围是 `>=1.2.3  <1.3.0`\r\n\r\n对于 `^1.2.3` 而言，它的版本号范围是 `>=1.2.3  <2.0.0`\r\n\r\n当我们 `npm i` 时，默认的版本号是 `^`，可最大限度地在向后兼容与新特性之间做取舍，但是有些库有可能不遵循该规则，我们在项目时应当使用 `yarn.lock`/`package-lock.json` 锁定版本号",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU4OTg3MTQ1Nzc=",
+    "number": 535,
+    "title": "【Q522】package.json 中 main/module/browser/exports 字段有何区别",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+        "name": "前端工程化"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU4OTg3MjExMzQ=",
+    "number": 536,
+    "title": "【Q523】npm publish 时 npm script 的生命周期",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+        "name": "前端工程化"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg0ODM4MDcwNA==",
+      "body": "+ prepublishOnly\r\n+ prepack\r\n+ prepare\r\n+ postpack\r\n+ publish\r\n+ postpublish",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU4OTg3MjIzMzQ=",
+    "number": 537,
+    "title": "【Q524】前端项目每次 npm install 之后需要执行一些处理工作，应该怎么办",
+    "body": "例如: husky",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+        "name": "前端工程化"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg0ODM2NTYzNg==",
+      "body": "使用 npm script 生命周期中的 `npm prepare`，他将会在发包 (publish) 之前以及装包 (install) 之后自动执行。\r\n\r\n如果指向在装包之后自动执行，可使用 `npm postinstall`\r\n\r\n例如:\r\n\r\n[husky](https://github.com/typicode/husky)\r\n\r\n``` json\r\n{\r\n  \"prepare\": \"npm run build & node packages/husky/lib/bin.js install\" \r\n}\r\n```\r\n\r\n[vue-cli](https://github.com/vuejs/vue-cli/blob/dev/package.json) 一些著名的仓库会使用 [patch-package](https://github.com/ds300/patch-package) 自动修复 node_modules 中依赖的问题\r\n\r\n``` json\r\n{\r\n  \"postinstall\": \"patch-package\"\r\n}\r\n```\r\n",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU4OTkwMTQ2MjA=",
+    "number": 538,
+    "title": "【Q525】flex 布局中 order 有何作用",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIw",
+        "name": "css"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg0NzY3NzM5MQ==",
+      "body": "`order` 属性定义Flex布局中子元素的排列顺序，数值越小，排列越靠前，默认为0。\r\n\r\n",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU4OTkwMTc4MzM=",
+    "number": 539,
+    "title": "【Q526】flex 布局中 align-content 与 align-items 有何区别",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIw",
+        "name": "css"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg0NzY3NjM0MA==",
+      "body": "> 示例代码见: [align-content 与 align-items](https://codepen.io/shanyue/pen/abJwoRp?editors=1100)\r\n\r\n+ `align-content` 作用于纵轴多行元素，一行元素不起作用\r\n+ `align-items` 作用于纵轴单行元素\r\n\r\n下图，上部分为 `align-content`，下部分为 `align-items`\r\n\r\n![image](https://user-images.githubusercontent.com/13389461/119467452-1ae6f180-bd78-11eb-9645-19ea9ee0a1e5.png)\r\n\r\n\r\n",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU4OTkwNjI1NzU=",
+    "number": 540,
+    "title": "【Q527】解构赋值一个数组，a 取第一项默认值为 3，c取剩下的值组成数组",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg0ODM2NDU1Ng==",
+      "body": "``` js\r\nconst list = [1, 2, 3, 4, 5]\r\nconst [a, ...c] = list\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU4OTkwNjQ5Njk=",
+    "number": 541,
+    "title": "【Q528】解构赋值以下对象，他们的值是多少",
+    "body": "---\r\n\r\n``` js\r\nconst {a: aa, b } = {a: 3, b: 4} \r\n```\r\n\r\n分别打印 `a`、`aa`、`b`，他们的值是多少\r\n\r\n---\r\n\r\n\r\n``` js\r\nfunction move({x = 0, y = 0} = {}) {\r\n  return [x, y];\r\n}\r\n\r\nfunction move({x, y} = { x: 0, y: 0 }) {\r\n  return [x, y];\r\n}\r\n```\r\n\r\n以下几个表达式返回的结果是什么\r\n\r\n``` js\r\nmove({x: 3, y: 8});\r\nmove({x: 3})\r\nmove({}); \r\nmove(); \r\n```",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg0ODM3MDgwMw==",
+      "body": "``` js\r\nconst {a: aa, b } = {a: 3, b: 4} \r\n\r\n// 其中 a 报错、aa 为3, b 为 4\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU4OTkwNjcyNTc=",
+    "number": 542,
+    "title": "【Q529】Map 与 WeakMap 有何区别",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg0ODM1NzQ4OA==",
+      "body": "+ `Map`: 可使用任何数据类型作为 key\r\n+ `WeakMap`: 只能使用引用数据类型作为 key",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU4OTk4NDQ0ODY=",
+    "number": 543,
+    "title": "【Q530】HTML 中有哪些语义化标签",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE2",
+        "name": "html"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg0ODM0ODkxNg==",
+      "body": "> 见文档 [HTML Elements - MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element)\r\n\r\n+ header\r\n+ footer\r\n+ main\r\n+ aside\r\n+ article\r\n+ section\r\n+ address\r\n+ summary/details\r\n+ menu\r\n+ h1/h2/h3/h4/h5/h6\r\n+ img\r\n+ p\r\n+ strong/italic",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5MDAzMTQ2Nzg=",
+    "number": 544,
+    "title": "【Q531】子元素垂直居中，并且长度为父容器一半的正方形",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIw",
+        "name": "css"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg0NzU2Mzk1Ng==",
+      "body": "> [垂直居中长度为父容器一半的子元素 - Codepen](https://codepen.io/shanyue/pen/GRWmaVw?editors=1100)\r\n\r\n``` html\r\n<div class=\"container\">\r\n  <div class=\"item\"></div>\r\n</div>\r\n```\r\n\r\n以前采用百分比撑高 `padding`，那这种方案已经过时，会挤压 Content 内容，无法在其中填充内容(需要绝对定位)。\r\n\r\n可使用最新的属性 `aspect-ratio`，即长宽比\r\n\r\n``` css\r\n.container {\r\n  display: grid;\r\n  place-items: center;\r\n}\r\n\r\n.item {\r\n  width: 50%;\r\n  aspect-ratio: 1/1;\r\n}\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5MDA1MjA4MTU=",
+    "number": 545,
+    "title": "【Q532】简述 position 的值",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIw",
+        "name": "css"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg0NzY5OTE3Ng==",
+      "body": "+ `static`: 默认值，无定位，`top`、`right`、`bottom`、`left` 不起任何作用\r\n+ `relative`: 相对定位\r\n+ `absolute`: 绝对定位，脱离文档流，上下左右以最近的定位父元素为参照系\r\n+ `fixed`: 脱离文档流，上下左右以浏览器视口为参照系\r\n+ `sticky`: `relative` 与 `fixed` 的结合体",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5MDA1MzY3NjE=",
+    "number": 546,
+    "title": "【Q533】什么是 BFC",
+    "body": "+ 它是如何生成的\r\n+ 它有什么作用及应用",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIw",
+        "name": "css"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg0ODM1MDYyOA==",
+      "body": "块级格式化上下文，`Block Formatting Context`",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5MDA1Mzk5NTA=",
+    "number": 547,
+    "title": "【Q534】CSS 如何实现固定长宽比的元素",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIw",
+        "name": "css"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg0ODM0NTk2NQ==",
+      "body": "过去的解决方案是使用 `padding`。一个元素的 `padding` 如若设置为百分比，则代表的是以父元素宽度为基准，根据这个原理，可设置长宽比。但实际上意义有限，毕竟你把 padding 给占了，content 无任何区域。\r\n\r\n现代化的解决方案是使用长宽比的 CSS 属性: `aspect-ratio`",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5MDA1NDYwMzQ=",
+    "number": 548,
+    "title": "【Q535】rem、em、vw、wh 的值各是什么意思",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIw",
+        "name": "css"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg0ODMzNjI2Nw==",
+      "body": "他们同属于 CSS Data Type 中的 `[length]`，见文档 [length - MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/length)\r\n\r\n+ `rem`: 根据根元素(即 `html`)的 `font-size`\r\n+ `em`: 根据**自身元素**的 `font-size`\r\n+ `vw`: viewport width\r\n+ `vh`: viewport height",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5MDA1NDgwNzg=",
+    "number": 549,
+    "title": "【Q536】normalize.css 与 reset.css 又何区别",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIw",
+        "name": "css"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg0NzcxODM2Nw==",
+      "body": "[What is the difference between Normalize.css and Reset CSS?](https://stackoverflow.com/questions/6887336/what-is-the-difference-between-normalize-css-and-reset-css)\r\n\r\n+ [normalize.css](https://github.com/necolas/normalize.css/blob/master/normalize.css): 会保留有用的样式，比如 h1 的字体大小\r\n+ [reset.css](https://github.com/jgthms/minireset.css/blob/master/minireset.css): 把所有样式都重置，比如 h1、h2、h3 的字体大小都进行了重置，保持了无样式",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5MDA1NjE5NjY=",
+    "number": 550,
+    "title": "【Q537】line-height 的值分别取 [2, 2em, 200%] 有什么区别?",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIw",
+        "name": "css"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg0ODMzNDI4MQ==",
+      "body": "> 代码见: [lineHeight - codepen](https://codepen.io/shanyue/pen/bGqRLxQ?editors=1100)\r\n\r\n`line-height` 是相对于元素自身的字体大小来取值，但同时会被继承。在实际工作中，取值 `2em` 或者 `200%` 有可能遇到未预测的内容。\r\n\r\n比如:\r\n\r\n+ 父元素: `fontSize: 18px; lineHeight: 1.5em(27px，150% 同理);` ，它的 lineHeight 计算下来为 27px，会被子元素继承\r\n+ 子元素: `fontSize: 30px`，子元素的 lineHeight 被继承为 27px，出现问题\r\n\r\n以下为演示代码，见: [lineHeight - codepen](https://codepen.io/shanyue/pen/bGqRLxQ?editors=1100)\r\n\r\n``` html\r\n<div class=\"box green\">\r\n  <h1>lineHeight: 1.5; 这是没有问题的框框</h1>\r\n  lineHeight: 1.5; 这是没有问题的框框\r\n  lineHeight: 1.5; 这是没有问题的框框\r\n</div>\r\n\r\n<div class=\"box red\">\r\n <h1>lineHeight: 1.5em; 这是有问题的框框</h1>\r\n  lineHeight: 1.5em; 这是有问题的框框\r\n  lineHeight: 1.5em; 这是有问题的框框\r\n</div>\r\n\r\n<div class=\"box orange\">\r\n <h1>lineHeight: 150%; 这是有问题的框框</h1>\r\n  lineHeight: 150%; 这是有问题的框框\r\n  lineHeight: 150%; 这是有问题的框框\r\n</div>\r\n```\r\n\r\n``` css\r\n.green {\r\n  line-height: 1.5;\r\n  border: solid limegreen;\r\n}\r\n\r\n.red {\r\n  line-height: 1.5em;\r\n  border: solid red;\r\n}\r\n\r\n.orange {\r\n  line-height: 150%;\r\n  border: solid orange;\r\n}\r\n\r\nh1 {\r\n  font-size: 30px;\r\n}\r\n\r\n.box {\r\n  width: 18em;\r\n  display: inline-block;\r\n  vertical-align: top;\r\n  font-size: 16px;\r\n}\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5MDE1Nzc0MzA=",
+    "number": 552,
+    "title": "【Q538】你是如何保障你们项目质量的",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+        "name": "前端工程化"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg0ODM3OTY2MQ==",
+      "body": "+ lint\r\n+ type\r\n+ test\r\n+ code review\r\n+ git hooks\r\n+ CI\r\n",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5MDE2OTcxODk=",
+    "number": 553,
+    "title": "【Q539】Javascript 数组中有那些方法可以改变自身，那些不可以",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg0OTQ5MTM5Nw==",
+      "body": "不可改变自身的 Array API\r\n\r\n+ Array.prototype.map",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5MDE3MjU4NTY=",
+    "number": 554,
+    "title": "【Q540】如何判断一个数组是否包含某个值",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg0OTQ5MDk2NA==",
+      "body": "``` js\r\nArray.prototype.includes()\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5MDE3MjYzNDU=",
+    "number": 555,
+    "title": "【Q541】如何判断字符串包含某个子串",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg0OTQ5MDc4Nw==",
+      "body": "``` js\r\nString.prototype.includes()\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5MDMwODE4Nzc=",
+    "number": 556,
+    "title": "【Q542】DOM 中如何阻止事件默认行为，如何判断事件否可阻止？",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzY5MDg5MzQ2",
+        "name": "dom"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU5MDMwODg2MTc=",
+    "number": 557,
+    "title": "【Q543】什么是事件冒泡和事件捕获",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzY5MDg5MzQ2",
+        "name": "dom"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU5MDMwODkwNjg=",
+    "number": 558,
+    "title": "【Q544】什么是事件委托",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzY5MDg5MzQ2",
+        "name": "dom"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU5MDMxMDQ2MDc=",
+    "number": 559,
+    "title": "【Q545】关于事件捕获和冒泡，以下代码输出多少",
+    "body": "> 代码见: [事件捕获和冒泡 - Codepen](https://codepen.io/shanyue/pen/gOmxmqw?editors=1000)\r\n\r\n以下代码输出多少:\r\n\r\n``` html\r\n<div class=\"container\" id=\"container\">\r\n  <div class=\"item\" id=\"item\">\r\n    <div class=\"btn\" id=\"btn\">\r\n      Click me\r\n    </div>\r\n  </div>\r\n</div>\r\n```\r\n\r\n``` js\r\ndocument.addEventListener('click', (e) => {\r\n  console.log('Document click')\r\n}, {\r\n  capture: true\r\n})\r\n\r\ncontainer.addEventListener('click', (e) => {\r\n  console.log('Container click')\r\n  e.stopPropagation()\r\n}, {\r\n  capture: true\r\n})\r\n\r\nitem.addEventListener('click', () => {\r\n  console.log('Item click')\r\n})\r\n\r\nbtn.addEventListener('click', () => {\r\n  console.log('Btn click')\r\n})\r\n\r\n```",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzY5MDg5MzQ2",
+        "name": "dom"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU5MDMxMTUxODU=",
+    "number": 560,
+    "title": "【Q546】浏览器中 cookie 有哪些字段",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzY5MDg5MzQ2",
+        "name": "dom"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg1MDc3MDYyMA==",
+      "body": "+ Domain\r\n+ Path\r\n+ Expire\r\n+ MaxAge\r\n+ HttpOnly\r\n+ Secure\r\n+ SameSite",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5MDMxODM5Mjg=",
+    "number": 561,
+    "title": "【Q547】某元素的 fontSize: 2rem; lineHeight: 1.5em; 此时 lineHeight 为多少像素",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIw",
+        "name": "css"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU5MDM1MDgzNjI=",
+    "number": 562,
+    "title": "【Q548】DOM 中 Element 与 Node 有何区别",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzY5MDg5MzQ2",
+        "name": "dom"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU5MDQ0MzU2MTQ=",
+    "number": 563,
+    "title": "【Q549】如何判断某一个值是数组",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU5MDQ0NDg1MDI=",
+    "number": 564,
+    "title": "【Q550】简述 Object.defineProperty ",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg1MDA3MDI5Nw==",
+      "body": "+ 数据描述符\r\n+ 存取描述符",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5MDQ1NzE2Nzk=",
+    "number": 565,
+    "title": "【Q551】Object.keys 与 Object.getOwnPropertyNames() 有何区别",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU5MDQ1OTExODM=",
+    "number": 566,
+    "title": "【Q552】关于 setState 以下代码的输出",
+    "body": "代码如下所示，每次切换 TODO 状态时，通过手动修改 `todo.status` 再 setTodo，此时是否会修改成功\r\n\r\n> 代码见 [setState - codesandbox](https://codesandbox.io/s/setstate-r7qof?file=/src/App.js)\r\n\r\n``` js\r\nimport { useState } from \"react\";\r\n\r\nexport default function App() {\r\n  const [todo, setTodo] = useState({ id: 1, status: \"TODO\" });\r\n  return (\r\n    <div className=\"App\">\r\n      <button\r\n        onClick={() => {\r\n          todo.status = !todo.status;\r\n          setTodo(todo);\r\n        }}\r\n      >\r\n        Toggle Status\r\n      </button>\r\n      <h1>{todo.status}</h1>\r\n    </div>\r\n  );\r\n}\r\n```",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU4MzQ3NDIy",
+        "name": "react"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU5MDQ2NDMyOTI=",
+    "number": 567,
+    "title": "【Q553】Grid 布局的优势在哪里",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIw",
+        "name": "css"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU5MDQ5OTM5MTc=",
+    "number": 569,
+    "title": "【Q554】SameSite Cookie 有哪些值，是如何预防 CSRF 攻击的",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzY5MDg5MzQ2",
+        "name": "dom"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU5MDUwMzU1NjE=",
+    "number": 570,
+    "title": "【Q555】sessionStorage与localStorage有何区别",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzY5MDg5MzQ2",
+        "name": "dom"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU5MDUwMzY2MDA=",
+    "number": 571,
+    "title": "【Q556】如何设置一个支持过期时间的 localStorage",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzY5MDg5MzQ2",
+        "name": "dom"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU5MDYyOTUzMTc=",
+    "number": 572,
+    "title": "【Q557】如何实现三列均分布局",
+    "body": "布局代码如下所示，可见 [三列均分布局 - codepen](https://codepen.io/shanyue/pen/yLMzxqX)\r\n\r\n``` html\r\n<div class=\"container\">\r\n  <div class=\"item\"></div>\r\n  <div class=\"item\"></div>\r\n  <div class=\"item\"></div>\r\n</div>\r\n```\r\n\r\n``` css\r\n\r\n// 以下为样式代码，非核心功能代码\r\n* {\r\n  box-sizing: border-box;\r\n}\r\n\r\n.container {\r\n  background-color: #eee;\r\n  height: 10rem;\r\n  margin: 1rem;\r\n}\r\n\r\n.item {\r\n  border: 1px solid #888;\r\n}\r\n```",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIw",
+        "name": "css"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg1MDc1NDIyMA==",
+      "body": "见代码 [三均分布局 - Codepen](https://codepen.io/shanyue/pen/yLMzxqX)\r\n\r\n## 使用 Flex\r\n\r\n注意使用 `calc(100% / 3)` 设置 `flex-basis`，同时它的缺陷是**不能够很好的为子元素设置左右间隙**\r\n\r\n``` scss\r\n.flex-container {\r\n  display: flex;\r\n  flex-wrap: wrap;\r\n  // gap: 1rem;\r\n  \r\n  \r\n  .item {\r\n   flex: 0 0 calc(100% / 3);\r\n  }\r\n}\r\n```\r\n\r\n## 使用 Grid\r\n\r\n使用 Grid 直接操作容器即可，对于子元素之间的间隙也可以很好地控制，可看出 Grid 更为简单\r\n\r\n``` scss\r\n.grid-container {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr;\r\n  gap: 1rem;\r\n}\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   }
 ]

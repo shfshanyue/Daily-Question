@@ -75,6 +75,7 @@
 + [【Q206】no-cache 与 no-store 的区别是什么](http/207.html)
 + [【Q252】https 中如何保证证书是可信任的](http/254.html)
 + [【Q254】进程与线程的区别是什么](os/256.html)
++ [【Q267】CSP 是干什么用的了](http/269.html)
 + [【Q273】http2 中的首部压缩的实现原理是什么](http/275.html)
 + [【Q276】如何查看 node_modules(某一文件夹) 的体积有多大](linux/278.html)
 + [【Q283】http 请求头中的 X-Forwarded-For 代表什么意思](http/285.html)
