@@ -24,3 +24,5 @@
 + [【Q554】SameSite Cookie 有哪些值，是如何预防 CSRF 攻击的](569.html)
 + [【Q555】sessionStorage与localStorage有何区别](570.html)
 + [【Q556】如何设置一个支持过期时间的 localStorage](571.html)
++ [【Q558】如何统计当前页面出现的所有标签](573.html)
++ [【Q559】如何监听 localStorage 的变动](574.html)

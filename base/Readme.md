@@ -121,3 +121,5 @@
 + [【Q434】当服务器资源返回 304 时与那些 HTTP 响应头有关](http/441.html)
 + [【Q442】http3 解决了什么问题](http/450.html)
 + [【Q451】同一进程的线程共享那些资源](os/459.html)
++ [【Q554】SameSite Cookie 有哪些值，是如何预防 CSRF 攻击的](http/569.html)
++ [【Q560】什么是 Data URL](http/575.html)

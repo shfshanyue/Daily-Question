@@ -309,6 +309,14 @@
         [
           "http/450",
           "http3 解决了什么问题⭐️"
+        ],
+        [
+          "http/569",
+          "SameSite Cookie 有哪些值，是如何预防 CSRF 攻击的⭐️"
+        ],
+        [
+          "http/575",
+          "什么是 Data URL⭐️"
         ]
       ]
     },
@@ -1484,7 +1492,7 @@
         ],
         [
           "dom/569",
-          "SameSite Cookie 有哪些值，是如何预防 CSRF 攻击的"
+          "SameSite Cookie 有哪些值，是如何预防 CSRF 攻击的⭐️"
         ],
         [
           "dom/570",
@@ -1493,6 +1501,14 @@
         [
           "dom/571",
           "如何设置一个支持过期时间的 localStorage"
+        ],
+        [
+          "dom/573",
+          "如何统计当前页面出现的所有标签⭐️"
+        ],
+        [
+          "dom/574",
+          "如何监听 localStorage 的变动"
         ]
       ]
     },
@@ -1947,6 +1963,14 @@
         [
           "js/565",
           "Object.keys 与 Object.getOwnPropertyNames() 有何区别"
+        ],
+        [
+          "js/573",
+          "如何统计当前页面出现的所有标签⭐️"
+        ],
+        [
+          "js/576",
+          "实现一个 inherits 函数进行继承"
         ]
       ]
     },

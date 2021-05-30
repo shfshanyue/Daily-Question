@@ -311,3 +311,6 @@
 + [【Q555】sessionStorage与localStorage有何区别](dom/570.html)
 + [【Q556】如何设置一个支持过期时间的 localStorage](dom/571.html)
 + [【Q557】如何实现三列均分布局](css/572.html)
++ [【Q558】如何统计当前页面出现的所有标签](dom/573.html)
++ [【Q559】如何监听 localStorage 的变动](dom/574.html)
++ [【Q561】实现一个 inherits 函数进行继承](js/576.html)

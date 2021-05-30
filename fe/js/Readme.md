@@ -90,3 +90,5 @@
 + [【Q549】如何判断某一个值是数组](563.html)
 + [【Q550】简述 Object.defineProperty ](564.html)
 + [【Q551】Object.keys 与 Object.getOwnPropertyNames() 有何区别](565.html)
++ [【Q558】如何统计当前页面出现的所有标签](573.html)
++ [【Q561】实现一个 inherits 函数进行继承](576.html)

@@ -11073,7 +11073,7 @@
     "id": "MDU6SXNzdWU5MDMxMDQ2MDc=",
     "number": 559,
     "title": "【Q545】关于事件捕获和冒泡，以下代码输出多少",
-    "body": "> 代码见: [事件捕获和冒泡 - Codepen](https://codepen.io/shanyue/pen/gOmxmqw?editors=1000)\r\n\r\n以下代码输出多少:\r\n\r\n``` html\r\n<div class=\"container\" id=\"container\">\r\n  <div class=\"item\" id=\"item\">\r\n    <div class=\"btn\" id=\"btn\">\r\n      Click me\r\n    </div>\r\n  </div>\r\n</div>\r\n```\r\n\r\n``` js\r\ndocument.addEventListener('click', (e) => {\r\n  console.log('Document click')\r\n}, {\r\n  capture: true\r\n})\r\n\r\ncontainer.addEventListener('click', (e) => {\r\n  console.log('Container click')\r\n  e.stopPropagation()\r\n}, {\r\n  capture: true\r\n})\r\n\r\nitem.addEventListener('click', () => {\r\n  console.log('Item click')\r\n})\r\n\r\nbtn.addEventListener('click', () => {\r\n  console.log('Btn click')\r\n})\r\n\r\n```",
+    "body": "> 代码见: [事件捕获和冒泡 - Codepen](https://codepen.io/shanyue/pen/gOmxmqw?editors=1000)\r\n\r\n以下代码输出多少:\r\n\r\n``` html\r\n<div class=\"container\" id=\"container\">\r\n  <div class=\"item\" id=\"item\">\r\n    <div class=\"btn\" id=\"btn\">\r\n      Click me\r\n    </div>\r\n  </div>\r\n</div>\r\n```\r\n\r\n``` js\r\ndocument.addEventListener('click', (e) => {\r\n  console.log('Document click')\r\n}, {\r\n  capture: true\r\n})\r\n\r\ncontainer.addEventListener('click', (e) => {\r\n  console.log('Container click')\r\n  // e.stopPropagation()\r\n}, {\r\n  capture: true\r\n})\r\n\r\nitem.addEventListener('click', () => {\r\n  console.log('Item click')\r\n})\r\n\r\nbtn.addEventListener('click', () => {\r\n  console.log('Btn click')\r\n})\r\n\r\nbtn.addEventListener('click', () => {\r\n  console.log('Btn click When Capture')\r\n}, {\r\n  capture: true\r\n})\r\n\r\n```",
     "labels": [
       {
         "id": "MDU6TGFiZWwxNzY5MDg5MzQ2",
@@ -11184,7 +11184,7 @@
     "id": "MDU6SXNzdWU5MDQ1OTExODM=",
     "number": 566,
     "title": "【Q552】关于 setState 以下代码的输出",
-    "body": "代码如下所示，每次切换 TODO 状态时，通过手动修改 `todo.status` 再 setTodo，此时是否会修改成功\r\n\r\n> 代码见 [setState - codesandbox](https://codesandbox.io/s/setstate-r7qof?file=/src/App.js)\r\n\r\n``` js\r\nimport { useState } from \"react\";\r\n\r\nexport default function App() {\r\n  const [todo, setTodo] = useState({ id: 1, status: \"TODO\" });\r\n  return (\r\n    <div className=\"App\">\r\n      <button\r\n        onClick={() => {\r\n          todo.status = !todo.status;\r\n          setTodo(todo);\r\n        }}\r\n      >\r\n        Toggle Status\r\n      </button>\r\n      <h1>{todo.status}</h1>\r\n    </div>\r\n  );\r\n}\r\n```",
+    "body": "代码如下所示，每次切换 TODO 状态时，通过手动修改 `todo.status` 再 setTodo，此时是否会修改成功\r\n\r\n> 代码见 [setState - codesandbox](https://codesandbox.io/s/setstate-r7qof?file=/src/App.js)\r\n\r\n``` js\r\nimport { useState } from \"react\";\r\n\r\nexport default function App() {\r\n  const [todo, setTodo] = useState({ id: 1, status: \"TODO\" });\r\n  return (\r\n    <div className=\"App\">\r\n      <button\r\n        onClick={() => {\r\n          todo.status = !todo.status;\r\n          setTodo(todo);\r\n        }}\r\n      >\r\n        Toggle Status\r\n      </button>\r\n      <h1>{todo.status}</h1>\r\n    </div>\r\n  );\r\n}\r\n\r\n```",
     "labels": [
       {
         "id": "MDU6TGFiZWwxNjU4MzQ3NDIy",
@@ -11215,9 +11215,23 @@
       {
         "id": "MDU6TGFiZWwxNzY5MDg5MzQ2",
         "name": "dom"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjgwMDkyMDA5",
+        "name": "http"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg1MDkxODczNw==",
+      "body": "> 见文档 [SameSite Cookie - MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie/SameSite)\r\n> 见文章 [Cookie 的 SameSite 属性](http://www.ruanyifeng.com/blog/2019/09/cookie-samesite.html)\r\n\r\n+ None: 任何情况下都会向第三方网站请求发送 Cookie\r\n+ Lax: 只有导航到第三方网站的 Get 链接会发送 Cookie，跨域的图片、iframe、form表单都不会发送 Cookie\r\n+ Strict: 任何情况下都不会向第三方网站请求发送Cookie\r\n\r\n目前，主流浏览器 Same-Site 的默认值为 `Lax`，而在以前是 `None`，将会预防大部分 CSRF 攻击，如果需要手动指定 `Same-Site` 为 `None`，需要指定 Cookie 属性 `Secure`，即在 https 下发送",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU5MDUwMzU1NjE=",
@@ -11267,5 +11281,81 @@
         "url": "https://github.com/shfshanyue"
       }
     }
+  },
+  {
+    "id": "MDU6SXNzdWU5MDY1OTcxMTM=",
+    "number": 573,
+    "title": "【Q558】如何统计当前页面出现的所有标签",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzY5MDg5MzQ2",
+        "name": "dom"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg1MDkyMzU2OA==",
+      "body": "+ `document.querySelectorAll('*')`\r\n+ `$$('*')`，可在浏览器控制台使用\r\n+ `document.all`，已废弃，不建议使用",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5MDY2MDAwNjU=",
+    "number": 574,
+    "title": "【Q559】如何监听 localStorage 的变动",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzY5MDg5MzQ2",
+        "name": "dom"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU5MDY2MTExNDA=",
+    "number": 575,
+    "title": "【Q560】什么是 Data URL",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjgwMDkyMDA5",
+        "name": "http"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg1MDkzMTIzMg==",
+      "body": "Data URLs 由四个部分组成：\r\n\r\n1. 前缀(data:)\r\n2. 指示数据类型的MIME类型\r\n3. 如果二进制数据则为可选的base64标记，比如图片\r\n4. 数据\r\n\r\n\r\n```\r\ndata:[<mediatype>][;base64],<data>\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5MDY2Nzk3MTM=",
+    "number": 576,
+    "title": "【Q561】实现一个 inherits 函数进行继承",
+    "body": "使用方法如 `inherits(Dog, Animal);`，`Dog` 对 `Animal` 进行了继承",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": ""
   }
 ]
