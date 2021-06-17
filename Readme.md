@@ -24,11 +24,34 @@ description: 每天至少一个面试题，并附以答案及讨论。有关前�
 ### [DevOps](https://q.shanyue.tech/devops/)
 ### [开放式问题](https://q.shanyue.tech/open/)
 
+## CodeSandbox 示例集
+
+由于在 `CodeSandBox` 无法以收藏夹的方式共享，我把其中涉及到的示例总结在这里
+
+1. [React 中可以以数组的 index 作为 key 吗?](https://codesandbox.io/s/react-key-shuzudeindex-nl47k)。在这段代码中，使用 index 作为 key 会引发 bug。
+1. [React 中合成事件](https://codesandbox.io/s/syntheticevent-249x1)。React 中事件为合成事件，你可以通过 `e.nativeEvent` 获取到原生事件，观察 `e.nativeEvent.currentTarget` 你将会发现 React 将所有事件都绑定在了 `#app`(React 应用挂载的根组件)
+1. [React 中 input.onChange 的原生事件是什么？](https://codesandbox.io/s/input-onchange-1ybhw)。观察 `e.nativeEvent.type` 可知
+1. [React hooks 如何实现一个计数器 Counter](https://codesandbox.io/s/shiyong-react-hooks-ruheshixianyigejishuqi-counter-tc5u1)
+1. [React FiberNode 数据结构](https://codesandbox.io/s/fibernode-diaoshixinxi-rqt78)。贯彻 `element._owner` 可知 FiberNode 数据结构
+1. [React 点击按钮时自增三次](https://codesandbox.io/s/react-setstate-dianjianniuzizengsanci-b4j29)。此时需使用回调函数，否则会报错
+1. [React 不可变数据的必要性](https://codesandbox.io/s/react-bukebianduixiangzhihanshuzujian-zppgm)。
+1. [React 不可变数据的必要性之函数组件](https://codesandbox.io/s/react-todo-setstate-bukebianduixiang-r7qof)。当在 React hooks 中 setState 两次为相同数据时，不会重新渲染
+1. [React 状态批量更新之事件处理](https://codesandbox.io/s/react-state-pilianggengxin-826iv)。事件处理中的状态会批量更新，减少渲染次数
+1. [React 状态批量更新之异步请求](https://codesandbox.io/s/react-state-pilianggengxiner-jzu52)。异步请求中的状态不会批量更新，将会造成多次渲染
+1. [React18 状态批量更新](https://codesandbox.io/s/react18-state-pilianggengxin-75ktu)。在 React 18 中所有状态将会批量更新
+1. [React.memo 和 React.useMemo 是如何优化性能的](https://codesandbox.io/s/reactmemo-and-reactusememo-79txp)
+1. [React capture value](https://codesandbox.io/s/react-capture-value-ft06r)
+
+## Codepen 示例集
+
++ [前端大厂面试指南](https://codepen.io/collection/MggMed?grid_type=list)
+
 ## 大厂内推
 
 + [阿里-供应链平台事业部-前端-校招/社招](https://q.shanyue.tech/infer/ali-ascp.html)
 + [字节-视频架构组-前端-社招](https://q.shanyue.tech/infer/toutiao-media-arch.html)
 + [腾讯-CSIG智慧零售-前端-社招](https://q.shanyue.tech/infer/tencent-csig.html)
++ ...
 
 ## 大厂面经
 
