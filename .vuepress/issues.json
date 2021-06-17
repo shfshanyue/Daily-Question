@@ -6,6 +6,10 @@
     "body": "网站开发中，如何实现图片的懒加载，随着 web 技术的发展，他有没有一些更好的方案",
     "labels": [
       {
+        "id": "MDU6TGFiZWwxNzY5MDg5MzQ2",
+        "name": "dom"
+      },
+      {
         "id": "MDU6TGFiZWwxNjUxNDAyMzE2",
         "name": "html"
       }
@@ -505,6 +509,10 @@
     "body": "",
     "labels": [
       {
+        "id": "MDU6TGFiZWwzMDU0MjAwNTE1",
+        "name": "code"
+      },
+      {
         "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
         "name": "js"
       }
@@ -716,6 +724,10 @@
     "body": "",
     "labels": [
       {
+        "id": "MDU6TGFiZWwzMDU0MjAwNTE1",
+        "name": "code"
+      },
+      {
         "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
         "name": "js"
       }
@@ -724,7 +736,7 @@
       "id": "MDEyOklzc3VlQ29tbWVudDU1NDYyNzg0NA==",
       "body": "**最简单的 `bind` 一行就可以实现，而在实际面试过程中也不会考察你太多的边界条件**\r\n\r\n``` js\r\nFunction.prototype.fakeBind = function(obj) {\r\n  return (...args) => this.apply(obj, args)\r\n}\r\n```\r\n\r\n测试一下\r\n\r\n``` js\r\nfunction f (arg) {\r\n  console.log(this.a, arg)\r\n}\r\n\r\n// output: 3, 4\r\nf.bind({ a: 3 })(4)\r\n\r\n// output: 3, 4\r\nf.fakeBind({ a: 3 })(4)\r\n```\r\n",
       "reactions": {
-        "totalCount": 2
+        "totalCount": 3
       },
       "author": {
         "login": "shfshanyue",
@@ -1722,7 +1734,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDcyMDg4ODE1OA==",
-      "body": "Http 缓存分为以下两种，两者都是通过 HTTP 响应头控制缓存\r\n\r\n1. 强制缓存\r\n1. 协商缓存\r\n\r\n## 强制缓存\r\n\r\n再次请求时无需再向服务器发送请求\r\n\r\n``` bash\r\n              client         server\r\nGET /a.ab389z.js ------->\r\n                      <------- 200 OK\r\n(再也不会发请求)\r\n```\r\n\r\n与之相关的 Response Headers 有以下几个\r\n\r\n+ `Expires`\r\n\r\n  这个头部也是丧心病狂：使用绝对时间，且有固定的格式 <https://tools.ietf.org/html/rfc822#section-5.1>\r\n\r\n  ``` bash\r\n  Expires: Mon, 25 Oct 2021 20:11:12 GMT\r\n  ```\r\n\r\n+ `Cache-Control`，具有强大的缓存控制能力\r\n\r\n  常用的有以下两个\r\n\r\n  + `no-cache`，每次请求需要校验服务器资源的新鲜度\r\n  + `max-age=31536000`，浏览器在一年内都不需要向服务器请求资源\r\n\r\n## 协商缓存\r\n\r\n再次请求时，需要向服务器校验新鲜度，如果资源是新鲜的，返回 304，从浏览器获取资源\r\n\r\n``` bash\r\n           client         server\r\nGET /a.js   ----------->\r\n                   <----------- 200 OK\r\nGET /a.js   ----------->\r\n                   <----------- 304 Not Modified\r\n```\r\n\r\n与之相关的 Response Headers 有以下几个\r\n\r\n+ `Last-Modified`/`Modified-Since`\r\n+ `Etag`",
+      "body": "Http 缓存分为以下两种，两者都是通过 HTTP 响应头控制缓存\r\n\r\n1. 强制缓存\r\n1. 协商缓存\r\n\r\n## 强制缓存\r\n\r\n再次请求时无需再向服务器发送请求\r\n\r\n``` bash\r\n              client         server\r\nGET /a.ab389z.js ------->\r\n                      <------- 200 OK\r\n(再也不会发请求)\r\n```\r\n\r\n与之相关的 Response Headers 有以下几个\r\n\r\n+ `Expires`\r\n\r\n  这个头部也是丧心病狂：使用绝对时间，且有固定的格式 <https://tools.ietf.org/html/rfc822#section-5.1>\r\n\r\n  ``` bash\r\n  Expires: Mon, 25 Oct 2021 20:11:12 GMT\r\n  ```\r\n\r\n+ `Cache-Control`，具有强大的缓存控制能力\r\n\r\n  常用的有以下两个\r\n\r\n  + `no-cache`，每次请求需要校验服务器资源的新鲜度\r\n  + `max-age=31536000`，浏览器在一年内都不需要向服务器请求资源\r\n\r\n## 协商缓存\r\n\r\n再次请求时，需要向服务器校验新鲜度，如果资源是新鲜的，返回 304，从浏览器获取资源\r\n\r\n``` bash\r\n           client         server\r\nGET /a.js   ----------->\r\n                   <----------- 200 OK\r\nGET /a.js   ----------->\r\n                   <----------- 304 Not Modified\r\n```\r\n\r\n与之相关的 Response Headers 有以下几个\r\n\r\n+ `Last-Modified`/`If-Modified-Since`\r\n+ `Etag`/`If-None-Match`",
       "reactions": {
         "totalCount": 1
       },
@@ -1913,7 +1925,7 @@
   {
     "id": "MDU6SXNzdWU1MzA3MjY0Nzk=",
     "number": 89,
-    "title": "【Q088】如何实现 promise.map，并限制并发数",
+    "title": "【Q088】如何实现 promise.map，限制 promise 并发数",
     "body": "",
     "labels": [
       {
@@ -3513,7 +3525,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDY2NDgxMjkzOQ==",
-      "body": "通过把该 `cookie` 的过期时间改为过去时即可删除成功，具体操作的话可以通过操作两个字段来完成\r\n\r\n1. `max-age`: 将要过期的最大秒数，设置为 `-1` 即可删除\r\n1. `expires`: 将要过期的绝对时间，存储到 `cookies` 中需要通过 `date.toUTCString()` 处理，设置为过期时间即可删除\r\n\r\n很明显，`max-age` 更为简单，以下代码可在命令行控制台中进行测试\r\n\r\n``` js\r\n// max-age 设置为 -1 即可成功\r\ndocument.cookie = 'a=3; max-age=-1'\r\n```\r\n\r\n``` js\r\n> document.cookie\r\n< \"\"\r\n\r\n> document.cookie = 'a=3'\r\n< \"a=3\"\r\n\r\n> document.cookie\r\n< \"a=3\"\r\n\r\n// 把该字段的 max-age 设置为 -1\r\n> document.cookie = 'a=3; max-age=-1'\r\n< \"a=3; max-age=-1\"\r\n\r\n// 删除成功\r\n> document.cookie\r\n< \"\"\r\n```",
+      "body": "通过把该 `cookie` 的过期时间改为过去时即可删除成功，具体操作的话可以通过操作两个字段来完成\r\n\r\n1. `max-age`: 将要过期的最大秒数，设置为 `-1` 即可删除\r\n1. `expires`: 将要过期的绝对时间，存储到 `cookies` 中需要通过 `date.toUTCString()` 处理，设置为过期时间即可删除\r\n\r\n很明显，`max-age` 更为简单，以下代码可在命令行控制台中进行测试\r\n\r\n``` js\r\n// max-age 设置为 -1 即可成功\r\ndocument.cookie = 'a=3; max-age=-1'\r\n```\r\n\r\n``` js\r\n> document.cookie\r\n< \"\"\r\n\r\n> document.cookie = 'a=3'\r\n< \"a=3\"\r\n\r\n> document.cookie\r\n< \"a=3\"\r\n\r\n// 把该字段的 max-age 设置为 -1\r\n> document.cookie = 'a=3; max-age=-1'\r\n< \"a=3; max-age=-1\"\r\n\r\n// 删除成功\r\n> document.cookie\r\n< \"\"\r\n```\r\n\r\n同时，也可以使用最新关于 cookie 操作的 API: `CookieStorea API` 其中的 `cookieStore.delete(name)` 删除某个 cookie",
       "reactions": {
         "totalCount": 0
       },
@@ -4338,6 +4350,10 @@
     "body": "",
     "labels": [
       {
+        "id": "MDU6TGFiZWwzMDU0MjAwNTE1",
+        "name": "code"
+      },
+      {
         "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
         "name": "js"
       }
@@ -4607,13 +4623,17 @@
     "body": "",
     "labels": [
       {
+        "id": "MDU6TGFiZWwxNzY5MDg5MzQ2",
+        "name": "dom"
+      },
+      {
         "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
         "name": "js"
       }
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDU5NDk3MjkzOA==",
-      "body": "## 跨域\r\n\r\n**协议**，**域名**，**端口**，三者有一不一样，就是跨域\r\n\r\n案例一：`www.baidu.com` 与 `zhidao.baidu.com` 是跨域\r\n\r\n## 如何解决跨域\r\n\r\n目前有两种最常见的解决方案：\r\n\r\n1. CORS，在服务器端设置几个响应头\r\n1. Reverse Proxy，在 nginx/traefik/haproxy 等反向代理服务器中设置为同一域名\r\n",
+      "body": "## 跨域\r\n\r\n**协议**，**域名**，**端口**，三者有一不一样，就是跨域\r\n\r\n案例一：`www.baidu.com` 与 `zhidao.baidu.com` 是跨域\r\n\r\n## 如何解决跨域\r\n\r\n目前有两种最常见的解决方案：\r\n\r\n1. CORS，在服务器端设置几个响应头，如 `Access-Control-Allow-Origin: *`\r\n1. Reverse Proxy，在 nginx/traefik/haproxy 等反向代理服务器中设置为同一域名\r\n1. JSONP，详解见 [JSONP 的原理是什么，如何实现](https://github.com/shfshanyue/Daily-Question/issues/447)",
       "reactions": {
         "totalCount": 0
       },
@@ -4842,6 +4862,10 @@
     "title": "【Q228】如何实现一个 flatMap 函数 (头条)",
     "body": "",
     "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDU0MjAwNTE1",
+        "name": "code"
+      },
       {
         "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
         "name": "js"
@@ -5096,6 +5120,10 @@
     "body": "",
     "labels": [
       {
+        "id": "MDU6TGFiZWwzMDU0MjAwNTE1",
+        "name": "code"
+      },
+      {
         "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
         "name": "js"
       }
@@ -5258,8 +5286,8 @@
         "totalCount": 0
       },
       "author": {
-        "login": "wangedison",
-        "url": "https://github.com/wangedison"
+        "login": "edisonwd",
+        "url": "https://github.com/edisonwd"
       }
     }
   },
@@ -5601,7 +5629,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDY3ODc4MTc2NA==",
-      "body": "CSS (Cross Site Scripting)，跨站脚本攻击。",
+      "body": "CSS (Cross Site Scripting)，跨站脚本攻击。可使用以下脚本在指定网站上进行攻击\r\n\r\n``` html\r\n<script>alert('XSS')</script>\r\n\r\n<img src=\"https://devtool.tech/notfound.png\" onerror=\"alert('XSS')\">\r\n```",
       "reactions": {
         "totalCount": 0
       },
@@ -5916,11 +5944,15 @@
       {
         "id": "MDU6TGFiZWwxNzY5MDg5MzQ2",
         "name": "dom"
+      },
+      {
+        "id": "MDU6TGFiZWwzMDkwODMwMjI5",
+        "name": "perf"
       }
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDYyMTUyODQ5OQ==",
-      "body": "1. `preload` 加载当前路由必需资源，优先级高\r\n1. `prefetch` 优先级低，在浏览器 idle 状态时加载资源。一般用以加载其它路由资源，如当页面出现 Link，可 prefetch 当前 Link 的路由资源。（next.js 默认会对 link  做懒加载+prefetch，即当某条 Link 出现页面中，即自动 prefetch 该 Link 指向的路由资源\r\n\r\n> prefetch - Prefetch the page in the background. Defaults to true. Any <Link /> that is in the viewport (initially or through scroll) will be preloaded.\r\n\r\n更多信息可参考以下链接：\r\n\r\n+ [用 preload 预加载页面资源](https://juejin.im/post/5a7fb09bf265da4e8e785c38)\r\n+ [Using Preload and Prefetch in Your HTML to Load Assets](https://alligator.io/html/preload-prefetch/)",
+      "body": "``` html\r\n<link rel=\"prefetch\" href=\"style.css\" as=\"style\">\r\n<link rel=\"preload\" href=\"main.js\" as=\"script\">\r\n```\r\n\r\n1. `preload` 加载当前路由必需资源，优先级高。一般对于 Bundle Spliting 资源与 Code Spliting 资源做 preload\r\n1. `prefetch` 优先级低，在浏览器 idle 状态时加载资源。一般用以加载其它路由资源，如当页面出现 Link，可 prefetch 当前 Link 的路由资源。（next.js 默认会对 link  做懒加载+prefetch，即当某条 Link 出现页面中，即自动 prefetch 该 Link 指向的路由资源\r\n\r\n> prefetch - Prefetch the page in the background. Defaults to true. Any <Link /> that is in the viewport (initially or through scroll) will be preloaded.\r\n\r\n更多信息可参考以下链接：\r\n\r\n+ [用 preload 预加载页面资源](https://juejin.im/post/5a7fb09bf265da4e8e785c38)\r\n+ [Using Preload and Prefetch in Your HTML to Load Assets](https://alligator.io/html/preload-prefetch/)",
       "reactions": {
         "totalCount": 0
       },
@@ -6459,6 +6491,10 @@
     "title": "【Q312】如何实现 Promise.race",
     "body": "",
     "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDU0MjAwNTE1",
+        "name": "code"
+      },
       {
         "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
         "name": "js"
@@ -8076,6 +8112,10 @@
     "body": "",
     "labels": [
       {
+        "id": "MDU6TGFiZWwzMDU0MjAwNTE1",
+        "name": "code"
+      },
+      {
         "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
         "name": "js"
       }
@@ -8255,8 +8295,8 @@
         "totalCount": 0
       },
       "author": {
-        "login": "wangedison",
-        "url": "https://github.com/wangedison"
+        "login": "edisonwd",
+        "url": "https://github.com/edisonwd"
       }
     }
   },
@@ -8315,6 +8355,10 @@
     "title": "【Q411】如何找到当前页面出现次数最多的HTML标签",
     "body": "",
     "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDU0MjAwNTE1",
+        "name": "code"
+      },
       {
         "id": "MDU6TGFiZWwxNzY5MDg5MzQ2",
         "name": "dom"
@@ -8521,6 +8565,10 @@
     "title": "【Q421】如何实现无限累加的一个函数",
     "body": "实现一个 sum 函数如下所示：\r\n\r\n``` js\r\nsum(1, 2, 3).valueOf() //6\r\nsum(2, 3)(2).valueOf() //7\r\nsum(1)(2)(3)(4).valueOf() //10\r\nsum(2)(4, 1)(2).valueOf() //9\r\nsum(1)(2)(3)(4)(5)(6).valueOf() // 21\r\n```",
     "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDU0MjAwNTE1",
+        "name": "code"
+      },
       {
         "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
         "name": "js"
@@ -8826,6 +8874,10 @@
     "body": "",
     "labels": [
       {
+        "id": "MDU6TGFiZWwzMDU0MjAwNTE1",
+        "name": "code"
+      },
+      {
         "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
         "name": "js"
       }
@@ -8848,6 +8900,10 @@
     "title": "【Q436】如何实现一个 sample 函数，从数组中随机取一个元素",
     "body": "",
     "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDU0MjAwNTE1",
+        "name": "code"
+      },
       {
         "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
         "name": "js"
@@ -8912,6 +8968,10 @@
     "body": "",
     "labels": [
       {
+        "id": "MDU6TGFiZWwxNzY5MDg5MzQ2",
+        "name": "dom"
+      },
+      {
         "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
         "name": "js"
       }
@@ -8934,6 +8994,10 @@
     "title": "【Q440】实现一个函数用来对 URL 的 querystring 进行编码",
     "body": "示例，如\r\n\r\n``` js\r\nconst data = {\r\n  a: 3,\r\n  b: 4,\r\n  c: 5\r\n}\r\n\r\n// 对 data 编码后得到 querystring 如下\r\nconst qs = 'a=3&b=4&c=5'\r\n```\r\n\r\n镜像问题: [【Q429】实现一个函数用来解析 URL 的 querystring](https://github.com/shfshanyue/Daily-Question/issues/436)",
     "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDU0MjAwNTE1",
+        "name": "code"
+      },
       {
         "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
         "name": "js"
@@ -9010,7 +9074,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDc1MjY3NDg4MQ==",
-      "body": "在 ES2019 之前，可通过 **`reduce` + `concat`** 实现，由于 `Array.prototype.concat` 既可以连接数组又可以连接单项，十分巧妙\r\n\r\n``` js\r\nconst flatten = list => list.reduce( (a, b) => a.concat(b), [])\r\n```\r\n\r\n一个更简单的实现方式是 `Array.prototype.concat` 与 `...` 运算符\r\n\r\n``` js\r\nconst flatten = list => [].concat(...list)\r\n```\r\n\r\n如果要求深层数组打平，则如下实现\r\n\r\n``` js\r\nconst flatten = list => list.reduce( (a, b) => a.concat(Array.isArray(b) ? flatten(b) : b), [])\r\n```\r\n\r\n在 ES2019 之后，可通过 **`Array.prototype.flat`** 直接实现！",
+      "body": "在 ES2019 之前，可通过 **`reduce` + `concat`** 实现，由于 `Array.prototype.concat` 既可以连接数组又可以连接单项，十分巧妙\r\n\r\n``` js\r\nconst flatten = list => list.reduce( (a, b) => a.concat(b), [])\r\n```\r\n\r\n一个更简单的实现方式是 `Array.prototype.concat` 与 `...` 运算符\r\n\r\n``` js\r\nconst flatten = list => [].concat(...list)\r\n```\r\n\r\n如果要求深层数组打平，则如下实现\r\n\r\n``` js\r\nconst flatten = list => list.reduce((a, b) => a.concat(Array.isArray(b) ? flatten(b) : b), [])\r\n```\r\n\r\n在 ES2019 之后，可通过 **`Array.prototype.flat`** 直接实现！",
       "reactions": {
         "totalCount": 1
       },
@@ -9023,7 +9087,7 @@
   {
     "id": "MDU6SXNzdWU3NzA1MzgyMDg=",
     "number": 452,
-    "title": "【Q444】介绍隐藏页面中某个元素的几种方法",
+    "title": "【Q444】介绍 CSS 隐藏页面中某个元素的几种方法",
     "body": "",
     "labels": [
       {
@@ -9037,7 +9101,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDc1NjE1OTA1OA==",
-      "body": "## 01 display: none\r\n\r\n通过 CSS 操控 display，移出文档流\r\n\r\n``` css\r\ndisplay: none;\r\n```\r\n\r\n## 02 opacity: 0\r\n\r\n透明度为0，仍在文档流中，当作用于其上的事件(如点击)仍有效\r\n\r\n``` css\r\nopacity: 0;\r\n```\r\n\r\n## 03 visibility: hidden\r\n\r\n透明度为0，仍在文档流中，**但作用于其上的事件(如点击)无效**，这也是 `visibility:hidden` 与 `opacity: 0` 的区别\r\n\r\n``` css\r\nvisibility: hidden;\r\n```\r\n\r\n## 04 content-visibility\r\n\r\n移出文档流，但是再次显示时消耗性能低\r\n\r\n``` css\r\ncontent-visibility: hidden;\r\n```\r\n\r\n## 05 绝对定位于当前页面的不可见位置\r\n\r\n``` css\r\nposition: absolute;\r\ntop: -9000px;\r\nleft: -9000px;\r\n```\r\n\r\n## 06 字体大小设置为 0\r\n\r\n``` css\r\nfont-size: 0;\r\n```\r\n",
+      "body": "> 更多的隐藏方案可查看: [10 Ways to Hide Elements in CSS](https://www.sitepoint.com/hide-elements-in-css/)\r\n\r\n## 01 display: none\r\n\r\n通过 CSS 操控 display，移出文档流\r\n\r\n``` css\r\ndisplay: none;\r\n```\r\n\r\n## 02 opacity: 0\r\n\r\n透明度为0，仍在文档流中，当作用于其上的事件(如点击)仍有效\r\n\r\n``` css\r\nopacity: 0;\r\n```\r\n\r\n## 03 visibility: hidden\r\n\r\n透明度为0，仍在文档流中，**但作用于其上的事件(如点击)无效**，这也是 `visibility:hidden` 与 `opacity: 0` 的区别\r\n\r\n``` css\r\nvisibility: hidden;\r\n```\r\n\r\n## 04 content-visibility\r\n\r\n移出文档流，但是再次显示时消耗性能低\r\n\r\n``` css\r\ncontent-visibility: hidden;\r\n```\r\n\r\n## 05 绝对定位于当前页面的不可见位置\r\n\r\n``` css\r\nposition: absolute;\r\ntop: -9000px;\r\nleft: -9000px;\r\n```\r\n\r\n## 06 字体大小设置为 0\r\n\r\n``` css\r\nfont-size: 0;\r\n```\r\n",
       "reactions": {
         "totalCount": 2
       },
@@ -9076,6 +9140,10 @@
     "title": "【Q446】如何实现页面文本不可复制",
     "body": "",
     "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzY5MDg5MzQ2",
+        "name": "dom"
+      },
       {
         "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
         "name": "js"
@@ -9123,13 +9191,17 @@
     "body": "",
     "labels": [
       {
+        "id": "MDU6TGFiZWwxNzY5MDg5MzQ2",
+        "name": "dom"
+      },
+      {
         "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
         "name": "js"
       }
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDc0ODk5MzM5OA==",
-      "body": "> 以下图片取自 whatwg 的规范，可以说是最权威的图文解释了，详细参考[原文](https://html.spec.whatwg.org/multipage/scripting.html#the-script-element)\r\n\r\n![async 与 defer 区别](https://html.spec.whatwg.org/images/asyncdefer.svg)\r\n\r\n在*正常情况下*，即 `<script>` 没有任何额外属性标记的情况下，有几点共识\r\n\r\n1. JS 的脚本分为**加载、解析、执行**几个步骤，简单对应到图中就是 `fetch` (加载) 和 `execution` (解析并执行)\r\n2. **JS 的脚本加载(fetch)且执行(execution)会阻塞 DOM 的渲染**，因此 JS 一般放到最后头\r\n\r\n而 `defer` 与 `async` 的区别如下:\r\n\r\n+ 相同点: **异步加载 (fetch)** \r\n+ 不同点:\r\n  + async 加载(fetch)完成后立即执行 (execution)，因此可能会阻塞 DOM 解析；\r\n  + defer 加载(fetch)完成后延迟到 DOM 解析完成后才会执行(execution)**，但会在事件 `DomContentLoaded` 之前\r\n\r\n## 拓展\r\n\r\n当以下 `index.js` 加载时，属性是 `async` 与 `defer` 时，输出有何不同？\r\n\r\n**index.html**\r\n\r\n``` html\r\n<!DOCTYPE html>\r\n<html lang=\"en\">\r\n<head>\r\n  <meta charset=\"UTF-8\">\r\n  <title></title>\r\n</head>\r\n<body>\r\n  <script src=\"index.js\" defer></script>\r\n  <script>\r\n    console.log('Start')\r\n    document.addEventListener('DOMContentLoaded', () => {\r\n      console.log('DCL')\r\n    })\r\n  </script>\r\n</body>\r\n</html>\r\n```\r\n\r\n**index.js**\r\n\r\n``` js\r\nconsole.log('Async Script')\r\n```",
+      "body": "> 以下图片取自 whatwg 的规范，可以说是最权威的图文解释了，详细参考[原文](https://html.spec.whatwg.org/multipage/scripting.html#the-script-element)\r\n\r\n![async 与 defer 区别](https://html.spec.whatwg.org/images/asyncdefer.svg)\r\n\r\n在*正常情况下*，即 `<script>` 没有任何额外属性标记的情况下，有几点共识\r\n\r\n1. JS 的脚本分为**加载、解析、执行**几个步骤，简单对应到图中就是 `fetch` (加载) 和 `execution` (解析并执行)\r\n2. **JS 的脚本加载(fetch)且执行(execution)会阻塞 DOM 的渲染**，因此 JS 一般放到最后头\r\n\r\n而 `defer` 与 `async` 的区别如下:\r\n\r\n+ 相同点: **异步加载 (fetch)** \r\n+ 不同点:\r\n  + async 加载(fetch)完成后立即执行 (execution)，因此可能会阻塞 DOM 解析；\r\n  + defer 加载(fetch)完成后延迟到 DOM 解析完成后才会执行(execution)**，但会在事件 `DomContentLoaded` 之前\r\n\r\n## 拓展\r\n\r\n当以下 `index.js` 加载时，属性是 `async` 与 `defer` 时，输出有何不同？\r\n\r\n**index.html**\r\n\r\n``` html\r\n<!DOCTYPE html>\r\n<html lang=\"en\">\r\n<head>\r\n  <meta charset=\"UTF-8\">\r\n  <title></title>\r\n</head>\r\n<body>\r\n  <script src=\"./defer.js\" defer></script>\r\n  <script src=\"./async.js\" async></script>\r\n  <script>\r\n    console.log('Start')\r\n    document.addEventListener('DOMContentLoaded', () => {\r\n      console.log('DCL')\r\n    })\r\n  </script>\r\n</body>\r\n</html>\r\n```\r\n\r\n**derfer.js**\r\n\r\n``` js\r\nconsole.log('Defer Script')\r\n```\r\n\r\n\r\n**async.js**\r\n\r\n``` js\r\nconsole.log('Async Script')\r\n```\r\n\r\n答：defer 总是在 DCL 之前输出，但是 async 有可能之前也有可能之后",
       "reactions": {
         "totalCount": 0
       },
@@ -9511,7 +9583,17 @@
         "name": "react"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg1Mjg0MzgwNw==",
+      "body": "1. SSR渲染的时候，服务端与客户端走不同的webpack打包配置。\r\n那么就可以在打包的时候写入区分环境的环境变量。\r\n2. 服务器端是没有window document 等浏览器宿主环境对象的，可以通过 类型检测 这些对象 来区分。\r\n``` typeof window === undefined ",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "listenecho",
+        "url": "https://github.com/listenecho"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU3OTc4OTM2NjY=",
@@ -9621,9 +9703,13 @@
   {
     "id": "MDU6SXNzdWU4MDMyMjI5OTY=",
     "number": 480,
-    "title": "【Q472】什么是 HTML 的实体编码",
+    "title": "【Q472】什么是 HTML 的实体编码 (HTML Entity Encode)",
     "body": "",
     "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzY5MDg5MzQ2",
+        "name": "dom"
+      },
       {
         "id": "MDU6TGFiZWwxNjUxNDAyMzE2",
         "name": "html"
@@ -9925,6 +10011,10 @@
     "title": "【Q489】如何实现一个函数 lodash.merge",
     "body": "",
     "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDU0MjAwNTE1",
+        "name": "code"
+      },
       {
         "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
         "name": "js"
@@ -10248,7 +10338,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDg0ODM4MjI2OQ==",
-      "body": "七种，文档见 [基本数据类型 - MDN](https://developer.mozilla.org/zh-CN/docs/Glossary/Primitive)\r\n\r\n+ number\r\n+ bigint\r\n+ string\r\n+ undefined\r\n+ null\r\n+ symbol\r\n+ bool",
+      "body": "七种，文档见 [基本数据类型 - MDN](https://developer.mozilla.org/zh-CN/docs/Glossary/Primitive)\r\n\r\n+ number\r\n+ bigint: **这个常常会忽略，最新加入的**\r\n+ string\r\n+ undefined\r\n+ null\r\n+ symbol\r\n+ bool",
       "reactions": {
         "totalCount": 0
       },
@@ -10446,7 +10536,17 @@
         "name": "js"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg1NDI5NjA5NA==",
+      "body": "`D F H C E G A B`",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU4OTgyMDUzMjk=",
@@ -10803,7 +10903,7 @@
   {
     "id": "MDU6SXNzdWU5MDA1MjA4MTU=",
     "number": 545,
-    "title": "【Q532】简述 position 的值",
+    "title": "【Q532】简述 css 中 position 的值",
     "body": "",
     "labels": [
       {
@@ -10970,6 +11070,10 @@
       {
         "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
         "name": "js"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjU4MzQ3NDIy",
+        "name": "react"
       }
     ],
     "comment": {
@@ -11041,7 +11145,17 @@
         "name": "dom"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg1MTc0MDYwNQ==",
+      "body": "+ `e.preventDefault()`: 取消事件\r\n+ `e.cancelable`: 事件是否可取消",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU5MDMwODg2MTc=",
@@ -11059,7 +11173,7 @@
   {
     "id": "MDU6SXNzdWU5MDMwODkwNjg=",
     "number": 558,
-    "title": "【Q544】什么是事件委托",
+    "title": "【Q544】什么是事件委托，e.currentTarget 与 e.target 有何区别",
     "body": "",
     "labels": [
       {
@@ -11067,7 +11181,17 @@
         "name": "dom"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg1MTEzMTMyNA==",
+      "body": "![image](https://user-images.githubusercontent.com/13389461/120127876-31b39b00-c1f3-11eb-8297-ca155f3b4562.png)\r\n\r\n事件委托指当有大量子元素触发事件时，将事件监听器绑定在父元素进行监听，此时数百个事件监听器变为了一个监听器，提升了网页性能。\r\n\r\n另外，React 把所有事件委托在 Root Element，用以提升性能。",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU5MDMxMDQ2MDc=",
@@ -11080,7 +11204,17 @@
         "name": "dom"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg1MTczOTIwMw==",
+      "body": "``` js\r\nDocument click\r\nContainer click\r\nBtn click When Capture\r\nBtn click\r\nItem click\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU5MDMxMTUxODU=",
@@ -11142,7 +11276,17 @@
         "name": "js"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg1MTcyODYwMg==",
+      "body": "完美实现一个月下载量超过一个亿的包: [isarray](https://npm.devtool.tech/isarray)\r\n\r\n``` js\r\nconst isArray = Array.isArray || list => ({}).toString.call(list) === '[object Array]'\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU5MDQ0NDg1MDI=",
@@ -11157,7 +11301,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDg1MDA3MDI5Nw==",
-      "body": "+ 数据描述符\r\n+ 存取描述符",
+      "body": "与直接为一个对象的属性赋值(`o.a = 3`)不同，`Object.defineProperty` 可更为精确，拥有更多选项地为对象属性赋值\r\n\r\n属性描述符拥有两种: 数据描述符与存取描述符\r\n\r\n## 数据描述符 (data descriptor)\r\n\r\n决定该属性值是否可写\r\n\r\n``` js\r\nconst o = {}\r\nObject.defineProperty(o, 'a', {\r\n  configurable: false,\r\n  enumerable: false,\r\n  writable: true,\r\n  value: 3,\r\n})\r\n```\r\n\r\n+ `configurable`: 是否可被删除\r\n+ `enumerable`: 是否可被枚举，不可枚举属性无法通过 `Object.keys` 获取到\r\n+ `writable`: 是否可更改该属性值\r\n+ `value`: 该属性值的值\r\n\r\n当我们使用赋值运算符为对象添加属性时，实际上是添加了一个数据描述符\r\n\r\n``` js\r\n> o.c = 5\r\n> Object.getOwnPropertyDescriptor(o, 'c')\r\n< {value: 5, writable: true, enumerable: true, configurable: true}\r\n```\r\n\r\n## 存取描述符 (accessor descriptor)\r\n\r\n可对对象属性进行拦截，Vue2 的数据绑定原理便是基于此\r\n\r\n``` js\r\nconst o = {}\r\nObject.defineProperty(o, 'a', {\r\n  configurable: false,\r\n  enumerable: false,\r\n  get () {\r\n     return this._a\r\n  },\r\n  set (a) {\r\n    this._a = a * 10\r\n  }\r\n})\r\n```",
       "reactions": {
         "totalCount": 0
       },
@@ -11178,7 +11322,17 @@
         "name": "js"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg1MTcyNzE3NQ==",
+      "body": "+ `Object.keys`: 列出可枚举的属性值\r\n+ `Object.getOwnPropertyNames`: 列出所有属性值(包括可枚举与不可枚举)\r\n\r\n同时 `Object.defineProperty` 中的选项  `enumerable` 可定义属性是否可枚举",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU5MDQ1OTExODM=",
@@ -11204,7 +11358,17 @@
         "name": "css"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg1MDk3NzU4MQ==",
+      "body": "Flex 布局是轴线布局，只能指定\"项目\"针对轴线的位置，可以看作是一维布局。\r\nGrid 布局则是将容器划分成\"行\"和\"列\"，产生单元格，然后指定\"项目所在\"的单元格，可以看作是二维布局。\r\nGrid 布局远比 Flex 布局强大    \r\n",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "Kiera569",
+        "url": "https://github.com/Kiera569"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU5MDQ5OTM5MTc=",
@@ -11263,7 +11427,7 @@
     "id": "MDU6SXNzdWU5MDYyOTUzMTc=",
     "number": 572,
     "title": "【Q557】如何实现三列均分布局",
-    "body": "布局代码如下所示，可见 [三列均分布局 - codepen](https://codepen.io/shanyue/pen/yLMzxqX)\r\n\r\n``` html\r\n<div class=\"container\">\r\n  <div class=\"item\"></div>\r\n  <div class=\"item\"></div>\r\n  <div class=\"item\"></div>\r\n</div>\r\n```\r\n\r\n``` css\r\n\r\n// 以下为样式代码，非核心功能代码\r\n* {\r\n  box-sizing: border-box;\r\n}\r\n\r\n.container {\r\n  background-color: #eee;\r\n  height: 10rem;\r\n  margin: 1rem;\r\n}\r\n\r\n.item {\r\n  border: 1px solid #888;\r\n}\r\n```",
+    "body": "布局代码如下所示，可见 [三列均分布局 - codepen](https://codepen.io/shanyue/pen/yLMzxqX)\r\n\r\n> 注: 在第一个元素中设置文字，子元素不能因文字过长而挤压。\r\n\r\n``` html\r\n<div class=\"container\">\r\n  <div class=\"item\">白日依山尽，黄河入海流。欲穷千里目，更上一层楼。</div>\r\n  <div class=\"item\"></div>\r\n  <div class=\"item\"></div>\r\n</div>\r\n```\r\n\r\n``` css\r\n\r\n// 以下为样式代码，非核心功能代码\r\n* {\r\n  box-sizing: border-box;\r\n}\r\n\r\n.container {\r\n  background-color: #eee;\r\n  height: 10rem;\r\n  width: 40rem;\r\n  margin: 1rem;\r\n}\r\n\r\n.item {\r\n  border: 1px solid #888;\r\n}\r\n```",
     "labels": [
       {
         "id": "MDU6TGFiZWwxNjUxNDAyMzIw",
@@ -11272,7 +11436,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDg1MDc1NDIyMA==",
-      "body": "见代码 [三均分布局 - Codepen](https://codepen.io/shanyue/pen/yLMzxqX)\r\n\r\n## 使用 Flex\r\n\r\n注意使用 `calc(100% / 3)` 设置 `flex-basis`，同时它的缺陷是**不能够很好的为子元素设置左右间隙**\r\n\r\n``` scss\r\n.flex-container {\r\n  display: flex;\r\n  flex-wrap: wrap;\r\n  // gap: 1rem;\r\n  \r\n  \r\n  .item {\r\n   flex: 0 0 calc(100% / 3);\r\n  }\r\n}\r\n```\r\n\r\n## 使用 Grid\r\n\r\n使用 Grid 直接操作容器即可，对于子元素之间的间隙也可以很好地控制，可看出 Grid 更为简单\r\n\r\n``` scss\r\n.grid-container {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr;\r\n  gap: 1rem;\r\n}\r\n```",
+      "body": "见代码 [三均分布局 - Codepen](https://codepen.io/shanyue/pen/yLMzxqX)\r\n\r\n## 使用 Flex\r\n\r\n注意使用 `calc(100% / 3)` 设置 `flex-basis`，同时它的缺陷是**不能够很好的为子元素设置左右间隙**\r\n\r\n``` scss\r\n.flex-container {\r\n  display: flex;\r\n  flex-wrap: wrap;\r\n  // gap: 1rem;\r\n  \r\n  \r\n  .item {\r\n   flex: 0 0 calc(100% / 3);\r\n  }\r\n}\r\n```\r\n\r\n> 注意: 如果同时给子元素使用 `flex-grow: 1` 控制均分，当子元素拥有文字等内容时，会受到挤压，将无法实现均分布局。\r\n\r\n## 使用 Grid\r\n\r\n使用 Grid 直接操作容器即可，对于子元素之间的间隙也可以很好地控制，可看出 Grid 更为简单，更为高效，更为精确\r\n\r\n``` scss\r\n.grid-container {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr;\r\n  gap: 1rem;\r\n}\r\n```",
       "reactions": {
         "totalCount": 0
       },
@@ -11325,9 +11489,13 @@
   {
     "id": "MDU6SXNzdWU5MDY2MTExNDA=",
     "number": 575,
-    "title": "【Q560】什么是 Data URL",
+    "title": "【Q560】Data URL 的应用场景",
     "body": "",
     "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzY5MDg5MzQ2",
+        "name": "dom"
+      },
       {
         "id": "MDU6TGFiZWwxNjgwMDkyMDA5",
         "name": "http"
@@ -11354,6 +11522,762 @@
       {
         "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
         "name": "js"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU5MDY2ODA0ODY=",
+    "number": 577,
+    "title": "【Q562】WeakMap 与 Map 有何区别",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg1MTcyNTU3NA==",
+      "body": "`WeakMap` 与 `Map` 有亮点不同\r\n\r\n1. 键值只能为引用对象，无法使用基础数据类型\r\n2. 弱引用，无法枚举，因此无 `.entries()` 方法",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5MDY2OTE2NjE=",
+    "number": 578,
+    "title": "【Q563】什么是媒体查询，JS 可以监听媒体查询吗",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIw",
+        "name": "css"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU5MDc3NzM2MTc=",
+    "number": 579,
+    "title": "【Q564】z-index: 999 元素一定会置于 z-index: 0 元素之上吗",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIw",
+        "name": "css"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg1MTczMjUzNQ==",
+      "body": "代码见 [zindex - codepen](https://codepen.io/shanyue/pen/XWMVpxJ)\r\n\r\n不可，更复杂的示例见 [层叠上下文 - MDN](https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context)",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5MDc3OTQ0OTE=",
+    "number": 580,
+    "title": "【Q565】浏览器中事件有哪些属性与方法",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzY5MDg5MzQ2",
+        "name": "dom"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU5MDc3OTkwOTQ=",
+    "number": 581,
+    "title": "【Q566】关于块级作用域，以下代码输出多少，在何时间输出",
+    "body": "``` js\r\nfor (var i = 0; i < 5; i++) {\r\n  setTimeout(() => console.log(i), 1000)\r\n}\r\n```",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg1MTc1MDM2OQ==",
+      "body": "一秒之后连续输出五个5，以下可输出预期效果\r\n\r\n``` js\r\nfor (let i = 0; i < 5; i++) {\r\n  setTimeout(() => console.log(i), 1000 * i)\r\n}\r\n\r\nfor (var i = 0; i < 5; i++) {\r\n  setTimeout(console.log, 1000 * i, i)\r\n}\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5MDkwMTg2NTU=",
+    "number": 582,
+    "title": "【Q567】如何逆序一个字符串",
+    "body": "可以使用 `Array.prototype.reverse.call(s)` 逆序字符串吗",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg1MjY3MTQwOA==",
+      "body": "``` js\r\nconst reverse = s => s.split('').reverse().join('')\r\n\r\nreverse('hello')\r\n//=> \"olleh\"\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5MDkwMjU3NjU=",
+    "number": 583,
+    "title": "【Q568】为何 0.1+0.2 不等于 0.3，应如何做相等比较",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg1MjY3NTEwMA==",
+      "body": "0.1，0.2 表示为二进制会有精度的损失，比较时可引入一个很小的数值 `Number.EPSILON` 容忍误差，其值为 2^-52。\r\n\r\n``` js\r\nfunction equal (a, b) {\r\n  return Math.abs(a - b) < Number.EPSILON\r\n}\r\n```",
+      "reactions": {
+        "totalCount": 1
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5MDkwMjg5ODk=",
+    "number": 584,
+    "title": "【Q569】关于 this 与包装对象，以下输出多少",
+    "body": "``` js\r\nfunction foo() {\r\n  console.log(this)\r\n}\r\n\r\nfoo.call(3);\r\n```",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU5MDk0NDM2NTY=",
+    "number": 585,
+    "title": "【Q570】浏览器中如何读取二进制信息",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzY5MDg5MzQ2",
+        "name": "dom"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU5MTAwMDg0MzM=",
+    "number": 586,
+    "title": "【Q571】关于类型转化，判断以下代码输出",
+    "body": "``` js\r\nBoolean(new Boolean(false));\r\nBoolean(document.all);\r\n\r\n[] == '';\r\n[3] == 3;\r\n[] == false;\r\n42 == true;\r\n```",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU5MTAwMjM2OTI=",
+    "number": 587,
+    "title": "【Q572】关于暂时性死域，判断以下代码输出",
+    "body": "**第一段代码如下**\r\n\r\n``` js\r\nvar a = 3;\r\nlet a;\r\n```\r\n\r\n**第二段代码如下**\r\n\r\n``` js\r\nvar x = 3;\r\n\r\nfunction foo (x=x) {\r\n    // ..\r\n}\r\n\r\nfoo()\r\n```",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU5MTAwMzYxOTY=",
+    "number": 588,
+    "title": "【Q573】关于词法作用域，判断以下代码输出",
+    "body": "``` js\r\nvar scope = 'global scope';\r\nfunction checkScope () {\r\n  var scope = 'local scope';\r\n  function f() {\r\n    return scope; \r\n  }\r\n  return f;\r\n}\r\n\r\ncheckScope()();\r\n```",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg1MzUxNTQ2Ng==",
+      "body": "`local scope`\r\n\r\n由于 js 为词法作用域(Lexical Scope)，访问某个变量时，先在当前作用域中查找，如果查找不到则在嵌套作用域中查找，直到找到。如果找不到，则报 ReferenceError。",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5MTAwMzY5Mjk=",
+    "number": 589,
+    "title": "【Q574】关于 this，判断以下代码输出",
+    "body": "``` js\r\nfunction foo() {\r\n  console.log( this.a );\r\n}\r\n\r\nvar a = 2;\r\n\r\n(function(){\r\n  \"use strict\";\r\n\r\n  foo();\r\n})();\r\n```",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg1MzUxOTcwMQ==",
+      "body": "输出: 2\r\n\r\n**只有在存在 this 的函数中设置严格模式**，this 为 undefined。因此此时会正常输出。",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5MTAwNjQwMjQ=",
+    "number": 590,
+    "title": "【Q575】关于 new，判断以下代码输出",
+    "body": "``` js\r\nfunction F () {\r\n  this.a = 3;\r\n  return {\r\n    a: 4;\r\n  }\r\n}\r\n\r\nconst f = new F();\r\nconsole.log(f.a);\r\n```",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg1MzYyNDUzOA==",
+      "body": "输出 4\r\nnew 操作符，默认返回this对象。如果手动指定返回对象，则new出来的实例指向的是return的对象，而不是this",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "hsk863hh",
+        "url": "https://github.com/hsk863hh"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5MTA5ODU2NDQ=",
+    "number": 591,
+    "title": "【Q576】如何正确得知某张图片的 MIME 格式",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzI2MDg3MTMx",
+        "name": "node"
+      },
+      {
+        "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+        "name": "前端工程化"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU5MTA5ODY4MzE=",
+    "number": 592,
+    "title": "【Q577】关于简单的事件循环，判断以下代码输出",
+    "body": "判断以下代码输出次序\r\n\r\n``` js\r\nsetTimeout(() => console.log('A'))\r\n\r\nPromise.resolve().then(() => console.log('B'))\r\n\r\nconsole.log('C')\r\n```\r\n\r\n[复杂题在此](https://github.com/shfshanyue/Daily-Question/issues/528)",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg1NDI5MzA5Mw==",
+      "body": "`C B A`\r\n\r\nC 在主线程执行栈\r\nB 在microtask\r\nA 在 macrotask",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5MTMwNTQ0NzA=",
+    "number": 594,
+    "title": "【Q578】HTTP 响应头 cache-control: s-maxage=0 是什么意思",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjgwMDkyMDA5",
+        "name": "http"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU5MTMwNTgwMzc=",
+    "number": 595,
+    "title": "【Q579】http 缓存控制中 Cach-Control 为 public 与 private 有何区别",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjgwMDkyMDA5",
+        "name": "http"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg1ODQyOTQ3Nw==",
+      "body": "cache-control:默认值是private,\r\nprivite    响应只能为私有缓存，不能在用户间共享\r\npublic    公有缓存，可以在多用户间共享",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "Kiera569",
+        "url": "https://github.com/Kiera569"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5MTMwNjE4ODk=",
+    "number": 596,
+    "title": "【Q580】http 方法 get 与 post 有何区别",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjgwMDkyMDA5",
+        "name": "http"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU5MTM0ODIxMDM=",
+    "number": 597,
+    "title": "【Q581】箭头函数和普通函数的区别",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU5MTUxMDI0NzM=",
+    "number": 598,
+    "title": "【Q582】什么是 URL 编码 (URL Encode)",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE2",
+        "name": "html"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU5MTU3MjQ4NDg=",
+    "number": 599,
+    "title": "【Q583】http 状态码  204 使用在什么场景",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjgwMDkyMDA5",
+        "name": "http"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg1NzMzNTYzNQ==",
+      "body": "1. `Head Method`\r\n2. `Options Method`\r\n3. 打点",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5MTU3MzAzOTU=",
+    "number": 600,
+    "title": "【Q584】现代前端应用应如何配置 HTTP 缓存机制",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjgwMDkyMDA5",
+        "name": "http"
+      },
+      {
+        "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+        "name": "前端工程化"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU5MTU3NDEyODM=",
+    "number": 601,
+    "title": "【Q585】如何确保你们的项目开启了 gzip",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjgwMDkyMDA5",
+        "name": "http"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU5MTU3NDE3Njk=",
+    "number": 602,
+    "title": "【Q586】HTTP 有哪些常见的请求头和响应头",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjgwMDkyMDA5",
+        "name": "http"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU5MTY4MDYwNjM=",
+    "number": 603,
+    "title": "【Q587】使用 webpack 如何分包",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzA2NzQ0ODEz",
+        "name": "webpack"
+      },
+      {
+        "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+        "name": "前端工程化"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU5MTY4MDk0OTA=",
+    "number": 604,
+    "title": "【Q588】什么是 HSTS ",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjgwMDkyMDA5",
+        "name": "http"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU5MTgxNzI4ODg=",
+    "number": 605,
+    "title": "【Q589】http 中 referer 请求头是做什么的",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjgwMDkyMDA5",
+        "name": "http"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg2MDUyMzQyNw==",
+      "body": "判断该网页的来源地址\r\n\r\n1. 打点\r\n2. 防盗链",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5MTgxNzU1OTA=",
+    "number": 606,
+    "title": "【Q590】React 中什么是合成事件",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU4MzQ3NDIy",
+        "name": "react"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg1OTYyODg3Nw==",
+      "body": "1. 提供统一的 API，抹平各大浏览器差异\r\n2. 所有事件绑定在 React Root Element 进行事件委托",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5MTgxNzYwODQ=",
+    "number": 607,
+    "title": "【Q591】什么是纯函数",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg2MTQ3NDQ3OQ==",
+      "body": "1. 输出仅由输入决定，每一个固定的输入总是返回相同的输出\r\n2. 不产生副作用\r\n\r\n``` js\r\nfunction push(list, x)  {\r\n  list.push(x);\r\n  return list\r\n}\r\n\r\nconst l = []\r\npush(l, 3)\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5MTgxNzcwNzM=",
+    "number": 608,
+    "title": "【Q592】前端项目中有哪些副作用",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU4MzQ3NDIy",
+        "name": "react"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjU4MzU0NDc5",
+        "name": "vue"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU5MTgxODE1MzU=",
+    "number": 609,
+    "title": "【Q593】React/Vue 中受控组件与不受控组件的区别",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU4MzQ3NDIy",
+        "name": "react"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjU4MzU0NDc5",
+        "name": "vue"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU5MTg3MzQ5NDY=",
+    "number": 610,
+    "title": "【Q594】给数字添加千位符",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDU0MjAwNTE1",
+        "name": "code"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg1OTU3OTMyOA==",
+      "body": "千位符替换可由正则 `/(\\d)(?=(\\d\\d\\d)+(?!\\d))/` 进行匹配\r\n\r\n``` js\r\nfunction toString (number, thousandsSeperator = ',') {\r\n  return String(number).replace(/(\\d)(?=(\\d\\d\\d)+(?!\\d))/g, '$1' + thousandsSeperator)\r\n}\r\n```\r\n\r\n如果你写不出来正则，也可由一段简单的代码实现\r\n\r\n``` js\r\nfunction toString (number, thousandsSeperator = ',') {\r\n  const s = String(number)\r\n  let r = ''\r\n  for (let i = s.length - 1; i >= 0; i--) {\r\n    const seperator = (s.length - i - 1) % 3 ? '' : thousandsSeperator\r\n    r = `${s[i]}${seperator}${r}`\r\n  }\r\n  return r.slice(0, -1)\r\n}\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5MTg4ODEyMDI=",
+    "number": 611,
+    "title": "【Q595】React 中监听 input 的 onChange 事件的原生事件是什么",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzY5MDg5MzQ2",
+        "name": "dom"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjU4MzQ3NDIy",
+        "name": "react"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg2MjAxMTI1Mw==",
+      "body": "[React 中 onChange 的原生事件是什么？](https://codesandbox.io/s/input-onchange-1ybhw?file=/src/App.js)\r\n\r\n``` js\r\nimport \"./styles.css\";\r\n\r\nexport default function App() {\r\n  return (\r\n    <div className=\"App\">\r\n      <input\r\n        onChange={(e) => {\r\n          console.log(\"Event: \", e);\r\n          console.log(\"NativeEvent: \", e.nativeEvent);\r\n          console.log(\"CurrentTarget: \", e.nativeEvent.currentTarget);\r\n          console.log(\"NativeEvent Type: \", e.nativeEvent.type);\r\n        }}\r\n      />\r\n    </div>\r\n  );\r\n}\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5MTk1NTIxNDM=",
+    "number": 612,
+    "title": "【Q596】在浏览器中点击 a 标签保存为文件如何做",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzY5MDg5MzQ2",
+        "name": "dom"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg2MDA1MDI4NA==",
+      "body": "有两种方式:\r\n\r\n1. `a.download` 当指定 a 标签的 `download` 属性时，点击该链接会直接保存为文件，文件名为 `download` 属性\r\n1.  通过对 a 标签指定的 URL 在服务器设置响应头 `Content-Disposition: attachment; filename=\"filename.jpg\"` 可直接下载\r\n",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5MTk2ODk0NjM=",
+    "number": 613,
+    "title": "【Q597】引入 BFF 层的优势在哪里",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+        "name": "前端工程化"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg2MDEzMzIwOQ==",
+      "body": "BFF 全称 `Backend For Frontend`，具有以下好处\r\n\r\n1. 数据处理。对数据进行校验、清洗及格式化。使得数据更与前端契合\r\n2. 数据聚合。后端无需处理大量的表连接工作，第三方接口聚合工作，业务逻辑简化为各个资源的增删改查，由 BFF 层聚合各个资源的数据，后端可集中处理性能问题、监控问题、消息队列等\r\n3. 权限前移。在 BFF 层统一认证鉴权，后端无需做权限校验，后端可直接部署在集群内网，无需向外网暴露服务，减少了后端的服务度。\r\n\r\n但其中也有一些坏处，如以下\r\n\r\n1. 引入复杂度，新的 BFF 服务需要一套基础设施的支持，如日志、异常、部署、监控等",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5MTk3MDUzMzU=",
+    "number": 614,
+    "title": "【Q598】如何实现一个深比较的函数 deepEqual",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDU0MjAwNTE1",
+        "name": "code"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU5MTk3NzA2ODk=",
+    "number": 615,
+    "title": "【Q599】Object.is 与全等运算符(===)有何区别",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg2MDE5MDYxOQ==",
+      "body": "``` js\r\nif (!Object.is) {\r\n  Object.is = function(x, y) {\r\n    // SameValue algorithm\r\n    if (x === y) { // Steps 1-5, 7-10\r\n      // Steps 6.b-6.e: +0 != -0\r\n      return x !== 0 || 1 / x === 1 / y;\r\n    } else {\r\n      // Step 6.a: NaN == NaN\r\n      return x !== x && y !== y;\r\n    }\r\n  };\r\n}\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5MTk4MjAwMDk=",
+    "number": 616,
+    "title": "【Q600】在 React hooks 中如何模拟 forceUpdate",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU4MzQ3NDIy",
+        "name": "react"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg2MDIyNzA1Nw==",
+      "body": "``` js\r\n  const [ignored, forceUpdate] = useReducer(x => x + 1, 0);\r\n\r\n  function handleClick() {\r\n    forceUpdate();\r\n  }\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5MjAyMTc3Mjg=",
+    "number": 617,
+    "title": "【Q601】什么是认证与授权",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIy",
+        "name": "server"
       }
     ],
     "comment": ""

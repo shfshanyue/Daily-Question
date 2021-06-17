@@ -1,5 +1,15 @@
 module.exports = [
   {
+    name: 'perf',
+    alias: '性能优化',
+    group: 'fe'
+  },
+  {
+    name: 'code',
+    alias: '手写代码',
+    group: 'fe'
+  },
+  {
     name: 'c',
     alias: 'C语言',
     group: 'server'
