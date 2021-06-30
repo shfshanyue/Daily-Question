@@ -56,6 +56,10 @@
     "body": "",
     "labels": [
       {
+        "id": "MDU6TGFiZWwzMDU0MjAwNTE1",
+        "name": "code"
+      },
+      {
         "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
         "name": "js"
       }
@@ -1565,8 +1569,8 @@
         "totalCount": 0
       },
       "author": {
-        "login": "RunToGet",
-        "url": "https://github.com/RunToGet"
+        "login": "su-imagine",
+        "url": "https://github.com/su-imagine"
       }
     }
   },
@@ -4278,6 +4282,10 @@
     "body": "",
     "labels": [
       {
+        "id": "MDU6TGFiZWwzMDU0MjAwNTE1",
+        "name": "code"
+      },
+      {
         "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
         "name": "js"
       }
@@ -4333,7 +4341,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDU4OTQzODU3Mw==",
-      "body": "`?.` 操作符，可以嵌套获取对象的属性值。通过获取对象属性获得的值可能是 undefined 或 null 时，可选链操作符提供了一种方法来简化被连接对象的值访问。\r\n\r\n``` javascript\r\nconst o = {}\r\n\r\n// 添加可选链之前\r\no && o.a && o.a.b && o.a.b.c && o.a.b.c.d\r\n\r\n// 添加可选链之后\r\no?.a?.b?.c?.d\r\n```",
+      "body": "> 文档见 [可选链操作符 - MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Optional_chaining) \r\n\r\n\r\n`?.` 操作符，可以嵌套获取对象的属性值。通过获取对象属性获得的值可能是 undefined 或 null 时，可选链操作符提供了一种方法来简化被连接对象的值访问。\r\n\r\n``` javascript\r\nconst o = {}\r\n\r\n// 添加可选链之前\r\no && o.a && o.a.b && o.a.b.c && o.a.b.c.d\r\n\r\n// 添加可选链之后\r\no?.a?.b?.c?.d\r\n```",
       "reactions": {
         "totalCount": 0
       },
@@ -4454,7 +4462,7 @@
       "id": "MDEyOklzc3VlQ29tbWVudDcxOTYxMTUzNw==",
       "body": "`no-cache` 和 `no-store` 用作控制缓存，被服务器通过响应头 `Cache-Control` 传递给客户端\r\n\r\n## `no-store`\r\n\r\n**永远都不要在客户端存储资源**，每次永远都要从原始服务器获取资源\r\n\r\n## `no-cache`\r\n\r\n可以在客户端存储资源，但每次都**必须去服务器做新鲜度校验**，来决定从服务器获取最新资源 (200) 还是从客户端读取缓存 (304)，即所谓的协商缓存\r\n\r\n> [当服务器资源返回 304 时与那些 HTTP 响应头有关](https://github.com/shfshanyue/Daily-Question/issues/441)\r\n\r\n一般情况下对于 `index.html` 或者现代构建环境下不加 hash 的静态资源都需要设置 `Cache-Control: no-cache`，用来强制每次在服务器端的新鲜度校验。\r\n\r\n相当于以下响应头\r\n\r\n``` bash\r\nCache-Control: max-age=0, must-revalidate\r\n```\r\n\r\n## 相关问题\r\n\r\n+ [【Q434】当服务器资源返回 304 时与那些 HTTP 响应头有关](https://github.com/shfshanyue/Daily-Question/issues/441)\r\n+ [【Q079】简述 HTTP 的缓存机制](https://github.com/shfshanyue/Daily-Question/issues/80)",
       "reactions": {
-        "totalCount": 2
+        "totalCount": 3
       },
       "author": {
         "login": "shfshanyue",
@@ -5210,7 +5218,17 @@
         "name": "js"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg2OTczMzcyNQ==",
+      "body": "接收一个可迭代对象，其中每个成员都是`Promise`。在所有给定的`Promise`都已经`fulfilled`或`rejected`后返回一个`Promise`，并带有一个对象数组，每个对象表示对应的`Promise`结果\r\n相较于`Promise.all`，后者会在任何一个`Promise`为`rejected`时立即结束\r\n简单实现\r\n``` js\r\nconst myPromiseSettled = (items) => {\r\n  const onResolved = (value) => ({ status: 'fulfilled', value });\r\n  const onRejected = (reason) => ({ status: 'rejected', reason });\r\n  return Promise.all(items.map((item) => Promise.resolve(item).then(onResolved, onRejected)));\r\n}\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "mrrs878",
+        "url": "https://github.com/mrrs878"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU1ODE3NDY5ODg=",
@@ -5258,11 +5276,25 @@
     "body": "",
     "labels": [
       {
+        "id": "MDU6TGFiZWwzMDU0MjAwNTE1",
+        "name": "code"
+      },
+      {
         "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
         "name": "js"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg2OTc0MjkxMQ==",
+      "body": "可以借助`Map`实现\r\n\r\n``` js\r\nclass LRUCache {\r\n  constructor(limit) {\r\n    this.limit = limit;\r\n    this.cache = new Map();\r\n  }\r\n\r\n  get(key) {\r\n    if (!this.cache.has(key)) return undefined;\r\n    const value = this.cache.get(key);\r\n    this.cache.delete(key);\r\n    this.cache.set(key, value);\r\n    return value;\r\n  }\r\n\r\n  put(key, value) {\r\n    if (this.cache.has(key)) this.cache.delete(key);\r\n    else if (this.cache.size >= this.limit) {\r\n      this.cache.delete(this.cache.keys().next().value);\r\n    }\r\n    this.cache.set(key, value);\r\n  }\r\n}\r\n\r\n// [\"LRUCache\",\"put\",\"put\",\"get\",\"put\",\"get\",\"put\",\"get\",\"get\",\"get\"]\r\n// [[2],[1,1],[2,2],[1],[3,3],[2],[4,4],[1],[3],[4]]\r\nconst lruCache = new LRUCache(2);\r\nlruCache.put(1, 1);\r\nlruCache.put(2, 2);\r\nconst res1 = lruCache.get(1);\r\nlruCache.put(3, 3);\r\nconst res2 = lruCache.get(2);\r\nlruCache.put(4, 4);\r\nconst res3 = lruCache.get(1);\r\nconst res4 = lruCache.get(3);\r\nconst res5 = lruCache.get(4);\r\n\r\nconsole.log(res1, res2, res3, res4, res5);\r\n// 1 undefined undefined 3 4\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "mrrs878",
+        "url": "https://github.com/mrrs878"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU1ODk3MzI3NDk=",
@@ -6055,7 +6087,17 @@
         "name": "node"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg3MDY4MTUyNg==",
+      "body": "在 CommonJS 规范中，当遇到`require()`语句时，会执行`require`模块中的代码，并缓存执行的结果，当下次再次加载时不会重复执行，而是直接取缓存的结果。正因为此，出现循环依赖时才不会出现无限循环调用的情况。\r\n\r\n``` js\r\n// a.js\r\nconst { b } = require(\"./b\");\r\n\r\nconst a = 11;\r\n\r\nconsole.log('b in a.js', b);\r\n\r\nmodule.exports = { a };\r\n```\r\n\r\n``` js\r\n// b.js\r\nconst { a } = require(\"./a\");\r\n\r\nconst b = 12;\r\n\r\nconsole.log('a in b.ls', a);\r\nsetTimeout(() => {\r\n  console.log('a in b.ls', a);\r\n}, 1000);\r\n\r\nmodule.exports = { b };\r\n```\r\n\r\n当执行`node a.js`时：\r\n``` shell\r\na in b.js is undefined\r\nb in a.js is 12\r\n(node:23352) Warning: Accessing non-existent property 'a' of module exports inside circular dependency    \r\n(Use `node --trace-warnings ...` to show where the warning was created)\r\na in b.js is undefined\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "mrrs878",
+        "url": "https://github.com/mrrs878"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU2MTQ4MTc0Nzg=",
@@ -6162,6 +6204,10 @@
     "title": "【Q295】fetch 中 crendentials 指什么意思，可以取什么值",
     "body": "",
     "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzY5MDg5MzQ2",
+        "name": "dom"
+      },
       {
         "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
         "name": "js"
@@ -8212,7 +8258,17 @@
         "name": "react"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg2MzY3MDAxMA==",
+      "body": "> 参考官方文档: [协调的设计动机](https://zh-hans.reactjs.org/docs/reconciliation.html#motivation)\r\n>\r\n> 此算法有一些通用的解决方案，即生成将一棵树转换成另一棵树的最小操作次数。然而，即使使用最优的算法，该算法的复杂程度仍为 O(n 3 )，其中 n 是树中元素的数量。\r\n> \r\n> 如果在 React 中使用该算法，那么展示 1000 个元素则需要 10 亿次的比较。这个开销实在是太过高昂。于是 React 在以下两个假设的基础之上提出了一套 O(n) 的启发式算法：\r\n> \r\n> 1. 两个不同类型的元素会产生出不同的树；\r\n> 1. 开发者可以通过设置 key 属性，来告知渲染哪些子元素在不同的渲染下可以保存不变；\r\n>\r\n> 在实践中，我们发现以上假设在几乎所有实用的场景下都成立。\r\n",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU2ODI2MTk1MDM=",
@@ -8385,6 +8441,10 @@
       {
         "id": "MDU6TGFiZWwxNjkwMDg5OTM2",
         "name": "algorithm"
+      },
+      {
+        "id": "MDU6TGFiZWwzMDU0MjAwNTE1",
+        "name": "code"
       },
       {
         "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
@@ -8742,6 +8802,10 @@
     "body": "示例，如\r\n\r\n``` js\r\nconst url = 'https://shanyue.tech?a=3&b=4&c=5'\r\n\r\n// 解析后得到 qs 如下\r\nconst qs = {\r\n  a: 3,\r\n  b: 4,\r\n  c: 5\r\n}\r\n```\r\n\r\n镜像问题: [【Q440】实现一个函数用来对 URL 的 querystring 进行编码](https://github.com/shfshanyue/Daily-Question/issues/448)",
     "labels": [
       {
+        "id": "MDU6TGFiZWwzMDU0MjAwNTE1",
+        "name": "code"
+      },
+      {
         "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
         "name": "js"
       }
@@ -8792,7 +8856,17 @@
         "name": "http"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg2ODk5MDI0MQ==",
+      "body": "401 --- unAuthorized  \r\n403 --- forbidden\r\n区别：前者需要用户验证，验证成功之后服务器会执行请求。\r\n           后者是服务器理解请求，但是拒绝执行。跟用户验证没有关系，服务器主动拒绝执行请求。",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "Kiera569",
+        "url": "https://github.com/Kiera569"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU3Mjc4ODI0NzY=",
@@ -8968,6 +9042,10 @@
     "body": "",
     "labels": [
       {
+        "id": "MDU6TGFiZWwzMDU0MjAwNTE1",
+        "name": "code"
+      },
+      {
         "id": "MDU6TGFiZWwxNzY5MDg5MzQ2",
         "name": "dom"
       },
@@ -9067,6 +9145,10 @@
     "title": "【Q443】实现一个数组扁平化的函数 flatten ",
     "body": "",
     "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDU0MjAwNTE1",
+        "name": "code"
+      },
       {
         "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
         "name": "js"
@@ -9520,6 +9602,10 @@
     "body": "",
     "labels": [
       {
+        "id": "MDU6TGFiZWwxNzY5MDg5MzQ2",
+        "name": "dom"
+      },
+      {
         "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
         "name": "js"
       }
@@ -9867,6 +9953,10 @@
       {
         "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
         "name": "js"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzEx",
+        "name": "open"
       }
     ],
     "comment": {
@@ -10051,6 +10141,10 @@
     "title": "【Q491】如何实现一个 Promise.all",
     "body": "",
     "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDU0MjAwNTE1",
+        "name": "code"
+      },
       {
         "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
         "name": "js"
@@ -11463,7 +11557,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDg1MDkyMzU2OA==",
-      "body": "+ `document.querySelectorAll('*')`\r\n+ `$$('*')`，可在浏览器控制台使用\r\n+ `document.all`，已废弃，不建议使用",
+      "body": "+ `document.querySelectorAll('*')`\r\n+ `document.getElementsByTagName('*')`\r\n+ `$$('*')`，可在浏览器控制台使用\r\n+ `document.all`，已废弃，不建议使用",
       "reactions": {
         "totalCount": 0
       },
@@ -11520,6 +11614,10 @@
     "body": "使用方法如 `inherits(Dog, Animal);`，`Dog` 对 `Animal` 进行了继承",
     "labels": [
       {
+        "id": "MDU6TGFiZWwzMDU0MjAwNTE1",
+        "name": "code"
+      },
+      {
         "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
         "name": "js"
       }
@@ -11529,7 +11627,7 @@
   {
     "id": "MDU6SXNzdWU5MDY2ODA0ODY=",
     "number": 577,
-    "title": "【Q562】WeakMap 与 Map 有何区别",
+    "title": "【Q562】WeakMap 与垃圾回收有何关系",
     "body": "",
     "labels": [
       {
@@ -12196,7 +12294,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDg2MDEzMzIwOQ==",
-      "body": "BFF 全称 `Backend For Frontend`，具有以下好处\r\n\r\n1. 数据处理。对数据进行校验、清洗及格式化。使得数据更与前端契合\r\n2. 数据聚合。后端无需处理大量的表连接工作，第三方接口聚合工作，业务逻辑简化为各个资源的增删改查，由 BFF 层聚合各个资源的数据，后端可集中处理性能问题、监控问题、消息队列等\r\n3. 权限前移。在 BFF 层统一认证鉴权，后端无需做权限校验，后端可直接部署在集群内网，无需向外网暴露服务，减少了后端的服务度。\r\n\r\n但其中也有一些坏处，如以下\r\n\r\n1. 引入复杂度，新的 BFF 服务需要一套基础设施的支持，如日志、异常、部署、监控等",
+      "body": "BFF 全称 `Backend For Frontend`，一般指在前端与服务器端搭建一层由前端维护的 Node Server服务，具有以下好处\r\n\r\n1. 数据处理。对数据进行校验、清洗及格式化。使得数据更与前端契合\r\n2. 数据聚合。后端无需处理大量的表连接工作，第三方接口聚合工作，业务逻辑简化为各个资源的增删改查，由 BFF 层聚合各个资源的数据，后端可集中处理性能问题、监控问题、消息队列等\r\n3. 权限前移。在 BFF 层统一认证鉴权，后端无需做权限校验，后端可直接部署在集群内网，无需向外网暴露服务，减少了后端的服务度。\r\n\r\n但其中也有一些坏处，如以下\r\n\r\n1. 引入复杂度，新的 BFF 服务需要一套基础设施的支持，如日志、异常、部署、监控等",
       "reactions": {
         "totalCount": 0
       },
@@ -12278,6 +12376,135 @@
       {
         "id": "MDU6TGFiZWwxNjUxNDAyMzIy",
         "name": "server"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU5MjM5MTI3Njk=",
+    "number": 619,
+    "title": "【Q602】如何把对象转化为 key/value 的二维数组",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg2MzIyOTI5OA==",
+      "body": "``` js\r\nObject.entries({ a: 3 })\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5MjUwMDUzMjY=",
+    "number": 620,
+    "title": "【Q603】在 JS 中如何监听 Object 某个属性值的变化",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDU0MjAwNTE1",
+        "name": "code"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU5MjU1MTMzMTc=",
+    "number": 621,
+    "title": "【Q604】判断以下路由，将会响应哪一个路由",
+    "body": "代码见: [多匹配路由 - codesandbox](https://codesandbox.io/s/node-server-duopipeiluyou-lr2l4)\r\n\r\n``` js\r\nconst app = new Koa()\r\nconst router = new Router()\r\n\r\nrouter.get('/', (ctx, next) => {\r\n  ctx.body = 'hello, world'\r\n})\r\n\r\nrouter.get('/api/users/10086', (ctx, next) => {\r\n  console.log(ctx.router)\r\n  ctx.body = {\r\n    userId: 10086,\r\n    direct: true\r\n  }\r\n})\r\n\r\nrouter.get('/api/users/:userId', (ctx, next) => {\r\n  console.log(ctx.router)\r\n  ctx.body = {\r\n    userId: ctx.params.userId\r\n  }\r\n})\r\n\r\napp.use(router.routes())\r\n```",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzI2MDg3MTMx",
+        "name": "node"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIy",
+        "name": "server"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU5MzEzMjEwOTE=",
+    "number": 622,
+    "title": "【Q605】js 中什么是 AsyncIterable",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU5MzMyNDkyNTE=",
+    "number": 624,
+    "title": "【Q606】关于事件循环，仅有 Promise，判断以下代码输出",
+    "body": "> 代码见 [Promise 事件循环代码输出顺序题目 - CodePen](https://codepen.io/shanyue/pen/XWRJjwz)\r\n\r\n``` js\r\nPromise.resolve(console.log(0))\r\n  .then(() => {\r\n    console.log(1);\r\n    Promise.resolve(console.log(5))\r\n      .then(() => console.log(3))\r\n      .then(() => console.log(4))\r\n      .then(() => console.log(6))\r\n  })\r\n  .then(() => console.log(2))\r\n  .then(() => console.log(7))\r\n```",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg3MTA1NTQ0Ng==",
+      "body": "按照我的理解应该是0,1,2,7,5,3,4,6",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "xiaoxiaohuayu",
+        "url": "https://github.com/xiaoxiaohuayu"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5MzMyNjY1NDE=",
+    "number": 625,
+    "title": "【Q607】关于字符串编码解码进阶",
+    "body": "一道有意思的面试题\r\n例子如下，实现`countOfLetters`\r\n```js\r\ncountOfLetters('A2B3') // { A: 2, B: 3 }\r\ncountOfLetters('A(A3B)2') // { A: 7, B: 2}\r\ncountOfLetters('C4(A(A3B)2)2') // { A: 14, B: 4, C: 4 }\r\n```",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDU0MjAwNTE1",
+        "name": "code"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg3MTA2NTMzNw==",
+      "body": "答案：\r\n```ts\r\ntype LetterCounter = {\r\n  // A-Z\r\n  [i: string]: number\r\n}\r\n\r\nfunction letterAddCount(target: LetterCounter, source: LetterCounter) {\r\n  for (let k in source) {\r\n    target[k] ??= 0\r\n    target[k] += source[k]\r\n  }\r\n  return target\r\n}\r\nfunction letterMultipleCount(target: LetterCounter, multiples: number) {\r\n  for (let i in target) {\r\n    target[i] *= multiples\r\n  }\r\n  return target\r\n}\r\nfunction countOfLetters(str: string) {\r\n  const regex = /[1-9]/\r\n  const stack: LetterCounter[] = [{}]\r\n  for (let i = 0; i < str.length; i++) {\r\n    const ch = str[i]\r\n    let count = 1\r\n    if (regex.test(str[i + 1])) count = +str[++i]\r\n    // case ( | )\r\n    switch (ch) {\r\n      case '(':\r\n        stack.push({})\r\n        continue\r\n      case ')':\r\n        const pop = stack.pop()!\r\n        const last = stack[stack.length - 1]\r\n        letterAddCount(last, letterMultipleCount(pop, count))\r\n        continue\r\n    }\r\n    // case A-Z\r\n    const last = stack[stack.length - 1]\r\n    last[ch] ??= 0\r\n    last[ch] += count\r\n  }\r\n  return stack.pop()\r\n}\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "Nctdtman",
+        "url": "https://github.com/Nctdtman"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5MzM2NTk2Njk=",
+    "number": 626,
+    "title": "【Q608】请简介 CSS 的盒模型",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIw",
+        "name": "css"
       }
     ],
     "comment": ""
