@@ -28,7 +28,12 @@ description: 每天至少一个面试题，并附以答案及讨论。有关前�
 
 由于在 `CodeSandBox` 无法以收藏夹的方式共享，我把其中涉及到的示例总结在这里
 
-1. [React 中可以以数组的 index 作为 key 吗?](https://codesandbox.io/s/react-key-shuzudeindex-nl47k)。在这段代码中，使用 index 作为 key 会引发 bug。
+1. [React.memo 和性能优化](https://codesandbox.io/s/zujianxiasuoyouzizujianhuifashengchongxinxuanran-bv70e)。当某个组件状态更新时，它的所有子组件树将会重新渲染。
+1. [React.memo 和 React.useMemo 优化性能](https://codesandbox.io/s/reactmemo-and-reactusememo-79txp)
+1. [React.memo 和 React.useCallback 优化性能](https://codesandbox.io/s/reactusecallback-and-perf-d3k6s)
+1. [React 中可以以数组的 index 作为 key 吗?](https://codesandbox.io/s/react-key-shuzudeindex-nl47k)。在这段代码中，使用 index 作为 key，其中夹杂了 input，引发 bug
+1. [React 中以数组的 index 作为 key](https://codesandbox.io/s/index-as-key-yichangshili-pfmpk)。在这段代码中，使用 index 作为 key，其中夹杂了随机数，引发了 bug
+1. [React 兄弟组件通信](https://codesandbox.io/s/react-xiongdizujiantongxin-f2jf6)。兄弟组件在 React 中如何通信
 1. [React 中合成事件](https://codesandbox.io/s/syntheticevent-249x1)。React 中事件为合成事件，你可以通过 `e.nativeEvent` 获取到原生事件，观察 `e.nativeEvent.currentTarget` 你将会发现 React 将所有事件都绑定在了 `#app`(React 应用挂载的根组件)
 1. [React 中 input.onChange 的原生事件是什么？](https://codesandbox.io/s/input-onchange-1ybhw)。观察 `e.nativeEvent.type` 可知
 1. [React hooks 如何实现一个计数器 Counter](https://codesandbox.io/s/shiyong-react-hooks-ruheshixianyigejishuqi-counter-tc5u1)
@@ -39,7 +44,6 @@ description: 每天至少一个面试题，并附以答案及讨论。有关前�
 1. [React 状态批量更新之事件处理](https://codesandbox.io/s/react-state-pilianggengxin-826iv)。事件处理中的状态会批量更新，减少渲染次数
 1. [React 状态批量更新之异步请求](https://codesandbox.io/s/react-state-pilianggengxiner-jzu52)。异步请求中的状态不会批量更新，将会造成多次渲染
 1. [React18 状态批量更新](https://codesandbox.io/s/react18-state-pilianggengxin-75ktu)。在 React 18 中所有状态将会批量更新
-1. [React.memo 和 React.useMemo 是如何优化性能的](https://codesandbox.io/s/reactmemo-and-reactusememo-79txp)
 1. [React capture value](https://codesandbox.io/s/react-capture-value-ft06r)
 
 ## Codepen 示例集
