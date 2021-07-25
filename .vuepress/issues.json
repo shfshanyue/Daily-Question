@@ -299,7 +299,7 @@
     "id": "MDU6SXNzdWU1MTgxOTIzNTg=",
     "number": 14,
     "title": "【Q013】有没有使用过 react hooks，它带来了那些便利",
-    "body": "",
+    "body": "有没有使用过 react hooks，它有哪些优缺点？",
     "labels": [
       {
         "id": "MDU6TGFiZWwxNjU4MzQ3NDIy",
@@ -356,7 +356,7 @@
       "id": "MDEyOklzc3VlQ29tbWVudDU1MTA3MDkyMA==",
       "body": "> 今天正好写了一篇长文来回答这个问题\r\n\r\n前端一说起刀耕火种，那肯定紧随着前端工程化这一话题。随着 `react`/`vue`/`angular`，`es6+`，`webpack`，`babel`，`typescript` 以及 `node` 的发展，前端已经在逐渐替代过去 script 引 cdn 开发的方式了，掀起了工程化这一大浪潮。得益于工程化的发展与开源社区的良好生态，前端应用的可用性与效率得到了很大提高。\r\n\r\n前端以前是刀耕火种，那前端应用部署在以前也是刀耕火种。那前端应用部署的发展得益于什么，随前端工程化带来的副产品？\r\n\r\n这只是一部分，而更重要的原因是 `devops` 的崛起。\r\n\r\n为了更清晰地理解前端部署的发展史，了解部署时运维和前端（或者更广泛地说，业务开发人员）的职责划分，当每次前端部署发生改变时，可以思考两个问题\r\n\r\n1. 缓存，前端应用中http 的 `response header` 由谁来配？得益于工程化发展，可以对打包后得到带有 hash 值的文件可以做永久缓存\r\n1. 跨域，`/api` 的代理配置由谁来配？在开发环境前端可以开个小服务，启用 `webpack-dev-server` 配置跨域，那生产环境呢\r\n\r\n这两个问题都是前端面试时的高频问题，但话语权是否掌握在前端手里\r\n\r\n时间来到 `React` 刚刚发展起来的这一年，这时已经使用 `React` 开发应用，使用 `webpack` 来打包。但是前端部署，仍是刀耕火种\r\n\r\n## 刀耕火种\r\n\r\n一台跳板机\r\n\r\n一台生产环境服务器\r\n\r\n一份部署脚本\r\n\r\n前端调着他的 `webpack`，开心地给运维发了部署邮件并附了一份部署脚本，想着第一次不用套后端的模板，第一次前端可以独立部署。想着自己基础盘进一步扩大，前端不禁开心地笑了\r\n\r\n运维照着着前端发过来的部署邮件，一遍又一遍地拉着代码，改着配置，写着 `try_files`， 配着 `proxy_pass`。\r\n\r\n这时候，前端静态文件由 `nginx` 托管，`nginx` 配置文件大致长这个样子\r\n\r\n``` conf\r\nserver {\r\n  listen 80;\r\n  server_name shanyue.tech; \r\n\r\n  location / {\r\n    # 避免非root路径404\r\n    try_files $uri $uri/ /index.html;\r\n  }\r\n\r\n  # 解决跨域\r\n  location /api {\r\n    proxy_pass http://api.shanyue.tech;\r\n  }\r\n\r\n  # 为带 hash 值的文件配置永久缓存\r\n  location ~* \\.(?:css|js)$ {\r\n      try_files $uri =404;\r\n      expires 1y;\r\n      add_header Cache-Control \"public\";\r\n  }\r\n\r\n  location ~ ^.+\\..+$ {\r\n      try_files $uri =404;\r\n  }\r\n}\r\n```\r\n\r\n不过...经常有时候跑不起来\r\n\r\n运维抱怨着前端的部署脚本没有标好 `node` 版本，前端嚷嚷着测试环境没问题\r\n\r\n这个时候运维需要费很多心力放在部署上，甚至测试环境的部署上，前端也要操心放在运维如何部署上。这个时候由于怕影响线上环境，上线往往选择在深夜，前端和运维身心俱疲\r\n\r\n不过向来如此\r\n\r\n鲁迅说，向来如此，那便对么。\r\n\r\n**这个时候，无论跨域的配置还是缓存的配置，都是运维来管理，运维不懂前端。但配置方式却是前端在提供，而前端并不熟悉 nginx**\r\n\r\n## 使用 docker 构建镜像\r\n\r\n`docker` 的引进，很大程度地解决了部署脚本跑不了这个大BUG。**`dockerfile` 即部署脚本，部署脚本即 `dockerfile`**。也很大程度缓解了前端运维的摩擦，毕竟前端越来越靠谱了，至少部署脚本没有问题了 (笑\r\n\r\n这时候，前端不再提供静态资源，而是提供服务，一个 `http` 服务\r\n\r\n前端写的 `dockerfile` 大致长这个样子\r\n\r\n``` dockerfile\r\nFROM node:alpine\r\n\r\n# 代表生产环境\r\nENV PROJECT_ENV production\r\n# 许多 package 会根据此环境变量，做出不同的行为\r\n# 另外，在 webpack 中打包也会根据此环境变量做出优化，但是 create-react-app 在打包时会写死该环境变量\r\nENV NODE_ENV production\r\nWORKDIR /code\r\nADD . /code\r\nRUN npm install && npm run build && npm install -g http-server\r\nEXPOSE 80\r\n\r\nCMD http-server ./public -p 80\r\n```\r\n\r\n单单有 `dockerfile` 也跑不起来，另外前端也开始维护一个 `docker-compose.yaml`，交给运维执行命令 `docker-compose up -d` 启动前端应用。前端第一次写 `dockerfile` 与 `docker-compose.yaml`，在部署流程中扮演的角色越来越重要。想着自己基础盘进一步扩大，前端不禁开心地笑了\r\n\r\n``` yaml\r\nversion: \"3\"\r\nservices:\r\n  shici:\r\n    build: .\r\n    expose:\r\n      - 80\r\n```\r\n\r\n\r\n运维的 `nginx` 配置文件大致长这个样子\r\n\r\n``` conf\r\nserver {\r\n  listen 80;\r\n  server_name shanyue.tech; \r\n\r\n  location / {\r\n    proxy_pass http://static.shanyue.tech;\r\n  }\r\n\r\n  location /api {\r\n    proxy_pass http://api.shanyue.tech;\r\n  }\r\n}\r\n```\r\n\r\n运维除了配置 `nginx` 之外，还要执行一个命令: `docker-compose up -d`\r\n\r\n这时候再思考文章最前面两个问题\r\n\r\n1. 缓存，由于从静态文件转换为服务，缓存开始交由前端控制 (但是镜像中的 `http-server` 不太适合做这件事情)\r\n1. 跨域，跨域仍由运维在 `nginx` 中配置\r\n\r\n前端可以做他应该做的事情中的一部分了，这是一件令人开心的事情\r\n\r\n当然，前端对于 `dockerfile` 的改进也是一个慢慢演进的过程，那这个时候镜像有什么问题呢？\r\n\r\n1. 构建镜像体积过大\r\n1. 构建镜像时间过长\r\n\r\n## 使用多阶段构建优化镜像\r\n\r\n这中间其实经历了不少坎坷，其中过程如何，详见我的另一篇文章: [如何使用 docker 部署前端应用](https://juejin.im/post/5c83cbaa6fb9a04a0f65fdaa)。\r\n\r\n其中主要的优化也是在上述所提到的两个方面\r\n\r\n1. 构建镜像体积由 1G+ 变为 10M+\r\n1. 构建镜像时间由 5min+ 变为 1min (视项目复杂程度，大部分时间在构建时间与上传静态资源时间)\r\n\r\n``` dockerfile\r\nFROM node:alpine as builder\r\n\r\nENV PROJECT_ENV production\r\nENV NODE_ENV production\r\n\r\nWORKDIR /code\r\n\r\nADD package.json /code\r\nRUN npm install --production\r\n\r\nADD . /code\r\n\r\n# npm run uploadCdn 是把静态资源上传至 oss 上的脚本文件，将来会使用 cdn 对 oss 加速\r\nRUN npm run build && npm run uploadCdn\r\n\r\n# 选择更小体积的基础镜像\r\nFROM nginx:alpine\r\nCOPY --from=builder code/public/index.html code/public/favicon.ico /usr/share/nginx/html/\r\nCOPY --from=builder code/public/static /usr/share/nginx/html/static\r\n```\r\n\r\n那它怎么做的\r\n\r\n1. 先 `ADD package.json /code`, 再 `npm install --production` 之后 `Add` 所有文件。充分利用镜像缓存，减少构建时间\r\n1. 多阶段构建，大大减小镜像体积\r\n\r\n另外还可以有一些小优化，如\r\n\r\n+ `npm cache` 的基础镜像或者 `npm` 私有仓库，减少 `npm install` 时间，减小构建时间\r\n+ `npm install --production` 只装必要的包\r\n\r\n前端看着自己优化的 `dockerfile`，想着前几天还被运维吵，说什么磁盘一半的空间都被前端的镜像给占了，想着自己节省了前端镜像几个数量级的体积，为公司好像省了不少服务器的开销，想着自己的基础盘进一步扩大，不禁开心的笑了\r\n\r\n这时候再思考文章最前面两个问题\r\n\r\n1. 缓存，缓存由前端控制，缓存在oss上设置，将会使用 cdn 对 oss 加速。此时缓存由前端写脚本控制\r\n1. 跨域，跨域仍由运维在 `nginx` 中配置\r\n\r\n## CI/CD 与 gitlab\r\n\r\n此时前端成就感爆棚，运维呢？运维还在一遍一遍地上线，重复着一遍又一遍的部署三个动作\r\n\r\n1. 拉代码\r\n1. `docker-compose up -d`\r\n1. 重启 nginx\r\n\r\n运维觉得再也不能这么下去了，于是他引进了 `CI`: 与现有代码仓库 `gitlab` 配套的 `gitlab ci`\r\n\r\n+ `CI`，`Continuous Integration`，持续集成\r\n+ `CD`，`Continuous Delivery`，持续交付\r\n\r\n重要的不是 `CI/CD` 是什么，重要的是现在运维不用跟着业务上线走了，不需要一直盯着前端部署了。这些都是 `CI/CD` 的事情了，它被用来做自动化部署。上述提到的三件事交给了 `CI/CD`\r\n\r\n`.gitlab-ci.yml` 是 `gitlab` 的 CI 配置文件，它大概长这个样子\r\n\r\n``` yaml\r\ndeploy:\r\n  stage: deploy\r\n  only:\r\n    - master\r\n  script:\r\n    - docker-compose up --build -d\r\n  tags:\r\n    - shell\r\n```\r\n\r\n`CI/CD` 不仅仅更解放了业务项目的部署，也在交付之前大大加强了业务代码的质量，它可以用来 `lint`，`test`，`package` 安全检查，甚至多特性多环境部署，我将会在我以后的文章将这部分事情\r\n\r\n我的一个服务器渲染项目 [shfshanyue/shici](https://github.com/shfshanyue/shici) 以前在我的服务器中就是以 `docker`/`docker-compose/gitlab-ci` 的方式部署，有兴趣的可以看看它的配置文件\r\n\r\n+ [shfshanyue/shici:Dockerfile](https://github.com/shfshanyue/shici/blob/master/Dockerfile)\r\n+ [shfshanyue/shici:docker-compose.yml](https://github.com/shfshanyue/shici/blob/master/docker-compose.yml)\r\n+ [shfshanyue/shici:gitlab-ci.yml](https://github.com/shfshanyue/shici/blob/master/.gitlab-ci.yml)\r\n\r\n如果你有个人服务器的话，也建议你做一个自己感兴趣的前端应用和配套的后端接口服务，并且配套 `CI/CD` 把它部署在自己的自己服务器上\r\n\r\n而你如果希望结合 `github` 做 `CI/CD`，那可以试一试 `github` + `github action`\r\n\r\n另外，也可以试试 `drone.ci`，如何部署可以参考我以前的文章: [github 上持续集成方案 drone 的简介及部署](https://juejin.im/post/5dc0b563f265da4cef190b8a)\r\n\r\n## 使用 kubernetes 部署\r\n\r\n随着业务越来越大，镜像越来越多，`docker-compose` 已经不太能应付，`kubernetes` 应时而出。这时服务器也从1台变成了多台，多台服务器就会有分布式问题\r\n\r\n**一门新技术的出现，在解决以前问题的同时也会引进复杂性。**\r\n\r\nk8s 部署的好处很明显: 健康检查，滚动升级，弹性扩容，快速回滚，资源限制，完善的监控等等\r\n\r\n那现在遇到的新问题是什么？\r\n\r\n**构建镜像的服务器，提供容器服务的服务器，做持续集成的服务器是一台！**\r\n\r\n需要一个私有的镜像仓库，这是运维的事情，`harbor` 很快就被运维搭建好了，但是对于前端部署来说，复杂性又提高了\r\n\r\n先来看看以前的流程:\r\n\r\n1. 前端配置 `dockerfile` 与 `docker-compose`\r\n1. 生产环境服务器的 `CI runner` 拉代码(可以看做以前的运维)，`docker-compose up -d` 启动服务。然后再重启 `nginx`，做反向代理，对外提供服务\r\n\r\n以前的流程有一个问题: **构建镜像的服务器，提供容器服务的服务器，做持续集成的服务器是一台！**，所以需要一个私有的镜像仓库，一个能够访问 `k8s` 集群的持续集成服务器\r\n\r\n流程改进之后结合 `k8s` 的流程如下\r\n\r\n1. 前端配置 `dockerfile`，构建镜像，推到镜像仓库\r\n1. 运维为前端应用配置 `k8s` 的资源配置文件，`kubectl apply -f` 时会重新拉取镜像，部署资源\r\n\r\n运维问前端，需不需要再扩大下你的基础盘，写一写前端的 `k8s` 资源配置文件，并且列了几篇文章\r\n\r\n+ [使用 k8s 部署你的第一个应用: Pod，Deployment 与 Service](https://juejin.im/post/5db8c2b46fb9a020256692dc)\r\n+ [使用 k8s 为你的应用配置域名: Ingress](https://juejin.im/post/5db8da4b6fb9a0204520b310)\r\n+ [使用 k8s 为你的域名加上 https](https://juejin.im/post/5db8d94be51d4529f73e2833)\r\n\r\n前端看了看后端十几个 k8s 配置文件之后，摇摇头说算了算了\r\n\r\n这个时候，`gitlab-ci.yaml` 差不多长这个样子，配置文件的权限由运维一人管理\r\n\r\n``` yaml\r\ndeploy:\r\n  stage: deploy\r\n  only:\r\n    - master\r\n  script:\r\n    - docker build -t harbor.shanyue.tech/fe/shanyue\r\n    - docker push harbor.shanyue.tech/fe/shanyue\r\n    - kubectl apply -f https://k8s-config.default.svc.cluster.local/shanyue.yaml\r\n  tags:\r\n    - shell\r\n```\r\n\r\n这时候再思考文章最前面两个问题\r\n\r\n1. 缓存，缓存由前端控制\r\n1. 跨域，跨域仍由运维控制，在后端 `k8s` 资源的配置文件中控制 `Ingress`\r\n\r\n## 使用 helm 部署\r\n\r\n这时前端与运维已不太往来，除了偶尔新起项目需要运维帮个忙以外\r\n\r\n但好景不长，突然有一天，前端发现自己连个环境变量都没法传！于是经常找运维修改配置文件，运维也不胜其烦\r\n\r\n于是有了 `helm`，如果用一句话解释它，那它就是一个带有模板功能的 `k8s` 资源配置文件。作为前端，你只需要填参数。更多详细的内容可以参考我以前的文章 [使用 helm 部署 k8s 资源](https://juejin.im/post/5dbf7909f265da4d4b5fe7b4)\r\n\r\n假如我们使用 [bitnami/nginx](https://hub.helm.sh/charts/bitnami/nginx) 作为 `helm chart`，前端可能写的配置文件长这个样子\r\n\r\n``` yaml\r\nimage:\r\n  registry: harbor.shanyue.tech\r\n  repository: fe/shanyue\r\n  tag: 8a9ac0\r\n\r\ningress:\r\n  enabled: true\r\n  hosts:\r\n  - name: shanyue.tech\r\n    path: /\r\n\r\n  tls:\r\n  - hosts:\r\n      - shanyue.tech\r\n    secretName: shanyue-tls\r\n\r\n    # livenessProbe:\r\n    #   httpGet:\r\n    #     path: /\r\n    #     port: http\r\n    #   initialDelaySeconds: 30\r\n    #   timeoutSeconds: 5\r\n    #   failureThreshold: 6\r\n    # \r\n    # readinessProbe:\r\n    #   httpGet:\r\n    #     path: /\r\n    #     port: http\r\n    #   initialDelaySeconds: 5\r\n    #   timeoutSeconds: 3\r\n    #   periodSeconds: 5\r\n```\r\n\r\n这时候再思考文章最前面两个问题\r\n\r\n1. 缓存，缓存由前端控制\r\n1. 跨域，跨域由后端控制，配置在后端 Chart 的配置文件 `values.yaml` 中\r\n\r\n到了这时前端和运维的职责所在呢？\r\n\r\n前端需要做的事情有:\r\n\r\n1. 写前端构建的 `dockerfile`，这只是一次性的工作，而且有了参考\r\n1. 使用 `helm` 部署时指定参数\r\n\r\n那运维要做的事情呢\r\n\r\n1. 提供一个供所有前端项目使用的 `helm chart`，甚至不用提供，如果运维比较懒那就就使用 [bitnami/nginx](https://hub.helm.sh/charts/bitnami/nginx) 吧。也是一次性工作\r\n1. 提供一个基于 `helm` 的工具，禁止业务过多的权限，甚至不用提供，如果运维比较懒那就直接使用 `helm`\r\n\r\n这时前端可以关注于自己的业务，运维可以关注于自己的云原生，职责划分从未这般清楚\r\n\r\n## 统一前端部署平台\r\n\r\n后来运维觉得前端应用的本质是一堆静态文件，较为单一，容易统一化，来避免各个前端镜像质量的参差不齐。于是运维准备了一个统一的 `node` 基础镜像\r\n\r\n前端再也不需要构建镜像，上传 CDN 了，他只需要写一份配置文件就可以了，大致长这个样子\r\n\r\n``` yaml\r\nbuild:\r\n  command: npm run build\r\n  dist: /dist\r\n\r\nhosts:\r\n- name: shanyue.tech\r\n  path: /\r\n\r\nheaders:\r\n- location: /*\r\n  values:\r\n  - cache-control: max-age=7200\r\n- location: assets/*\r\n  values:\r\n  - cache-control: max-age=31536000\r\n\r\nredirects:\r\n- from : /api\r\n  to: https://api.shanyue.tech\r\n  status: 200\r\n```\r\n\r\n此时，前端只需要写一份配置文件，就可以配置缓存，配置 `proxy`，做应该属于前端做的一切，而运维也再也不需要操心前端部署的事情了\r\n\r\n前端看着自己刚刚写好的配置文件，怅然若失的样子...\r\n\r\n不过一般只有大厂会有这么完善的前端部署平台，如果你对它有兴趣，你可以尝试下 `netlify`，可以参考我的文章: [使用 netlify 部署你的前端应用](https://shanyue.tech/op/deploy-fe-with-netlify.html)\r\n\r\n## 服务端渲染与后端部署\r\n\r\n大部分前端应用本质上是静态资源，剩下的少部分就是服务端渲染了，服务端渲染的本质上是一个后端服务，它的部署可以视为后端部署\r\n\r\n后端部署的情况更为复杂，比如\r\n\r\n1. 配置服务，后端需要访问敏感数据，但又不能把敏感数据放在代码仓库。你可以在 `environment variables`， `consul` 或者 `k8s configmap` 中维护\r\n1. 上下链路服务，你需要依赖数据库，上游服务\r\n1. 访问控制，限制 IP，黑白名单\r\n1. RateLimit\r\n1. 等等\r\n\r\n我将在以后的文章分享如何在 k8s 中部署一个后端\r\n\r\n## 小结\r\n\r\n随着 `devops` 的发展，前端部署越来越简单，可控性也越来越高，建议所有人都稍微学习一下 `devops` 的东西。\r\n\r\n道阻且长，行则将至。\r\n\r\n## 相关文章\r\n\r\n+ [个人服务器运维指南](https://juejin.im/post/5db7a9e2f265da4cf85d6fb9)\r\n+ [如果你想搭建一个博客](https://juejin.im/post/5db78500f265da4d0a68cef7)\r\n+ [当我有一台服务器时我做了什么](https://juejin.im/post/5c9232a8e51d45729b3b71e1)\r\n+ [使用 k8s 部署你的第一个应用: Pod，Deployment 与 Service](https://juejin.im/post/5db8c2b46fb9a020256692dc)\r\n+ [使用 k8s 为你的应用配置域名: Ingress](https://juejin.im/post/5db8da4b6fb9a0204520b310)\r\n+ [使用 k8s 为你的域名加上 https](https://juejin.im/post/5db8d94be51d4529f73e2833)\r\n",
       "reactions": {
-        "totalCount": 1
+        "totalCount": 2
       },
       "author": {
         "login": "shfshanyue",
@@ -1860,7 +1860,7 @@
   {
     "id": "MDU6SXNzdWU1MzA3MjU0NzI=",
     "number": 86,
-    "title": "【Q085】http2 与 http1.1 有什么不同",
+    "title": "【Q085】http2 与 http1.1 有什么改进",
     "body": "",
     "labels": [
       {
@@ -1870,7 +1870,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDU2ODkxNTczOQ==",
-      "body": "1. 多路复用\r\n1. 二进制分帧\r\n1. server push\r\n1. 头部压缩\r\n\r\n可参考文章 [http2 详解](https://juejin.im/post/5b88a4f56fb9a01a0b31a67e)",
+      "body": "1. 二进制分帧\r\n1. 请求多路复用 (Stream/Frame)\r\n1. 头部压缩: (HPack)\r\n1. 服务端推送: (PUSH_PROMISE)\r\n\r\n可参考文章 [http2 详解](https://juejin.im/post/5b88a4f56fb9a01a0b31a67e)",
       "reactions": {
         "totalCount": 0
       },
@@ -1930,22 +1930,26 @@
     "id": "MDU6SXNzdWU1MzA3MjY0Nzk=",
     "number": 89,
     "title": "【Q088】如何实现 promise.map，限制 promise 并发数",
-    "body": "",
+    "body": "实现一个 promise.map，进行并发数控制，有以下测试用例\r\n\r\n``` js\r\npMap([1, 2, 3, 4, 5], x => Promise.resolve(x + 1))\r\n\r\npMap([Promise.resolve(1), Promise.resolve(2)], x => x + 1)\r\n\r\npMap([1, 1, 1, 1, 1, 1, 1, 1], x => sleep(1000), { concurrency: 2 })\r\n```",
     "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDU0MjAwNTE1",
+        "name": "code"
+      },
       {
         "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
         "name": "js"
       }
     ],
     "comment": {
-      "id": "MDEyOklzc3VlQ29tbWVudDU2NTQyNTQ4NQ==",
-      "body": "怎么实现",
+      "id": "IC_kwDODQzyOs40hU2T",
+      "body": "以下代码见 [如何实现 promise.map - codepen](https://codepen.io/shanyue/pen/zYwZXPN)\r\n\r\n``` js\r\nfunction pMap(list, mapper, concurrency = Infinity) {\r\n  return new Promise((resolve, reject) => {\r\n    let currentIndex = 0\r\n    let result = []\r\n    let resolveCount = 0\r\n    let len = list.length\r\n    function next() {\r\n      const index = currentIndex++\r\n      Promise.resolve(list[index]).then(o => mapper(o, index)).then(o => {\r\n        result[index] = o\r\n        if (++resolveCount === len) { resolve(result) }\r\n        if (currentIndex < len) { next() }\r\n      })\r\n    }\r\n    for (let i = 0; i < concurrency && i < len; i ++) {\r\n      next()\r\n    }\r\n  })\r\n}\r\n```",
       "reactions": {
-        "totalCount": 0
+        "totalCount": 1
       },
       "author": {
-        "login": "william-xue",
-        "url": "https://github.com/william-xue"
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
       }
     }
   },
@@ -2373,7 +2377,7 @@
   {
     "id": "MDU6SXNzdWU1MzQ0MTY5MDI=",
     "number": 109,
-    "title": "【Q108】gzip 的原理是什么",
+    "title": "【Q108】gzip 的原理是什么，如何配置",
     "body": "",
     "labels": [
       {
@@ -3933,8 +3937,8 @@
   {
     "id": "MDU6SXNzdWU1NTA4NjI4NDc=",
     "number": 182,
-    "title": "【Q181】如何用一行代码实现 compose 函数",
-    "body": "",
+    "title": "【Q181】如何实现 compose 函数，进行函数合成",
+    "body": "实现一个 compose 函数，进行函数合成，比如 redux 中的 compose，react 高阶组件连续调用时的 compose\r\n\r\n\r\n``` js\r\nconst add10 = x => x + 10\r\nconst mul10 = x => x * 10\r\nconst add100 = x => x + 100\r\n\r\n// (10 + 100) * 10 + 10 = 1110\r\ncompose(add10, mul10, add100)(10)\r\n```",
     "labels": [
       {
         "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
@@ -4082,7 +4086,17 @@
         "name": "algorithm"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "IC_kwDODQzyOs40xWcg",
+      "body": "TODO",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU1NTU0Mjk3NTE=",
@@ -5163,7 +5177,7 @@
       "id": "MDEyOklzc3VlQ29tbWVudDY2OTI2ODU1Nw==",
       "body": "```js\r\nlet req1 = () => fetch(`https://github.com/shfshanyue/Daily-Question/issues?page=1&q=is%3Aissue+is%3Aopen`);\r\n\r\nlet req2 = () => fetch(`https://github.com/shfshanyue/Daily-Question/issues?page=2&q=is%3Aissue+is%3Aopen`);\r\n\r\nlet req3 = () => fetch(`https://github.com/shfshanyue/Daily-Question/issues?page=3&q=is%3Aissue+is%3Aopen`);\r\n\r\n// promise.all\r\nconst res = await Promise.all([req1(), req2(), req3()]);\r\n\r\nconst res1 = req1()\r\nconst res2 = req2()\r\nconst res3 = req3()\r\n\r\n// await\r\nconst u1 =  await res1\r\nconst u2 =  await res2\r\nconst u3 =  await res3\r\n\r\n```\r\n\r\n![image](https://user-images.githubusercontent.com/57755075/89433879-71e1f280-d775-11ea-8772-6c26e58d29c3.png)\r\n",
       "reactions": {
-        "totalCount": 1
+        "totalCount": 2
       },
       "author": null
     }
@@ -6057,7 +6071,7 @@
     "id": "MDU6SXNzdWU2MTI1OTQ4Nzc=",
     "number": 290,
     "title": "【Q288】如何求数组中的 TOP k",
-    "body": "",
+    "body": "求数组中的前 N 个最大的数",
     "labels": [
       {
         "id": "MDU6TGFiZWwxNjkwMDg5OTM2",
@@ -6089,7 +6103,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDg3MDY4MTUyNg==",
-      "body": "在 CommonJS 规范中，当遇到`require()`语句时，会执行`require`模块中的代码，并缓存执行的结果，当下次再次加载时不会重复执行，而是直接取缓存的结果。正因为此，出现循环依赖时才不会出现无限循环调用的情况。\r\n\r\n``` js\r\n// a.js\r\nconst { b } = require(\"./b\");\r\n\r\nconst a = 11;\r\n\r\nconsole.log('b in a.js', b);\r\n\r\nmodule.exports = { a };\r\n```\r\n\r\n``` js\r\n// b.js\r\nconst { a } = require(\"./a\");\r\n\r\nconst b = 12;\r\n\r\nconsole.log('a in b.ls', a);\r\nsetTimeout(() => {\r\n  console.log('a in b.ls', a);\r\n}, 1000);\r\n\r\nmodule.exports = { b };\r\n```\r\n\r\n当执行`node a.js`时：\r\n``` shell\r\na in b.js is undefined\r\nb in a.js is 12\r\n(node:23352) Warning: Accessing non-existent property 'a' of module exports inside circular dependency    \r\n(Use `node --trace-warnings ...` to show where the warning was created)\r\na in b.js is undefined\r\n```",
+      "body": "在 CommonJS 规范中，当遇到`require()`语句时，会执行`require`模块中的代码，并缓存执行的结果，当下次再次加载时不会重复执行，而是直接取缓存的结果。正因为此，出现循环依赖时才不会出现无限循环调用的情况。\r\n\r\n``` js\r\n// a.js\r\nconst { b } = require(\"./b\");\r\n\r\nconst a = 11;\r\n\r\nconsole.log('b in a.js', b);\r\n\r\nmodule.exports = { a };\r\n```\r\n\r\n``` js\r\n// b.js\r\nconst { a } = require(\"./a\");\r\n\r\nconst b = 12;\r\n\r\nconsole.log('a in b.js', a);\r\nsetTimeout(() => {\r\n  console.log('a in b.js', a);\r\n}, 1000);\r\n\r\nmodule.exports = { b };\r\n```\r\n\r\n当执行`node a.js`时：\r\n``` shell\r\na in b.js is undefined\r\nb in a.js is 12\r\n(node:23352) Warning: Accessing non-existent property 'a' of module exports inside circular dependency    \r\n(Use `node --trace-warnings ...` to show where the warning was created)\r\na in b.js is undefined\r\n```",
       "reactions": {
         "totalCount": 0
       },
@@ -6487,7 +6501,7 @@
       "id": "MDEyOklzc3VlQ29tbWVudDY2MDYxNjUyMA==",
       "body": "`css specificity` 即 css 中关于选择器的权重，以下三种类型的选择器依次下降\r\n\r\n1. `id` 选择器，如 `#app`\r\n1. `class`、`attribute` 与 `pseudo-classes` 选择器，如 `.header`、`[type=\"radio\"]` 与 `:hover`\r\n1. `type` 标签选择器和伪元素选择器，如 `h1`、`p` 和 `::before`\r\n\r\n其中通配符选择器 `*`，组合选择器 `+ ~ >`，否定伪类选择器 `:not()` 对优先级无影响\r\n\r\n另有内联样式 `<div class=\"foo\" style=\"color: red;\"></div>` 及 `!important`(最高) 具有更高的权重\r\n\r\n> [`:not` 的优先级影响 - codepen](https://codepen.io/shanyue/pen/dyGQqBe) 可以看出 `:not` 对选择器的优先级无任何影响\r\n\r\n> [CSS Specificity - codepen](https://codepen.io/shanyue/pen/XWMRQOw) 可以看出十几个 class 选择器也没有一个 id 选择器权重高",
       "reactions": {
-        "totalCount": 0
+        "totalCount": 1
       },
       "author": {
         "login": "shfshanyue",
@@ -7429,14 +7443,14 @@
       }
     ],
     "comment": {
-      "id": "MDEyOklzc3VlQ29tbWVudDY1NjUyMDM1Ng==",
-      "body": "localhost 可以更改后指向其它地址。\r\n127.0.0.1 是约定的本机IP。\r\n类似互联网中域名与服务器IP的关系。",
+      "id": "MDEyOklzc3VlQ29tbWVudDY2Mjc5NjQxNw==",
+      "body": "localhost也叫local ，正确的解释是：本地服务器\r\n\r\n127.0.0.1在windows等系统的正确解释是：本机地址（本机服务器）\r\n\r\n他们的解析通过本机的host文件，windows自动将localhost解析为127.0.0.1\r\n\r\nlocalhot（local）是不经网卡传输！这点很重要，它不受网络防火墙和网卡相关的的限制。\r\n\r\n127.0.0.1是通过网卡传输，依赖网卡，并受到网络防火墙和网卡相关的限制。\r\n\r\n一般设置程序时本地服务用localhost是最好的，localhost不会解析成ip，也不会占用网卡、网络资源。\r\n\r\n有时候用localhost可以，但用127.0.0.1就不可以的情况就是在于此。猜想localhost访问时，系统带的本机当前用户的权限去访问，而用ip的时候，等于本机是通过网络再去访问本机，可能涉及到网络用户的权限。\r\n\r\n摘录自--https://zhuanlan.zhihu.com/p/26503558",
       "reactions": {
-        "totalCount": 0
+        "totalCount": 1
       },
       "author": {
-        "login": "hedongxiaoshimei",
-        "url": "https://github.com/hedongxiaoshimei"
+        "login": "PixelMonkeyPro",
+        "url": "https://github.com/PixelMonkeyPro"
       }
     }
   },
@@ -7752,7 +7766,7 @@
   {
     "id": "MDU6SXNzdWU2NzIwOTEzNDI=",
     "number": 383,
-    "title": "【Q378】在 setState 时发生了什么",
+    "title": "【Q378】React 在 setState 时发生了什么",
     "body": "",
     "labels": [
       {
@@ -8141,7 +8155,7 @@
   {
     "id": "MDU6SXNzdWU2Nzk3NTQwMTk=",
     "number": 405,
-    "title": "【Q398】在 wireshark 中如何抓包 https ",
+    "title": "【Q398】在 wireshark 中如何抓包 https/http2",
     "body": "",
     "labels": [
       {
@@ -8149,7 +8163,17 @@
         "name": "http"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "IC_kwDODQzyOs40kCO5",
+      "body": "参考: <https://imququ.com/post/http2-traffic-in-wireshark.html>",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU2ODA2NTIzODA=",
@@ -8164,6 +8188,10 @@
       {
         "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
         "name": "js"
+      },
+      {
+        "id": "MDU6TGFiZWwzMDkwODMwMjI5",
+        "name": "perf"
       }
     ],
     "comment": {
@@ -8295,14 +8323,14 @@
       }
     ],
     "comment": {
-      "id": "MDEyOklzc3VlQ29tbWVudDY3ODEyMDQ1OA==",
-      "body": "chrome 自带的灯箱",
+      "id": "MDEyOklzc3VlQ29tbWVudDY3ODMzNDc0Mg==",
+      "body": "最常见且实用的性能工具有两个：\r\n\r\n1. `lighthouse`: 可在 chrome devtools 直接使用，根据个人设备及网络对目标网站进行分析，并提供各种建议\r\n1. `webpagetest`: 分布式的性能分析工具，可在全球多个区域的服务器资源为你的网站进行分析，并生成相应的报告",
       "reactions": {
-        "totalCount": 0
+        "totalCount": 1
       },
       "author": {
-        "login": "zxhycxq",
-        "url": "https://github.com/zxhycxq"
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
       }
     }
   },
@@ -8436,7 +8464,7 @@
     "id": "MDU6SXNzdWU2ODUwNzg4ODk=",
     "number": 419,
     "title": "【Q412】对以下字符进行压缩编码",
-    "body": "这是一道大厂常考的代码题\r\n\r\n+ Input: 'aaaabbbccd'\r\n+ Output: 'a4b3c2d1'，代表 a 连续出现四次，b连续出现三次，c连续出现两次，d连续出现一次",
+    "body": "这是一道大厂常考的代码题\r\n\r\n+ Input: 'aaaabbbccd'\r\n+ Output: 'a4b3c2d1'，代表 a 连续出现四次，b连续出现三次，c连续出现两次，d连续出现一次\r\n\r\n有以下测试用例\r\n\r\n``` js\r\n//=> a4b3c2\r\nencode('aaaabbbcc')\r\n\r\n//=> a4b3a4\r\necode('aaaabbbaaaa')\r\n```\r\n\r\n**如果代码编写正确，则可继续深入：**\r\n\r\n+ 如果只出现一次，不编码数字，如 aaab -> a3b\r\n+ 如果只出现两次，不进行编码，如 aabbb -> aab3\r\n+ 如果进行解码数字冲突如何解决",
     "labels": [
       {
         "id": "MDU6TGFiZWwxNjkwMDg5OTM2",
@@ -8452,10 +8480,10 @@
       }
     ],
     "comment": {
-      "id": "MDEyOklzc3VlQ29tbWVudDY3OTYyNjgzMw==",
-      "body": "编写函数 `encode` 实现该功能\r\n\r\n``` js\r\nfunction encode (str) {\r\n  const l = []\r\n  let i = 0\r\n  for (const s of str) {\r\n    const len = l.length\r\n    const lastChar = len > 0 ? l[len - 1][0] : undefined\r\n    if (lastChar === s) {\r\n      l[len - 1][1]++\r\n    } else {\r\n      l.push([s, 1])\r\n    }\r\n  }\r\n  return l.map(x => x.join('')).join('')\r\n}\r\n```\r\n\r\n测试通过\r\n\r\n``` js\r\n> encode('aaab')\r\n< \"a3b1\"\r\n```\r\n\r\n但是面试官往往会继续深入\r\n\r\n1. 如果只出现一次，不编码数字，如 `aaab -> a3b`\r\n1. 如果只出现两次，不进行编码，如 `aabbb -> aab3`\r\n1. 如果进行解码",
+      "id": "IC_kwDODQzyOs40iHa2",
+      "body": "@haiifeng 注意标记下 js 的语法高亮",
       "reactions": {
-        "totalCount": 0
+        "totalCount": 1
       },
       "author": {
         "login": "shfshanyue",
@@ -8638,7 +8666,7 @@
       "id": "MDEyOklzc3VlQ29tbWVudDY4MDgzMzk1NA==",
       "body": "这是一个关于懒计算的函数，使用 `sum` 收集所有累加项，使用 `valueOf` 进行计算\r\n\r\n1. sum 返回一个函数，收集所有的累加项，使用递归实现\r\n1. 返回函数带有 `valueOf` 属性，用于统一计算\r\n\r\n``` js\r\nfunction sum (...args) {\r\n  const f = (...rest) => sum(...args, ...rest)\r\n  f.valueOf = () => args.reduce((x, y) => x + y, 0)\r\n  return f\r\n}\r\n```",
       "reactions": {
-        "totalCount": 0
+        "totalCount": 1
       },
       "author": {
         "login": "shfshanyue",
@@ -8945,7 +8973,7 @@
     "id": "MDU6SXNzdWU3MzQxNTU5OTE=",
     "number": 442,
     "title": "【Q435】JS 如何实现一个 sleep/delay 函数",
-    "body": "",
+    "body": "实现一个 sleep 函数格式如下：\r\n\r\n``` ts\r\ntype sleep = (s: number) => Promise<void>\r\n```",
     "labels": [
       {
         "id": "MDU6TGFiZWwzMDU0MjAwNTE1",
@@ -9158,7 +9186,7 @@
       "id": "MDEyOklzc3VlQ29tbWVudDc1MjY3NDg4MQ==",
       "body": "在 ES2019 之前，可通过 **`reduce` + `concat`** 实现，由于 `Array.prototype.concat` 既可以连接数组又可以连接单项，十分巧妙\r\n\r\n``` js\r\nconst flatten = list => list.reduce( (a, b) => a.concat(b), [])\r\n```\r\n\r\n一个更简单的实现方式是 `Array.prototype.concat` 与 `...` 运算符\r\n\r\n``` js\r\nconst flatten = list => [].concat(...list)\r\n```\r\n\r\n如果要求深层数组打平，则如下实现\r\n\r\n``` js\r\nconst flatten = list => list.reduce((a, b) => a.concat(Array.isArray(b) ? flatten(b) : b), [])\r\n```\r\n\r\n在 ES2019 之后，可通过 **`Array.prototype.flat`** 直接实现！",
       "reactions": {
-        "totalCount": 1
+        "totalCount": 2
       },
       "author": {
         "login": "shfshanyue",
@@ -9247,8 +9275,12 @@
     "id": "MDU6SXNzdWU3NzA5NjUyNDU=",
     "number": 455,
     "title": "【Q447】如何实现一个数组洗牌函数 shuffle",
-    "body": "",
+    "body": "参考链接：https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle",
     "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDU0MjAwNTE1",
+        "name": "code"
+      },
       {
         "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
         "name": "js"
@@ -9297,7 +9329,7 @@
     "id": "MDU6SXNzdWU3NzIyMTMwMTQ=",
     "number": 457,
     "title": "【Q449】vue3 中，如何监听数组的变化",
-    "body": "",
+    "body": "比如深层数组如何监听",
     "labels": [
       {
         "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
@@ -9433,6 +9465,10 @@
     "title": "【Q455】React/Vue 中的 router 实现原理如何",
     "body": "",
     "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzY5MDg5MzQ2",
+        "name": "dom"
+      },
       {
         "id": "MDU6TGFiZWwxNjU4MzQ3NDIy",
         "name": "react"
@@ -9610,7 +9646,17 @@
         "name": "js"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "IC_kwDODQzyOs40ySSx",
+      "body": "Blob -> ",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU3ODY1MzE3ODg=",
@@ -10091,6 +10137,10 @@
       {
         "id": "MDU6TGFiZWwxNjUxNDAyMzIy",
         "name": "server"
+      },
+      {
+        "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+        "name": "前端工程化"
       }
     ],
     "comment": ""
@@ -10173,7 +10223,17 @@
         "name": "css"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg3NDE1NzgzMg==",
+      "body": "``` css\r\nbackground: linear-gradient(90deg, rgba(200, 200, 200, .1) 3%, transparent 0), linear-gradient(rgba(200, 200, 200, .1) 3%, transparent 0);\r\nbackground-size: 20px 20px;\r\n```\r\n![image](https://user-images.githubusercontent.com/38256126/124486859-9a88c700-dde0-11eb-810f-842cd9b212d4.png)\r\n",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "mrrs878",
+        "url": "https://github.com/mrrs878"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU4NDI4ODI4OTI=",
@@ -10535,7 +10595,17 @@
         "name": "前端工程化"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "IC_kwDODQzyOs40saaF",
+      "body": "package.json中的main对应的文件",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "Asarua",
+        "url": "https://github.com/Asarua"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU4OTMzNTQyMzM=",
@@ -10726,7 +10796,17 @@
         "name": "node"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "IC_kwDODQzyOs40saQx",
+      "body": "在package.json中增加bin，对应脚本，脚本文件头部\r\n#! usr/local/bin node\r\n\r\n\bemm，头部大概是这个，可能有拼写错误",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "Asarua",
+        "url": "https://github.com/Asarua"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU4OTg3MDk3NjM=",
@@ -10974,7 +11054,7 @@
   {
     "id": "MDU6SXNzdWU5MDAzMTQ2Nzg=",
     "number": 544,
-    "title": "【Q531】子元素垂直居中，并且长度为父容器一半的正方形",
+    "title": "【Q531】子元素垂直居中，并且该正方形的长度/宽度为父容器宽度(width)一半的正方形",
     "body": "",
     "labels": [
       {
@@ -11066,7 +11146,7 @@
   {
     "id": "MDU6SXNzdWU5MDA1NDYwMzQ=",
     "number": 548,
-    "title": "【Q535】rem、em、vw、wh 的值各是什么意思",
+    "title": "【Q535】rem、em、vw、vh 的值各是什么意思",
     "body": "",
     "labels": [
       {
@@ -11232,7 +11312,7 @@
     "id": "MDU6SXNzdWU5MDMwODE4Nzc=",
     "number": 556,
     "title": "【Q542】DOM 中如何阻止事件默认行为，如何判断事件否可阻止？",
-    "body": "",
+    "body": "追问：\r\n\r\n1. 有哪些事件可阻止，哪些事件不可阻止?",
     "labels": [
       {
         "id": "MDU6TGFiZWwxNzY5MDg5MzQ2",
@@ -11357,7 +11437,17 @@
         "name": "dom"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "IC_kwDODQzyOs40sZJ3",
+      "body": "Element是dom元素，Node是节点，包含Element，还有其他节点",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "Asarua",
+        "url": "https://github.com/Asarua"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU5MDQ0MzU2MTQ=",
@@ -11622,7 +11712,17 @@
         "name": "js"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg3MTg2Mzk2Ng==",
+      "body": "``` js\r\nfunction inherits(SuperType, SubType) {\r\n  const pro = Object.create(SuperType.prototype);\r\n  pro.constructor = SubType;\r\n  SubType.prototype = pro;\r\n}\r\nfunction SuperType(friends) {\r\n  this.friends = friends;\r\n}\r\nSuperType.prototype.getFriends = function() {\r\n  console.log(this.friends);\r\n}\r\nfunction SubType(name, friends) {\r\n  this.name = name;\r\n  SuperType.call(this, friends);\r\n}\r\ninherits(SuperType, SubType);\r\nSubType.prototype.getName = function() {\r\n  console.log(this.name);\r\n}\r\n\r\nconst tom = new SubType('tom', ['jerry']);\r\ntom.getName();\r\n// 'tom'\r\ntom.getFriends();\r\n// ['jerry']\r\ntom.friends.push('jack');\r\ntom.getFriends();\r\n// ['jerry', 'jack']\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "mrrs878",
+        "url": "https://github.com/mrrs878"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU5MDY2ODA0ODY=",
@@ -11730,13 +11830,17 @@
     "body": "可以使用 `Array.prototype.reverse.call(s)` 逆序字符串吗",
     "labels": [
       {
+        "id": "MDU6TGFiZWwzMDU0MjAwNTE1",
+        "name": "code"
+      },
+      {
         "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
         "name": "js"
       }
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDg1MjY3MTQwOA==",
-      "body": "``` js\r\nconst reverse = s => s.split('').reverse().join('')\r\n\r\nreverse('hello')\r\n//=> \"olleh\"\r\n```",
+      "body": "可以直接调用 API 进行实现:\r\n\r\n``` js\r\nconst reverse = s => s.split('').reverse().join('')\r\n\r\nreverse('hello')\r\n//=> \"olleh\"\r\n```\r\n\r\n如果不调用 API 实现的话，参考以下代码:\r\n\r\n``` js\r\nfunction reverse (s) {\r\n  let r = ''\r\n  for (const c of s) {\r\n    r = c + r\r\n  }\r\n  return r\r\n}\r\n\r\nreverse('hello')\r\n//=> \"olleh\"\r\n```",
       "reactions": {
         "totalCount": 0
       },
@@ -11761,7 +11865,7 @@
       "id": "MDEyOklzc3VlQ29tbWVudDg1MjY3NTEwMA==",
       "body": "0.1，0.2 表示为二进制会有精度的损失，比较时可引入一个很小的数值 `Number.EPSILON` 容忍误差，其值为 2^-52。\r\n\r\n``` js\r\nfunction equal (a, b) {\r\n  return Math.abs(a - b) < Number.EPSILON\r\n}\r\n```",
       "reactions": {
-        "totalCount": 1
+        "totalCount": 2
       },
       "author": {
         "login": "shfshanyue",
@@ -11780,7 +11884,17 @@
         "name": "js"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg3MTg4MjM3Mw==",
+      "body": "如果处于非严格模式下，要绑定的`this`指定为`null`或`undefined`时会自动替换为全局对象，原始值则会被包装\r\n\r\n严格模式：\r\n``` js\r\n'use strict';\r\n\r\nfunction test() {\r\n    console.log(this)\r\n}\r\n\r\ntest.call(2)\r\n// 2\r\n```\r\n\r\n非严格模式\r\n``` js\r\nfunction test() {\r\n    console.log(this)\r\n}\r\ntest.call(2)\r\n// Number {2}\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "mrrs878",
+        "url": "https://github.com/mrrs878"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU5MDk0NDM2NTY=",
@@ -11793,7 +11907,17 @@
         "name": "dom"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "IC_kwDODQzyOs400ZKl",
+      "body": "[二进制数据，文件](https://zh.javascript.info/binary)",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "haotie1990",
+        "url": "https://github.com/haotie1990"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU5MTAwMDg0MzM=",
@@ -11806,7 +11930,17 @@
         "name": "js"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg3MjMwMDA5Mg==",
+      "body": "在`==`时，会强制类型转换并比较转换后的结果\r\n\r\n比较过程如下：\r\n\r\n- 如果两个变量都是对象，则当都引用同一对象时才返回`true`\r\n- `null == undefined` ? 返回`true`\r\n- 当两个变量类型不一致时会进行类型转换：\r\n    - `string == number` ? `string`转换为`number`后再进行比较\r\n    - `boolean == any` ? `boolean`转换为`number`后再进行比较\r\n    - `object == string/number/symbol` ? 尝试调用`object`的`valueOf`或`toString`将其转换为原始类型后再进行比较\r\n- 当两个变量类型一致时：\r\n    - `number == number` ? 其中有一个为`NaN`时返回`false`; `+0 == -0`时返回`true`\r\n \r\n![非原创，原作者未知](https://user-images.githubusercontent.com/38256126/124141063-a5c7b400-dabb-11eb-8a8c-2f9503f9f06e.png)\r\n\r\n所以`[] == 0`时：\r\n\r\n1. `[]`先调用`Array.prototype.toString`转为原始值\r\n\r\n``` js\r\nArray.prototype.toString.call([])\r\n// \"\"\r\n```\r\n\r\n2. `\"\" == 0`，`\"\"`转为`number`即0\r\n\r\n3. `0 == 0`，返回`true`\r\n\r\n其他几行代码同理\r\n",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "mrrs878",
+        "url": "https://github.com/mrrs878"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU5MTAwMjM2OTI=",
@@ -11977,7 +12111,17 @@
         "name": "http"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "IC_kwDODQzyOs400Xfm",
+      "body": "- GET在浏览器回退时是无害的，而POST会再次提交请求。\r\n\r\n- GET产生的URL地址可以被Bookmark，而POST不可以。\r\n\r\n- GET请求会被浏览器主动cache，而POST不会，除非手动设置。\r\n\r\n- GET请求只能进行url编码，而POST支持多种编码方式。\r\n\r\n- GET请求参数会被完整保留在浏览器历史记录里，而POST中的参数不会被保留。\r\n\r\n- GET请求在URL中传送的参数是有长度限制的，而POST么有。\r\n\r\n- 对参数的数据类型，GET只接受ASCII字符，而POST没有限制。\r\n\r\n- GET比POST更不安全，因为参数直接暴露在URL上，所以不能用来传递敏感信息。\r\n\r\n- GET参数通过URL传递，POST放在Request body中。\r\n\r\n- **GET产生一个TCP数据包；POST产生两个TCP数据包**。",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "haotie1990",
+        "url": "https://github.com/haotie1990"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU5MTM0ODIxMDM=",
@@ -11990,7 +12134,17 @@
         "name": "js"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg3NDA0MDU5MQ==",
+      "body": "箭头函数无 this，无 prototype",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU5MTUxMDI0NzM=",
@@ -12003,7 +12157,17 @@
         "name": "html"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "IC_kwDODQzyOs400W_n",
+      "body": "encodeURI用来编码**URI**，其不会编码保留字符：;,/?:@&=+$\r\n\r\nencodeURIComponent用来编码URI**参数**，除了字符：A-Z a-z 0-9 - _ . ! ~ * ' ( )，都将会转义",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "haotie1990",
+        "url": "https://github.com/haotie1990"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU5MTU3MjQ4NDg=",
@@ -12049,14 +12213,24 @@
     "id": "MDU6SXNzdWU5MTU3NDEyODM=",
     "number": 601,
     "title": "【Q585】如何确保你们的项目开启了 gzip",
-    "body": "",
+    "body": "当你们的项目上线后，如何查看它是否开启了 gzip",
     "labels": [
       {
         "id": "MDU6TGFiZWwxNjgwMDkyMDA5",
         "name": "http"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg3MzU1NzgwNw==",
+      "body": "在响应头中查看是否有以下值：\r\n\r\n```  bash\r\ncontent-encoding: gzip\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU5MTU3NDE3Njk=",
@@ -12099,7 +12273,17 @@
         "name": "http"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "IC_kwDODQzyOs400WMJ",
+      "body": "HSTS 是 HTTP 严格传输安全（HTTP Strict Transport Security） 的缩写。 这是一种网站用来声明他们只能使用安全连接（HTTPS）访问的方法。 如果一个网站声明了 HSTS 策略，浏览器必须拒绝所有的 HTTP 连接并阻止用户接受不安全的 SSL 证书\r\n\r\n[https://zhuanlan.zhihu.com/p/130946490](https://zhuanlan.zhihu.com/p/130946490)",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "haotie1990",
+        "url": "https://github.com/haotie1990"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU5MTgxNzI4ODg=",
@@ -12221,7 +12405,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDg1OTU3OTMyOA==",
-      "body": "千位符替换可由正则 `/(\\d)(?=(\\d\\d\\d)+(?!\\d))/` 进行匹配\r\n\r\n``` js\r\nfunction toString (number, thousandsSeperator = ',') {\r\n  return String(number).replace(/(\\d)(?=(\\d\\d\\d)+(?!\\d))/g, '$1' + thousandsSeperator)\r\n}\r\n```\r\n\r\n如果你写不出来正则，也可由一段简单的代码实现\r\n\r\n``` js\r\nfunction toString (number, thousandsSeperator = ',') {\r\n  const s = String(number)\r\n  let r = ''\r\n  for (let i = s.length - 1; i >= 0; i--) {\r\n    const seperator = (s.length - i - 1) % 3 ? '' : thousandsSeperator\r\n    r = `${s[i]}${seperator}${r}`\r\n  }\r\n  return r.slice(0, -1)\r\n}\r\n```",
+      "body": "千位符替换可由正则 `/(\\d)(?=(\\d\\d\\d)+(?!\\d))/` 进行匹配\r\n\r\n``` js\r\nfunction toString (number, thousandsSeperator = ',') {\r\n  return String(number).replace(/(\\d)(?=(\\d\\d\\d)+(?!\\d))/g, '$1' + thousandsSeperator)\r\n}\r\n```\r\n\r\n删除的正则或许有点复杂，如果对字符串反转，可以来一个简单的正则\r\n\r\n``` js\r\nfunction toString (number, thousandsSeperator = ',') {\r\n  const reverse = str => str.split('').reverse().join('')\r\n  const str = reverse(String(number)).replace(/\\d\\d\\d(?!\\d)/g, '$1' + thousandsSeperator)\r\n  return reverse(str)\r\n}\r\n```\r\n\r\n如果你写不出来正则，也可由一段简单的代码实现\r\n\r\n``` js\r\nfunction toString (number, thousandsSeperator = ',') {\r\n  const s = String(number)\r\n  let r = ''\r\n  for (let i = s.length - 1; i >= 0; i--) {\r\n    const seperator = (s.length - i - 1) % 3 ? '' : thousandsSeperator\r\n    r = `${s[i]}${seperator}${r}`\r\n  }\r\n  return r.slice(0, -1)\r\n}\r\n```",
       "reactions": {
         "totalCount": 0
       },
@@ -12319,7 +12503,17 @@
         "name": "js"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "IC_kwDODQzyOs400Vtn",
+      "body": "```js\r\nfunction isEqual(x, y) {\r\n  if (x === y) {\r\n    return true;\r\n  } else if ((typeof x === 'object' && x !== null) && (typeof y === 'object' && y !== null)) {\r\n    const keysX = Object.keys(x);\r\n    const keysY = Object.keys(y);\r\n    if (keysX.length !== keysY.length) {\r\n      return false;\r\n    }\r\n    for (const key of keysX) {\r\n      if(!isEqual(x[key], y[key])) {\r\n        return false;\r\n      }\r\n    }\r\n    return true;\r\n  } else {\r\n    return false;\r\n  }\r\n}\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "haotie1990",
+        "url": "https://github.com/haotie1990"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU5MTk3NzA2ODk=",
@@ -12418,7 +12612,17 @@
         "name": "js"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg3NjI3MTI5OA==",
+      "body": "```\r\nlet obj = {\r\n    a:'元素a',\r\n    b:'元素b'\r\n}\r\nconst handle = {\r\n    get:(obj,prop)=>{\r\n        console.log(`正在获取：${prop}`);\r\n        return obj[prop];\r\n    },\r\n    set:(obj,prop,value)=>{\r\n        console.log(`正在修改元素：将${prop}属性设置为${value}`);\r\n        obj[prop] = value;\r\n    }\r\n}\r\n\r\nconst proxy = new Proxy(obj,handle);\r\n\r\nconsole.log(proxy.a)\r\n//正在获取：a\r\n// 元素a\r\n\r\nproxy.a='123'\r\n// 正在修改元素：将a属性设置为123\r\n\r\nconsole.log(proxy);\r\n//Proxy {a: \"123\", b: \"元素b\"}\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "txd688",
+        "url": "https://github.com/txd688"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU5MjU1MTMzMTc=",
@@ -12448,7 +12652,17 @@
         "name": "js"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "IC_kwDODQzyOs40p9QH",
+      "body": "``` js\r\nfor await (const x of data) {}\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU5MzMyNDkyNTE=",
@@ -12462,14 +12676,14 @@
       }
     ],
     "comment": {
-      "id": "MDEyOklzc3VlQ29tbWVudDg3MTA1NTQ0Ng==",
-      "body": "按照我的理解应该是0,1,2,7,5,3,4,6",
+      "id": "MDEyOklzc3VlQ29tbWVudDg3MTA2ODM4NQ==",
+      "body": "为了方便说明执行思路，把箭头函数换成了普通函数，起了名字，然后加上默认返回值 return  undefined\r\n```js\r\nPromise.resolve(console.log(0))\r\n    .then(function F1() {\r\n      console.log(1);\r\n      Promise.resolve(console.log(5))\r\n        .then(function F3() {\r\n          console.log(3)\r\n          return undefined\r\n        })\r\n        .then(function F4() {\r\n          console.log(4)\r\n          return undefined\r\n        })\r\n        .then(function F6() {\r\n          console.log(6)\r\n          return undefined\r\n        })\r\n\r\n      return undefined\r\n    })\r\n    .then(function F2() {\r\n      console.log(2)\r\n      return undefined\r\n    })\r\n    .then(function F7() {\r\n      console.log(7)\r\n      return undefined\r\n    })\r\n```\r\n\r\n执行过程：\r\n打印 0, **F1 放入 microtask**\r\n调用栈空了, 从 microtask 拿 F1 执行 \r\n打印 1, 遇到 Promise.resolve\r\n打印 5, 遇到 then, **F3 放入 microtask**\r\n继续执行同步的代码 也就是 return undefined, 然后看到 then\r\n**然后把 F2 放入 microtask**\r\n调用栈空了, 从 microtask 按顺序拿 F3 执行\r\n打印 3, 再遇到 return undefined, 然后看到 then, **再把 F4 放入 microtask**\r\n从 microtask 按顺序拿 F2 执行\r\n打印 2, 再遇到 return undefined, 然后看到 then, **再把 F7 放入 microtask**\r\n从 microtask 按顺序拿 F4 执行\r\n打印 4, 再遇到 return undefined, 然后看到 then, **再把 F6 放入 microtask**\r\n从 microtask 按顺序拿 F7 执行\r\n 打印 7 再遇到 return undefined, 没有 then 了\r\n从 microtask 按顺序拿 F6 执行\r\n打印 6\r\n\r\n\r\n画个图大概是这样：\r\n![image](https://user-images.githubusercontent.com/50768544/123897414-ecbb8980-d995-11eb-8293-01e274dd876f.png)\r\n",
       "reactions": {
-        "totalCount": 0
+        "totalCount": 2
       },
       "author": {
-        "login": "xiaoxiaohuayu",
-        "url": "https://github.com/xiaoxiaohuayu"
+        "login": "xjxujing",
+        "url": "https://github.com/xjxujing"
       }
     }
   },
@@ -12508,5 +12722,1465 @@
       }
     ],
     "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU5MzQzMjE3MDY=",
+    "number": 627,
+    "title": "【Q609】请简述重新登录 refresh token 的原理",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzI2MDg3MTMx",
+        "name": "node"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIy",
+        "name": "server"
+      }
+    ],
+    "comment": {
+      "id": "IC_kwDODQzyOs400GYj",
+      "body": " Refresh Token，将会话管理流程改进如下。\r\n\r\n- 客户端使用用户名密码进行认证\r\n\r\n- 服务端生成有效时间较短的 Access Token（例如 10 分钟），和有效时间较长的 Refresh Token（例如 7 天）\r\n\r\n- 客户端访问需要认证的接口时，携带 Access Token\r\n\r\n- 如果 Access Token 没有过期，服务端鉴权后返回给客户端需要的数据\r\n\r\n- 如果携带 Access Token 访问需要认证的接口时鉴权失败（例如返回 401 错误），则客户端使用 Refresh Token 向刷新接口申请新的 Access Token\r\n\r\n- 如果 Refresh Token 没有过期，服务端向客户端下发新的 Access Token\r\n\r\n- 客户端使用新的 Access Token 访问需要认证的接口\r\n\r\nRefresh Token提供了服务端禁用用户 Token 的方式，当用户需要登出或禁用用户时，只需要将服务端的 Refresh Token 禁用或删除，用户就会在 Access Token 过期后，由于无法获取到新的 Access Token 而再也无法访问需要认证的接口。这样的方式虽然会有一定的窗口期（取决于 Access Token 的失效时间），但是结合用户登出时客户端删除 Access Token 的操作，基本上可以适应常规情况下对用户认证鉴权的精度要求。",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "haotie1990",
+        "url": "https://github.com/haotie1990"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5MzQ0NjIwMTE=",
+    "number": 628,
+    "title": "【Q610】了解什么是 JSBridge 吗",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": {
+      "id": "IC_kwDODQzyOs400Fno",
+      "body": "JSBridge就是JavaScript和Native(IOS/Android)之间的桥梁，提供两者相互调用的能力",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "haotie1990",
+        "url": "https://github.com/haotie1990"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5MzQ1NjM1MjM=",
+    "number": 629,
+    "title": "【Q611】React/Vue 中兄弟组件如何进行通信",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU4MzQ3NDIy",
+        "name": "react"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjU4MzU0NDc5",
+        "name": "vue"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg3MjMyODA3Mw==",
+      "body": "> [见代码：React 中兄弟组件如何通信 - CodeSandbox](https://codesandbox.io/s/react-xiongdizujiantongxin-f2jf6)\r\n\r\n兄弟组件可通过 prop 与回调函数式的 prop 进行通信\r\n\r\n``` js\r\nimport { useState } from \"react\";\r\nimport \"./styles.css\";\r\n\r\nfunction One({ count, setCount }) {\r\n  return (\r\n    <div style={{ border: \"1px solid red\" }}>\r\n      <h2>Conponent One</h2>\r\n      <button onClick={() => setCount(count + 1)}>Click</button>\r\n      <div>{count}</div>\r\n    </div>\r\n  );\r\n}\r\n\r\nfunction Two({ count, setCount }) {\r\n  return (\r\n    <div style={{ border: \"1px solid red\" }}>\r\n      <h2>Conponent Two</h2>\r\n      <button onClick={() => setCount(count + 1)}>Click</button>\r\n      <div>{count}</div>\r\n    </div>\r\n  );\r\n}\r\n\r\nexport default function App() {\r\n  const [count, setCount] = useState(0);\r\n  return (\r\n    <div className=\"App\">\r\n      <One count={count} setCount={(c) => setCount(c)} />\r\n      <Two count={count} setCount={(c) => setCount(c)} />\r\n    </div>\r\n  );\r\n}\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5MzQ4NDc5MjE=",
+    "number": 630,
+    "title": "【Q612】React.memo 中是如何实现性能优化的",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU4MzQ3NDIy",
+        "name": "react"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg3MzMzNjMxNw==",
+      "body": "当 React 中一个组件进行更新时，它的所有子组件都会进行重新渲染，即便子组件的 props 并未发生任何改变。\r\n\r\n`React.memo` 对子组件默认使用浅比较对比前后两次 props 的变更，若未发生变更则不会重新渲染，因此提高了性能。\r\n\r\n可参考以下两个示例，加深理解:\r\n\r\n1. [React.memo 和性能优化](https://codesandbox.io/s/zujianxiasuoyouzizujianhuifashengchongxinxuanran-bv70e)。当某个组件状态更新时，它的所有子组件树将会重新渲染。\r\n1. [React.memo 和 React.useMemo 是如何优化性能的](https://codesandbox.io/s/reactmemo-and-reactusememo-79txp)\r\n",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5MzU0MjA0MjY=",
+    "number": 631,
+    "title": "【Q613】如何使用 JS 实现一个发布订阅模式",
+    "body": "使用 JS 实现一个发布订阅器，`Event`，示例如下:\r\n\r\n``` js\r\nconst e = new Event()\r\n\r\ne.on('click', x => console.log(x.id))\r\n\r\ne.once('click', x => console.log(id))\r\n\r\n//=> 3\r\ne.emit('click', { id: 3 })\r\n\r\n//=> 4\r\ne.emit('click', { id: 4 })\r\n\r\n```\r\n\r\nAPI 如下：\r\n\r\n``` js\r\nclass Event {\r\n  emit (type, ...args) {\r\n  }\r\n\r\n  on (type, listener) {\r\n  }\r\n\r\n  once (type, listener) {\r\n  }\r\n\r\n  off (type, listener) {\r\n  }\r\n}\r\n```",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDU0MjAwNTE1",
+        "name": "code"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg3MjcyNjQ0OA==",
+      "body": "一个简单的订阅发布模式实现如下，主要有两个核心 API\r\n\r\n+ `emit`: 发布一个事件\r\n+ `on`: 监听一个事件\r\n+ `off`: 取消一个事件监听\r\n\r\n实现该模式，使用一个 events 维护发布的事件：\r\n\r\n``` js\r\nconst events = {\r\n  click: [{\r\n    once: true,\r\n    listener: callback,\r\n  }, {\r\n    listener: callback\r\n  }]\r\n}\r\n```\r\n\r\n具体实现代码如下所示\r\n\r\n``` js\r\nclass Event {\r\n  events = {}\r\n \r\n  emit (type, ...args) {\r\n    const listeners = this.events[type]\r\n    for (const listener of listeners) {\r\n      listener.listener(...args)\r\n      if (listener.once) {\r\n        this.off(type, listener.listener)\r\n      }\r\n    }\r\n  }\r\n\r\n  on (type, listener) {\r\n    this.events[type] = this.events[type] || []\r\n    this.events[type].push({ listener })\r\n  }\r\n\r\n  once (type, listener) {\r\n    this.events[type] = this.events[type] || []\r\n    this.events[type].push({ listener, once: true })\r\n  }\r\n\r\n  off (type, listener) {\r\n    this.events[type] = this.events[type] || []\r\n    this.events[type] = this.events[type].filter(listener => listener.listener !== listener)\r\n  }\r\n}\r\n```\r\n\r\n以上代码不够优雅，且有点小瑕疵，再次实现如下，代码可见 [如何实现发布订阅器  - codepen](https://codepen.io/shanyue/pen/WNjprpe?editors=0012)\r\n\r\n``` js\r\nclass Event {\r\n  events = {}\r\n \r\n  emit (type, ...args) {\r\n    const listeners = this.events[type]\r\n    for (const listener of listeners) {\r\n      listener(...args)\r\n    }\r\n  }\r\n\r\n  on (type, listener) {\r\n    this.events[type] = this.events[type] || []\r\n    this.events[type].push(listener)\r\n  }\r\n\r\n  once (type, listener) {\r\n    const callback = (...args) => {\r\n      this.off(type, callback)\r\n      listener(...args)\r\n    }\r\n    this.on(type, callback)\r\n  }\r\n\r\n  off (type, listener) {\r\n    this.events[type] = this.events[type] || []\r\n    this.events[type] = this.events[type].filter(callback => callback !== listener)\r\n  }\r\n}\r\n\r\nconst e = new Event()\r\n\r\nconst callback = x => { console.log('Click', x.id) }\r\ne.on('click', callback)\r\ne.on('click', callback)\r\n\r\n// 只打印一次\r\nconst onceCallback = x => console.log('Once Click', x.id)\r\ne.once('click', onceCallback)\r\ne.once('click', onceCallback)\r\n\r\n//=> 3\r\ne.emit('click', { id: 3 })\r\n\r\n//=> 4\r\ne.emit('click', { id: 4 })\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5MzU5MzgwNjU=",
+    "number": 632,
+    "title": "【Q614】immer 的原理是什么，为什么它的性能更高",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU4MzQ3NDIy",
+        "name": "react"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg3NjU3NzIzNw==",
+      "body": "``` js\r\nconst state = {\r\n  user: { id: 3 },\r\n  role: { name: 'admin' }\r\n}\r\n\r\nconst proxyState = new Proxy(state, {\r\n  get (target, prop) {\r\n    return target[prop]\r\n  },\r\n})\r\n```\r\n\r\n```js\r\n//=> True\r\nstate !== proxyState\r\n\r\n//=> True\r\nstate.user === proxyState.user\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5MzYxNjE5NzQ=",
+    "number": 633,
+    "title": "【Q615】React.useMemo 与 React.useCallback 是如何进行性能优化的",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU4MzQ3NDIy",
+        "name": "react"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU5MzY0MTUwNTI=",
+    "number": 634,
+    "title": "【Q616】在 nginx 中如何配置 HTTP 协商缓存",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjgwMDkyMDA5",
+        "name": "http"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg3NTIyNjM4MA==",
+      "body": "Nginx 中在 1.3.3 后已默认开启了协商缓存，手动配置如下：\r\n\r\n``` nginx\r\nlocation /public {\r\n    add_header Cache-Control no-cache; \r\n    etag on;\r\n    if_modified_since exact;\r\n}\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5MzY0MjAzMjM=",
+    "number": 635,
+    "title": "【Q617】什么是 base64 与 URL Safe base64",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjgwMDkyMDA5",
+        "name": "http"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg3NTIyMjc4Nw==",
+      "body": "`base64` 由 `0-9`、`A-Z`、`a-z` 及 `+`、`/` 组成，但是在 URL 中使用 `base64` 时，`/` 容易与路径符号发生冲突。\r\n\r\n因此，URL Safe Base64 将 `+` 替换为 `_`，`/` 替换为 `-`。",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5MzY0MzQyNjU=",
+    "number": 636,
+    "title": "【Q618】列举 Number、String、Array、Object、Promise 有哪些 API",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzEx",
+        "name": "open"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg3NDAzODczOQ==",
+      "body": "## Number\r\n\r\n+ Number.isNaN()\r\n+ Number.isInteger()\r\n+ Number.isInfinite()\r\n+ Number.isSafeInteger()\r\n+ Number.prototype.toFixed()\r\n\r\n## String\r\n\r\n+ String.fromCharCode()\r\n+ String.raw()\r\n+ String.prototype.charAt()\r\n+ String.prototype.charCodeAt()\r\n+ String.prototype.concat()\r\n+ String.prototype.startsWith()\r\n+ String.prototype.endsWith()\r\n+ String.prototype.includes()\r\n+ String.prototype.indexOf()\r\n+ String.prototype.lastIndexOf()\r\n+ String.prototype.charAt()\r\n+ String.prototype.charCodeAt()\r\n+ String.prototype.trim()\r\n  + 如何手写实现 trim\r\n+ String.prototype.trimStart()\r\n+ String.prototype.trimEnd()\r\n+ String.prototype.repeat()\r\n+ String.prototype.replace()\r\n+ String.prototype.slice()\r\n+ String.prototype.split()\r\n+ String.prototype.substring()\r\n+ String.prototype.padStart()\r\n+ String.prototype.padEnd()\r\n+ String.prototype.search()\r\n+ String.prototype.match()\r\n+ String.prototype.toLowerCase()\r\n+ String.prototype.toUpperCase()\r\n\r\n## Array\r\n\r\n+ Array.isArray()\r\n+ Array.from()\r\n  + 如何生成 `[0, 1, 2, ..., 99]` 的数组\r\n+ Array.of()\r\n+ Array.prototype.slice()\r\n+ Array.prototype.splice()\r\n+ Array.prototype.sort()\r\n+ Array.prototype.reverse()\r\n+ Array.prototype.indexOf\r\n+ Array.prototype.lastIndexOf()\r\n+ Array.prototype.includes()\r\n+ Array.prototype.push()\r\n+ Array.prototype.pop()\r\n+ Array.prototype.shift()\r\n+ Array.prototype.unshift()\r\n  + 如何给数组首项添加元素\r\n+ Array.prototype.map()\r\n+ Array.prototype.reduce()\r\n+ Array.prototype.forEach()\r\n+ Array.prototype.filter()\r\n+ Array.prototype.every()\r\n+ Array.prototype.some()\r\n+ Array.prototype.flat()\r\n+ Array.prototype.flatMap()\r\n+ Array.prototype.toString()\r\n\r\n## Object\r\n\r\n+ Object.create()\r\n+ Object.assign()\r\n+ Object.defineProperties()\r\n+ Object.defineProperty()\r\n+ Object.keys()\r\n+ Object.values()\r\n+ Object.entries()\r\n+ Object.fromEntries()\r\n+ Object.is()\r\n\r\n",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5MzY4NTIyNTc=",
+    "number": 637,
+    "title": "【Q619】使用 JS 如何生成一个随机字符串",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDU0MjAwNTE1",
+        "name": "code"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg3Mzk0ODQ1Mg==",
+      "body": "``` js\r\nconst random = () => Math.random().toString(36).slice(2)\r\n\r\nrandom()\r\n// => \"c1gdm25ezch\"\r\nrandom()\r\n// => \"oir5ppqmar\"\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5MzcwMDEwMDE=",
+    "number": 638,
+    "title": "【Q620】CSS 有哪些选择器",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIw",
+        "name": "css"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg3NDA0Njc4Nw==",
+      "body": "+ `:hover`\r\n+ `:active`\r\n+ `:first-child`\r\n+ `:last-child`\r\n+ `:nth-child`\r\n+ `:first-of-type`\r\n+ `:last-of-type`\r\n+ `:nth-of-type`\r\n+ `:empty`\r\n+ `:check`\r\n+ `:disable`",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5MzcwMTI2NDY=",
+    "number": 639,
+    "title": "【Q621】CSS 有哪些伪类与伪元素选择器",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIw",
+        "name": "css"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg3NDA1MjY0NA==",
+      "body": "+ `::before`\r\n+ `::after`\r\n+ `::selection`\r\n+ `::placeholder`\r\n+ `::marker`\r\n\r\n## 伪类\r\n\r\n+ `:hover`\r\n+ `:first-child`\r\n+ `:last-child`\r\n+ `:nth-child`",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5Mzg0Mzc0Nzk=",
+    "number": 640,
+    "title": "【Q622】Number.isNaN 与 globalThis.isNaN 有何区别",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg3NTI1NzkzMQ==",
+      "body": "``` js\r\nNumber.isNaN(NaN)\r\nisNaN(NaN)\r\n\r\nNumber.isNaN('NaN')\r\nisNaN('NaN')\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5Mzg0NDE3Mjc=",
+    "number": 641,
+    "title": "【Q623】如何判断一个数值为整数",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDU0MjAwNTE1",
+        "name": "code"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg3NTI0Mzk5MA==",
+      "body": "``` js\r\n// ES6\r\nNumber.isInteger(num);\r\n\r\n// ES5\r\nif (!Number.isInteger) {\r\n  Number.isInteger = function(num) {\r\n    return typeof num == \"number\" && num % 1 == 0;\r\n  };\r\n}\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5Mzg2OTg4OTI=",
+    "number": 642,
+    "title": "【Q624】同一页面三个组件请求同一个 API 发送了三次请求，如何优化",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU4MzQ3NDIy",
+        "name": "react"
+      },
+      {
+        "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+        "name": "前端工程化"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg3NTQ2Mzg0Mw==",
+      "body": "``` js\r\nconst fetchUser = (id) => {\r\n  return new Promise(resolve => {\r\n    setTimeout(() => {\r\n      console.log('Fetch: ', id)\r\n      resolve(id)\r\n    }, 5000)\r\n  })\r\n}\r\n\r\nconst cache = {}\r\nconst cacheFetchUser = (id) => {\r\n  if (cache[id]) {\r\n    return cache[id]\r\n  }\r\n  cache[id] = fetchUser(id)\r\n  return cache[id]\r\n}\r\n```\r\n\r\n``` js\r\ncacheFetchUser(3).then((id) => console.log(id))\r\ncacheFetchUser(3).then((id) => console.log(id))\r\ncacheFetchUser(3).then((id) => console.log(id))\r\n\r\n// Fetch:  3\r\n​// 3\r\n​// 3\r\n​// 3 \r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5Mzk0MTgyMTg=",
+    "number": 643,
+    "title": "【Q625】简述 koa 的中间件原理，手写 koa-compose 代码",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDU0MjAwNTE1",
+        "name": "code"
+      },
+      {
+        "id": "MDU6TGFiZWwxNzI2MDg3MTMx",
+        "name": "node"
+      }
+    ],
+    "comment": {
+      "id": "IC_kwDODQzyOs40k4fS",
+      "body": "``` js\r\nfunction compose (middlewares) {\r\n  return ctx => {\r\n    const dispatch = (i) => {\r\n      const middleware = middlewares[i]\r\n      if (i === middlewares.length) {\r\n        return\r\n      }\r\n      return middleware(ctx, () => dispatch(i+1))\r\n    }\r\n    return dispatch(0)\r\n  }\r\n}\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5Mzk0MjQzODE=",
+    "number": 644,
+    "title": "【Q626】如何压缩前端项目 JS 体积",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDkwODMwMjI5",
+        "name": "perf"
+      },
+      {
+        "id": "MDU6TGFiZWwxNzA2NzQ0ODEz",
+        "name": "webpack"
+      },
+      {
+        "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+        "name": "前端工程化"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg3NjEwMzQ0MQ==",
+      "body": "1. [terser](https://github.com/terser/terser) 或者 [uglify](https://github.com/mishoo/UglifyJS) 压缩混淆化 JS。\r\n2. `gzip` 或者 `brotli` 压缩，在网关处开启。\r\n3. 使用 `webpack-bundle-analyzer` 分析打包体积，替换占用较大体积的库，如 `moment` -> `dayjs`，使用支持 Tree-Shaking 的库\r\n4. 对无法 Tree Shaking 的库，进行按需引入模块，如使用 `import Button from 'antd/lib/Button'`，此处可手写 `babel-plugin` 自动完成，但不推荐\r\n4. 使用 webpack 的 splitChunksPlugin，把运行时、被引用多次的库打包在一起，避免某一个库被多次引用，多次打包",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5Mzk0NDU1ODg=",
+    "number": 645,
+    "title": "【Q627】如何优化 React 项目的性能",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDkwODMwMjI5",
+        "name": "perf"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjU4MzQ3NDIy",
+        "name": "react"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg3NjExMjMyNg==",
+      "body": "1. 避免不必要的渲染，shouldComponentUpdate、React.memo、React.useMemo、React.useCallback。\r\n2. 代码分割，React.lazy 动态加载组件\r\n3. 使用 `react-query`，对请求响应进行缓存、重发等，避免多次请求，减少网络 IO 消耗及优化渲染次数\r\n4. 使用 `useDebounce`，对值及事件处理函数进行防抖，避免状态频繁变动，优化渲染次数\r\n5. 使用 `useImmer`",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5NDAzODA0MDY=",
+    "number": 646,
+    "title": "【Q628】实现一个函数 maxBy，根据给定条件找到最大的数组项",
+    "body": "类似 `loadash` 如：\r\n\r\n``` js\r\nconst data = [{ value: 6 }, { value: 2 }, { value: 4 }]\r\n\r\n//=> { value: 6 }\r\nmaxBy(data, x => x.value)\r\n```\r\n\r\n拓展一下，如果最大的项有多个，则多个都返回\r\n\r\n``` js\r\nconst data = [{ value: 6 }, { value: 2 }, { value: 4 }, { value: 6 }]\r\n\r\n//=> [{ value: 6 }, { value: 6 }]\r\nmaxBy(data, x => x.value)\r\n```\r\n\r\n相关问题：\r\n\r\n+ [【Q411】如何找到当前页面出现次数最多的HTML标签](https://github.com/shfshanyue/Daily-Question/issues/418)\r\n+ [【Q629】实现一个函数 max，找到数组中最大的一个值/两个值/N个值](https://github.com/shfshanyue/Daily-Question/issues/647)",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDU0MjAwNTE1",
+        "name": "code"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg3Njg4NzI2Ng==",
+      "body": "``` js\r\nconst maxBy = (list, keyBy) => list.reduce((x, y) => keyBy(x) > keyBy(y) ? x : y)\r\n```\r\n\r\n``` js\r\nconst maxBy = (list, keyBy) => {\r\n  return list.slice(1).reduce((acc, x) => {\r\n    if (keyBy(x) > keyBy(acc[0])) {\r\n      return [x]\r\n    }\r\n    if (keyBy(x) === keyBy(acc[0])) {\r\n      return [...acc, x]\r\n    }\r\n    return acc\r\n  }, [list[0]])\r\n}\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5NDAzODU4Nzc=",
+    "number": 647,
+    "title": "【Q629】实现一个函数 max，找到数组中最大的一个值/两个值/N个值",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDU0MjAwNTE1",
+        "name": "code"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg3NzA0OTg3Mg==",
+      "body": "求最大的一个值：\r\n\r\n``` js\r\nfunction max (list) {\r\n  if (!list.length) { return 0 }\r\n  return list.reduce((x, y) => x > y ? x : y)\r\n}\r\n```\r\n\r\n求最大的两个值：\r\n\r\n> 代码见 [找出数组中最大的两个值 - codepen](https://codepen.io/shanyue/pen/vYmyYwQ?editors=1010)\r\n\r\n``` js\r\nfunction maxTwo (list) {\r\n  let max = -Infinity, secondMax = -Infinity\r\n  for (const x of list) {\r\n    if (x > max) {\r\n      secondMax = max\r\n      max = x\r\n    } else if (x > secondMax) {\r\n      secondMax = x\r\n    }\r\n  }\r\n  return [max, secondMax]\r\n}\r\n```\r\n\r\n如果求 TopN，可使用大顶堆、小顶堆实现，见另一个问题",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5NDA2OTQ3Mjk=",
+    "number": 648,
+    "title": "【Q630】什么是安全整数，如何判断一个整数是安全整数",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": {
+      "id": "IC_kwDODQzyOs40mIPX",
+      "body": "根据 MDN 的文档描述：<https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Number/isSafeInteger>\r\n\r\n> 一个安全整数是一个符合下面条件的整数：\r\n> \r\n> 1. 可以准确地表示为一个IEEE-754双精度数字,\r\n> 1. 其IEEE-754表示不能是舍入任何其他整数以适应IEEE-754表示的结果。.\r\n\r\n可以使用 `Number.isSafeInteger()` 来判断一个数值是否为安全整数\r\n",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5NDEzNjI2ODA=",
+    "number": 649,
+    "title": "【Q631】在 Node 中如何读写文件",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzI2MDg3MTMx",
+        "name": "node"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg3NzczNzIyNA==",
+      "body": "1. open\r\n2. read\r\n3. close",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5NDEzNjc1NjM=",
+    "number": 650,
+    "title": "【Q632】在 Node 中如何发送请求",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzI2MDg3MTMx",
+        "name": "node"
+      }
+    ],
+    "comment": {
+      "id": "IC_kwDODQzyOs40iyud",
+      "body": "如果使用原生 API，可使用 `http/https` 核心模块\r\n\r\n``` js\r\nconst https = require('https');\r\n\r\nhttps.get('https://icanhazip.com', (res) => {\r\n  console.log('statusCode:', res.statusCode);\r\n  console.log('headers:', res.headers);\r\n  let data = ''\r\n\r\n  res.on('data', (chunk) => {\r\n    data += chunk\r\n  })\r\n\r\n  res.on('end', () => {\r\n    console.log(data)\r\n  })\r\n\r\n}).on('error', (e) => {\r\n  console.error(e);\r\n});\r\n\r\n```\r\n\r\n如果使用第三方库的话，可使用 `axios` 等。\r\n\r\n目前，Node 团队抛弃了核心模块 http/https 从头开发了一个新的 http client，名为 [undeci](https://github.com/nodejs/undici)，将有可能成为以后默认的 http client\r\n\r\n``` js\r\nimport { request } from 'undici'\r\n\r\nconst {\r\n  statusCode,\r\n  headers,\r\n  trailers,\r\n  body\r\n} = await request('http://localhost:3000/foo')\r\n\r\nconsole.log('response received', statusCode)\r\nconsole.log('headers', headers)\r\n\r\nfor await (const data of body) {\r\n  console.log('data', data)\r\n}\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5NDEzNjgyMjc=",
+    "number": 651,
+    "title": "【Q633】Node 中服务端框架如何解析 http 的请求体 body",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzI2MDg3MTMx",
+        "name": "node"
+      }
+    ],
+    "comment": {
+      "id": "IC_kwDODQzyOs40p48F",
+      "body": "在 Node 服务中，通过 `http.createServer` 接收到的 req 为可读流，对流进行读取数据\r\n\r\n``` js\r\nconst server = http.createServer((req, res) => {\r\n  let body = ''\r\n  req.on('data', chunk => body += chunk)\r\n  req.on('end', () => {\r\n    data = body\r\n    res.end(data)\r\n  })\r\n})\r\n\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5NDEzODM2OTk=",
+    "number": 652,
+    "title": "【Q644】统计字符串中出现次数最多的字符及次数",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDU0MjAwNTE1",
+        "name": "code"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg3Nzc1MTg2MQ==",
+      "body": "见代码实现: [统计字符串中出现次数最多的字符及次数- codepen](https://codepen.io/shanyue/pen/YzVGjrv?editors=0011)\r\n\r\n``` js\r\nfunction getFrequentChar (str) {\r\n  const dict = {}\r\n  for (const char of str) {\r\n    dict[char] = (dict[char] || 0) + 1\r\n  }\r\n  const maxBy = (list, keyBy) => list.reduce((x, y) => keyBy(x) > keyBy(y) ? x : y)\r\n  return maxBy(Object.entries(dict), x => x[1])\r\n}\r\n```",
+      "reactions": {
+        "totalCount": 1
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5NDEzOTM4MDE=",
+    "number": 653,
+    "title": "【Q635】请输出 100 以内的菲波那切数列",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDU0MjAwNTE1",
+        "name": "code"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg3Nzk0MTE5OQ==",
+      "body": "``` js\r\nfunction fib (n) {\r\n  let a = 0, b = 1;\r\n  let r = [0]\r\n  while (b < n) {\r\n    r.push(b);\r\n    [a, b] = [b, a + b];\r\n  }\r\n  return r\r\n}\r\n```",
+      "reactions": {
+        "totalCount": 3
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5NDE0NTQ0ODA=",
+    "number": 654,
+    "title": "【Q636】你们项目中使用了哪些依赖/第三方库",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzEx",
+        "name": "open"
+      },
+      {
+        "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+        "name": "前端工程化"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU5NDIwODQ1ODE=",
+    "number": 655,
+    "title": "【Q637】如何使用正则匹配一个汉字",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDU0MjAwNTE1",
+        "name": "code"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU5NDIxMDQ4MzI=",
+    "number": 656,
+    "title": "【Q638】如何把字符串全部转化为小写格式",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDU0MjAwNTE1",
+        "name": "code"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg3OTUxNjIzNQ==",
+      "body": "```js\r\nconst convert = str => str.replace(/[A-Z]/g, l => l.toLowerCase())\r\n\r\n// test\r\nconvert('aCd')\r\nconvert('aCd123')\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "cyio",
+        "url": "https://github.com/cyio"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5NDUyNjk2ODM=",
+    "number": 657,
+    "title": "【Q639】HTTP 与 TCP 中的 keep-alive 各是什么",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjgwMDkyMDA5",
+        "name": "http"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE0",
+        "name": "network"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU5NDUyODcwNzk=",
+    "number": 658,
+    "title": "【Q640】如何实现数组函数 reduce",
+    "body": "满足以下两个测试用例\r\n\r\n``` js\r\n// => 55\r\nreduce([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], (x, y) => x + y)\r\n\r\n// => 155\r\nreduce([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], (x, y) => x + y, 100)\r\n```",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDU0MjAwNTE1",
+        "name": "code"
+      }
+    ],
+    "comment": {
+      "id": "MDEyOklzc3VlQ29tbWVudDg4MDYyMjI2MA==",
+      "body": "``` js\r\nconst reduce = (list, fn, ...init) => {\r\n  let next = init.length ? init[0] : list[0]\r\n  for (let i = init.length ? 0 : 1; i < list.length; i++) {\r\n    next = fn(next, list[i], i)\r\n  }\r\n  return next\r\n}\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5NDUzOTM5NTk=",
+    "number": 659,
+    "title": "【Q641】redis 中的哨兵与集群模式各是什么",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjY2OTk3OTM5",
+        "name": "redis"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU5NDUzOTcxNjQ=",
+    "number": 660,
+    "title": "【Q642】在 Node 中流 (stream) 分为几类，有哪些应用场景",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzI2MDg3MTMx",
+        "name": "node"
+      }
+    ],
+    "comment": {
+      "id": "IC_kwDODQzyOs400DQ8",
+      "body": "Node.js 中有四种基本的流类型：\r\n\r\n- Writable: 可以写入数据的流（例如，`fs.createWriteStream()`）。\r\n\r\n- Readable: 可以从中读取数据的流（例如，`fs.createReadStream()`）。\r\n\r\n- Duplex: Readable 和 Writable 的流（例如，`net.Socket`）。\r\n\r\n- Transform: 可以在写入和读取数据时修改或转换数据的 Duplex 流（例如，`zlib.createDeflate()`）",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "haotie1990",
+        "url": "https://github.com/haotie1990"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5NDU1MzI3OTk=",
+    "number": 661,
+    "title": "【Q643】如何实现 chunk 函数，数组进行分组",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDU0MjAwNTE1",
+        "name": "code"
+      }
+    ],
+    "comment": {
+      "id": "IC_kwDODQzyOs40hz5T",
+      "body": "``` js\r\nfunction chunk (list, size) {\r\n  const l = []\r\n  for (let i = 0; i < list.length; i++ ) {\r\n    const index = Math.floor(i / size)\r\n    l[index] ??= [];\r\n    l[index].push(list[i])\r\n  }\r\n  return l\r\n}\r\n\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5NDU1MzU2OTk=",
+    "number": 662,
+    "title": "【Q644】实现一个异步的 sum/add",
+    "body": "> 这是一道字节跳动的面试题目，见面经 [某银行前端一年半经验进字节面经](https://juejin.cn/post/6959364219162607630)。山月认为这也是一道水平较高的题目，promise 串行，并行，二分，并发控制，层层递进。\r\n\r\n请实现以下 sum 函数，只能调用 add 进行实现\r\n\r\n``` js\r\n/*\r\n  请实现一个 sum 函数，接收一个数组 arr 进行累加，并且只能使用add异步方法\r\n  \r\n  add 函数已实现，模拟异步请求后端返回一个相加后的值\r\n*/\r\nfunction add(a, b) {\r\n  return Promise.resolve(a + b);\r\n}\r\n\r\nfunction sum(arr) {\r\n  \r\n}\r\n```\r\n\r\n**追加问题：如何控制 add 异步请求的并发次数**\r\n\r\n相关问题：\r\n\r\n+ [【Q088】如何实现 promise.map，限制 promise 并发数](https://github.com/shfshanyue/Daily-Question/issues/89)\r\n+ [【Q643】如何实现 chunk 函数，数组进行分组](https://github.com/shfshanyue/Daily-Question/issues/661)",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDU0MjAwNTE1",
+        "name": "code"
+      }
+    ],
+    "comment": {
+      "id": "IC_kwDODQzyOs40hI3e",
+      "body": "先来一个串行的写法：\r\n\r\n``` js\r\nfunction sum(arr) {\r\n  if (arr.length === 1) return arr[0]\r\n  return arr.reduce((x, y) => Promise.resolve(x).then(x => add(x, y)))\r\n}\r\n```\r\n\r\n接下来是并行的写法：\r\n\r\n``` js\r\nfunction add (x, y) {\r\n  return Promise.resolve(x + y)\r\n}\r\n\r\nfunction chunk (list, size) {\r\n  const l = []\r\n  for (let i = 0; i < list.length; i++ ) {\r\n    const index = Math.floor(i / size)\r\n    l[index] ??= [];\r\n    l[index].push(list[i])\r\n  }\r\n  return l\r\n}\r\n\r\nasync function sum(arr) {\r\n  if (arr.length === 1) return arr[0]\r\n  const promises = chunk(arr, 2).map(([x, y]) => y === undefined ? x : add(x, y))\r\n  return Promise.all(promises).then(list => sum(list))\r\n}\r\n```\r\n\r\n如果需要控制并发数，则可以先实现一个 `pMap` 用以控制并发\r\n\r\n``` js\r\nfunction pMap(list, mapper, concurrency = Infinity) {\r\n  return new Promise((resolve, reject) => {\r\n    let currentIndex = 0\r\n    let result = []\r\n    let resolveCount = 0\r\n    let len = list.length\r\n    function next() {\r\n      const index = currentIndex++\r\n      Promise.resolve(list[index]).then(o => mapper(o, index)).then(o => {\r\n        result[index] = o\r\n        if (++resolveCount === len) { resolve(result) }\r\n        if (currentIndex < len) { next() }\r\n      })\r\n    }\r\n    for (let i = 0; i < concurrency && i < len; i ++) {\r\n      next()\r\n    }\r\n  })\r\n}\r\n\r\nasync function sum(arr, concurrency) {\r\n  if (arr.length === 1) return arr[0]\r\n  return pMap(chunk(arr, 2), ([x, y]) => {\r\n    return y === undefined ? x : add(x, y)\r\n  }, concurrency).then(list => sum(list, concurrency))\r\n}\r\n```",
+      "reactions": {
+        "totalCount": 2
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5NDYxMDUyNTA=",
+    "number": 663,
+    "title": "【Q645】随机生成六位数的手机验证码(重复/不可重复)",
+    "body": "> 字节跳动有一道面试题，见 <https://juejin.cn/post/6959364219162607630>",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDU0MjAwNTE1",
+        "name": "code"
+      }
+    ],
+    "comment": {
+      "id": "IC_kwDODQzyOs40h7GW",
+      "body": "``` js\r\nconst random = n => Math.floor(Math.random() * (n + 1))\r\n\r\n// 可生成重复的随机验证码\r\nfunction randomCode () {\r\n  return Array(6).fill().map(() => random(9))\r\n}\r\n\r\nfunction randomCode2 () {\r\n  let i = 0;\r\n  let l = []\r\n  while (i < 6) {\r\n    const x = random(9)\r\n    if (!l.includes(x)) {\r\n      i++;\r\n      l.push(x)\r\n    }\r\n  }\r\n  return l\r\n}\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5NDYxNzIyNjU=",
+    "number": 664,
+    "title": "【Q646】如何禁止打开浏览器控制台",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzY5MDg5MzQ2",
+        "name": "dom"
+      },
+      {
+        "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+        "name": "前端工程化"
+      }
+    ],
+    "comment": {
+      "id": "IC_kwDODQzyOs40mIX-",
+      "body": "> https://github.com/AEPKILL/devtools-detector",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5NDYzNDcxMzk=",
+    "number": 665,
+    "title": "【Q647】Array 中那些 API 可改变自身",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU5NDYzNjY0Njc=",
+    "number": 666,
+    "title": "【Q648】如何把一个数组 Array 转化为迭代器 Iterable",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": {
+      "id": "IC_kwDODQzyOs40iykK",
+      "body": "``` js\r\nconst list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]\r\n\r\nconst it = list[Symbol.iterator]()\r\n\r\nit.next()\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5NDYzNzg0Nzc=",
+    "number": 667,
+    "title": "【Q649】如何去除字符串首尾空白字符",
+    "body": "实现一个 trim 函数，如同原生的 `Array.prototype.trim`，以下有两个测试用例\r\n\r\n``` js\r\n//=> hello\r\n'    hello   '.trim()\r\n\r\n//=> hello\r\n'    hello   \\t\\n'.trim()\r\n```",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDU0MjAwNTE1",
+        "name": "code"
+      }
+    ],
+    "comment": {
+      "id": "IC_kwDODQzyOs40kxXR",
+      "body": "在正则表达式中，`\\s` 指匹配一个空白字符，包括空格、制表符、换页符和换行符。等价于`[ \\f\\n\\r\\t\\v\\u00a0\\u1680\\u180e\\u2000-\\u200a\\u2028\\u2029\\u202f\\u205f\\u3000\\ufeff]`。\r\n\r\n``` js\r\nconst trim = str => str.trim || str.replace(/^\\s+|\\s+$/g, '')\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5NDY3MjIwMDU=",
+    "number": 668,
+    "title": "【Q650】http 各个版本间各有什么改进",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjgwMDkyMDA5",
+        "name": "http"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU5NDY3ODIzNzM=",
+    "number": 669,
+    "title": "【Q651】简述 http3，http3 解决了什么问题",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjgwMDkyMDA5",
+        "name": "http"
+      }
+    ],
+    "comment": {
+      "id": "IC_kwDODQzyOs40kfk5",
+      "body": "http3是基于UDP协议的。\r\n它主要解决了http1.1和http2都存在的队头阻塞，TCP和TLS的握手时延问题。",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "mingshengxiao",
+        "url": "https://github.com/mingshengxiao"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5NDY3ODI2MDA=",
+    "number": 670,
+    "title": "【Q652】http2 中 Stream 与 Frame 是什么关系",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjgwMDkyMDA5",
+        "name": "http"
+      }
+    ],
+    "comment": {
+      "id": "IC_kwDODQzyOs40ke7P",
+      "body": "+ Stream 为 Request/Response 报文的双向通道，一个完整资源的请求与相应是一个 stream，特殊的 stream 作为 Settings、Window_Update 等 Frame 发送的通道\r\n+ Frame 为 http2 通信的最小单位，有 Data、Headers 等，一个 Stream 包含多个 Frame，如一条 http 请求包含 Header、Data Frame 等\r\n\r\n![](https://cdn.jsdelivr.net/gh/shfshanyue/assets@master/20210619/image.yf6of3e60w0.png)\r\n\r\n![image](https://developers.google.com/web/fundamentals/performance/http2/images/streams_messages_frames01.svg)",
+      "reactions": {
+        "totalCount": 2
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5NDY5OTE1MDM=",
+    "number": 671,
+    "title": "【Q653】useLayoutEffect 和 useEffect 有什么区别",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU4MzQ3NDIy",
+        "name": "react"
+      }
+    ],
+    "comment": {
+      "id": "IC_kwDODQzyOs40pffc",
+      "body": "TODO",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5NDcwMjU0ODg=",
+    "number": 672,
+    "title": "【Q654】css加载会阻塞DOM树的解析和渲染吗",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIw",
+        "name": "css"
+      }
+    ],
+    "comment": {
+      "id": "IC_kwDODQzyOs40pey9",
+      "body": "TODO",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5NDcwMjc2NTM=",
+    "number": 673,
+    "title": "【Q655】实现 intersection，取数组交集",
+    "body": "类似 `lodash.intersection`，有以下测试用例\r\n\r\n``` js\r\n//=> [2]\r\nintersection([2, 1], [2, 3]);\r\n\r\n//=> [1, 2]\r\nintersection([1, 2, 2], [1, 2, 2])\r\n\r\n//=> [1, 2]\r\nintersection([1, 2, 2], [1, 2, 2], [1, 2])\r\n```",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDU0MjAwNTE1",
+        "name": "code"
+      }
+    ],
+    "comment": {
+      "id": "IC_kwDODQzyOs40kwmz",
+      "body": "``` js\r\nconst intersection = (...list) => {\r\n  const result = list.reduce((x, y) => x.filter(i => y.includes(i)))\r\n  return [...new Set(result)]\r\n}\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5NDcwNjMwNTI=",
+    "number": 674,
+    "title": "【Q656】JS 中如何实现 call",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": {
+      "id": "IC_kwDODQzyOs40ljJ3",
+      "body": "``` js\r\nconst call = (fn, thisObj, ...args) => {\r\n  thisObj.fn = fn;\r\n  const r = thisObj.fn(...args);\r\n  delete thisObj.fn; \r\n  return r;\r\n}\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5NDcyMTEzOTc=",
+    "number": 675,
+    "title": "【Q657】实现一个 composeLeft/flow(从左向右) 函数，进行函数合成",
+    "body": "实现一个 composeLeft/flow(从左向右) 函数，进行函数合成，类似于 `lodash.flow`\r\n\r\n\r\n``` js\r\nconst add10 = x => x + 10\r\nconst mul10 = x => x * 10\r\nconst add100 = x => x + 100\r\n\r\n// (10 + 10) * 10 + 100 = 300\r\nflow(add10, mul10, add100)(10)\r\n```\r\n\r\n相关问题: [【Q181】如何实现 compose 函数，进行函数合成](https://github.com/shfshanyue/Daily-Question/issues/182)",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDU0MjAwNTE1",
+        "name": "code"
+      }
+    ],
+    "comment": {
+      "id": "IC_kwDODQzyOs40lV9e",
+      "body": "// 我这个好理解，不够优雅\r\n```\r\nfunction compose(fn){\r\n    let args = [].slice.call(arguments)\r\n    return function(){\r\n        let sum = 0\r\n        let params = [].slice.call(arguments)[0]\r\n        for(let i = 0; i< args.length; i++){\r\n            let f = args[i]\r\n            sum += f(params)\r\n        }\r\n        return sum;\r\n    }\r\n}\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "ovarte",
+        "url": "https://github.com/ovarte"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5NDczMTQxMTU=",
+    "number": 676,
+    "title": "【Q658】什么是点击劫持(ClickJacking)，如何预防",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjgwMDkyMDA5",
+        "name": "http"
+      }
+    ],
+    "comment": {
+      "id": "IC_kwDODQzyOs40lo7K",
+      "body": "可以使用 HTTP X-Frame-Options 响应头以及 `CSP: frame-ancestors` 指令，避免**自己网站被当做 iframe 嵌入到非法网站引导用户点击**\r\n\r\n``` bash\r\nX-Frame-Options: DENY\r\nX-Frame-Options: SAMEORIGIN\r\n```\r\n\r\n或者使用 CSP 的指令 `frame-ancestors` 进行预防\r\n\r\n```bash\r\nContent-Security-Policy: frame-ancestors 'none';\r\nContent-Security-Policy: frame-ancestors 'self' https://www.example.org;\r\n```\r\n\r\n同时，也可以使用 Javascript 进行控制，当发现自身网站置于 iframe 中时，将不予展现\r\n\r\n```html\r\n<head>\r\n</head>\r\n<body>\r\n  <script>\r\n    // 如果发现现在是在 iframe 中\r\n    if (self !== top) {\r\n      document.write('')\r\n    }\r\n  </script>\r\n</body>\r\n```",
+      "reactions": {
+        "totalCount": 1
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5NDc2MjM2OTc=",
+    "number": 677,
+    "title": "【Q659】在 React Hooks 中实现 usePreviouseValue 取上次渲染的值",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjU4MzQ3NDIy",
+        "name": "react"
+      }
+    ],
+    "comment": {
+      "id": "IC_kwDODQzyOs40oWrx",
+      "body": "TODO",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5NDc2ODc1MjU=",
+    "number": 678,
+    "title": "【Q660】实现一个 render/template 函数，可以用以渲染模板",
+    "body": "``` js\r\nconst template = '{{ user[\"name\"] }}，今天你又学习了吗 - 用户ID: {{ user.id }}';\r\n\r\nconst data = {\r\n  user: {\r\n    id: 10086,\r\n    name: '山月',\r\n  }\r\n};\r\n\r\n//=> \"山月，今天你又学习了吗 - 用户ID: 10086\"\r\nrender(template, data); \r\n```\r\n\r\n注意:\r\n\r\n1. 注意深层嵌套数据\r\n2. 注意 `user['name']` 属性",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDU0MjAwNTE1",
+        "name": "code"
+      }
+    ],
+    "comment": {
+      "id": "IC_kwDODQzyOs40mw7C",
+      "body": "代码可见 [实现一个 render/template 函数，可以用以渲染模板 - codepen](https://codepen.io/shanyue/pen/yLboJQE?editors=0012)\r\n\r\n``` js\r\nfunction get (source, path, defaultValue = undefined) {\r\n  // a[3].b -> a.3.b -> [a, 3, b]\r\n  const paths = path.replace(/\\[(\\w+)\\]/g, '.$1').replace(/\\[\"(\\w+)\"\\]/g, '.$1').replace(/\\['(\\w+)'\\]/g, '.$1').split('.')\r\n  let result = source\r\n  for (const p of paths) {\r\n    result = result?.[p]\r\n  }\r\n  return result === undefined ? defaultValue : result \r\n}\r\n\r\nfunction render (template, data)  {\r\n  return template.replace(/{{\\s+([^\\s]+)\\s+}}/g, (capture, key) => {\r\n    return get(data, key)\r\n  })\r\n}\r\n```",
+      "reactions": {
+        "totalCount": 2
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5NDkzODQzMTY=",
+    "number": 679,
+    "title": "【Q661】Number 中最大数、最大安全整数、EPSILON 都是多少，原理是什么",
+    "body": "可参考 IEEE754 规范",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": {
+      "id": "IC_kwDODQzyOs40r88b",
+      "body": "> https://zh.wikipedia.org/zh-cn/%E9%9B%99%E7%B2%BE%E5%BA%A6%E6%B5%AE%E9%BB%9E%E6%95%B8\r\n\r\n![](https://upload.wikimedia.org/wikipedia/commons/7/76/General_double_precision_float.png)",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5NDk3MTYxOTA=",
+    "number": 680,
+    "title": "【Q662】TCP 是如何进行拥塞控制的",
+    "body": "可参考文章: <https://zhuanlan.zhihu.com/p/76023663>",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwyMzA5NzM0Njk0",
+        "name": "tcp"
+      }
+    ],
+    "comment": {
+      "id": "IC_kwDODQzyOs40s8PD",
+      "body": "TODO",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5NDk3NjI5Mzk=",
+    "number": 681,
+    "title": "【Q663】给定一个数值，给出它在 IEEE754 的表示，如符号位、指数位与分数位",
+    "body": "相关问题：\r\n\r\n+ [【Q661】Number 中最大数、最大安全整数、EPSILON 都是多少，原理是什么](https://github.com/shfshanyue/Daily-Question/issues/679)",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDU0MjAwNTE1",
+        "name": "code"
+      }
+    ],
+    "comment": {
+      "id": "IC_kwDODQzyOs40tEqY",
+      "body": "代码见: [给定一个数值，给出它在 IEEE754 的表示，如符号位、指数位与分数位 - codepen](https://codepen.io/shanyue/pen/abWLooZ)\r\n\r\n``` js\r\nfunction formatToBinaryExponent (num) {\r\n  const [int, dec] = String(num).split(/(?=\\.)/).map(x => Number(x).toString(2))\r\n  const exponent = (int.length - 1).toString(2)\r\n  const fraction = int.slice(1) + dec.slice(2)\r\n  return {\r\n    exponent,\r\n    fraction: fraction.slice(0, 52),\r\n    sign: num > 0,\r\n    exact: fraction.length < 52,\r\n  }\r\n}\r\n\r\nconsole.log(formatToBinaryExponent(13.5))\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5NTA0NTAyNjU=",
+    "number": 682,
+    "title": "【Q664】请简述下 Node 与浏览器环境中的事件循环",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzI2MDg3MTMx",
+        "name": "node"
+      }
+    ],
+    "comment": {
+      "id": "IC_kwDODQzyOs40vG0M",
+      "body": "TODO",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5NTA1MjA2Nzk=",
+    "number": 683,
+    "title": "【Q665】JS 如何检测到对象中有循环引用",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": {
+      "id": "IC_kwDODQzyOs40z5E7",
+      "body": "```javascript\r\nfunction checkObj (obj, set = new Set()) {\r\n    if (typeof obj === 'object' && obj !== null || Array.isArray(obj)) {\r\n        if (set.has(obj)) {\r\n            return true\r\n        } else {\r\n            set.add(obj)\r\n        }\r\n        return Object.values(obj).some(curr => {       \r\n            return checkObj(curr, set)\r\n        })\r\n    }\r\n    return false\r\n}\r\n\r\n```",
+      "reactions": {
+        "totalCount": 1
+      },
+      "author": {
+        "login": "heretic-G",
+        "url": "https://github.com/heretic-G"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5NTA3MjEwODA=",
+    "number": 684,
+    "title": "【Q666】实现二进制与十进制的互相转化的两个函数",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDU0MjAwNTE1",
+        "name": "code"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": {
+      "id": "IC_kwDODQzyOs40wEiQ",
+      "body": "代码见：[实现二进制与十进制的互相转化的两个函数](https://codepen.io/shanyue/pen/GRmMQgy)\r\n\r\n``` js\r\nfunction integerToBin (num) {\r\n  // 64\r\n  const result = []\r\n  while (num / 2) {\r\n    next = num % 2\r\n    num = Math.floor(num / 2)\r\n    result.unshift(next)\r\n  }\r\n  return result\r\n}\r\n\r\nfunction fractionalToBin (num) {\r\n  const result = []\r\n  let i = 0\r\n  while (num !== 0 && i < 54) {\r\n    num = num * 2\r\n    \r\n    next = num >= 1 ? 1 : 0\r\n    num = num % 1\r\n    i++\r\n    result.push(next)\r\n  }\r\n  return result\r\n}\r\n\r\nfunction decToBinary (num) {\r\n  // 1.5\r\n  const [int, fraction] = String(num).split(/(?=\\.)/).map((x, i) => {\r\n    return i === 0 ? integerToBin(x) : fractionalToBin(x)\r\n  })\r\n  return [int, fraction]\r\n}\r\n\r\nfunction binToDec (num) {\r\n  const [_int, _fraction] = String(num).split('.')\r\n  const int = _int.split('').reduceRight((acc, x, i) => {\r\n    return acc + x * 2 ** i\r\n  }, 0)\r\n  const fraction = _fraction ? _fraction.split('').reduce((acc, x, i) => {\r\n    return acc + x * 2 ** -(i + 1)\r\n  }, 0) : 0\r\n  return `${int}${fraction ? '.' + fraction.toString().slice(2) : ''}`\r\n}\r\n\r\nconsole.log(16, integerToBin(16), Number(16).toString(2))\r\nconsole.log(18, integerToBin(18), Number(18).toString(2))\r\nconsole.log(0.5, fractionalToBin(0.5), Number(0.5).toString(2))\r\nconsole.log(0.1, fractionalToBin(0.1), Number(0.1).toString(2))\r\nconsole.log(1.1, decToBinary(1.1), Number(1.1).toString(2))\r\n\r\nconsole.log(7.875, decToBinary(7.875), Number(7.875).toString(2))\r\nconsole.log('111.111', binToDec('111.111'), parseInt('111.111', 2))\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5NTEyNDMyOTQ=",
+    "number": 685,
+    "title": "【Q667】简述下 WebWorker，它如何进行通信",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzY5MDg5MzQ2",
+        "name": "dom"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "MDU6SXNzdWU5NTEzMzYxNjk=",
+    "number": 686,
+    "title": "【Q668】JS 中异步任务为何分为微任务与宏任务",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      }
+    ],
+    "comment": {
+      "id": "IC_kwDODQzyOs40xxcd",
+      "body": "TODO",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5NTEzNDM2NzY=",
+    "number": 687,
+    "title": "【Q669】在 CSS 中，使用 rem 作为单位有何缺点",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzIw",
+        "name": "css"
+      }
+    ],
+    "comment": {
+      "id": "IC_kwDODQzyOs40xzyq",
+      "body": "1.a11y可访问性不友好,不跟随系统字体\r\n",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "illumi520",
+        "url": "https://github.com/illumi520"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5NTEzNTIwNDE=",
+    "number": 688,
+    "title": "【Q670】如何提高首屏渲染时间？",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMDkwODMwMjI5",
+        "name": "perf"
+      },
+      {
+        "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+        "name": "前端工程化"
+      }
+    ],
+    "comment": {
+      "id": "IC_kwDODQzyOs40x0ss",
+      "body": "TODO",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5NTE1MTgzOTM=",
+    "number": 689,
+    "title": "【Q671】浏览器中监听事件函数 addEventListener 第三个参数有那些值",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzY5MDg5MzQ2",
+        "name": "dom"
+      }
+    ],
+    "comment": {
+      "id": "IC_kwDODQzyOs40z1gY",
+      "body": "- capture。监听器会在时间捕获阶段传播到event.target时触发。\r\n- passive。监听器不会调用preventDefault()。\r\n- once。监听器只会执行一次，执行后移除。\r\n- singal。调用abort()移除监听器。",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "buzuosheng",
+        "url": "https://github.com/buzuosheng"
+      }
+    }
+  },
+  {
+    "id": "MDU6SXNzdWU5NTE2MDQ3NzI=",
+    "number": 690,
+    "title": "【Q672】什么是原码、补码与反码",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+        "name": "js"
+      },
+      {
+        "id": "MDU6TGFiZWwxNjkxMDQ3MDQ2",
+        "name": "os"
+      }
+    ],
+    "comment": {
+      "id": "IC_kwDODQzyOs40yhpe",
+      "body": "+ 原码:\r\n+ 反码: 反码按位取反\r\n+ 补码: 正数和0的补码就是该数字本身，负数的补码则是反码加一\r\n## 补码\r\n\r\n| 符 |   |   |   |   |   |   |   |   |      |\r\n|-----|---|---|---|---|---|---|---|---|------|\r\n| 0   | 1 | 1 | 1 | 1 | 1 | 1 | 1 | = | 127  |\r\n| 0   | 0 | 0 | 0 | 0 | 0 | 1 | 0 | = | 2    |\r\n| 0   | 0 | 0 | 0 | 0 | 0 | 0 | 1 | = | 1    |\r\n| 0   | 0 | 0 | 0 | 0 | 0 | 0 | 0 | = | 0    |\r\n| 1   | 1 | 1 | 1 | 1 | 1 | 1 | 1 | = | −1   |\r\n| 1   | 1 | 1 | 1 | 1 | 1 | 1 | 0 | = | −2   |\r\n| 1   | 0 | 0 | 0 | 0 | 0 | 0 | 1 | = | −127 |\r\n| 1   | 0 | 0 | 0 | 0 | 0 | 0 | 0 | = | −128 |\r\n",
+      "reactions": {
+        "totalCount": 1
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   }
 ]

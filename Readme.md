@@ -29,6 +29,7 @@ description: 每天至少一个面试题，并附以答案及讨论。有关前�
 由于在 `CodeSandBox` 无法以收藏夹的方式共享，我把其中涉及到的示例总结在这里
 
 1. [React.memo 和性能优化](https://codesandbox.io/s/zujianxiasuoyouzizujianhuifashengchongxinxuanran-bv70e)。当某个组件状态更新时，它的所有子组件树将会重新渲染。
+1. [React.memo 和记忆化数据](https://codesandbox.io/s/reactmemo-and-memo-1dt59)
 1. [React.memo 和 React.useMemo 优化性能](https://codesandbox.io/s/reactmemo-and-reactusememo-79txp)
 1. [React.memo 和 React.useCallback 优化性能](https://codesandbox.io/s/reactusecallback-and-perf-d3k6s)
 1. [React 中可以以数组的 index 作为 key 吗?](https://codesandbox.io/s/react-key-shuzudeindex-nl47k)。在这段代码中，使用 index 作为 key，其中夹杂了 input，引发 bug

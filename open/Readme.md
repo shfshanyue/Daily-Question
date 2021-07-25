@@ -22,3 +22,5 @@
 + [【Q393】作为 TL 如何管理团队](open/400.html)
 + [【Q410】你最近看的三本书是什么](open/417.html)
 + [【Q480】你最喜欢的三个 js 库是什么](open/488.html)
++ [【Q618】列举 Number、String、Array、Object、Promise 有哪些 API](open/636.html)
++ [【Q636】你们项目中使用了哪些依赖/第三方库](open/654.html)
