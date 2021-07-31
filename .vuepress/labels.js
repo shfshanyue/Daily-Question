@@ -10,6 +10,10 @@ module.exports = [
     group: 'fe'
   },
   {
+    name: 'ts',
+    group: 'fe'
+  },
+  {
     name: 'c',
     alias: 'C语言',
     group: 'server'
@@ -72,6 +76,11 @@ module.exports = [
   },
   {
     name: 'react',
+    group: 'fe'
+  },
+  {
+    name: 'regexp',
+    alias: '正则',
     group: 'fe'
   },
   {
