@@ -26,7 +26,7 @@
 2. 是否有清晰可读的变量命名
 3. 是否有更简介的代码
 
-对于优雅代码的养成能力可以查看 [Clean Code concepts adapted for JavaScript.](https://github.com/ryanmcdermott/clean-code-javascript)，再 Github 上拥有 50+ K的星星数。
+对于优雅代码的养成能力可以查看 [Clean Code concepts adapted for JavaScript.](https://github.com/ryanmcdermott/clean-code-javascript)，在 Github 上拥有 50+ K的星星数。
 
 比如关于命名优化
 
@@ -55,9 +55,9 @@ setTimeout(blastOff, MILLISECONDS_PER_DAY);
 1. ES API
 1. lodash API
 1. 编程逻辑题 
-1. 算法与数据解雇 (leetcode)
+1. 算法与数据结构 (leetcode)
 
-以下所有题目都可以在山月的仓库中找到，并且大部分代码题可在 [codepen](https://codepen.io/collection/MggMed) 上，找到我的题解测试并直接执行。
+**以下所有题目都可以在山月的仓库中找到，并且大部分代码题可在 [codepen](https://codepen.io/collection/MggMed) 上，找到我的题解测试并直接执行。**
 
 ## 01 ES API
 
