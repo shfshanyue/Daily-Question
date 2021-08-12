@@ -39,11 +39,15 @@ module.exports = {
       { text: '后端', link: '/server/' },
       { text: 'DevOps', link: '/devops/' },
       { text: '开放式问题', link: '/open/' },
-      { text: '山月的博客', link: 'https://shanyue.tech' },
-      { text: '极客时间返现', link: 'https://geek.shanyue.tech' },
+      { text: '各地求职', link: '/job/chengdu.html' },
+      // { text: '山月的博客', link: 'https://shanyue.tech' },
+      // { text: '极客时间返现', link: 'https://geek.shanyue.tech' },
     ],
     sidebar: {
       ...header,
+      '/job/': [
+        ['chengdu', '成都大厂'],
+      ],
       '/interviews/': [
         ['2017', '2017年面试记'],
         ['2018', '2018年面试记'],
