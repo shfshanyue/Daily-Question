@@ -30,11 +30,11 @@ jobs:
     - name: npm install and build
       run: |
         npm install
-        npm run doc
         npm run build
       env:
         CI: true
         ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        NODE_OPTIONS: "--max-old-space-size=4096"
     # 设置阿里云OSS的 id/secret，存储到 github 的 secrets 中
     - name: setup aliyun oss
       uses: manyuanrong/setup-ossutil@master

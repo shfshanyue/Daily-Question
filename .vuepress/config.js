@@ -30,9 +30,9 @@ module.exports = {
     repo: 'shfshanyue/Daily-Question',
     nav: [
       { text: '主页', link: '/' },
-      { text: '周刊', link: '/weekly/' },
+      // { text: '周刊', link: '/weekly/' },
       { text: '我的面经', link: '/interviews/2018.html' },
-      { text: '大厂面经', link: '/interview.html' },
+      { text: '面经大全', link: '/interview.html' },
       { text: '大厂内推', link: '/infer/ali-ascp.md' },
       { text: '计算机基础', link: '/base/' },
       { text: '前端', link: '/fe/' },
@@ -40,6 +40,7 @@ module.exports = {
       { text: 'DevOps', link: '/devops/' },
       { text: '开放式问题', link: '/open/' },
       { text: '各地求职', link: '/job/chengdu.html' },
+      { text: '面试路线图', link: '/roadmap/code.html' },
       // { text: '山月的博客', link: 'https://shanyue.tech' },
       // { text: '极客时间返现', link: 'https://geek.shanyue.tech' },
     ],
@@ -47,6 +48,9 @@ module.exports = {
       ...header,
       '/job/': [
         ['chengdu', '成都大厂'],
+      ],
+      '/roadmap/': [
+        ['code', '手写代码'],
       ],
       '/interviews/': [
         ['2017', '2017年面试记'],
