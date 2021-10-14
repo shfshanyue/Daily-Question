@@ -1883,7 +1883,7 @@
   {
     "id": "MDU6SXNzdWU1MzA3MjU2Nzk=",
     "number": 87,
-    "title": "【Q086】webpack 中 tree shaking 的原理是什么",
+    "title": "【Q086】Tree Shaking 的原理是什么",
     "body": "",
     "labels": [
       {
@@ -4679,7 +4679,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDU5NDk3MjkzOA==",
-      "body": "## 跨域\r\n\r\n**协议**，**域名**，**端口**，三者有一不一样，就是跨域\r\n\r\n案例一：`www.baidu.com` 与 `zhidao.baidu.com` 是跨域\r\n\r\n## 如何解决跨域\r\n\r\n目前有两种最常见的解决方案：\r\n\r\n1. CORS，在服务器端设置几个响应头，如 `Access-Control-Allow-Origin: *`\r\n1. Reverse Proxy，在 nginx/traefik/haproxy 等反向代理服务器中设置为同一域名\r\n1. JSONP，详解见 [JSONP 的原理是什么，如何实现](https://github.com/shfshanyue/Daily-Question/issues/447)",
+      "body": "## 跨域\r\n\r\n**协议**，**域名**，**端口**，三者有一不一样，就是跨域\r\n\r\n案例一：`www.baidu.com` 与 `zhidao.baidu.com` 是跨域\r\n\r\n## 如何解决跨域\r\n\r\n目前有两种最常见的解决方案：\r\n\r\n1. CORS，在服务器端设置几个响应头，如 `Access-Control-Allow-Origin: *`\r\n1. Reverse Proxy，在 nginx/traefik/haproxy 等反向代理服务器中设置为同一域名\r\n1. JSONP，详解见 [JSONP 的原理是什么，如何实现](https://github.com/shfshanyue/Daily-Question/issues/447)\r\n\r\n附代码: nginx 关于跨域的配置\r\n\r\n``` conf\r\nserver {\r\n  listen 80;\r\n  server_name shanyue.tech;\r\n\r\n  location / {\r\n    # 避免非root路径404\r\n    try_files $uri $uri/ /index.html;\r\n  }\r\n\r\n  # 解决跨域\r\n  location /api {\r\n    # 或者是 http://localhost:8080\r\n    proxy_pass http://api.shanyue.tech;\r\n  }\r\n}\r\n```",
       "reactions": {
         "totalCount": 0
       },
@@ -8720,7 +8720,7 @@
       "id": "MDEyOklzc3VlQ29tbWVudDY4MDgzMzk1NA==",
       "body": "这是一个关于懒计算的函数，使用 `sum` 收集所有累加项，使用 `valueOf` 进行计算\r\n\r\n1. sum 返回一个函数，收集所有的累加项，使用递归实现\r\n1. 返回函数带有 `valueOf` 属性，用于统一计算\r\n\r\n代码见 [【Q421】如何实现无限累加的一个函数](https://codepen.io/shanyue/pen/LYymamZ?editors=0012)，方便测试与调试\r\n\r\n``` js\r\nfunction sum (...args) {\r\n  const f = (...rest) => sum(...args, ...rest)\r\n  f.valueOf = () => args.reduce((x, y) => x + y, 0)\r\n  return f\r\n}\r\n```",
       "reactions": {
-        "totalCount": 1
+        "totalCount": 2
       },
       "author": {
         "login": "shfshanyue",
@@ -9069,7 +9069,7 @@
       "id": "MDEyOklzc3VlQ29tbWVudDczMDgzNjY2NQ==",
       "body": "> Math.random() 函数返回一个浮点,  伪随机数在范围从0到小于1，用数学表示就是 [0, 1)，可以利用它来实现 `sample` 函数\r\n\r\n``` js\r\nArray.prototype.sample = function () { return this[Math.floor(Math.random()*this.length)] }\r\n```",
       "reactions": {
-        "totalCount": 1
+        "totalCount": 2
       },
       "author": {
         "login": "shfshanyue",
@@ -9546,7 +9546,7 @@
       "id": "MDEyOklzc3VlQ29tbWVudDc1MzkxNDg0NQ==",
       "body": "前端路由实现的本质是**监听url变化**，实现方式有两种：Hash模式和History模式，无需刷新页面就能重新加载相应的页面。\r\nHash url的格式为`www.a.com/#/`，当#后的哈希值发生变化时，通过hashchange事件监听，然后页面跳转。\r\nHistory url通过`history.pushState`和`history.replaceState`改变url。\r\n两种模式的区别：\r\n\r\n- hash只能改变#后的值，而history模式可以随意设置同源url；\r\n- hash只能添加字符串类的数据，而history可以通过API添加多种类型的数据；\r\n- hash的历史记录只显示之前的`www.a.com`而不会显示hash值，而history的每条记录都会进入到历史记录；\r\n- hash无需后端配置且兼容性好，而history需要配置`index.html`用于匹配不到资源的情况。",
       "reactions": {
-        "totalCount": 0
+        "totalCount": 1
       },
       "author": {
         "login": "buzuosheng",
@@ -9804,7 +9804,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDc5MTQwNDU5MA==",
-      "body": "## cjs (commonjs)\r\n\r\n`commonjs` 是 Node 中的模块规范，通过 `require` 及 `exports` 进行导入导出 (进一步延伸的话，`module.exports` 属于 `commonjs2`)\r\n\r\n同时，webpack 也对 `cjs` 模块得以解析，因此 `cjs` 模块可以运行在 node 环境及 webpack 环境下的，但不能在浏览器中*直接*使用。但如果你写前端项目在 webpack 中，也可以理解为它在浏览器和 Node 都支持。\r\n\r\n比如，著名的全球下载量前十10的模块 [ms](https://npm.devtool.tech/ms) 只支持 `commonjs`，但并不影响它在前端项目中使用(通过webpack)，但是你想通过 cdn 的方式直接在浏览器中引入，估计就会出问题了\r\n\r\n``` js\r\n// sum.js\r\nexports.sum = (x, y) => x + y\r\n\r\n// index.js\r\nconst { sum } = require('./sum.js')\r\n```\r\n\r\n由于 `cjs` 为动态加载，可直接 `require` 一个变量\r\n\r\n``` js\r\nrequire(`./${a}`)\r\n```\r\n\r\n## esm (es module)\r\n\r\n`esm` 是 tc39 对于 js 模块的规范，**在 Node 及 浏览器中均会支持**，使用 `export/import` 进行模块导入导出\r\n\r\n``` js\r\n// sum.js\r\nexport const sum = (x, y) => x + y\r\n\r\n// index.js\r\nimport { sum } from './sum'\r\n```\r\n\r\n由于 `esm` 为静态导入，正因如此，可在编译器进行 **Tree Shaking**，减少 js 体积。tc39 为动态加载模块定义了 API: `import(module)` 。\r\n\r\nesm 是未来的趋势，目前一些 CDN 厂商，前端构建工具均致力于 cjs 模块向 esm 的转化，比如 `skypack`、 `snowpack`、`vite` 等。\r\n\r\n目前，在浏览器与 node.js 中均原生支持 esm。\r\n\r\n+ cjs 模块输出的是一个值的拷贝，esm 输出的是值的引用\r\n+ cjs 模块是运行时加载，esm 是编译时加载\r\n\r\n示例: [array-uniq](https://npm.devtool.tech/array-uniq)\r\n\r\n## umd\r\n\r\n一种兼容 `cjs` 与 `amd` 的模块，既可以在 node/webpack 环境中被 `require`，也可以在浏览器中直接用 CDN 被 `script.src` 引入\r\n\r\n``` js\r\n(function (root, factory) {\r\n  if (typeof define === 'function' && define.amd) {\r\n    // AMD\r\n    define(['jquery'], factory);\r\n  } else if (typeof exports === 'object') {\r\n    // CommonJS\r\n    module.exports = factory(require('jquery'));\r\n  } else {\r\n    // 全局变量\r\n    root.returnExports = factory(root.jQuery);\r\n  }\r\n}(this, function ($) {\r\n  // ...\r\n}));\r\n```\r\n\r\n示例: [react-table](https://npm.devtool.tech/react-table), [antd](https://npm.devtool.tech/react-table)\r\n\r\n这三种模块方案大致如此，但是部分 npm package 也会同时打包出 commonjs/esm/umd 三种模块化格式，供不同需求的业务使用\r\n",
+      "body": "\r\n## cjs (commonjs)\r\n\r\n`commonjs` 是 Node 中的模块规范，通过 `require` 及 `exports` 进行导入导出 (进一步延伸的话，`module.exports` 属于 `commonjs2`)\r\n\r\n同时，webpack 也对 `cjs` 模块得以解析，因此 `cjs` 模块可以运行在 node 环境及 webpack 环境下的，但不能在浏览器中*直接*使用。但如果你写前端项目在 webpack 中，也可以理解为它在浏览器和 Node 都支持。\r\n\r\n比如，著名的全球下载量前十10的模块 [ms](https://npm.devtool.tech/ms) 只支持 `commonjs`，但并不影响它在前端项目中使用(通过webpack)，但是你想通过 cdn 的方式直接在浏览器中引入，估计就会出问题了\r\n\r\n``` js\r\n// sum.js\r\nexports.sum = (x, y) => x + y\r\n\r\n// index.js\r\nconst { sum } = require('./sum.js')\r\n```\r\n\r\n由于 `cjs` 为动态加载，可直接 `require` 一个变量\r\n\r\n``` js\r\nrequire(`./${a}`)\r\n```\r\n\r\n## esm (es module)\r\n\r\n`esm` 是 tc39 对于 js 模块的规范，**在 Node 及 浏览器中均会支持**，使用 `export/import` 进行模块导入导出\r\n\r\n``` js\r\n// sum.js\r\nexport const sum = (x, y) => x + y\r\n\r\n// index.js\r\nimport { sum } from './sum'\r\n```\r\n\r\n由于 `esm` 为静态导入，正因如此，可在编译器进行 **Tree Shaking**，减少 js 体积。tc39 为动态加载模块定义了 API: `import(module)` 。\r\n\r\nesm 是未来的趋势，目前一些 CDN 厂商，前端构建工具均致力于 cjs 模块向 esm 的转化，比如 `skypack`、 `snowpack`、`vite` 等。\r\n\r\n目前，在浏览器与 node.js 中均原生支持 esm。\r\n\r\n+ cjs 模块输出的是一个值的拷贝，esm 输出的是值的引用\r\n+ cjs 模块是运行时加载，esm 是编译时加载\r\n\r\n示例: [array-uniq](https://cdn.jsdelivr.net/npm/array-uniq/index.js)\r\n\r\n## umd\r\n\r\n一种兼容 `cjs` 与 `amd` 的模块，既可以在 node/webpack 环境中被 `require`，也可以在浏览器中直接用 CDN 被 `script.src` 引入\r\n\r\n``` js\r\n(function (root, factory) {\r\n  if (typeof define === 'function' && define.amd) {\r\n    // AMD\r\n    define(['jquery'], factory);\r\n  } else if (typeof exports === 'object') {\r\n    // CommonJS\r\n    module.exports = factory(require('jquery'));\r\n  } else {\r\n    // 全局变量\r\n    root.returnExports = factory(root.jQuery);\r\n  }\r\n}(this, function ($) {\r\n  // ...\r\n}));\r\n```\r\n\r\n示例: [react-table](https://cdn.jsdelivr.net/npm/react-table@7.7.0/dist/react-table.development.js), [antd](https://npm.devtool.tech/react-table)\r\n\r\n这三种模块方案大致如此，但是部分 npm package 也会同时打包出 commonjs/esm/umd 三种模块化格式，供不同需求的业务使用\r\n",
       "reactions": {
         "totalCount": 0
       },
@@ -10267,7 +10267,17 @@
         "name": "js"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "IC_kwDODQzyOs44MZer",
+      "body": "Promise.any 的行为跟 Promise.all 刚好相反\r\n```javascript\r\nPromise.any = (promiseArray) => {\r\n  return new Promise((resolve, reject) => {\r\n    const _promiseArray = Array.from(promiseArray)\r\n    const length = _promiseArray.length\r\n    const rejectedArray = []\r\n    _promiseArray.forEach(item => {\r\n      Promise.resolve(item).then(val => {\r\n        resolve(val)\r\n      }, reason => {\r\n        rejectedArray.push(reason)\r\n        if (rejectedArray.length === length) {\r\n          reject(new AggregateError(rejectedArray))\r\n        }\r\n      })\r\n    })\r\n  })\r\n}\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "hwb2017",
+        "url": "https://github.com/hwb2017"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU4NDE0OTkzODA=",
@@ -10571,7 +10581,17 @@
         "name": "css"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "IC_kwDODQzyOs44NIwG",
+      "body": "主要使用 word-wrap: break-word 或 break-all 和 overflow: scroll 实现\r\n\r\n[code pen 链接](https://codepen.io/hwb2017/pen/gOxabQG)",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "hwb2017",
+        "url": "https://github.com/hwb2017"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU4NzcxMzQ5MzI=",
@@ -12353,7 +12373,7 @@
     ],
     "comment": {
       "id": "IC_kwDODQzyOs41KKwb",
-      "body": "> 参考: [前端项目中的缓存配置](https://shanyue.tech/frontend-engineering/http-cache.html)\r\n\r\n关于 http 缓存配置的最佳实践为以下两条：\r\n\r\n1. 文件路径中带有 hash 值：一年的强缓存。因为该文件的内容发生变化时，会生成一个带有新的 hash 值的 URL。前端将会发起一个新的 URL 的请求。配置响应头 `Cache-Control: public,max-age=31536000,immutable`\r\n1. 文件路径中不带有 hash 值：协商缓存。大部分为 `public` 下文件。配置响应头 `Cache-Control: no-cache` 与 `etag/last-modified`\r\n\r\n但是当处理永久缓存时，切记不可打包为一个大的 `bundle.js`，此时一行业务代码的改变，将导致整个项目的永久缓存失效，此时需要按代码更新频率分为多个 chunk 进行打包，可细粒度控制缓存。\r\n\r\n![细粒度缓存控制](https://shanyue.tech/assets/img/http-cache-2.182dbd90.png)\r\n\r\n\r\n1. `webpack-runtime`: 应用中的 `webpack` 的版本比较稳定，分离出来，保证长久的永久缓存\r\n1. `react/react-dom`: `react` 的版本更新频次也较低\r\n1. `vendor`: 常用的第三方模块打包在一起，如 `lodash`，`classnames` 基本上每个页面都会引用到，但是它们的更新频率会更高一些。另外对低频次使用的第三方模块不要打进来\r\n1. `pageA`: A 页面，当 A 页面的组件发生变更后，它的缓存将会失效\r\n1. `pageB`: B 页面\r\n1. `echarts`: 不常用且过大的第三方模块单独打包\r\n1. `mathjax`: 不常用且过大的第三方模块单独打包\r\n1. `jspdf`: 不常用且过大的第三方模块单独打包",
+      "body": "> 参考: [前端项目中的缓存配置](https://shanyue.tech/frontend-engineering/http-cache.html)\r\n\r\n关于 http 缓存配置的最佳实践为以下两条：\r\n\r\n1. 文件路径中带有 hash 值：一年的强缓存。因为该文件的内容发生变化时，会生成一个带有新的 hash 值的 URL。前端将会发起一个新的 URL 的请求。配置响应头 `Cache-Control: public,max-age=31536000,immutable`\r\n1. 文件路径中不带有 hash 值：协商缓存。大部分为 `public` 下文件。配置响应头 `Cache-Control: no-cache` 与 `etag/last-modified`\r\n\r\n但是当处理永久缓存时，切记不可打包为一个大的 `bundle.js`，此时一行业务代码的改变，将导致整个项目的永久缓存失效，此时需要按代码更新频率分为多个 chunk 进行打包，可细粒度控制缓存。\r\n\r\n![细粒度缓存控制](https://shanyue.tech/assets/img/http-cache-2.182dbd90.png)\r\n\r\n\r\n1. `webpack-runtime`: 应用中的 `webpack` 的版本比较稳定，分离出来，保证长久的永久缓存\r\n1. `react/react-dom`: `react` 的版本更新频次也较低\r\n1. `vendor`: 常用的第三方模块打包在一起，如 `lodash`，`classnames` 基本上每个页面都会引用到，但是它们的更新频率会更高一些。另外对低频次使用的第三方模块不要打进来\r\n1. `pageA`: A 页面，当 A 页面的组件发生变更后，它的缓存将会失效\r\n1. `pageB`: B 页面\r\n1. `echarts`: 不常用且过大的第三方模块单独打包\r\n1. `mathjax`: 不常用且过大的第三方模块单独打包\r\n1. `jspdf`: 不常用且过大的第三方模块单独打包\r\n\r\n在 `webpack5` 中可以使用以下配置:\r\n\r\n``` js\r\n{\r\n  // Automatically split vendor and commons\r\n  // https://twitter.com/wSokra/status/969633336732905474\r\n  // https://medium.com/webpack/webpack-4-code-splitting-chunk-graph-and-the-splitchunks-optimization-be739a861366\r\n  splitChunks: {\r\n    chunks: 'all',\r\n  },\r\n  // Keep the runtime chunk separated to enable long term caching\r\n  // https://twitter.com/wSokra/status/969679223278505985\r\n  // https://github.com/facebook/create-react-app/issues/5358\r\n  runtimeChunk: {\r\n    name: entrypoint => `runtime-${entrypoint.name}`,\r\n  },\r\n}\r\n```",
       "reactions": {
         "totalCount": 0
       },
@@ -14867,7 +14887,7 @@
   {
     "id": "MDU6SXNzdWU5NjQ2NDYxMTE=",
     "number": 715,
-    "title": "【Q694】在 ts 中如何实现 Parameters",
+    "title": "【Q694】在 ts 中什么是 infer，并实现 Parameters 与 ReturnType",
     "body": "",
     "labels": [
       {
@@ -15082,7 +15102,135 @@
     ],
     "comment": {
       "id": "IC_kwDODQzyOs43RFL_",
-      "body": "`webpack` 的 runtime，也就是 webpack 最后生成的代码，做了以下三件事:\r\n\r\n1. `__webpack_modules__`: 维护一个模块的数组，深度优先搜索所有的模块，并构建出这个数组\r\n2. `__webpack_require__(moduleId)`: 手动实现加载一个模块\r\n3. `__webpack_require__(0)`: 运行第一个模块，即运行入口模块\r\n\r\n另外，当涉及到多个 chunk 的打包方式中，webpack 中会有 `jsonp` 加载 chunk 的运行时代码。\r\n\r\n以下是 `webpack runtime` 的最简代码，配置示例可见 [node-examples](https://github.com/shfshanyue/node-examples/blob/master/webpack/cjs/build.js)\r\n\r\n``` js\r\n/******/ var __webpack_modules__ = ([\r\n/* 0 */,\r\n/* 1 */\r\n/***/ ((module) => {\r\n\r\nmodule.exports = (...args) => args.reduce((x, y) => x + y, 0)\r\n\r\n/***/ })\r\n/******/ ]);\r\n/************************************************************************/\r\n/******/ // The module cache\r\n/******/ var __webpack_module_cache__ = {};\r\n/******/ \r\n/******/ // The require function\r\n/******/ function __webpack_require__(moduleId) {\r\n/******/ \t// Check if module is in cache\r\n/******/ \tvar cachedModule = __webpack_module_cache__[moduleId];\r\n/******/ \tif (cachedModule !== undefined) {\r\n/******/ \t\treturn cachedModule.exports;\r\n/******/ \t}\r\n/******/ \t// Create a new module (and put it into the cache)\r\n/******/ \tvar module = __webpack_module_cache__[moduleId] = {\r\n/******/ \t\t// no module.id needed\r\n/******/ \t\t// no module.loaded needed\r\n/******/ \t\texports: {}\r\n/******/ \t};\r\n/******/ \r\n/******/ \t// Execute the module function\r\n/******/ \t__webpack_modules__[moduleId](module, module.exports, __webpack_require__);\r\n/******/ \r\n/******/ \t// Return the exports of the module\r\n/******/ \treturn module.exports;\r\n/******/ }\r\n/******/ \r\n/************************************************************************/\r\nvar __webpack_exports__ = {};\r\n// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.\r\n(() => {\r\nconst sum = __webpack_require__(1)\r\n\r\nsum(3, 8)\r\n\r\n})();\r\n```",
+      "body": "`webpack` 的 runtime，也就是 webpack 最后生成的代码，做了以下三件事:\r\n\r\n1. `__webpack_modules__`: 维护一个所有模块的数组。将入口模块解析为 AST，根据 AST 深度优先搜索所有的模块，并构建出这个模块数组。每个模块都由一个包裹函数 `(module, module.exports, __webpack_require__)` 对模块进行包裹构成。\r\n2. `__webpack_require__(moduleId)`: 手动实现加载一个模块。对已加载过的模块进行缓存，对胃加载过的模块，执行 id 定位到 `__webpack_modules__` 中的包裹函数，执行并返回 `module.exports`，并缓存\r\n3. `__webpack_require__(0)`: 运行第一个模块，即运行入口模块\r\n\r\n另外，当涉及到多个 chunk 的打包方式中，比如 `code spliting`，webpack 中会有 `jsonp` 加载 chunk 的运行时代码。\r\n\r\n以下是 `webpack runtime` 的最简代码，配置示例可见 [node-examples](https://github.com/shfshanyue/node-examples/blob/master/webpack/cjs/build.js)\r\n\r\n``` js\r\n/******/ var __webpack_modules__ = ([\r\n/* 0 */,\r\n/* 1 */\r\n/***/ ((module) => {\r\n\r\nmodule.exports = (...args) => args.reduce((x, y) => x + y, 0)\r\n\r\n/***/ })\r\n/******/ ]);\r\n/************************************************************************/\r\n/******/ // The module cache\r\n/******/ var __webpack_module_cache__ = {};\r\n/******/ \r\n/******/ // The require function\r\n/******/ function __webpack_require__(moduleId) {\r\n/******/ \t// Check if module is in cache\r\n/******/ \tvar cachedModule = __webpack_module_cache__[moduleId];\r\n/******/ \tif (cachedModule !== undefined) {\r\n/******/ \t\treturn cachedModule.exports;\r\n/******/ \t}\r\n/******/ \t// Create a new module (and put it into the cache)\r\n/******/ \tvar module = __webpack_module_cache__[moduleId] = {\r\n/******/ \t\t// no module.id needed\r\n/******/ \t\t// no module.loaded needed\r\n/******/ \t\texports: {}\r\n/******/ \t};\r\n/******/ \r\n/******/ \t// Execute the module function\r\n/******/ \t__webpack_modules__[moduleId](module, module.exports, __webpack_require__);\r\n/******/ \r\n/******/ \t// Return the exports of the module\r\n/******/ \treturn module.exports;\r\n/******/ }\r\n/******/ \r\n/************************************************************************/\r\nvar __webpack_exports__ = {};\r\n// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.\r\n(() => {\r\nconst sum = __webpack_require__(1)\r\n\r\nsum(3, 8)\r\n\r\n})();\r\n```\r\n\r\n对 `webpack runtime` 做进一步的精简，代码如下\r\n\r\n``` js\r\nconst __webpack_modules__ = [() => {}]\r\nconst __webpack_require = id => {\r\n  const module = { exports: {} }\r\n  const m = __webpack_modules__[id](module)\r\n  return module.exports\r\n}\r\n\r\n__webpack_require__(0)\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "I_kwDODQzyOs48doFg",
+    "number": 730,
+    "title": "【Q706】typescript 中 interface 与 type 有何区别",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMjEzODUzNTU2",
+        "name": "ts"
+      }
+    ],
+    "comment": {
+      "id": "IC_kwDODQzyOs43m8A5",
+      "body": "https://stackoverflow.com/questions/37233735/interfaces-vs-types-in-typescript",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "I_kwDODQzyOs48doXN",
+    "number": 731,
+    "title": "【Q707】请简述 typescript 中的 infer",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzMjEzODUzNTU2",
+        "name": "ts"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "I_kwDODQzyOs481wLk",
+    "number": 733,
+    "title": "【Q708】webpack 中的 code spliting 是如何动态加载 chunk 的？",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzA2NzQ0ODEz",
+        "name": "webpack"
+      }
+    ],
+    "comment": {
+      "id": "IC_kwDODQzyOs437rs-",
+      "body": "一个 `webpack` 中运行时，包括最重要的两个数据结构：\r\n\r\n1. `__webpack_modules__`: 维护一个所有模块的数组。将入口模块解析为 AST，根据 AST 深度优先搜索所有的模块，并构建出这个模块数组。每个模块都由一个包裹函数 `(module, module.exports, __webpack_require__)` 对模块进行包裹构成。\r\n2. `__webpack_require__(moduleId)`: 手动实现加载一个模块。对已加载过的模块进行缓存，对未加载过的模块，根据 id 定位到 `__webpack_modules__` 中的包裹函数，执行并返回 `module.exports`，并缓存。\r\n\r\n在 webpack 中，通过 `import()` 可实现 code spliting.\r\n\r\n``` js\r\nimport('./sum').then(m => {\r\n  m.default(3, 4)\r\n})\r\n\r\n// 以下为 sum.js 内容\r\nconst sum = (x, y) => x + y\r\nexport default sum\r\n```\r\n\r\n使用 `import()` 加载数据时，以上代码将被 `webpack`  编译为以下代码\r\n\r\n``` js\r\n__webpack_require__.e(/* import() | sum */ 644).then(__webpack_require__.bind(__webpack_require__, 709)).then(m => {\r\n  m.default(3, 4)\r\n})\r\n```\r\n\r\n每一个 `chunk` 的代码如下，以下为 `sum` 函数所构建而成的 chunk:\r\n\r\n``` js\r\n\"use strict\";\r\n(self[\"webpackChunk\"] = self[\"webpackChunk\"] || []).push([[644],{\r\n\r\n/***/ 709:\r\n/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {\r\n\r\n        __webpack_require__.r(__webpack_exports__);\r\n        /* harmony export */ __webpack_require__.d(__webpack_exports__, {\r\n        /* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\r\n        /* harmony export */ });\r\n        const sum = (x, y) => x + y\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (sum);\r\n\r\n\r\n/***/ })\r\n\r\n}]);\r\n```\r\n\r\n以下两个数据结构是加载 `chunk` 的关键:\r\n\r\n1. `__webpack_require__.e`: 加载 chunk，如 644 为 chunkId。该函数将使用 JSONP (`document.createElement('script')`)异步加载 chunk 并封装为 Promise。\r\n1. `self[\"webpackChunk\"].push`: JSONP cllaback，收集 modules，如 709 为 sum 模块的 id。该函数将 709 置入  `__webpack_modules__` 中。\r\n\r\n实际上，在 `webpack` 中可配置 `output.chunkLoading` 来选择加载 chunk 的方式\r\n\r\n``` js\r\nwebpack({\r\n    entry: './index.js',\r\n    mode: 'none',\r\n    output: {\r\n      filename: 'main.[contenthash].js',\r\n      chunkFilename: '[name].chunk.[chunkhash].js',\r\n      path: path.resolve(__dirname, 'dist/import'),\r\n      clean: true,\r\n      // 默认为 `jsonp`\r\n      chunkLoading: 'import'\r\n    }\r\n  })\r\n```\r\n\r\n可参考示例 [webpack 运行时代码](https://github.com/shfshanyue/node-examples/blob/master/engineering/webpack/code-spliting/example/runtime.js) 中查看加载一个 chunk 的实现。\r\n",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "I_kwDODQzyOs488Y9k",
+    "number": 734,
+    "title": "【Q709】core-js 是做什么用的？",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+        "name": "前端工程化"
+      }
+    ],
+    "comment": {
+      "id": "IC_kwDODQzyOs44BO0t",
+      "body": "垫片",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "Bnm89",
+        "url": "https://github.com/Bnm89"
+      }
+    }
+  },
+  {
+    "id": "I_kwDODQzyOs49CIKr",
+    "number": 735,
+    "title": "【Q710】打包器(webpack/rollup) 如何将打包后的 js 资源注入 html 中",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzA2NzQ0ODEz",
+        "name": "webpack"
+      }
+    ],
+    "comment": {
+      "id": "IC_kwDODQzyOs44GIfW",
+      "body": "如果最终打包生成的 `main.js` 既没有做 code spliting，也没有做 `hash` 化路径。大可以通过在 `index.html` 中手动控制 JS 资源。\r\n\r\n``` js\r\n<body>\r\n  <script src=\"main.js\" defer />\r\n</body>\r\n```\r\n\r\n但往往事与愿违:\r\n\r\n1. `main.js` 即我们最终生成的文件带有 hash 值，如 `main.8a9b3c.js`。\r\n1. 由于长期缓存优化的需要，入口文件不仅只有一个，还包括由第三方模块打包而成的 `verdor.js`，同样带有 hash。\r\n1. 脚本地址同时需要注入 `publicPath`，而在生产环境与测试环境的 publicPath 并不一致\r\n\r\n因此需要有一个插件自动做这种事情。在 webpack 的世界里，它是 [html-webpak-plugin](https://github.com/jantimon/html-webpack-plugin)，在 rollup 的世界里，它是 [@rollup/plugin-html](https://github.com/rollup/plugins/tree/master/packages/html)。\r\n\r\n**而注入的原理为当打包器已生成 entryPoint 文件资源后，获得其文件名及 `publicPath`，并将其注入到 html 中**\r\n\r\n以 `html-webpack-plugin` 为例，它在 `compilation` 处理资源的 `processAssets` 获得其打包生成的资源。伪代码如下，可在 [mini-node:html-webpack-plugin](https://github.com/shfshanyue/mini-code/tree/master/code/html-webpack-plugin) 获得源码并运行示例。\r\n\r\n``` js\r\nclass HtmlWebpackPlugin {\r\n  constructor(options) {\r\n    this.options = options || {}\r\n  }\r\n\r\n  apply(compiler) {\r\n    const webpack = compiler.webpack\r\n\r\n    compiler.hooks.thisCompilation.tap('HtmlWebpackPlugin', (compilation) => {\r\n      // compilation 是 webpack 中最重要的对象，文档见 [compilation-object](https://webpack.js.org/api/compilation-object/#compilation-object-methods)\r\n\r\n      compilation.hooks.processAssets.tapAsync({\r\n        name: 'HtmlWebpackPlugin',\r\n\r\n        // processAssets 处理资源的时机，此阶段为资源已优化后，更多阶段见文档\r\n        // https://webpack.js.org/api/compilation-hooks/#list-of-asset-processing-stages\r\n        stage: webpack.Compilation.PROCESS_ASSETS_STAGE_OPTIMIZE_INLINE\r\n      }, (compilationAssets, callback) => {\r\n        // compilationAssets 将得到所有生成的资源，如各个 chunk.js、各个 image、css\r\n\r\n        // 获取 webpac.output.publicPath 选项，(PS: publicPath 选项有可能是通过函数设置)\r\n        const publicPath = getPublicPath(compilation)\r\n\r\n        // 本示例仅仅考虑单个 entryPoint 的情况\r\n        // compilation.entrypoints 可获取入口文件信息\r\n        const entryNames = Array.from(compilation.entrypoints.keys())\r\n\r\n        // entryPoint.getFiles() 将获取到该入口的所有资源，并能够保证加载顺序！！！如 runtime-chunk -> main-chunk\r\n        const assets = entryNames.map(entryName => compilation.entrypoints.get(entryName).getFiles()).flat()\r\n        const scripts = assets.map(src => publicPath + src)\r\n        const content = html({ title: this.options.title || 'Demo', scripts })\r\n\r\n        // emitAsset 用以生成资源文件，也是最重要的一步\r\n        compilation.emitAsset('index.html', new webpack.sources.RawSource(content))\r\n        callback()\r\n      })\r\n    })\r\n  }\r\n}\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "I_kwDODQzyOs49GpC6",
+    "number": 736,
+    "title": "【Q711】打包器(webpack/rollup) 如何加载 json、image 等非 Javascript 资源",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzA2NzQ0ODEz",
+        "name": "webpack"
+      }
+    ],
+    "comment": {
+      "id": "IC_kwDODQzyOs44KbBr",
+      "body": "\r\n在前端中，网页只能加载 `javascript` 脚本资源，即便在 node，也只能加载 `javascript` 与 `json` 资源。那类似 `webpack`、`rollup` 及 `vite` 这类工具是如何加载图片、JSON 资源的呢？\r\n\r\n在 `webpack` 等打包工具中，号称**一切皆是模块**。\r\n\r\n![一切皆是模块](https://cdn.jsdelivr.net/gh/shfshanyue/assets@master/src/webpack.1bgkaa8r9d7k.png)\r\n\r\n当 `webpack` 在这类打包器中，需要加载 JSON 等非 Javascript 资源时，则通过模块加载器(`loader`)将它们转化为模块的形式。\r\n\r\n以 JSON 为例:\r\n\r\n``` js\r\n// user.json 中内容\r\n{\r\n  \"id\": 10086,\r\n  \"name\": \"shanyue\",\r\n  \"github\": \"https://github.com/shfshanyue\"\r\n}\r\n```\r\n\r\n在现代前端中，我们把它视为 `module` 时，使用 `import` 引入资源。\r\n\r\n``` js\r\nimport user from './user.json'\r\n```\r\n\r\n而我们的打包器，如 `webpack` 与 `rollup`，将通过以下方式来加载 JSON 资源。\r\n\r\n这样它将被视为普通的一副 Javascript \r\n\r\n``` js\r\n// 实际上的 user.json 被编译为以下内容\r\nexport default {\r\n  \"id\": 10086,\r\n  \"name\": \"shanyue\",\r\n  \"github\": \"https://github.com/shfshanyue\"\r\n}\r\n```\r\n\r\n在 webpack 中通过 loader 处理此类非 JS 资源，以下为一个 `json-loader` 的示例:\r\n\r\n> [mini-code:json-loader](https://github.com/shfshanyue/mini-code/tree/master/code/json-loader) 中可见最小实现及示例。\r\n\r\n``` js\r\nmodule.exports = function (source) {\r\n  const json = typeof source === 'string' ? source : JSON.stringify(source)\r\n  return `module.exports = ${json}`\r\n}\r\n```\r\n\r\n那图片是如何处理的呢？\r\n\r\n``` js\r\nimport mainImage from 'main.png'\r\n\r\n<img src={mainImage} />\r\n```\r\n\r\n更简单，它将替换为它自身的路径。示例如下\r\n\r\n``` js\r\nexport default `$PUBLIC_URL/assets/image/main.png` \r\n```\r\n\r\n那如何加载一个 CSS 脚本呢？此处涉及到各种 DOM API，以及如何将它抽成一个 `.css` 文件，复杂很多，下一篇介绍。",
       "reactions": {
         "totalCount": 0
       },
