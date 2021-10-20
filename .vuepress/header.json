@@ -3183,6 +3183,10 @@
         [
           "webpack/736",
           "打包器(webpack/rollup) 如何加载 json、image 等非 Javascript 资源⭐️"
+        ],
+        [
+          "webpack/737",
+          "打包器(webpack/rollup) 如何加载 style 样式资源"
         ]
       ]
     },

@@ -10665,7 +10665,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDg0MzIxMTA2OA==",
-      "body": "对于业务代码而讲，他俩没有区别\r\n\r\n对于库开发者而言，是由区别的\r\n\r\n> 当安装一个依赖时，该依赖的 dep 与 devDep 都会被安装到项目中吗？\r\n> dep 会被安装",
+      "body": "**对于业务代码而讲，它俩区别不大**\r\n\r\n当进行业务开发时，严格区分 `dependencies` 与 `devDependencies` 并无必要，实际上，大部分业务对二者也并无严格区别。\r\n\r\n当打包时，依靠的是 `Webpack/Rollup` 对代码进行模块依赖分析，与该模块是否在 `dep/devDep` 并无关系，只要在 `node_modules` 上能够找到该 Package 即可。\r\n\r\n以至于在 CI 中 `npm i --production` 可加快包安装速度也无必要，因为在 CI 中仍需要 lint、test、build 等。\r\n\r\n**对于库 (Package) 开发而言，是有严格区分的**\r\n\r\n+ dependencies: 在生产环境中使用\r\n+ devDependencies: 在开发环境中使用，如 webpack/babel/eslint 等\r\n\r\n当在项目中安装一个依赖的 Package 时，该依赖的 `dependencies` 也会安装到项目中，即被下载到 `node_modules` 目录中。\r\n\r\n因此当我们开发 Package 时，需要注意到我们所引用的 `dependencies` 会被我们的使用者一并下载，而 `devDependencies` 不会。\r\n\r\n一些 Package 宣称自己是 `zero dependencies`，一般就是指不依赖任何 `dependencies`，如 [highlight](https://github.com/highlightjs/highlight.js)\r\n\r\n> JavaScript syntax highlighter with language auto-detection and zero dependencies.",
       "reactions": {
         "totalCount": 0
       },
@@ -10945,7 +10945,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDg0ODM3MTMwMw==",
-      "body": "属于一个项目的质量工程，如果对于版本不匹配将会报错(yarn)或警告(npm)，如果我们对于项目的 Node 版本号有特殊的需求，那我们需要在 `package.json` 中的 `engines` 字段中指定 Node 版本号\r\n\r\n> 更多质量工程问题，见 [如何保障项目质量](https://github.com/shfshanyue/Daily-Question/issues/552)\r\n\r\n``` json\r\n{\r\n  \"engines\": {\r\n    \"node\": \">=14.0.0\"\r\n  }\r\n}\r\n```\r\n\r\n我在本地把项目所需要的 node 版本号改成 `>=16.0.0`，而本地的 node 版本号为 `v8.17.0`，经过测试\r\n\r\nnpm 将会警告\r\n\r\n``` bash\r\nnpm WARN EBADENGINE Unsupported engine { package: 'next-app@1.0.0',\r\nnpm WARN EBADENGINE   required: { node: '>=16.0.0' },\r\nnpm WARN EBADENGINE   current: { node: 'v8.17.0', npm: '7.14.0' } }\r\n```\r\n\r\nyarn 将会报错\r\n\r\n``` bash\r\nerror next-app@1.0.0: The engine \"node\" is incompatible with this module. Expected version \">=16.0.0\". Got \"8.17.0\"\r\n```\r\n\r\n而如果我们项目中某些依赖所需要的 Node 版本号与项目运行时的 Node 版本号不匹配，也会报错(在yarn中)，无法正常运行项目",
+      "body": "指定一个项目所需的 node 最小版本，这属于一个项目的质量工程。\r\n\r\n如果对于版本不匹配将会报错(yarn)或警告(npm)，那我们需要在 `package.json` 中的 `engines` 字段中指定 Node 版本号\r\n\r\n> 更多质量工程问题，见 [如何保障项目质量](https://github.com/shfshanyue/Daily-Question/issues/552)\r\n\r\n``` json\r\n{\r\n  \"engines\": {\r\n    \"node\": \">=14.0.0\"\r\n  }\r\n}\r\n```\r\n\r\n一个示例：\r\n\r\n**我在本地把项目所需要的 node 版本号改成 `>=16.0.0`，而本地的 node 版本号为 `v8.17.0`**\r\n\r\n此时，npm 将会发生警告\r\n\r\n``` bash\r\nnpm WARN EBADENGINE Unsupported engine { package: 'next-app@1.0.0',\r\nnpm WARN EBADENGINE   required: { node: '>=16.0.0' },\r\nnpm WARN EBADENGINE   current: { node: 'v8.17.0', npm: '7.14.0' } }\r\n```\r\n\r\n而 yarn 将会直接报错\r\n\r\n``` bash\r\nerror next-app@1.0.0: The engine \"node\" is incompatible with this module. Expected version \">=16.0.0\". Got \"8.17.0\"\r\n```\r\n\r\n而如果我们**项目中某些依赖所需要的 Node 版本号与项目运行时的 Node 版本号不匹配，也会报错(在yarn中)**，此时无法正常运行项目，可避免意外发生",
       "reactions": {
         "totalCount": 0
       },
@@ -14214,7 +14214,7 @@
       "id": "IC_kwDODQzyOs40z5E7",
       "body": "希望不可枚举和Symbol 可以Reflect.ownKeys(obj).map(curr => obj[curr]) 获取全部的key对应的values \r\nObject上面也有 不过是分开的 两个API\r\n\r\n```javascript\r\nfunction checkObj (obj, set = new Set()) {\r\n    if (typeof obj === 'object' && obj !== null || Array.isArray(obj)) {\r\n        if (set.has(obj)) {\r\n            return true\r\n        } else {\r\n            set.add(obj)\r\n        }\r\n        return Object.values(obj).some(curr => {       \r\n            return checkObj(curr, set)\r\n        })\r\n    }\r\n    return false\r\n}\r\n\r\n```",
       "reactions": {
-        "totalCount": 4
+        "totalCount": 5
       },
       "author": {
         "login": "heretic-G",
@@ -15239,5 +15239,18 @@
         "url": "https://github.com/shfshanyue"
       }
     }
+  },
+  {
+    "id": "I_kwDODQzyOs49ahqr",
+    "number": 737,
+    "title": "【Q712】打包器(webpack/rollup) 如何加载 style 样式资源",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzA2NzQ0ODEz",
+        "name": "webpack"
+      }
+    ],
+    "comment": ""
   }
 ]
