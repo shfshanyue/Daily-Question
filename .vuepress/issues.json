@@ -3029,10 +3029,10 @@
       }
     ],
     "comment": {
-      "id": "MDEyOklzc3VlQ29tbWVudDU2NzgxOTE4Ng==",
-      "body": "https://github.com/mishoo/UglifyJS2",
+      "id": "IC_kwDODQzyOs438Zbw",
+      "body": "通过 AST 分析，根据一些策略，来生成一颗更小体积的 AST 并生成代码。目前前端工程化中使用 [terser](https://terser.org/docs/api-reference#compress-options) 进行 JS 代码压缩。\r\n\r\n常见用以压缩 AST 的几种方案如下:\r\n\r\n## 去除多余字符: 空格，换行及注释\r\n\r\n``` javascript\r\n// 对两个数求和\r\nfunction sum (a, b) {\r\n  return a + b;\r\n}\r\n```\r\n\r\n此时文件大小是 `62 Byte`， **一般来说中文会占用更大的空间。**\r\n\r\n多余的空白字符会占用大量的体积，如空格，换行符，另外注释也会占用文件体积。当我们把所有的空白符合注释都去掉之后，代码体积会得到减少。\r\n\r\n**去掉多余字符之后，文件大小已经变为 `30 Byte`。** 压缩后代码如下:\r\n\r\n``` javascript\r\nfunction sum(a,b){return a+b}\r\n```\r\n\r\n替换掉多余字符后会有什么问题产生呢？\r\n\r\n**有，比如多行代码压缩到一行时要注意行尾分号。** \r\n\r\n## 压缩变量名：变量名，函数名及属性名\r\n\r\n``` javascript\r\nfunction sum (first, second) {\r\n  return first + second;  \r\n}\r\n```\r\n\r\n如以上 `first` 与 `second` 在函数的作用域中，在作用域外不会引用它，此时可以让它们的变量名称更短。但是如果这是一个 `module` 中，`sum` 这个函数也不会被导出呢？那可以把这个函数名也缩短。\r\n\r\n``` javascript\r\n// 压缩: 缩短变量名\r\nfunction sum (x, y) {\r\n  return x + y;  \r\n}\r\n\r\n// 再压缩: 去除空余字符\r\nfunction s(x,y){return x+y}\r\n```\r\n\r\n在这个示例中，当完成代码压缩 (`compress`) 时，代码的混淆 (`mangle`) 也捎带完成。 **但此时缩短变量的命名也需要 AST 支持，不至于在作用域中造成命名冲突。**\r\n\r\n## 解析程序逻辑：合并声明以及布尔值简化\r\n\r\n通过分析代码逻辑，可对代码改写为更精简的形式。\r\n\r\n合并声明的示例如下：\r\n\r\n``` javascript\r\n// 压缩前\r\nconst a = 3;\r\nconst b = 4;\r\n\r\n// 压缩后\r\nconst a = 3, b = 4;\r\n```\r\n\r\n布尔值简化的示例如下：\r\n\r\n``` javascript\r\n// 压缩前\r\n!b && !c && !d && !e\r\n\r\n// 压缩后\r\n!(b||c||d||e)\r\n```\r\n\r\n## 解析程序逻辑: 编译预计算\r\n\r\n在编译期进行计算，减少运行时的计算量，如下示例:\r\n\r\n``` javascript\r\n// 压缩前\r\nconst ONE_YEAR = 365 * 24 * 60 * 60\r\n\r\n// 压缩后\r\nconst ONE_YAAR = 31536000\r\n```\r\n\r\n以及一个更复杂的例子，简直是杀手锏级别的优化。\r\n\r\n``` javascript\r\n// 压缩前\r\nfunction hello () {\r\n  console.log('hello, world')\r\n}\r\n\r\nhello()\r\n\r\n// 压缩后\r\nconsole.log('hello, world')\r\n```\r\n",
       "reactions": {
-        "totalCount": 0
+        "totalCount": 1
       },
       "author": {
         "login": "shfshanyue",
@@ -10968,7 +10968,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDg0NjU5MjA3MA==",
-      "body": "`semver`，`Semantic Versioning` 语义化版本的缩写，文档可见 <https://semver.org/>，它由 `[major, minor, patch]` 三部分组成，其中\r\n\r\n+ `major`: 当你发了一个含有 Breaking Change 的 API\r\n+ `minor`:  当你新增了一个向后兼容的功能时\r\n+ `patch`: 当你修复了一个向后兼容的 Bug 时\r\n\r\n\r\n假设你的版本库中含有一个函数\r\n\r\n``` js\r\n// 假设原函数\r\nexport const sum = (x: number, y: number): number => x + y\r\n\r\n// Patch Version，修复小 Bug\r\nexport const sum = (x: number, y: number): number => x + y\r\n\r\n// Minor Version，向后兼容\r\nexport const sum = (...rest: number[]): number => rest.reduce((s, x) => s + x, 0)\r\n\r\n// Marjor Version，出现 Breaking Change\r\nexport const sub = () => {}\r\n```\r\n\r\n对于 `~1.2.3` 而言，它的版本号范围是 `>=1.2.3  <1.3.0`\r\n\r\n对于 `^1.2.3` 而言，它的版本号范围是 `>=1.2.3  <2.0.0`\r\n\r\n当我们 `npm i` 时，默认的版本号是 `^`，可最大限度地在向后兼容与新特性之间做取舍，但是有些库有可能不遵循该规则，我们在项目时应当使用 `yarn.lock`/`package-lock.json` 锁定版本号",
+      "body": "`semver`，`Semantic Versioning` 语义化版本的缩写，文档可见 <https://semver.org/>，它由 `[major, minor, patch]` 三部分组成，其中\r\n\r\n+ `major`: 当你发了一个含有 Breaking Change 的 API\r\n+ `minor`:  当你新增了一个向后兼容的功能时\r\n+ `patch`: 当你修复了一个向后兼容的 Bug 时\r\n\r\n\r\n假设你的版本库中含有一个函数\r\n\r\n``` js\r\n// 假设原函数\r\nexport const sum = (x: number, y: number): number => x + y\r\n\r\n// Patch Version，修复小 Bug\r\nexport const sum = (x: number, y: number): number => x + y\r\n\r\n// Minor Version，向后兼容\r\nexport const sum = (...rest: number[]): number => rest.reduce((s, x) => s + x, 0)\r\n\r\n// Marjor Version，出现 Breaking Change\r\nexport const sub = () => {}\r\n```\r\n\r\n对于 `~1.2.3` 而言，它的版本号范围是 `>=1.2.3  <1.3.0`\r\n\r\n对于 `^1.2.3` 而言，它的版本号范围是 `>=1.2.3  <2.0.0`\r\n\r\n当我们 `npm i` 时，默认的版本号是 `^`，可最大限度地在向后兼容与新特性之间做取舍，但是有些库有可能不遵循该规则，我们在项目时应当使用 `yarn.lock`/`package-lock.json` 锁定版本号。\r\n\r\n我们看看 `package-lock` 的工作流程。\r\n\r\n1. `npm i webpack`，此时下载最新 webpack 版本 `5.58.2`，在 `package.json` 中显示为 `webpack: ^5.58.2`，版本号范围是 `>=5.58.2 < 6.0.0`\r\n2. 在 `package-lock.json` 中全局搜索 `webpack`，发现 webpack 的版本是被锁定的，也是说它是确定的 `webpack: 5.58.2`\r\n3. 经过一个月后，webpack 最新版本为 `5.100.0`，但由于 `webpack` 版本在 `package-lock.json` 中锁死，每次上线时仍然下载 `5.58.2` 版本号\r\n4. 经过一年后，webpack 最新版本为 `6.0.0`，但由于 `webpack` 版本在 `package-lock.json` 中锁死，且 package.json 中 `webpack` 版本号为 `^5.58.2`，与 `package-lock.json` 中为一致的版本范围。每次上线时仍然下载 `5.58.2` 版本号\r\n5. 支线剧情：经过一年后，webpack 最新版本为 `6.0.0`，需要进行升级，此时手动改写 `package.json` 中 `webpack` 版本号为 `^6.0.0`，与 `package-lock.json` 中不是一致的版本范围。此时 `npm i` 将下载 `6.0.0` 最新版本号，并重写 `package-lock.json` 中锁定的版本号为 `6.0.0`",
       "reactions": {
         "totalCount": 0
       },
@@ -15252,5 +15252,28 @@
       }
     ],
     "comment": ""
+  },
+  {
+    "id": "I_kwDODQzyOs49iWc3",
+    "number": 738,
+    "title": "【Q713】如何提升 webpack 构建资源的速度",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzA2NzQ0ODEz",
+        "name": "webpack"
+      }
+    ],
+    "comment": {
+      "id": "IC_kwDODQzyOs44isNG",
+      "body": "使用 [speed-measure-webpack-plugin](https://github.com/stephencookdev/speed-measure-webpack-plugin) 可评估每个 loader/plugin 的执行耗时。\r\n\r\n## 持久化缓存: cache\r\n\r\n`webpack5` 内置了关于缓存的插件，可通过以下配置开启。它将 `Module`、`Chunk`、`ModuleChunk` 等信息序列化到磁盘中，二次构建避免重复编译计算，编译速度得到很大提升。\r\n\r\n``` js\r\n{\r\n  cache: {\r\n    type: 'filesystem'\r\n  }\r\n}\r\n```\r\n\r\n如对一个 JS 文件配置了 `eslint`、`typescript`、`babel` 等 `loader`，他将有可能执行五次编译，被五次解析为 AST\r\n\r\n1. `acorn`: 用以依赖分析，解析为 `acorn` 的 AST\r\n2. `eslint-parser`: 用以 lint，解析为 `espree` 的 AST\r\n3. `typescript`: 用以 ts，解析为 `typescript` 的 AST\r\n4. `babel`: 用以转化为低版本，解析为 `@babel/parser` 的 AST\r\n5. `terser`: 用以压缩混淆，解析为 `acorn` 的 AST\r\n\r\n而当开启了持久化缓存功能，最耗时的 AST 解析将能够从磁盘的缓存中获取，再次编译时无需再次进行解析 AST。\r\n\r\n**得益于持久化缓存，二次编译甚至可得到与 Unbundle 的 vite 等相近的开发体验**\r\n\r\n在 webpack4 中，可使用 [cache-loader](https://github.com/webpack-contrib/cache-loader) 仅仅对 `loader` 进行缓存。需要注意的是该 loader 目前已是 `@depcrated` 状态。\r\n\r\n``` js\r\nmodule.exports = {\r\n  module: {\r\n    rules: [\r\n      {\r\n        test: /\\.ext$/,\r\n        use: ['cache-loader', ...loaders],\r\n        include: path.resolve('src'),\r\n      },\r\n    ],\r\n  },\r\n};\r\n```\r\n\r\n![cache-loader](https://cdn.jsdelivr.net/gh/shfshanyue/assets@master/src/cache-loader.7hlpm1nh2z40.png)\r\n\r\n## 多进程: thread-loader\r\n\r\n`thread-loader` 为官方推荐的开启多进程的 `loader`，可对 babel 解析 AST 时开启多线程处理，提升编译的性能。\r\n\r\n``` js\r\nmodule.exports={\r\n  module:{\r\n    rules:[\r\n      {\r\n        test:/\\.js$/,\r\n        use:[\r\n          {\r\n            loader: 'thread-loader',\r\n            options: {\r\n              workers: 8\r\n            }\r\n          },\r\n          'babel-loader'\r\n        ]\r\n      }\r\n    ]\r\n  }\r\n}\r\n```\r\n\r\n在 `webpack4` 中，可使用 [happypack plugin](https://github.com/amireh/happypack)，但需要注意的是 `happypack` 已经久不维护了。",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   }
 ]

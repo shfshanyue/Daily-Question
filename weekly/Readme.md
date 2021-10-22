@@ -711,3 +711,4 @@
 + [【Q710】打包器(webpack/rollup) 如何将打包后的 js 资源注入 html 中](../fe/webpack/735.html)
 + [【Q711】打包器(webpack/rollup) 如何加载 json、image 等非 Javascript 资源](../fe/webpack/736.html)
 + [【Q712】打包器(webpack/rollup) 如何加载 style 样式资源](../fe/webpack/737.html)
++ [【Q713】如何提升 webpack 构建资源的速度](../fe/webpack/738.html)
