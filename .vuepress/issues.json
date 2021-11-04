@@ -1892,14 +1892,14 @@
       }
     ],
     "comment": {
-      "id": "MDEyOklzc3VlQ29tbWVudDU2ODk1MjkwNA==",
-      "body": "应该是基于es6 modules的静态分析",
+      "id": "IC_kwDODQzyOs43_KtL",
+      "body": "`Tree Shaking` 指基于 ES Module 进行静态分析，通过 AST 将用不到的函数进行移除，从而减小打包体积。\r\n\r\n有例为证:\r\n\r\n> 以下示例可在 [Rollup Repl](https://rollupjs.org/repl/?version=2.58.0&shareable=JTdCJTIybW9kdWxlcyUyMiUzQSU1QiU3QiUyMm5hbWUlMjIlM0ElMjJtYWluLmpzJTIyJTJDJTIyY29kZSUyMiUzQSUyMiUyRiolMjBUUkVFLVNIQUtJTkclMjAqJTJGJTVDbmltcG9ydCUyMCU3QiUyMGN1YmUlMjAlN0QlMjBmcm9tJTIwJy4lMkZtYXRocy5qcyclM0IlNUNuJTVDbmNvbnNvbGUubG9nKCUyMGN1YmUoJTIwNSUyMCklMjApJTNCJTIwJTJGJTJGJTIwMTI1JTIyJTJDJTIyaXNFbnRyeSUyMiUzQXRydWUlN0QlMkMlN0IlMjJuYW1lJTIyJTNBJTIybWF0aHMuanMlMjIlMkMlMjJjb2RlJTIyJTNBJTIyJTJGJTJGJTIwbWF0aHMuanMlNUNuJTVDbiUyRiUyRiUyMFRoaXMlMjBmdW5jdGlvbiUyMGlzbid0JTIwdXNlZCUyMGFueXdoZXJlJTJDJTIwc28lNUNuJTJGJTJGJTIwUm9sbHVwJTIwZXhjbHVkZXMlMjBpdCUyMGZyb20lMjB0aGUlMjBidW5kbGUuLi4lNUNuZXhwb3J0JTIwZnVuY3Rpb24lMjBzcXVhcmUlMjAoJTIweCUyMCklMjAlN0IlNUNuJTVDdHJldHVybiUyMHglMjAqJTIweCUzQiU1Q24lN0QlNUNuJTVDbiUyRiUyRiUyMFRoaXMlMjBmdW5jdGlvbiUyMGdldHMlMjBpbmNsdWRlZCU1Q25leHBvcnQlMjBmdW5jdGlvbiUyMGN1YmUlMjAoJTIweCUyMCklMjAlN0IlNUNuJTVDdCUyRiUyRiUyMHJld3JpdGUlMjB0aGlzJTIwYXMlMjAlNjBzcXVhcmUoJTIweCUyMCklMjAqJTIweCU2MCU1Q24lNUN0JTJGJTJGJTIwYW5kJTIwc2VlJTIwd2hhdCUyMGhhcHBlbnMhJTVDbiU1Q3RyZXR1cm4lMjB4JTIwKiUyMHglMjAqJTIweCUzQiU1Q24lN0QlMjIlMkMlMjJpc0VudHJ5JTIyJTNBZmFsc2UlN0QlNUQlMkMlMjJvcHRpb25zJTIyJTNBJTdCJTIyZm9ybWF0JTIyJTNBJTIyZXMlMjIlMkMlMjJuYW1lJTIyJTNBJTIybXlCdW5kbGUlMjIlMkMlMjJhbWQlMjIlM0ElN0IlMjJpZCUyMiUzQSUyMiUyMiU3RCUyQyUyMmdsb2JhbHMlMjIlM0ElN0IlN0QlN0QlMkMlMjJleGFtcGxlJTIyJTNBJTIyMDIlMjIlN0Q=) 中进行在线演示\r\n\r\n``` js\r\n/* TREE-SHAKING */\r\nimport { sum } from './maths.js'\r\n\r\nconsole.log( sum( 5, 5 ) )  // 10\r\n```\r\n\r\n``` js\r\n// maths.js\r\n\r\nexport function sum ( x, y ) {\r\n  return x + y\r\n}\r\n\r\n// 由于 sub 函数没有引用到，最终将不会对它进行打包\r\nexport function sub ( x, y ) {\r\n  return x - y\r\n}\r\n```\r\n\r\n最终打包过程中，`sub` 没有被引用到，将不会对它进行打包。以下为打包后代码。\r\n\r\n``` js\r\n// maths.js\r\n\r\nfunction sum ( x, y ) {\r\n  return x + y\r\n}\r\n\r\n/* TREE-SHAKING */\r\n\r\nconsole.log( sum( 5, 5 ) )\r\n```\r\n\r\n## `import *`\r\n\r\n当使用语法 `import *` 时，Tree Shaking 依然生效。\r\n\r\n``` js\r\nimport * as maths from './maths'\r\n\r\n// Tree Shaking 依然生效\r\nmaths.sum(3, 4)\r\nmaths['sum'](3, 4)\r\n```\r\n\r\n`import * as maths`，其中 `maths` 的数据结构是固定的，无复杂数据，通过 AST 分析可查知其引用关系。\r\n\r\n``` js\r\nconst maths = {\r\n  sum () {},\r\n  sub () {}\r\n}\r\n```\r\n\r\n## JSON TreeShaking\r\n\r\n`Tree Shaking` 甚至可对 JSON 进行优化。原理是因为 JSON 格式简单，通过 AST 容易预测结果，不像 JS 对象有复杂的类型与副作用。\r\n\r\n``` json\r\n{\r\n  \"a\": 3,\r\n  \"b\": 4\r\n}\r\n```\r\n\r\n``` js\r\nimport obj from './main.json'\r\n\r\n// obj.b 由于未使用到，仍旧不会被打包\r\nconsole.log(obj.a)\r\n```\r\n\r\n## 引入支持 Tree Shaking 的 Package\r\n\r\n为了减小生产环境体积，我们可以**使用一些支持 ES 的 package，比如使用 `lodash-es` 替代 `lodash`**。\r\n\r\n我们可以在 [npm.devtool.tech](https://npm.devtool.tech/lodash-es) 中查看某个库是否支持 Tree Shaking。\r\n\r\n![lodash-es](https://cdn.jsdelivr.net/gh/shfshanyue/assets@master/src/lodash-es.60xosee62440.png)",
       "reactions": {
-        "totalCount": 0
+        "totalCount": 1
       },
       "author": {
-        "login": "coderyyx",
-        "url": "https://github.com/coderyyx"
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
       }
     }
   },
@@ -6522,7 +6522,17 @@
         "name": "node"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "IC_kwDODQzyOs44t5J5",
+      "body": "`dns.resolve` 返回指定类型或全部类型的dns解析记录，如`A记录`, `CNAME`记录, `MX`记录\r\n`dns.lookup`返回`A记录`(IPv4)或`AAAA记录`(IPv6)",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "thundernet8",
+        "url": "https://github.com/thundernet8"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU2MjkxMTMxNDk=",
@@ -6539,7 +6549,7 @@
       "id": "MDEyOklzc3VlQ29tbWVudDY2MDYxNjUyMA==",
       "body": "`css specificity` 即 css 中关于选择器的权重，以下三种类型的选择器依次下降\r\n\r\n1. `id` 选择器，如 `#app`\r\n1. `class`、`attribute` 与 `pseudo-classes` 选择器，如 `.header`、`[type=\"radio\"]` 与 `:hover`\r\n1. `type` 标签选择器和伪元素选择器，如 `h1`、`p` 和 `::before`\r\n\r\n其中通配符选择器 `*`，组合选择器 `+ ~ >`，否定伪类选择器 `:not()` 对优先级无影响\r\n\r\n另有内联样式 `<div class=\"foo\" style=\"color: red;\"></div>` 及 `!important`(最高) 具有更高的权重\r\n\r\n> [`:not` 的优先级影响 - codepen](https://codepen.io/shanyue/pen/dyGQqBe) 可以看出 `:not` 对选择器的优先级无任何影响\r\n\r\n> [CSS Specificity - codepen](https://codepen.io/shanyue/pen/XWMRQOw) 可以看出十几个 class 选择器也没有一个 id 选择器权重高",
       "reactions": {
-        "totalCount": 1
+        "totalCount": 2
       },
       "author": {
         "login": "shfshanyue",
@@ -6558,7 +6568,17 @@
         "name": "node"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "IC_kwDODQzyOs44t5bG",
+      "body": "```js\r\nfunction requireUncached(module) {\r\n    delete require.cache[require.resolve(module)];\r\n    return require(module);\r\n}\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "thundernet8",
+        "url": "https://github.com/thundernet8"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU2Mjk3NzA2MTI=",
@@ -7595,7 +7615,17 @@
         "name": "node"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "IC_kwDODQzyOs44uNzx",
+      "body": "`nextTick`属于微任务，`setTimeout`属于宏任务，在事件循环中执行的优先级不一样",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "thundernet8",
+        "url": "https://github.com/thundernet8"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU2Njg4MTI1Nzc=",
@@ -9475,7 +9505,17 @@
         "name": "vue"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "IC_kwDODQzyOs442H_3",
+      "body": "render（UI）",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "illumi520",
+        "url": "https://github.com/illumi520"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU3NzYyMzk3NTE=",
@@ -10807,10 +10847,7 @@
       "reactions": {
         "totalCount": 0
       },
-      "author": {
-        "login": "liweinandever",
-        "url": "https://github.com/liweinandever"
-      }
+      "author": null
     }
   },
   {
@@ -10989,7 +11026,17 @@
         "name": "前端工程化"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "IC_kwDODQzyOs44sGUJ",
+      "body": "## main\r\n\r\n`main` 指 npm package 的入口文件，当我们对某个 package 进行导入时，实际上导入的是 `main` 字段所指向的文件。\r\n\r\n`main` 是 CommonJS 时代的产物，也是最古老且最常用的入口文件。\r\n\r\n``` js\r\n// package.json 内容\r\n{\r\n  name: 'midash',\r\n  main: './dist/index.js'\r\n}\r\n\r\n// 关于如何引用 package\r\nconst midash = require('midash')\r\n\r\n// 实际上是通过 main 字段来找到入口文件，等同于该引用\r\nconst midash = require('midash/dist/index.js')\r\n```\r\n\r\n## module\r\n\r\n随着 ESM 且打包工具的发展，许多 package 会打包 N 份模块化格式进行分发，如 `antd` 既支持 `ES`，也支持 `umd`，将会打包两份。\r\n\r\n![antd 分发了两种格式](https://cdn.jsdelivr.net/gh/shfshanyue/assets@master/src/antd.50lzknb7r000.png)\r\n\r\n如果使用 `import` 对该库进行导入，则首次寻找 `module` 字段引入，否则引入 `main` 字段。\r\n\r\n基于此，许多前端友好的库，都进行了以下分发操作:\r\n\r\n1. 对代码进行两份格式打包: `commonjs` 与 `es module`\r\n1. `module` 字段作为 `es module` 入口\r\n1. `main` 字段作为 `commonjs` 入口\r\n\r\n``` js\r\n{\r\n  name: 'midash',\r\n  main: './dist/index.js',\r\n  module: './dist/index.mjs'\r\n}\r\n\r\n// 以下两者等同\r\nimport midash from 'midash'\r\nimport midash from 'midash/dist/index.mjs'\r\n```\r\n\r\n如果你的代码只分发一份 `es module` 模块化方案，则直接置于 `main` 字段之中。\r\n\r\n## exports\r\n\r\n如果说以上两个是刀剑，那 `exports` 至少得是瑞士军刀。\r\n\r\n`exports` 可以更容易地控制子目录的访问路径，也被称为 `export map`。\r\n\r\n假设我们 Package 的目录如下所示:\r\n\r\n``` bash\r\n├── package.json\r\n├── index.js\r\n└── src\r\n    └── get.js\r\n```\r\n\r\n**不在 `exports` 字段中的模块，即使直接访问路径，也无法引用！**\r\n\r\n``` js\r\n// package.json\r\n{\r\n  name: 'midash',\r\n  main: './index.js',\r\n  exports: {\r\n    '.': './dist/index.js',\r\n    'get': './dist/get.js'\r\n  }\r\n}\r\n\r\n// 正常工作\r\nimport get from 'midash/get'\r\n\r\n// 无法正常工作，无法引入\r\nimport get from 'midash/dist/get'\r\n```\r\n\r\n`exports` 不仅可根据模块化方案不同选择不同的入口文件，还可以根据环境变量(`NODE_ENV`)、运行环境(`nodejs`/`browser`/`electron`) 导入不同的入口文件。\r\n\r\n``` js\r\n{\r\n  \"type\": \"module\",\r\n  \"exports\": {\r\n    \"electron\": {\r\n      \"node\": {\r\n        \"development\": {\r\n          \"module\": \"./index-electron-node-with-devtools.js\",\r\n          \"import\": \"./wrapper-electron-node-with-devtools.js\",\r\n          \"require\": \"./index-electron-node-with-devtools.cjs\"\r\n        },\r\n        \"production\": {\r\n          \"module\": \"./index-electron-node-optimized.js\",\r\n          \"import\": \"./wrapper-electron-node-optimized.js\",\r\n          \"require\": \"./index-electron-node-optimized.cjs\"\r\n        },\r\n        \"default\": \"./wrapper-electron-node-process-env.cjs\"\r\n      },\r\n      \"development\": \"./index-electron-with-devtools.js\",\r\n      \"production\": \"./index-electron-optimized.js\",\r\n      \"default\": \"./index-electron-optimized.js\"\r\n    },\r\n    \"node\": {\r\n      \"development\": {\r\n        \"module\": \"./index-node-with-devtools.js\",\r\n        \"import\": \"./wrapper-node-with-devtools.js\",\r\n        \"require\": \"./index-node-with-devtools.cjs\"\r\n      },\r\n      \"production\": {\r\n        \"module\": \"./index-node-optimized.js\",\r\n        \"import\": \"./wrapper-node-optimized.js\",\r\n        \"require\": \"./index-node-optimized.cjs\"\r\n      },\r\n      \"default\": \"./wrapper-node-process-env.cjs\"\r\n    },\r\n    \"development\": \"./index-with-devtools.js\",\r\n    \"production\": \"./index-optimized.js\",\r\n    \"default\": \"./index-optimized.js\"\r\n  }\r\n}\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU4OTg3MjExMzQ=",
@@ -12905,7 +12952,17 @@
         "name": "css"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "IC_kwDODQzyOs44oowH",
+      "body": "- 标准盒模型 \r\nwidth = content-width\r\nheight = content-height \r\n- 怪异盒模型\r\nwidth = content-width + padding + border\r\nheight = content-height + padding + border\r\n\r\n> 但是我感觉怪异盒模型更好用 😂",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "ssaylo",
+        "url": "https://github.com/ssaylo"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU5MzQzMjE3MDY=",
@@ -15074,7 +15131,17 @@
         "name": "js"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "IC_kwDODQzyOs44yEPo",
+      "body": "本质就是call（this）",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "illumi520",
+        "url": "https://github.com/illumi520"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU5OTQxNjYwNzg=",
@@ -15269,6 +15336,88 @@
       "body": "使用 [speed-measure-webpack-plugin](https://github.com/stephencookdev/speed-measure-webpack-plugin) 可评估每个 loader/plugin 的执行耗时。\r\n\r\n## 持久化缓存: cache\r\n\r\n`webpack5` 内置了关于缓存的插件，可通过以下配置开启。它将 `Module`、`Chunk`、`ModuleChunk` 等信息序列化到磁盘中，二次构建避免重复编译计算，编译速度得到很大提升。\r\n\r\n``` js\r\n{\r\n  cache: {\r\n    type: 'filesystem'\r\n  }\r\n}\r\n```\r\n\r\n如对一个 JS 文件配置了 `eslint`、`typescript`、`babel` 等 `loader`，他将有可能执行五次编译，被五次解析为 AST\r\n\r\n1. `acorn`: 用以依赖分析，解析为 `acorn` 的 AST\r\n2. `eslint-parser`: 用以 lint，解析为 `espree` 的 AST\r\n3. `typescript`: 用以 ts，解析为 `typescript` 的 AST\r\n4. `babel`: 用以转化为低版本，解析为 `@babel/parser` 的 AST\r\n5. `terser`: 用以压缩混淆，解析为 `acorn` 的 AST\r\n\r\n而当开启了持久化缓存功能，最耗时的 AST 解析将能够从磁盘的缓存中获取，再次编译时无需再次进行解析 AST。\r\n\r\n**得益于持久化缓存，二次编译甚至可得到与 Unbundle 的 vite 等相近的开发体验**\r\n\r\n在 webpack4 中，可使用 [cache-loader](https://github.com/webpack-contrib/cache-loader) 仅仅对 `loader` 进行缓存。需要注意的是该 loader 目前已是 `@depcrated` 状态。\r\n\r\n``` js\r\nmodule.exports = {\r\n  module: {\r\n    rules: [\r\n      {\r\n        test: /\\.ext$/,\r\n        use: ['cache-loader', ...loaders],\r\n        include: path.resolve('src'),\r\n      },\r\n    ],\r\n  },\r\n};\r\n```\r\n\r\n![cache-loader](https://cdn.jsdelivr.net/gh/shfshanyue/assets@master/src/cache-loader.7hlpm1nh2z40.png)\r\n\r\n## 多进程: thread-loader\r\n\r\n`thread-loader` 为官方推荐的开启多进程的 `loader`，可对 babel 解析 AST 时开启多线程处理，提升编译的性能。\r\n\r\n``` js\r\nmodule.exports={\r\n  module:{\r\n    rules:[\r\n      {\r\n        test:/\\.js$/,\r\n        use:[\r\n          {\r\n            loader: 'thread-loader',\r\n            options: {\r\n              workers: 8\r\n            }\r\n          },\r\n          'babel-loader'\r\n        ]\r\n      }\r\n    ]\r\n  }\r\n}\r\n```\r\n\r\n在 `webpack4` 中，可使用 [happypack plugin](https://github.com/amireh/happypack)，但需要注意的是 `happypack` 已经久不维护了。",
       "reactions": {
         "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "I_kwDODQzyOs49wP7g",
+    "number": 739,
+    "title": "【Q714】如何处理白屏错误页的监控的？",
+    "body": "用户反馈白屏了，你怎么处理？",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+        "name": "前端工程化"
+      }
+    ],
+    "comment": ""
+  },
+  {
+    "id": "I_kwDODQzyOs491CIg",
+    "number": 740,
+    "title": "【Q715】简述 npm script 的生命周期",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+        "name": "前端工程化"
+      }
+    ],
+    "comment": {
+      "id": "IC_kwDODQzyOs44yw-G",
+      "body": "\r\n在 npm 中，使用 `npm scripts` 可以组织整个前端工程的工具链。\r\n\r\n``` js\r\n{\r\n  start: 'serve ./dist',\r\n  build: 'webpack',\r\n  lint: 'eslint'\r\n}\r\n```\r\n\r\n除了可自定义 `npm script` 外，npm 附带许多内置 scripts\r\n\r\n``` bash\r\nnpm install\r\n\r\nnpm test\r\n\r\nnpm publish\r\n```\r\n\r\n1. 在某个 npm 库安装结束后，自动执行操作如何处理？\r\n1. npm publish 发布 npm 库时将发布打包后文件，如果遗漏了打包过程如何处理，如何在发布前自动打包？\r\n\r\n这就要涉及到一个 npm script 的生命周期\r\n\r\n## 一个 npm script 的生命周期\r\n\r\n当我们执行任意 `npm run` 脚本时，将自动触发 `pre`/`post` 的生命周期。\r\n\r\n当手动执行 `npm run abc` 时，将在此之前自动执行 `npm run preabc`，在此之后自动执行 `npm run postabc`。\r\n\r\n``` js\r\n// 自动执行\r\nnpm run preabc\r\n\r\nnpm run abc\r\n\r\n// 自动执行\r\nnpm run postabc\r\n```\r\n\r\n[patch-package](https://github.com/ds300/patch-package) 一般会放到 `postinstall` 中。\r\n\r\n``` js\r\n{\r\n  postinstall: 'patch-package'\r\n}\r\n```\r\n\r\n而发包的生命周期更为复杂，当执行 `npm publish`，将自动执行以下脚本。\r\n\r\n+ **prepublishOnly**: 最重要的一个生命周期。\r\n+ prepack\r\n+ prepare\r\n+ postpack\r\n+ publish\r\n+ postpublish\r\n\r\n当然你无需完全记住所有的生命周期，如果你需要在发包之前自动做一些事情，如测试、构建等，请在 `prepulishOnly` 中完成。\r\n\r\n``` js\r\n{\r\n  prepublishOnly: 'npm run test && npm run build'\r\n}\r\n```\r\n\r\n## 一个最常用的生命周期\r\n\r\n`prepare`\r\n\r\n1. `npm install` 之后自动执行\r\n1. `npm publish` 之前自动执行\r\n\r\n比如 `husky`\r\n\r\n``` js\r\n{\r\n  prepare: 'husky install'\r\n}\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "I_kwDODQzyOs4-GQfp",
+    "number": 741,
+    "title": "【Q716】git hooks 原理是什么",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+        "name": "前端工程化"
+      }
+    ],
+    "comment": {
+      "id": "IC_kwDODQzyOs45C5wA",
+      "body": "`git` 允许在各种操作之前添加一些 `hook` 脚本，如未正常运行则 git 操作不通过。最出名的还是以下两个\r\n\r\n+ `precommit`\r\n+ `prepush`\r\n\r\n而 `hook` 脚本置于目录 `~/.git/hooks` 中，以可执行文件的形式存在。\r\n\r\n\r\n``` bash\r\n$ ls -lah .git/hooks\r\napplypatch-msg.sample     pre-merge-commit.sample\r\ncommit-msg.sample         pre-push.sample\r\nfsmonitor-watchman.sample pre-rebase.sample\r\npost-update.sample        pre-receive.sample\r\npre-applypatch.sample     prepare-commit-msg.sample\r\npre-commit.sample         update.sample\r\n```\r\n\r\n\r\n另外  git hooks 可使用 `core.hooksPath` 自定义脚本位置。\r\n\r\n``` bash\r\n# 可通过命令行配置 core.hooksPath\r\n$ git config 'core.hooksPath' .husky\r\n\r\n# 也可通过写入文件配置 core.hooksPath\r\n$ cat .git/config\r\n[core]\r\n  ignorecase = true\r\n  precomposeunicode = true\r\n  hooksPath = .husky\r\n```\r\n\r\n在前端工程化中，`husky` 即通过自定义 `core.hooksPath` 并将 `npm scripts` 写入其中的方式来实现此功能。\r\n\r\n`~/.husky` 目录下**手动创建 hook 脚本**。\r\n\r\n``` bash\r\n# 手动创建 pre-commit hook\r\n$ vim .husky/pre-commit\r\n```\r\n\r\n在 `pre-commit` 中进行代码风格校验\r\n\r\n``` bash\r\n#!/bin/sh\r\n\r\nnpm run lint\r\nnpm run test\r\n```",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "I_kwDODQzyOs4-L8Rl",
+    "number": 742,
+    "title": "【Q717】如何检测出你们安装的依赖是否安全",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+        "name": "前端工程化"
+      }
+    ],
+    "comment": {
+      "id": "IC_kwDODQzyOs45Lqiz",
+      "body": "如何确保所有 `npm install` 的依赖都是安全的？\r\n\r\n当有一个库偷偷在你的笔记本后台挖矿怎么办？\r\n\r\n比如，不久前一个周下载量超过八百万的库被侵入，它在你的笔记本运行时会偷偷挖矿。\r\n\r\n![](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2021-11-03/clipboard-0833.d9da75.webp)\r\n\r\n## Audit\r\n\r\n`Audit`，审计，检测你的所有依赖是否安全。`npm audit`/`yarn audit` 均有效。\r\n\r\n通过审计，可看出有风险的 `package`、依赖库的依赖链、风险原因及其解决方案。\r\n\r\n``` bash\r\n$ npm audit\r\n┌───────────────┬──────────────────────────────────────────────────────────────┐\r\n│ high          │ Regular Expression Denial of Service in trim                 │\r\n├───────────────┼──────────────────────────────────────────────────────────────┤\r\n│ Package       │ trim                                                         │\r\n├───────────────┼──────────────────────────────────────────────────────────────┤\r\n│ Patched in    │ >=0.0.3                                                      │\r\n├───────────────┼──────────────────────────────────────────────────────────────┤\r\n│ Dependency of │ @mdx-js/loader                                               │\r\n├───────────────┼──────────────────────────────────────────────────────────────┤\r\n│ Path          │ @mdx-js/loader > @mdx-js/mdx > remark-mdx > remark-parse >   │\r\n│               │ trim                                                         │\r\n├───────────────┼──────────────────────────────────────────────────────────────┤\r\n│ More info     │ https://www.npmjs.com/advisories/1002775                     │\r\n└───────────────┴──────────────────────────────────────────────────────────────┘\r\n76 vulnerabilities found - Packages audited: 1076\r\nSeverity: 49 Moderate | 27 High\r\n✨  Done in 4.60s.\r\n```\r\n\r\n你可以在我的笔记本上挖矿，但绝不能在生产环境服务器下挖矿，此时可使用以下两条命令。\r\n\r\n``` bash\r\n$ npm audit production\r\n\r\n$ yarn audit dependencies\r\n```\r\n\r\n![Audit](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2021-11-03/clipboard-1904.f4c916.webp)\r\n\r\n通过 `npm audit fix` 可以自动修复该库的风险，原理就是升级依赖库，升级至已修复了风险的版本号。\r\n\r\n``` bash\r\n$ npm audit fix\r\n```\r\n\r\n`yarn audit` 无法自动修复，需要手动更新版本号，不过不够智能。\r\n\r\n[synk](https://snyk.io/) 是一个高级版的 `npm audit`，可自动修复，且支持 CICD 集成与多种语言。\r\n\r\n\r\n``` bash\r\n$ npx snyk\r\n\r\n$ npx wizard\r\n```\r\n\r\n![](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2021-11-03/clipboard-1409.96de76.webp)\r\n\r\n## CI 机器人\r\n\r\n可通过 CI/gitlab/github 中配置机器人，使他们每天轮询一次检查仓库的依赖中是否有风险。\r\n\r\n![Github 机器人](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2021-11-03/clipboard-4186.0dac46.webp)\r\n\r\n在 Github 中，可单独设置 `dependabot` 机器人，在仓库设置中开启小机器人，当它检测到有问题时，会自动向该仓库提交 PR。\r\n\r\n![dependabot](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2021-11-03/clipboard-6581.08f1c2.webp)\r\n\r\n而它的解决方案也是升级版本号。\r\n\r\n![Github Bot 提的 PR](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2021-11-03/clipboard-8617.e80863.webp)\r\n",
+      "reactions": {
+        "totalCount": 1
       },
       "author": {
         "login": "shfshanyue",

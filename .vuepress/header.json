@@ -1776,7 +1776,7 @@
         ],
         [
           "css/626",
-          "请简介 CSS 的盒模型"
+          "请简介 CSS 的盒模型⭐️"
         ],
         [
           "css/638",
@@ -2329,7 +2329,7 @@
         ],
         [
           "js/460",
-          "现代框架如 React、Vue 相比原生开发有什么优势"
+          "现代框架如 React、Vue 相比原生开发有什么优势⭐️"
         ],
         [
           "js/461",
@@ -2576,11 +2576,11 @@
         ],
         [
           "node/310",
-          "node 中 dns.resolve 及 dns.lookup 有什么区别"
+          "node 中 dns.resolve 及 dns.lookup 有什么区别⭐️"
         ],
         [
           "node/312",
-          "Node 中 require json 文件数据时，如何当文件更新时，重新 require"
+          "Node 中 require json 文件数据时，如何当文件更新时，重新 require⭐️"
         ],
         [
           "node/318",
@@ -2616,7 +2616,7 @@
         ],
         [
           "node/370",
-          "node 中 nextTick 与 setTimeout 有什么区别"
+          "node 中 nextTick 与 setTimeout 有什么区别⭐️"
         ],
         [
           "node/420",
@@ -2866,7 +2866,7 @@
         ],
         [
           "react/460",
-          "现代框架如 React、Vue 相比原生开发有什么优势"
+          "现代框架如 React、Vue 相比原生开发有什么优势⭐️"
         ],
         [
           "react/463",
@@ -3079,7 +3079,7 @@
         ],
         [
           "vue/460",
-          "现代框架如 React、Vue 相比原生开发有什么优势"
+          "现代框架如 React、Vue 相比原生开发有什么优势⭐️"
         ],
         [
           "vue/463",
@@ -3373,7 +3373,7 @@
         ],
         [
           "前端工程化/535",
-          "package.json 中 main/module/browser/exports 字段有何区别"
+          "package.json 中 main/module/browser/exports 字段有何区别⭐️"
         ],
         [
           "前端工程化/536",
@@ -3434,6 +3434,22 @@
         [
           "前端工程化/734",
           "core-js 是做什么用的？⭐️"
+        ],
+        [
+          "前端工程化/739",
+          "如何处理白屏错误页的监控的？"
+        ],
+        [
+          "前端工程化/740",
+          "简述 npm script 的生命周期⭐️"
+        ],
+        [
+          "前端工程化/741",
+          "git hooks 原理是什么⭐️"
+        ],
+        [
+          "前端工程化/742",
+          "如何检测出你们安装的依赖是否安全⭐️"
         ]
       ]
     }

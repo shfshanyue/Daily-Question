@@ -447,3 +447,7 @@
 + [【Q711】打包器(webpack/rollup) 如何加载 json、image 等非 Javascript 资源](webpack/736.html)
 + [【Q712】打包器(webpack/rollup) 如何加载 style 样式资源](webpack/737.html)
 + [【Q713】如何提升 webpack 构建资源的速度](webpack/738.html)
++ [【Q714】如何处理白屏错误页的监控的？](前端工程化/739.html)
++ [【Q715】简述 npm script 的生命周期](前端工程化/740.html)
++ [【Q716】git hooks 原理是什么](前端工程化/741.html)
++ [【Q717】如何检测出你们安装的依赖是否安全](前端工程化/742.html)
