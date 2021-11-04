@@ -6,7 +6,7 @@
   "dependencies": {
     "@vuepress/plugin-google-analytics": "^1.7.1",
     "args": "^5.0.1",
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "ismobilejs": "^1.1.1",
     "isomorphic-unfetch": "^3.1.0",
     "lodash": "^4.17.20",
