@@ -5,7 +5,7 @@
     <div :class="{ 'theme-default-content': true, lock: isLock }">
       <Content />
       <div class="content-lock" v-if="isLock">
-        <p>扫码关注公众号<span>全栈成长之路</span>，并发送 <span v-text="code"></span></p>
+        <p>扫码关注公众号<span>互联网大厂面试</span>，并发送 <span v-text="code"></span></p>
         <p>即可在关注期间<span>无限制</span>浏览本站全部文章内容</p>
         <img src="./we.jpg" width="180" height="180">
         <!-- <p>该提示信息随机出现，你可以<span>再次刷新</span>页面，来浏览本站全部文章</p> -->

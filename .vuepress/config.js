@@ -26,6 +26,7 @@ module.exports = {
     // 设置 Google 的 Search Console
     ['meta', { name: 'google-site-verification', content: '_rNB9Nt0ukzWmMfhXSSxCHUAeeMs24OiuhGm4QjdwXA'}]
   ],
+  shouldPrefetch: () => false,
   themeConfig: {
     repo: 'shfshanyue/Daily-Question',
     nav: [
