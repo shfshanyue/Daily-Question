@@ -21,7 +21,7 @@
   },
   "scripts": {
     "doc": "node scripts/build",
-    "issues": "node scripts/build.js",
+    "issues": "curl https://cdn.jsdelivr.net/gh/shfshanyue/interview-api@master/data/issues.json > data/issues.json",
     "dev": "vuepress dev",
     "build": "vuepress build",
     "ncu": "ncu"

@@ -1,19 +1,6 @@
 const _ = require('lodash')
 const header = require('./header')
-const issues = require('./issues')
-const labels = require('./labels')
-const meta = require('../data/meta')
-
-const issuesByNumber = _.keyBy(issues, 'number')
-const labelsByName = _.keyBy(labels, 'name')
-const GROUP_MAP = {
-  fe: '前端',
-  server: '后端',
-  devops: 'devops',
-  open: '开放式问题',
-  base: '计算机基础'
-}
-
+const { generateSiebar } = require('./header')
 
 const desc = '每天至少一个问题，有关前端，后端，graphql，devops，微服务以及软技能，促进个人职业成长，敲开大厂之门。'
 
@@ -32,21 +19,26 @@ module.exports = {
     nav: [
       { text: '主页', link: '/' },
       // { text: '周刊', link: '/weekly/' },
-      { text: '我的面经', link: '/interviews/2018.html' },
+      // { text: '我的面经', link: '/interviews/2018.html' },
       { text: '面经大全', link: '/interview.html' },
       { text: '大厂内推', link: '/infer/ali-ascp.md' },
       { text: '计算机基础', link: '/base/' },
-      { text: '前端', link: '/fe/' },
-      { text: '后端', link: '/server/' },
-      { text: 'DevOps', link: '/devops/' },
-      { text: '开放式问题', link: '/open/' },
+      { text: '前端面试基础', link: '/fe/' },
+      { text: '高级前端面试', link: '/server/' },
+      {
+        text: '更多面试题',
+        items: [
+          { text: 'DevOps', link: '/devops/' },
+          { text: '开放式问题', link: '/open/' },
+        ]
+      },
       { text: '各地求职', link: '/job/chengdu.html' },
       { text: '面试路线图', link: '/roadmap/code.html' },
       // { text: '山月的博客', link: 'https://shanyue.tech' },
       // { text: '极客时间返现', link: 'https://geek.shanyue.tech' },
     ],
     sidebar: {
-      ...header,
+      ...generateSiebar(),
       '/job/': [
         ['chengdu', '成都大厂'],
       ],
@@ -164,32 +156,32 @@ module.exports = {
             }
           ]
         },
-        extendPageData ($page) {
-          const number = $page.path.split(/[\/\.]/g)[3]
+        // extendPageData ($page) {
+        //   const number = $page.path.split(/[\/\.]/g)[3]
 
-          // 根据 Issues 设置 TDK
-          if (/\d+/.test(number)) {
-            const issue = _.get(issuesByNumber, number, {})
-            const labels = _.flatMap(issue.labels, label => {
-              if (!label) { return null }
-              label = labelsByName[label.name]
-              const labels = [label.alias, label.name, GROUP_MAP[label.group]]
-              return labels
-            }).filter(_.identity)
-            const keywords = meta[number] ? meta[number].keywords.split(',') : issue.title.slice(6).split(/[,，!！?？]/g)
-            $page.frontmatter.meta = [{
-              name: 'keywords',
-              content: ['前端面试题', ...labels, ...keywords].join(',')
-            }, {
-              name: 'google-site-verification',
-              content: '_rNB9Nt0ukzWmMfhXSSxCHUAeeMs24OiuhGm4QjdwXA'
-            }]
-            $page.frontmatter.description = meta[number] && meta[number].description ? meta[number].description : (issue.body || _.slice(_.get(issue.comment, 'body', issue.title), 0, 240).join(''))
-            $page.frontmatter.metaTitle = `${$page.title} | 前端面试题`
-          } else {
-            $page.frontmatter.metaTitle = `${$page.title || '大厂前端面试题每日一题'} | Vue | React | JS | Mysql | 面试题`
-          }
-        }
+        //   // 根据 Issues 设置 TDK
+        //   if (/\d+/.test(number)) {
+        //     const issue = _.get(issuesByNumber, number, {})
+        //     const labels = _.flatMap(issue.labels, label => {
+        //       if (!label) { return null }
+        //       label = labelsByName[label.name]
+        //       const labels = [label.alias, label.name, GROUP_MAP[label.group]]
+        //       return labels
+        //     }).filter(_.identity)
+        //     const keywords = meta[number] ? meta[number].keywords.split(',') : issue.title.slice(6).split(/[,，!！?？]/g)
+        //     $page.frontmatter.meta = [{
+        //       name: 'keywords',
+        //       content: ['前端面试题', ...labels, ...keywords].join(',')
+        //     }, {
+        //       name: 'google-site-verification',
+        //       content: '_rNB9Nt0ukzWmMfhXSSxCHUAeeMs24OiuhGm4QjdwXA'
+        //     }]
+        //     $page.frontmatter.description = meta[number] && meta[number].description ? meta[number].description : (issue.body || _.slice(_.get(issue.comment, 'body', issue.title), 0, 240).join(''))
+        //     $page.frontmatter.metaTitle = `${$page.title} | 前端面试题`
+        //   } else {
+        //     $page.frontmatter.metaTitle = `${$page.title || '大厂前端面试题每日一题'} | Vue | React | JS | Mysql | 面试题`
+        //   }
+        // }
       }
     }
   ]

@@ -2,6 +2,8 @@ const fetch = require('isomorphic-unfetch')
 const fs = require('fs')
 const _ = require('lodash')
 
+// 获取掘金上面试题高赞文章
+
 const allPosts = require('../data/interview.json')
 
 async function getPosts (cursor = '') {
