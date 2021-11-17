@@ -336,8 +336,8 @@
         "totalCount": 15
       },
       "author": {
-        "login": "volerx",
-        "url": "https://github.com/volerx"
+        "login": "xshaul",
+        "url": "https://github.com/xshaul"
       }
     }
   },
@@ -2333,7 +2333,17 @@
         "name": "open"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "IC_kwDODQzyOs45c1Ji",
+      "body": "就是钱少干的多委屈",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "Carrie999",
+        "url": "https://github.com/Carrie999"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU1MzM5OTgwODg=",
@@ -2346,7 +2356,17 @@
         "name": "open"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "IC_kwDODQzyOs45c1F_",
+      "body": "俺觉得主要是钱多，去哪里其实都差不多",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "Carrie999",
+        "url": "https://github.com/Carrie999"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU1MzQ0MDA5NTk=",
@@ -3277,7 +3297,7 @@
       "id": "MDEyOklzc3VlQ29tbWVudDY2OTI5MTA4OQ==",
       "body": "> > ```js\r\n> > const obj = {\r\n> >   a: 3,\r\n> >   b: 4,\r\n> >   c: null,\r\n> >   d: undefined,\r\n> >   get e () {}\r\n> > }\r\n> > ```\r\n> > \r\n> > \r\n> > console.log(JSON.stringify(obj))\r\n> > 输出什么？\r\n> \r\n> ```js\r\n> {\"a\":3,\"b\":4,\"c\":null}\r\n> ```\r\n> \r\n> 对其中的 `undefined`，`function` 将在 `JSON.stringify` 时会忽略掉\r\n\r\n`const obj` 中的 `get e () {}` 并不是函数，此处应该是重写了 `obj.e` 的 `get` 方法，因为 `get` 方法未定义返回值，因此在执行 `JSON.stringify` 时，执行 `obj.e` 的 `get` 方法，返回 `undefined`，因此被忽略\r\n\r\n让我们更改 `get` 方法的返回值\r\n![image](https://user-images.githubusercontent.com/57755075/89437679-76f57080-d77a-11ea-9208-2e80d6505d68.png)\r\n\r\n看到 666 了吧？",
       "reactions": {
-        "totalCount": 1
+        "totalCount": 2
       },
       "author": null
     }
@@ -4257,7 +4277,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDg0MjMzMzYyNg==",
-      "body": "用以锁定版本号，保证开发环境与生产环境的一致性，避免出现不兼容 API 导致生产环境报错\r\n\r\n在这个问题之前，需要了解下什么是 `semver`: [什么是 semver](https://github.com/shfshanyue/Daily-Question/issues/534)\r\n\r\n当我们在 `npm i` 某个依赖时，默认的版本号是最新版本号 `^1.2.3`，以 `^` 开头可最大限度地使用新特性，但是某些库不遵循该依赖可能出现问题\r\n\r\n**我们看没有 lock 时，线上环境的风险是如何产生的**\r\n\r\n+ `pkg 1.2.3`: 首次在开发环境安装 pkg 库，为此时最新版本 `1.2.3`，`dependencies` 依赖中显示 `^1.2.3`，实际安装版本为 `1.2.3`\r\n+ `pkg 1.19.0`: 在生产环境中上线项目，安装 pkg 库，此时最新版本为 `1.19.0`，满足 `dependencies` 中依赖 `^1.2.3` 范围，实际安装版本为 `1.19.0`，**但是  `pkg` 未遵从 semver 规范**，在此过程中引入了 Breaking Change，导致线上bug，且不可测难以调试\r\n\r\n而当有了 lock 文件时，每一个依赖的版本号都被锁死在了 lock 文件，每次依赖安装的版本号都从 lock 文件中进行获取，避免了不可测的依赖风险\r\n\r\n但此时依然有问题: 你使用的第三方库的 lockfile 问题。 因为你自己项目中所有依赖都会被锁死，但并不是依照你第三方依赖的 lockfile。\r\n\r\n**举例说明依赖的依赖的 lockfile 可能存在的问题**\r\n\r\n你自己的项目依赖 `react`，而 `object-assign` 是 `react` 的依赖\r\n\r\n对于 React 的依赖使用 `semver` 表示如下\r\n\r\n+ react@^17.0.2\r\n  + object-assign@^4.1.1\r\n\r\n在 React 的第三方库中 lockfile 中的库版本为\r\n\r\n+ react@17.0.2\r\n  + **object-assign@4.1.1**\r\n\r\n而在业务项目中 lockfile 中的库版本为 \r\n\r\n+ react@17.0.2\r\n  + **object-assign@4.10.10**: 与 react 的 lockfile 中的依赖不符\r\n\r\n此时的 `object-assign` 有可能会存在问题",
+      "body": "`packagelock.json`/`yarn.lock` 用以锁定版本号，保证开发环境与生产环境的一致性，避免出现不兼容 API 导致生产环境报错\r\n\r\n在这个问题之前，需要了解下什么是 `semver`: [什么是 semver](https://github.com/shfshanyue/Daily-Question/issues/534)。\r\n\r\n当我们在 `npm i` 某个依赖时，默认的版本号是最新版本号 `^1.2.3`，以 `^` 开头可最大限度地使用新特性，但是某些库不遵循该依赖可能出现问题。\r\n\r\n> `^1.2.3` 指 *>=1.2.3 <2.0.0*，可查看 [semver checker](https://devtool.tech/semver)\r\n\r\n*一个问题: 当项目中没有 lock 文件时，生产环境的风险是如何产生的?*\r\n\r\n演示风险过程如下:\r\n\r\n1. `pkg 1.2.3`: 首次在开发环境安装 pkg 库，为此时最新版本 `1.2.3`，`dependencies` 依赖中显示 `^1.2.3`，实际安装版本为 `1.2.3`\r\n1. `pkg 1.19.0`: 在生产环境中上线项目，安装 pkg 库，此时最新版本为 `1.19.0`，满足 `dependencies` 中依赖 `^1.2.3` 范围，实际安装版本为 `1.19.0`，**但是 `pkg` 未遵从 semver 规范，在此过程中引入了 Breaking Change**，因此此时生产环境中的 `1.1.0` 导致了 bug，且难以调试\r\n\r\n而当有了 lock 文件时，每一个依赖的版本号都被锁死在了 lock 文件，每次依赖安装的版本号都从 lock 文件中进行获取，避免了不可测的依赖风险。\r\n\r\n1. `pkg 1.2.3`: 首次在开发环境安装 pkg 库，为此时最新版本 `1.2.3`，`dependencies` 依赖中显示 `^1.2.3`，实际安装版本为 `1.2.3`，**在 lock 中被锁定版本号**\r\n1. `pkg 1.2.3`: 在生产环境中上线项目，安装 pkg 库，此时 lock 文件中版本号为 `1.2.3`，符合 `dependencies` 中 `^1.2.3` 的范围，将在生产环境安装 `1.2.3`，完美上线。",
       "reactions": {
         "totalCount": 0
       },
@@ -4700,7 +4720,17 @@
         "name": "open"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "IC_kwDODQzyOs45c2hl",
+      "body": "没有期待",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "Carrie999",
+        "url": "https://github.com/Carrie999"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU1NzU5MjQ3NTA=",
@@ -4736,7 +4766,17 @@
         "name": "open"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "IC_kwDODQzyOs45c2cV",
+      "body": "没有过大，只有钱给的少",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "Carrie999",
+        "url": "https://github.com/Carrie999"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU1NzU5MzE2OTI=",
@@ -5230,7 +5270,17 @@
         "name": "js"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "IC_kwDODQzyOs45c2k2",
+      "body": "有啊，网络错误，就捕捉不到",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "Carrie999",
+        "url": "https://github.com/Carrie999"
+      }
+    }
   },
   {
     "id": "MDU6SXNzdWU1ODE1OTc0MTM=",
@@ -10705,7 +10755,7 @@
     ],
     "comment": {
       "id": "MDEyOklzc3VlQ29tbWVudDg0MzIxMTA2OA==",
-      "body": "**对于业务代码而讲，它俩区别不大**\r\n\r\n当进行业务开发时，严格区分 `dependencies` 与 `devDependencies` 并无必要，实际上，大部分业务对二者也并无严格区别。\r\n\r\n当打包时，依靠的是 `Webpack/Rollup` 对代码进行模块依赖分析，与该模块是否在 `dep/devDep` 并无关系，只要在 `node_modules` 上能够找到该 Package 即可。\r\n\r\n以至于在 CI 中 `npm i --production` 可加快包安装速度也无必要，因为在 CI 中仍需要 lint、test、build 等。\r\n\r\n**对于库 (Package) 开发而言，是有严格区分的**\r\n\r\n+ dependencies: 在生产环境中使用\r\n+ devDependencies: 在开发环境中使用，如 webpack/babel/eslint 等\r\n\r\n当在项目中安装一个依赖的 Package 时，该依赖的 `dependencies` 也会安装到项目中，即被下载到 `node_modules` 目录中。\r\n\r\n因此当我们开发 Package 时，需要注意到我们所引用的 `dependencies` 会被我们的使用者一并下载，而 `devDependencies` 不会。\r\n\r\n一些 Package 宣称自己是 `zero dependencies`，一般就是指不依赖任何 `dependencies`，如 [highlight](https://github.com/highlightjs/highlight.js)\r\n\r\n> JavaScript syntax highlighter with language auto-detection and zero dependencies.",
+      "body": "**对于业务代码而讲，它俩区别不大**\r\n\r\n当进行业务开发时，严格区分 `dependencies` 与 `devDependencies` 并无必要，实际上，大部分业务对二者也并无严格区别。\r\n\r\n当打包时，依靠的是 `Webpack/Rollup` 对代码进行模块依赖分析，与该模块是否在 `dep/devDep` 并无关系，只要在 `node_modules` 上能够找到该 Package 即可。\r\n\r\n以至于在 CI 中 `npm i --production` 可加快包安装速度也无必要，因为在 CI 中仍需要 lint、test、build 等。\r\n\r\n**对于库 (Package) 开发而言，是有严格区分的**\r\n\r\n+ dependencies: 在生产环境中使用\r\n+ devDependencies: 在开发环境中使用，如 webpack/babel/eslint 等\r\n\r\n**当在项目中安装一个依赖的 Package 时，该依赖的 `dependencies` 也会安装到项目中，即被下载到 `node_modules` 目录中。但是 `devDependencies` 不会**\r\n\r\n因此当我们开发 Package 时，需要注意到我们所引用的 `dependencies` 会被我们的使用者一并下载，而 `devDependencies` 不会。\r\n\r\n一些 Package 宣称自己是 `zero dependencies`，一般就是指不依赖任何 `dependencies`，如 [highlight](https://github.com/highlightjs/highlight.js)\r\n\r\n> JavaScript syntax highlighter with language auto-detection and zero dependencies.",
       "reactions": {
         "totalCount": 0
       },
@@ -11864,7 +11914,7 @@
   {
     "id": "MDU6SXNzdWU5MDY2MTExNDA=",
     "number": 575,
-    "title": "【Q560】Data URL 的应用场景",
+    "title": "【Q560】Data URL 的应用场景及如何生成",
     "body": "",
     "labels": [
       {
@@ -15154,7 +15204,17 @@
         "name": "js"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "IC_kwDODQzyOs45tW63",
+      "body": "0 1 2 3 4 5 6\r\n?",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "okbug",
+        "url": "https://github.com/okbug"
+      }
+    }
   },
   {
     "id": "I_kwDODQzyOs48CaWm",
@@ -15213,7 +15273,17 @@
         "name": "ts"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "IC_kwDODQzyOs45tW5l",
+      "body": "和returnType有点关联，做返回值推断的",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "okbug",
+        "url": "https://github.com/okbug"
+      }
+    }
   },
   {
     "id": "I_kwDODQzyOs481wLk",
@@ -15318,7 +15388,17 @@
         "name": "webpack"
       }
     ],
-    "comment": ""
+    "comment": {
+      "id": "IC_kwDODQzyOs45tW4T",
+      "body": "style-loader的原理是，创建一个style标签，并且把样式资源写到这个style的innerHTML中",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "okbug",
+        "url": "https://github.com/okbug"
+      }
+    }
   },
   {
     "id": "I_kwDODQzyOs49iWc3",
@@ -15418,6 +15498,98 @@
       "body": "如何确保所有 `npm install` 的依赖都是安全的？\r\n\r\n当有一个库偷偷在你的笔记本后台挖矿怎么办？\r\n\r\n比如，不久前一个周下载量超过八百万的库被侵入，它在你的笔记本运行时会偷偷挖矿。\r\n\r\n![](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2021-11-03/clipboard-0833.d9da75.webp)\r\n\r\n## Audit\r\n\r\n`Audit`，审计，检测你的所有依赖是否安全。`npm audit`/`yarn audit` 均有效。\r\n\r\n通过审计，可看出有风险的 `package`、依赖库的依赖链、风险原因及其解决方案。\r\n\r\n``` bash\r\n$ npm audit\r\n┌───────────────┬──────────────────────────────────────────────────────────────┐\r\n│ high          │ Regular Expression Denial of Service in trim                 │\r\n├───────────────┼──────────────────────────────────────────────────────────────┤\r\n│ Package       │ trim                                                         │\r\n├───────────────┼──────────────────────────────────────────────────────────────┤\r\n│ Patched in    │ >=0.0.3                                                      │\r\n├───────────────┼──────────────────────────────────────────────────────────────┤\r\n│ Dependency of │ @mdx-js/loader                                               │\r\n├───────────────┼──────────────────────────────────────────────────────────────┤\r\n│ Path          │ @mdx-js/loader > @mdx-js/mdx > remark-mdx > remark-parse >   │\r\n│               │ trim                                                         │\r\n├───────────────┼──────────────────────────────────────────────────────────────┤\r\n│ More info     │ https://www.npmjs.com/advisories/1002775                     │\r\n└───────────────┴──────────────────────────────────────────────────────────────┘\r\n76 vulnerabilities found - Packages audited: 1076\r\nSeverity: 49 Moderate | 27 High\r\n✨  Done in 4.60s.\r\n```\r\n\r\n你可以在我的笔记本上挖矿，但绝不能在生产环境服务器下挖矿，此时可使用以下两条命令。\r\n\r\n``` bash\r\n$ npm audit production\r\n\r\n$ yarn audit dependencies\r\n```\r\n\r\n![Audit](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2021-11-03/clipboard-1904.f4c916.webp)\r\n\r\n通过 `npm audit fix` 可以自动修复该库的风险，原理就是升级依赖库，升级至已修复了风险的版本号。\r\n\r\n``` bash\r\n$ npm audit fix\r\n```\r\n\r\n`yarn audit` 无法自动修复，需要手动更新版本号，不过不够智能。\r\n\r\n[synk](https://snyk.io/) 是一个高级版的 `npm audit`，可自动修复，且支持 CICD 集成与多种语言。\r\n\r\n\r\n``` bash\r\n$ npx snyk\r\n\r\n$ npx wizard\r\n```\r\n\r\n![](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2021-11-03/clipboard-1409.96de76.webp)\r\n\r\n## CI 机器人\r\n\r\n可通过 CI/gitlab/github 中配置机器人，使他们每天轮询一次检查仓库的依赖中是否有风险。\r\n\r\n![Github 机器人](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2021-11-03/clipboard-4186.0dac46.webp)\r\n\r\n在 Github 中，可单独设置 `dependabot` 机器人，在仓库设置中开启小机器人，当它检测到有问题时，会自动向该仓库提交 PR。\r\n\r\n![dependabot](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2021-11-03/clipboard-6581.08f1c2.webp)\r\n\r\n而它的解决方案也是升级版本号。\r\n\r\n![Github Bot 提的 PR](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2021-11-03/clipboard-8617.e80863.webp)\r\n",
       "reactions": {
         "totalCount": 1
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "I_kwDODQzyOs4-UtTS",
+    "number": 744,
+    "title": "【Q718】请简述下 eslint 的作用",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+        "name": "前端工程化"
+      }
+    ],
+    "comment": {
+      "id": "IC_kwDODQzyOs45UwzW",
+      "body": "`eslint`，对代码不仅有风格的校验，更有可读性、安全性、健壮性的校验。\r\n\r\n关于校验分号、冒号等，属于风格校验，与个人风格有关，遵循团队标准即可，可商量可妥协。\r\n\r\n``` js\r\n// 这属于风格校验\r\n{\r\n  semi: ['error', 'never']\r\n}\r\n```\r\n\r\n与 `prettier` 不同，`eslint` 更多是关于代码健壮性校验，试举一例。\r\n\r\n+ `Array.prototype.forEach` 不要求也**不推荐回调函数返回值**\r\n+ `Array.prototype.map` 回调函数**必须返回一个新的值**用以映射\r\n\r\n当代码不遵守此两条要求时，通过 `eslint` 以下规则校验，则会报错。此种校验与代码健壮有关，不可商量不可妥协。\r\n\r\n``` js\r\n// 这属于代码健壮性校验\r\n{\r\n  'array-callback-return': ['error', { checkForEach: true }]\r\n}\r\n```\r\n\r\n## Rule\r\n\r\n在 `eslint` 中，使用 `Rule` 最为校验代码最小规则单元。\r\n\r\n``` js\r\n{\r\n  rules: {\r\n    semi: ['error', 'never']\r\n    quotes: ['error', 'single', { avoidEscape: true }]\r\n  }\r\n}\r\n```\r\n\r\n在 `eslint` 自身，内置大量 `rules`，比如分号冒号逗号等配置。\r\n\r\n> [eslint rules 源码位置](https://github.com/eslint/eslint/tree/main/lib/rules)\r\n\r\n校验 `typescript`、`react` 等规则，自然不会由 `eslint` 官方提供，那这些 Rules 如何维护？\r\n\r\n## Plugin\r\n\r\n如 `react`、`typescript`、`flow` 等，需要自制 `Rule`，此类为 `Plugin`，他们维护了一系列 `Rules`。\r\n\r\n在命名时以 `eslint-plugin-` 开头并发布在 `npm` 仓库中，而执行的规则以 `react/`、`flow/` 等开头。\r\n\r\n``` js\r\n{\r\n  'react/no-multi-comp': [error, { ignoreStateless: true }]\r\n}\r\n```\r\n\r\n+ [React ESLint Rules](https://www.npmjs.com/package/eslint-plugin-react)\r\n+ [TypeScript ESLint Rules](https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin/src/rules)\r\n\r\n## Config\r\n\r\n在第三方库、公司业务项目中需要配置各种适应自身的规则、插件等，称为 `Config`。\r\n\r\n1. 作为库发布，在命名时以 `elint-config-` 开头，并发布在 `npm` 仓库中。\r\n1. 为项目服务，在项目中以 `.eslintrc` 命名或者置于项目 package.json 中的 `eslintConfig` 字段中，推荐第二种方案。\r\n\r\n+ [eslint-config-react-app](https://github.com/facebook/create-react-app/tree/main/packages/eslint-config-react-app)\r\n+ [eslint-config-airbnb](https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb)\r\n\r\n以下是 `eslint-config-airbnb` 的最外层配置。\r\n\r\n``` js\r\nmodule.exports = {\r\n  extends: [\r\n    'eslint-config-airbnb-base',\r\n    './rules/react',\r\n    './rules/react-a11y',\r\n  ].map(require.resolve),\r\n  rules: {}\r\n}\r\n```\r\n\r\n在我们公司实际项目中，无需重新造轮子，只需要配置文件中的 `extends` 继承那些优秀的 `eslint-config` 即可。",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "I_kwDODQzyOs4-k0ws",
+    "number": 745,
+    "title": "【Q719】在项目中，如何平滑升级 npm 包",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+        "name": "前端工程化"
+      }
+    ],
+    "comment": {
+      "id": "IC_kwDODQzyOs45hwQZ",
+      "body": "# 如何对 npm 包进行升级\r\n\r\nnpm 的版本号为 `semver` 规范，由 [major, minor, patch] 三部分组成，其中\r\n\r\n+ major: 当你发了一个含有 Breaking Change 的 API\r\n+ minor: 当你新增了一个向后兼容的功能时\r\n+ patch: 当你修复了一个向后兼容的 Bug 时\r\n\r\n假设 `react` 当前版本号为 `17.0.1`，我们要升级到 `17.0.2` 应该如何操作？\r\n\r\n``` diff\r\n- \"react\": \"17.0.1\",\r\n+ \"react\": \"17.0.2\",\r\n```\r\n\r\n## 自动发现更新\r\n\r\n升级版本号，最不建议的事情就是手动在 package.json 中进行修改。\r\n\r\n``` diff\r\n- \"react\": \"17.0.1\",\r\n+ \"react\": \"17.0.2\",\r\n```\r\n\r\n**毕竟，你无法手动发现所有需要更新的 package。**\r\n\r\n此时可借助于 `npm outdated`，发现有待更新的 package。\r\n\r\n![](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2021-11-10/clipboard-6918.0c6824.webp)\r\n\r\n使用 `npm outdated`，还可以列出其待更新 package 的文档。\r\n\r\n``` bash\r\n$ npm outdated -l\r\nPackage                 Current    Wanted    Latest  Location                            Depended by  Package Type     Homepage\r\n@next/bundle-analyzer    10.2.0    10.2.3    12.0.3  node_modules/@next/bundle-analyzer  app          dependencies     https://github.com/vercel/next.js#readme\r\n```\r\n\r\n## 自动更新版本号\r\n\r\n使用 `npm outdated` 虽能发现需要升级版本号的 package，但仍然需要手动在 package.json 更改版本号进行升级。\r\n\r\n此时推荐一个功能更强大的工具 `npm-check-updates`，比 `npm outdated` 强大百倍。\r\n\r\n`npm-check-updates -u`，可自动将 package.json 中待更新版本号进行重写。\r\n\r\n![](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2021-11-10/clipboard-3561.1b70dc.webp)\r\n\r\n升级 [minor] 小版本号，有可能引起 `Break Change`，可仅仅升级到最新的 patch 版本。\r\n\r\n``` bash\r\n$ npx npm-check-updates --target patch\r\n```\r\n\r\n## 一点小建议\r\n\r\n1. 当一个库的 major 版本号更新后，不要第一时间去更新，容易踩坑，可再度过几个 patch 版本号再更新尝试新功能\r\n1. 当遇到 major 版本号更新时，多看文档中的 ChangeLog，多看升级指导并多测试及审计",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "I_kwDODQzyOs4-xZ_F",
+    "number": 746,
+    "title": "【Q720】请描述 node_modules 的目录结构(拓扑结构)",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+        "name": "前端工程化"
+      }
+    ],
+    "comment": {
+      "id": "IC_kwDODQzyOs45uXyW",
+      "body": "> 以下 mermaid 无法渲染，可移至 <https://juejin.cn/post/7030084290989948935>\r\n\r\n\r\n## 很久以前:嵌套结构\r\n\r\n在 `npmv2` 时，`node_modules` 对于各个 package 的拓扑为嵌套结构。\r\n\r\n假设: \r\n\r\n1. 项目依赖 `package-a` 与 `package-b` 两个 package\r\n1. `package-a` 与 `package-b` 均依赖 `lodash@4.17.4`\r\n\r\n依赖关系以 Markdown 列表表示:\r\n\r\n``` markdown\r\n+ package-a\r\n  + `lodash@4.17.4`\r\n+ package-b\r\n  + `lodash@4.17.4`\r\n```\r\n\r\n此时 `node_modules` 目录结构如下: \r\n\r\n``` mermaid\r\ngraph\r\n  app(node_modules) ---> A(package-a)\r\n  app          ---> B(package-b)\r\n  A            ---> C(\"lodash@4.17.4\")\r\n  B            ---> D(\"lodash@4.17.4\")\r\n```\r\n\r\n此时最大的问题\r\n\r\n1. 嵌套过深\r\n2. 占用空间过大\r\n\r\n## 现在阶段: 平铺结构\r\n\r\n在 `npmv3` 之后 `node_modules` 为平铺结构，拓扑结构如下:\r\n\r\n``` mermaid\r\ngraph\r\n  app(node_modules) ---> A(package-a)\r\n  app          ---> B(package-b)\r\n  app          ---> C(\"lodash@4.17.4\")\r\n```\r\n\r\n### *一个问题: 以下依赖最终 node_modules 结果如何？*\r\n\r\n> 可参考[该示例](https://github.com/shfshanyue/node-examples/tree/master/engineering/package/topology)\r\n\r\n依赖关系以 Markdown 列表表示\r\n\r\n``` markdown\r\n+ package-a\r\n  + `lodash@^4.17.4`\r\n+ package-b\r\n  + `lodash@^4.16.1`\r\n```\r\n\r\n答: 与上拓扑结构一致，因为二者为 `^` 版本号，他们均会下载匹配该版本号范围的最新版本，比如 `@4.17.4`，因此二者依赖一致。\r\n\r\n> 此时如果有 lock，会有一点小问题，待稍后讨论\r\n\r\nnode_modules 目录结构如下图：\r\n\r\n``` mermaid\r\ngraph\r\n  app(node_modules) ---> A(package-a)\r\n  app          ---> B(package-b)\r\n  app          ---> C(\"lodash@4.17.4\")\r\n```\r\n\r\n### *再一个问题: 以下依赖最终 node_modules 结果如何？*\r\n\r\n> 可参考[该示例](https://github.com/shfshanyue/node-examples/tree/master/engineering/package/topology-dup)\r\n\r\n``` markdown\r\n+ package-a\r\n  + `lodash@4.17.4`\r\n+ package-b\r\n  + `lodash@4.16.1`\r\n```\r\n\r\n答：package-b 先从自身 node_modules 下寻找 `lodash`，找到 `lodash@4.16.1`\r\n\r\nnode_modules 目录结构如下图：\r\n\r\n``` mermaid\r\ngraph\r\n  app(node_modules) ---> A(package-a)\r\n  app          ---> B(package-b)\r\n  app          ---> C(\"lodash@4.17.4\")\r\n  B            ---> D(\"lodash@4.16.1\")\r\n```\r\n\r\n### *再一个问题: 以下依赖最终 node_modules 结果如何*\r\n\r\n``` markdown\r\n+ package-a\r\n  + `lodash@4.0.0`\r\n+ package-b\r\n  + `lodash@4.0.0`\r\n+ package-c\r\n  + `lodash@3.0.0`\r\n+ package-d\r\n  + `lodash@3.0.0`\r\n```\r\n\r\n答：package-d 只能从自身的 node_modules 下寻找 `lodash@3.0.0`，而无法从 package-c 下寻找，此时 **lodash@3.0.0 不可避免地会被安装两次**\r\n\r\nnode_modules 目录结构如下图:\r\n\r\n``` mermaid\r\ngraph\r\n  app(node_modules) ---> A(package-a)\r\n  app          ---> B(package-b)\r\n  app          ---> C(package-c)\r\n  app          ---> D(package-d)\r\n  app          ---> X(\"lodash@4.0.0\")\r\n  C            ---> Y(\"lodash@3.0.0\")\r\n  D            ---> Z(\"lodash@3.0.0\")\r\n```\r\n\r\n\r\n## 现在阶段问题: 重复的版本依赖有什么问题？\r\n\r\n1. Install Size，安装体积变大，浪费磁盘空间\r\n1. Build Size，构建打包体积变大，浪费带宽，网站打开延迟，破坏用户体验 (PS: 支持 Tree Shaking 会好点)\r\n1. 破坏单例模式，破坏缓存，如 postcss 的许多插件将 postcss 扔进 dependencies，重复的版本将导致解析 AST 多次\r\n\r\n",
+      "reactions": {
+        "totalCount": 0
+      },
+      "author": {
+        "login": "shfshanyue",
+        "url": "https://github.com/shfshanyue"
+      }
+    }
+  },
+  {
+    "id": "I_kwDODQzyOs4-3kDL",
+    "number": 747,
+    "title": "【Q721】npm 第三方库需要提交 lockfile 吗",
+    "body": "",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+        "name": "前端工程化"
+      }
+    ],
+    "comment": {
+      "id": "IC_kwDODQzyOs4505c4",
+      "body": "\r\n## 为何有人说第三方库不需要提交 package-lock.json/yarn.lock？\r\n\r\n> 该观点仅对第三方库的 `dependencies` 有效\r\n\r\n答: 你自己项目中所有依赖都会根据 lockfile 被锁死，**但并不会依照你第三方依赖的 lockfile**。\r\n\r\n试举一例:\r\n\r\n1. 项目中依赖 `react@^17.0.2`\r\n2. 而 `react@17.0.2` 依赖 `object-assign@^4.1.0`\r\n\r\n在 React 自身的 `yarn.lock` 中版本锁定依赖如下:\r\n\r\n``` bash\r\nreact@17.0.2\r\n└── object-assign@4.1.0 (PS: 请注意该版本号)\r\n```\r\n\r\n而在个人业务项目中 `yarn.lock` 中版本锁定依赖如下:\r\n\r\n``` bash\r\nApplication\r\n└── react@17.0.2\r\n    └── object-assign@4.99.99 (PS: 请注意该版本号)\r\n```\r\n\r\n**此时个人业务项目中 `object-assign@4.99.99` 与 React 中 `object-assign@4.1.0` 不符，将有可能出现问题**。\r\n\r\n此时，即使第三方库存在 `lockfile`，但也有着间接依赖(如此时的 `object-assign`，是第三方的依赖，个人业务项目中的依赖的依赖)不可控的问题。\r\n\r\n## 第三方库如何解决潜在的间接依赖不可控问题\r\n\r\n可参考 `next.js` 的解决方案。\r\n\r\n> [next.js 源码](https://github.com/vercel/next.js/tree/canary/packages/next) 点击此处\r\n\r\n1. 将所有依赖中的版本号在 `package.json` 中锁死。可见 [package.json](https://github.com/vercel/next.js/tree/canary/packages/next/package.json)\r\n1. 将部分依赖直接编译后直接引入，而非通过依赖的方式，如 `webpack`、`babel` 等。可见目录 [next/compiled](https://github.com/vercel/next.js/tree/canary/packages/next/compiled)\r\n\r\n以下是一部分 `package.json`\r\n\r\n``` js\r\n{\r\n  \"dependencies\": {\r\n    \"@babel/runtime\": \"7.15.4\",\r\n    \"@hapi/accept\": \"5.0.2\",\r\n    \"@napi-rs/triples\": \"1.0.3\"\r\n  }\r\n}\r\n```\r\n\r\n除了参考 `next.js` 直接锁死版本号方式外，还可以仍然按照 `^x.x.x` 加勤加维护并时时更新 `depencencies`\r\n\r\n## 总结\r\n\r\n`lockfile` 对于第三方库仍然必不可少。可见 `react`、`next.js`、`webpack` 均有 `yarn.lock`。(PS: 可见 yarn 的受欢迎程度，另外 vue3 采用了 pnpm)\r\n\r\n1. 第三方库的 `devDependencies` 必须锁定，这样 Contributor 可根据 lockfile 很容易将项目跑起来。\r\n2. 第三方库的 `dependencies` 虽然有可能存在不可控问题，但是可通过锁死 `package.json` 依赖或者勤加更新的方式来解决。",
+      "reactions": {
+        "totalCount": 0
       },
       "author": {
         "login": "shfshanyue",

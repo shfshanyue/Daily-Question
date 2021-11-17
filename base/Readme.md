@@ -122,7 +122,7 @@
 + [【Q442】http3 解决了什么问题](http/450.html)
 + [【Q451】同一进程的线程共享那些资源](os/459.html)
 + [【Q554】SameSite Cookie 有哪些值，是如何预防 CSRF 攻击的](http/569.html)
-+ [【Q560】Data URL 的应用场景](http/575.html)
++ [【Q560】Data URL 的应用场景及如何生成](http/575.html)
 + [【Q578】HTTP 响应头 cache-control: s-maxage=0 是什么意思](http/594.html)
 + [【Q579】http 缓存控制中 Cach-Control 为 public 与 private 有何区别](http/595.html)
 + [【Q580】http 方法 get 与 post 有何区别](http/596.html)

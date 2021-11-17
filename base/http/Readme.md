@@ -52,7 +52,7 @@
 + [【Q434】当服务器资源返回 304 时与那些 HTTP 响应头有关](441.html)
 + [【Q442】http3 解决了什么问题](450.html)
 + [【Q554】SameSite Cookie 有哪些值，是如何预防 CSRF 攻击的](569.html)
-+ [【Q560】Data URL 的应用场景](575.html)
++ [【Q560】Data URL 的应用场景及如何生成](575.html)
 + [【Q578】HTTP 响应头 cache-control: s-maxage=0 是什么意思](594.html)
 + [【Q579】http 缓存控制中 Cach-Control 为 public 与 private 有何区别](595.html)
 + [【Q580】http 方法 get 与 post 有何区别](596.html)

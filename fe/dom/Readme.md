@@ -35,7 +35,7 @@
 + [【Q556】如何设置一个支持过期时间的 localStorage](571.html)
 + [【Q558】如何统计当前页面出现的所有标签](573.html)
 + [【Q559】如何监听 localStorage 的变动](574.html)
-+ [【Q560】Data URL 的应用场景](575.html)
++ [【Q560】Data URL 的应用场景及如何生成](575.html)
 + [【Q565】浏览器中事件有哪些属性与方法](580.html)
 + [【Q570】浏览器中如何读取二进制信息](585.html)
 + [【Q595】React 中监听 input 的 onChange 事件的原生事件是什么](611.html)

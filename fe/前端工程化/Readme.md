@@ -61,3 +61,7 @@
 + [【Q715】简述 npm script 的生命周期](740.html)
 + [【Q716】git hooks 原理是什么](741.html)
 + [【Q717】如何检测出你们安装的依赖是否安全](742.html)
++ [【Q718】请简述下 eslint 的作用](744.html)
++ [【Q719】在项目中，如何平滑升级 npm 包](745.html)
++ [【Q720】请描述 node_modules 的目录结构(拓扑结构)](746.html)
++ [【Q721】npm 第三方库需要提交 lockfile 吗](747.html)

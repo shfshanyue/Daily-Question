@@ -13,8 +13,6 @@ const GROUP_MAP = {
   base: '计算机基础'
 }
 
-console.log(process.env.ACCESS_TOKEN)
-
 const fetch = axios.create({
   baseURL: 'https://api.github.com/graphql',
   headers: {
