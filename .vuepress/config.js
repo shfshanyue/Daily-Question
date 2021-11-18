@@ -1,13 +1,10 @@
 const _ = require('lodash')
-const header = require('./header')
 const { generateSiebar } = require('./header')
-
-const desc = '每天至少一个问题，有关前端，后端，graphql，devops，微服务以及软技能，促进个人职业成长，敲开大厂之门。'
 
 module.exports = {
   base: '/',
   title: '大厂面试题每日一题',
-  // description: desc,
+  description: '每天至少一个前端面试题，并附以答案及讨论。有关前端，后端，graphql，devops，微服务以及软技能，促进个人职业成长，敲开大厂之门。每天五分钟，半年大厂中',
   head: [
     ['link', { rel: 'shortcut icon', href: '/favicon.ico', type: 'image/x-icon' }],
     // 设置 Google 的 Search Console
