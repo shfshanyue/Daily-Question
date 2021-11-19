@@ -15,7 +15,7 @@
       </div>
       <div :style="{ border: '1px solid #eee', padding: '1rem', borderRadius: '6px' }">
         <h2>
-          关于山月
+          站长山月
         </h2>
         <div>我的项目：</div>
         <ul>
@@ -26,16 +26,19 @@
             <a href="https://npm.devtool.tech">npm 在线执行</a>
           </li>
           <li>
-            <a href="https://geek.shanyue.tech">面试每日一题</a>
+            <a href="https://q.shanyue.tech">面试每日一题</a>
           </li>
           <li>
             <a href="https://devtool.tech">开发者工具箱</a>
           </li>
           <li>
-            <a href="https://weekly.shanyue.tech">山月前端周刊</a>
+            <a href="https://markdown.devtool.tech">码途编辑器</a>
           </li>
           <li>
-            <a href="https://shici.xiange.tech">诗词小站</a>
+            <a href="https://cv.devtool.tech">一纸简历</a>
+          </li>
+          <li>
+            <a href="https://weekly.shanyue.tech">山月前端周刊</a>
           </li>
         </ul>
         <div>我的微信：shanyue94，欢迎交流</div>
