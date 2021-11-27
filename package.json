@@ -13,7 +13,8 @@
     "npm-check-updates": "^10.2.5",
     "unfetch": "^4.2.0",
     "vuepress": "^1.7.1",
-    "vuepress-plugin-sitemap": "^2.3.1"
+    "vuepress-plugin-sitemap": "^2.3.1",
+    "yarn": "^1.22.17"
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",

@@ -740,8 +740,8 @@
             "totalCount": 15
           },
           "author": {
-            "login": "xshaul",
-            "url": "https://github.com/xshaul"
+            "login": "shaul-xu",
+            "url": "https://github.com/shaul-xu"
           }
         },
         {
@@ -3494,6 +3494,17 @@
           "author": {
             "login": "Carrie999",
             "url": "https://github.com/Carrie999"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs459uxb",
+          "body": "@Carrie999 一个小时！！！？这也太久了吧",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "shfshanyue",
+            "url": "https://github.com/shfshanyue"
           }
         }
       ]
@@ -7721,19 +7732,7 @@
     "title": "【Q216】你对未来的工作有什么期待",
     "body": "",
     "comments": {
-      "nodes": [
-        {
-          "id": "IC_kwDODQzyOs45c2hl",
-          "body": "没有期待",
-          "star": {
-            "totalCount": 0
-          },
-          "author": {
-            "login": "Carrie999",
-            "url": "https://github.com/Carrie999"
-          }
-        }
-      ]
+      "nodes": []
     },
     "labels": {
       "nodes": [
@@ -9736,6 +9735,17 @@
           "author": {
             "login": "ssaylo",
             "url": "https://github.com/ssaylo"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs455sDR",
+          "body": "https://github.com/shfshanyue/Daily-Question/issues/10",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "jkLennon",
+            "url": "https://github.com/jkLennon"
           }
         }
       ]
@@ -11898,11 +11908,22 @@
           "id": "MDEyOklzc3VlQ29tbWVudDY2Mjc5NjQxNw==",
           "body": "localhost也叫local ，正确的解释是：本地服务器\r\n\r\n127.0.0.1在windows等系统的正确解释是：本机地址（本机服务器）\r\n\r\n他们的解析通过本机的host文件，windows自动将localhost解析为127.0.0.1\r\n\r\nlocalhot（local）是不经网卡传输！这点很重要，它不受网络防火墙和网卡相关的的限制。\r\n\r\n127.0.0.1是通过网卡传输，依赖网卡，并受到网络防火墙和网卡相关的限制。\r\n\r\n一般设置程序时本地服务用localhost是最好的，localhost不会解析成ip，也不会占用网卡、网络资源。\r\n\r\n有时候用localhost可以，但用127.0.0.1就不可以的情况就是在于此。猜想localhost访问时，系统带的本机当前用户的权限去访问，而用ip的时候，等于本机是通过网络再去访问本机，可能涉及到网络用户的权限。\r\n\r\n摘录自--https://zhuanlan.zhihu.com/p/26503558",
           "star": {
-            "totalCount": 1
+            "totalCount": 2
           },
           "author": {
             "login": "PixelMonkeyPro",
             "url": "https://github.com/PixelMonkeyPro"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs45_Vcs",
+          "body": "> localhost也叫local ，正确的解释是：本地服务器\r\n> \r\n> 127.0.0.1在windows等系统的正确解释是：本机地址（本机服务器）\r\n> \r\n> 他们的解析通过本机的host文件，windows自动将localhost解析为127.0.0.1\r\n> \r\n> localhot（local）是不经网卡传输！这点很重要，它不受网络防火墙和网卡相关的的限制。\r\n> \r\n> 127.0.0.1是通过网卡传输，依赖网卡，并受到网络防火墙和网卡相关的限制。\r\n> \r\n> 一般设置程序时本地服务用localhost是最好的，localhost不会解析成ip，也不会占用网卡、网络资源。\r\n> \r\n> 有时候用localhost可以，但用127.0.0.1就不可以的情况就是在于此。猜想localhost访问时，系统带的本机当前用户的权限去访问，而用ip的时候，等于本机是通过网络再去访问本机，可能涉及到网络用户的权限。\r\n> \r\n> 摘录自--https://zhuanlan.zhihu.com/p/26503558\r\n\r\n评论中又写到 `127.0.0.1` 也是不进过网卡的",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "nmsn",
+            "url": "https://github.com/nmsn"
           }
         }
       ]
@@ -12103,6 +12124,17 @@
           "author": {
             "login": "zckpp",
             "url": "https://github.com/zckpp"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs45-kYc",
+          "body": "连续点击 10 次是在3s内完成，那传给setTimeout的count都为0，输出应该都是1",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "jkLennon",
+            "url": "https://github.com/jkLennon"
           }
         }
       ]
@@ -13999,7 +14031,7 @@
           "id": "MDEyOklzc3VlQ29tbWVudDcwODEzMzUxMg==",
           "body": "一开始`decodeURIComponent(url)`是否不妥，如果query string中的value带有`=`等字符并且已经被`encodeURIComponent`，如`http://example.com?tag=test&title=1%2B1%3D2`中`title=1+1=2`，使用parse解析的结果是错误的。使用`params[k] = decodeURIComponent(v)`是不是更好",
           "star": {
-            "totalCount": 1
+            "totalCount": 2
           },
           "author": {
             "login": "ly023",
@@ -15060,6 +15092,17 @@
           "author": {
             "login": "illumi520",
             "url": "https://github.com/illumi520"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs46IKg7",
+          "body": "react、vue：\r\n1、一套代码维护Android和ios两个平台，减少开发成本\r\n2、相同功能可以使用组件复用\r\n3、两个平台可以同时更新，原生代码更新时需要审核",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "jkLennon",
+            "url": "https://github.com/jkLennon"
           }
         }
       ]
@@ -18432,7 +18475,19 @@
     "title": "【Q555】sessionStorage与localStorage有何区别",
     "body": "",
     "comments": {
-      "nodes": []
+      "nodes": [
+        {
+          "id": "IC_kwDODQzyOs46Wy2P",
+          "body": "localStorage生命周期是永久除非自主清除\r\nsessionStorage生命周期为当前窗口或标签页，关闭窗口或标签页则会清除数据\r\n\r\n他们均只能存储字符串类型的对象\r\n\r\n不同浏览器无法共享localStorage或sessionStorage中的信息。相同浏览器的不同页面间可以共享相同的 localStorage（页面属于相同域名和端口），但是不同页面或标签页间无法共享sessionStorage的信息。这里需要注意的是，页面及标 签页仅指顶级窗口，如果一个标签页包含多个iframe标签且他们属于同源页面，那么他们之间是可以共享sessionStorage的。\r\n[https://www.php.cn/faq/463215.html](https://www.php.cn/faq/463215.html)",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "jkLennon",
+            "url": "https://github.com/jkLennon"
+          }
+        }
+      ]
     },
     "labels": {
       "nodes": [
@@ -20176,7 +20231,7 @@
           "id": "MDEyOklzc3VlQ29tbWVudDg3MTA2ODM4NQ==",
           "body": "为了方便说明执行思路，把箭头函数换成了普通函数，起了名字，然后加上默认返回值 return  undefined\r\n```js\r\nPromise.resolve(console.log(0))\r\n    .then(function F1() {\r\n      console.log(1);\r\n      Promise.resolve(console.log(5))\r\n        .then(function F3() {\r\n          console.log(3)\r\n          return undefined\r\n        })\r\n        .then(function F4() {\r\n          console.log(4)\r\n          return undefined\r\n        })\r\n        .then(function F6() {\r\n          console.log(6)\r\n          return undefined\r\n        })\r\n\r\n      return undefined\r\n    })\r\n    .then(function F2() {\r\n      console.log(2)\r\n      return undefined\r\n    })\r\n    .then(function F7() {\r\n      console.log(7)\r\n      return undefined\r\n    })\r\n```\r\n\r\n执行过程：\r\n打印 0, **F1 放入 microtask**\r\n调用栈空了, 从 microtask 拿 F1 执行 \r\n打印 1, 遇到 Promise.resolve\r\n打印 5, 遇到 then, **F3 放入 microtask**\r\n继续执行同步的代码 也就是 return undefined, 然后看到 then\r\n**然后把 F2 放入 microtask**\r\n调用栈空了, 从 microtask 按顺序拿 F3 执行\r\n打印 3, 再遇到 return undefined, 然后看到 then, **再把 F4 放入 microtask**\r\n从 microtask 按顺序拿 F2 执行\r\n打印 2, 再遇到 return undefined, 然后看到 then, **再把 F7 放入 microtask**\r\n从 microtask 按顺序拿 F4 执行\r\n打印 4, 再遇到 return undefined, 然后看到 then, **再把 F6 放入 microtask**\r\n从 microtask 按顺序拿 F7 执行\r\n 打印 7 再遇到 return undefined, 没有 then 了\r\n从 microtask 按顺序拿 F6 执行\r\n打印 6\r\n\r\n\r\n画个图大概是这样：\r\n![image](https://user-images.githubusercontent.com/50768544/123897414-ecbb8980-d995-11eb-8293-01e274dd876f.png)\r\n",
           "star": {
-            "totalCount": 2
+            "totalCount": 3
           },
           "author": {
             "login": "xjxujing",
@@ -20192,6 +20247,17 @@
           "author": {
             "login": "illumi520",
             "url": "https://github.com/illumi520"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs46ZqDC",
+          "body": "> 为了方便说明执行思路，把箭头函数换成了普通函数，起了名字，然后加上默认返回值 return undefined\r\n> \r\n> ```js\r\n> Promise.resolve(console.log(0))\r\n>     .then(function F1() {\r\n>       console.log(1);\r\n>       Promise.resolve(console.log(5))\r\n>         .then(function F3() {\r\n>           console.log(3)\r\n>           return undefined\r\n>         })\r\n>         .then(function F4() {\r\n>           console.log(4)\r\n>           return undefined\r\n>         })\r\n>         .then(function F6() {\r\n>           console.log(6)\r\n>           return undefined\r\n>         })\r\n> \r\n>       return undefined\r\n>     })\r\n>     .then(function F2() {\r\n>       console.log(2)\r\n>       return undefined\r\n>     })\r\n>     .then(function F7() {\r\n>       console.log(7)\r\n>       return undefined\r\n>     })\r\n> ```\r\n> \r\n> 执行过程： 打印 0, **F1 放入 microtask** 调用栈空了, 从 microtask 拿 F1 执行 打印 1, 遇到 Promise.resolve 打印 5, 遇到 then, **F3 放入 microtask** 继续执行同步的代码 也就是 return undefined, 然后看到 then **然后把 F2 放入 microtask** 调用栈空了, 从 microtask 按顺序拿 F3 执行 打印 3, 再遇到 return undefined, 然后看到 then, **再把 F4 放入 microtask** 从 microtask 按顺序拿 F2 执行 打印 2, 再遇到 return undefined, 然后看到 then, **再把 F7 放入 microtask** 从 microtask 按顺序拿 F4 执行 打印 4, 再遇到 return undefined, 然后看到 then, **再把 F6 放入 microtask** 从 microtask 按顺序拿 F7 执行 打印 7 再遇到 return undefined, 没有 then 了 从 microtask 按顺序拿 F6 执行 打印 6\r\n> \r\n> 画个图大概是这样： ![image](https://user-images.githubusercontent.com/50768544/123897414-ecbb8980-d995-11eb-8293-01e274dd876f.png)\r\n\r\nvery nice",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "liweinanone",
+            "url": "https://github.com/liweinanone"
           }
         }
       ]
@@ -20550,7 +20616,19 @@
     "title": "【Q615】React.useMemo 与 React.useCallback 是如何进行性能优化的",
     "body": "",
     "comments": {
-      "nodes": []
+      "nodes": [
+        {
+          "id": "IC_kwDODQzyOs45-HxK",
+          "body": "通过传入的依赖（浅比较）来确定是否返回新的值还是以前的值",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "Muralitob",
+            "url": "https://github.com/Muralitob"
+          }
+        }
+      ]
     },
     "labels": {
       "nodes": [
@@ -24226,7 +24304,19 @@
     "title": "【Q702】return promise 与 return await promise 有何区别",
     "body": "",
     "comments": {
-      "nodes": []
+      "nodes": [
+        {
+          "id": "IC_kwDODQzyOs46ZoNP",
+          "body": "return promise:\r\n\r\n返回结果为 Promise {fulfilled或者 rejected}\r\n\r\nreturn await promise:\r\n\r\n返回结果为 Promise {pending}, 因为 async 函数总是返回一个 promise (resolved promise?\r\n\r\n希望可以得到山月的反馈",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "liweinanone",
+            "url": "https://github.com/liweinanone"
+          }
+        }
+      ]
     },
     "labels": {
       "nodes": [
@@ -24293,6 +24383,17 @@
           "author": {
             "login": "okbug",
             "url": "https://github.com/okbug"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs46Zjiq",
+          "body": "> \r\n可以解释一下为什么吗?\r\n我的错误答案是: 0 1 2 3 5 6 4",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "liweinanone",
+            "url": "https://github.com/liweinanone"
           }
         }
       ]
@@ -24771,7 +24872,7 @@
       "nodes": [
         {
           "id": "IC_kwDODQzyOs45uXyW",
-          "body": "> 以下 mermaid 无法渲染，可移至 <https://juejin.cn/post/7030084290989948935>\r\n\r\n\r\n## 很久以前:嵌套结构\r\n\r\n在 `npmv2` 时，`node_modules` 对于各个 package 的拓扑为嵌套结构。\r\n\r\n假设: \r\n\r\n1. 项目依赖 `package-a` 与 `package-b` 两个 package\r\n1. `package-a` 与 `package-b` 均依赖 `lodash@4.17.4`\r\n\r\n依赖关系以 Markdown 列表表示:\r\n\r\n``` markdown\r\n+ package-a\r\n  + `lodash@4.17.4`\r\n+ package-b\r\n  + `lodash@4.17.4`\r\n```\r\n\r\n此时 `node_modules` 目录结构如下: \r\n\r\n``` mermaid\r\ngraph\r\n  app(node_modules) ---> A(package-a)\r\n  app          ---> B(package-b)\r\n  A            ---> C(\"lodash@4.17.4\")\r\n  B            ---> D(\"lodash@4.17.4\")\r\n```\r\n\r\n此时最大的问题\r\n\r\n1. 嵌套过深\r\n2. 占用空间过大\r\n\r\n## 现在阶段: 平铺结构\r\n\r\n在 `npmv3` 之后 `node_modules` 为平铺结构，拓扑结构如下:\r\n\r\n``` mermaid\r\ngraph\r\n  app(node_modules) ---> A(package-a)\r\n  app          ---> B(package-b)\r\n  app          ---> C(\"lodash@4.17.4\")\r\n```\r\n\r\n### *一个问题: 以下依赖最终 node_modules 结果如何？*\r\n\r\n> 可参考[该示例](https://github.com/shfshanyue/node-examples/tree/master/engineering/package/topology)\r\n\r\n依赖关系以 Markdown 列表表示\r\n\r\n``` markdown\r\n+ package-a\r\n  + `lodash@^4.17.4`\r\n+ package-b\r\n  + `lodash@^4.16.1`\r\n```\r\n\r\n答: 与上拓扑结构一致，因为二者为 `^` 版本号，他们均会下载匹配该版本号范围的最新版本，比如 `@4.17.4`，因此二者依赖一致。\r\n\r\n> 此时如果有 lock，会有一点小问题，待稍后讨论\r\n\r\nnode_modules 目录结构如下图：\r\n\r\n``` mermaid\r\ngraph\r\n  app(node_modules) ---> A(package-a)\r\n  app          ---> B(package-b)\r\n  app          ---> C(\"lodash@4.17.4\")\r\n```\r\n\r\n### *再一个问题: 以下依赖最终 node_modules 结果如何？*\r\n\r\n> 可参考[该示例](https://github.com/shfshanyue/node-examples/tree/master/engineering/package/topology-dup)\r\n\r\n``` markdown\r\n+ package-a\r\n  + `lodash@4.17.4`\r\n+ package-b\r\n  + `lodash@4.16.1`\r\n```\r\n\r\n答：package-b 先从自身 node_modules 下寻找 `lodash`，找到 `lodash@4.16.1`\r\n\r\nnode_modules 目录结构如下图：\r\n\r\n``` mermaid\r\ngraph\r\n  app(node_modules) ---> A(package-a)\r\n  app          ---> B(package-b)\r\n  app          ---> C(\"lodash@4.17.4\")\r\n  B            ---> D(\"lodash@4.16.1\")\r\n```\r\n\r\n### *再一个问题: 以下依赖最终 node_modules 结果如何*\r\n\r\n``` markdown\r\n+ package-a\r\n  + `lodash@4.0.0`\r\n+ package-b\r\n  + `lodash@4.0.0`\r\n+ package-c\r\n  + `lodash@3.0.0`\r\n+ package-d\r\n  + `lodash@3.0.0`\r\n```\r\n\r\n答：package-d 只能从自身的 node_modules 下寻找 `lodash@3.0.0`，而无法从 package-c 下寻找，此时 **lodash@3.0.0 不可避免地会被安装两次**\r\n\r\nnode_modules 目录结构如下图:\r\n\r\n``` mermaid\r\ngraph\r\n  app(node_modules) ---> A(package-a)\r\n  app          ---> B(package-b)\r\n  app          ---> C(package-c)\r\n  app          ---> D(package-d)\r\n  app          ---> X(\"lodash@4.0.0\")\r\n  C            ---> Y(\"lodash@3.0.0\")\r\n  D            ---> Z(\"lodash@3.0.0\")\r\n```\r\n\r\n\r\n## 现在阶段问题: 重复的版本依赖有什么问题？\r\n\r\n1. Install Size，安装体积变大，浪费磁盘空间\r\n1. Build Size，构建打包体积变大，浪费带宽，网站打开延迟，破坏用户体验 (PS: 支持 Tree Shaking 会好点)\r\n1. 破坏单例模式，破坏缓存，如 postcss 的许多插件将 postcss 扔进 dependencies，重复的版本将导致解析 AST 多次\r\n\r\n",
+          "body": "> 以下 mermaid 无法渲染，可移至 <https://juejin.cn/post/7030084290989948935>\r\n\r\n\r\n## 基础\r\n\r\n当 `require('package-hello')` 时，假设 `package-hello` 是一个 npm 库，我们是如何找到该 `package` 的？\r\n\r\n1. 寻找当前目录的 `node_modules/package-hello` 目录\r\n1. 如果未找到，寻找上一级的 `../node_modules/package-hello` 目录，以此递归查找\r\n\r\n## 很久以前: 嵌套结构\r\n\r\n在 `npmv2` 时，`node_modules` 对于各个 package 的拓扑为嵌套结构。\r\n\r\n假设: \r\n\r\n1. 项目依赖 `package-a` 与 `package-b` 两个 package\r\n1. `package-a` 与 `package-b` 均依赖 `lodash@4.17.4`\r\n\r\n依赖关系以 Markdown 列表表示:\r\n\r\n``` markdown\r\n+ package-a\r\n  + `lodash@4.17.4`\r\n+ package-b\r\n  + `lodash@4.17.4`\r\n```\r\n\r\n此时 `node_modules` 目录结构如下: \r\n\r\n``` mermaid\r\ngraph\r\n  app(node_modules) ---> A(package-a)\r\n  app          ---> B(package-b)\r\n  A            ---> C(\"lodash@4.17.4\")\r\n  B            ---> D(\"lodash@4.17.4\")\r\n```\r\n\r\n此时最大的问题\r\n\r\n1. 嵌套过深\r\n2. 占用空间过大\r\n\r\n## 现在阶段: 平铺结构\r\n\r\n> 目前在 npm/yarn 中仍然为平铺结构，但 pnpm 使用了更省空间的方法，以后将会提到\r\n\r\n在 `npmv3` 之后 `node_modules` 为平铺结构，拓扑结构如下:\r\n\r\n``` mermaid\r\ngraph\r\n  app(node_modules) ---> A(package-a)\r\n  app          ---> B(package-b)\r\n  app          ---> C(\"lodash@4.17.4\")\r\n```\r\n\r\n### *一个问题: 以下依赖最终 node_modules 结果如何？*\r\n\r\n> 可参考[该示例](https://github.com/shfshanyue/node-examples/tree/master/engineering/package/topology)\r\n\r\n依赖关系以 Markdown 列表表示\r\n\r\n``` markdown\r\n+ package-a\r\n  + `lodash@^4.17.4`\r\n+ package-b\r\n  + `lodash@^4.16.1`\r\n```\r\n\r\n答: 与上拓扑结构一致，因为二者为 `^` 版本号，他们均会下载匹配该版本号范围的最新版本，比如 `@4.17.4`，因此二者依赖一致。\r\n\r\n> 此时如果有 lock，会有一点小问题，待稍后讨论\r\n\r\nnode_modules 目录结构如下图：\r\n\r\n``` mermaid\r\ngraph\r\n  app(node_modules) ---> A(package-a)\r\n  app          ---> B(package-b)\r\n  app          ---> C(\"lodash@4.17.4\")\r\n```\r\n\r\n### *再一个问题: 以下依赖最终 node_modules 结果如何？*\r\n\r\n> 可参考[该示例](https://github.com/shfshanyue/node-examples/tree/master/engineering/package/topology-dup)\r\n\r\n``` markdown\r\n+ package-a\r\n  + `lodash@4.17.4`\r\n+ package-b\r\n  + `lodash@4.16.1`\r\n```\r\n\r\n答：package-b 先从自身 node_modules 下寻找 `lodash`，找到 `lodash@4.16.1`\r\n\r\nnode_modules 目录结构如下图：\r\n\r\n``` mermaid\r\ngraph\r\n  app(node_modules) ---> A(package-a)\r\n  app          ---> B(package-b)\r\n  app          ---> C(\"lodash@4.17.4\")\r\n  B            ---> D(\"lodash@4.16.1\")\r\n```\r\n\r\n### *再一个问题: 以下依赖最终 node_modules 结果如何*\r\n\r\n``` markdown\r\n+ package-a\r\n  + `lodash@4.0.0`\r\n+ package-b\r\n  + `lodash@4.0.0`\r\n+ package-c\r\n  + `lodash@3.0.0`\r\n+ package-d\r\n  + `lodash@3.0.0`\r\n```\r\n\r\n答：package-d 只能从自身的 node_modules 下寻找 `lodash@3.0.0`，而无法从 package-c 下寻找，此时 **lodash@3.0.0 不可避免地会被安装两次**\r\n\r\nnode_modules 目录结构如下图:\r\n\r\n``` mermaid\r\ngraph\r\n  app(node_modules) ---> A(package-a)\r\n  app          ---> B(package-b)\r\n  app          ---> C(package-c)\r\n  app          ---> D(package-d)\r\n  app          ---> X(\"lodash@4.0.0\")\r\n  C            ---> Y(\"lodash@3.0.0\")\r\n  D            ---> Z(\"lodash@3.0.0\")\r\n```\r\n\r\n\r\n## 重复的版本依赖有什么问题？\r\n\r\n可参考 [npm doppelgangers](https://rushjs.io/pages/advanced/npm_doppelgangers/)\r\n\r\n1. Install Size，安装体积变大，浪费磁盘空间\r\n1. Build Size，构建打包体积变大，浪费带宽，网站打开延迟，破坏用户体验 (PS: 支持 Tree Shaking 会好点)\r\n1. 破坏单例模式，破坏缓存，如 postcss 的许多插件将 postcss 扔进 dependencies，重复的版本将导致解析 AST 多次\r\n",
           "star": {
             "totalCount": 0
           },
@@ -24801,6 +24902,172 @@
         {
           "id": "IC_kwDODQzyOs4505c4",
           "body": "\r\n## 为何有人说第三方库不需要提交 package-lock.json/yarn.lock？\r\n\r\n> 该观点仅对第三方库的 `dependencies` 有效\r\n\r\n答: 你自己项目中所有依赖都会根据 lockfile 被锁死，**但并不会依照你第三方依赖的 lockfile**。\r\n\r\n试举一例:\r\n\r\n1. 项目中依赖 `react@^17.0.2`\r\n2. 而 `react@17.0.2` 依赖 `object-assign@^4.1.0`\r\n\r\n在 React 自身的 `yarn.lock` 中版本锁定依赖如下:\r\n\r\n``` bash\r\nreact@17.0.2\r\n└── object-assign@4.1.0 (PS: 请注意该版本号)\r\n```\r\n\r\n而在个人业务项目中 `yarn.lock` 中版本锁定依赖如下:\r\n\r\n``` bash\r\nApplication\r\n└── react@17.0.2\r\n    └── object-assign@4.99.99 (PS: 请注意该版本号)\r\n```\r\n\r\n**此时个人业务项目中 `object-assign@4.99.99` 与 React 中 `object-assign@4.1.0` 不符，将有可能出现问题**。\r\n\r\n此时，即使第三方库存在 `lockfile`，但也有着间接依赖(如此时的 `object-assign`，是第三方的依赖，个人业务项目中的依赖的依赖)不可控的问题。\r\n\r\n## 第三方库如何解决潜在的间接依赖不可控问题\r\n\r\n可参考 `next.js` 的解决方案。\r\n\r\n> [next.js 源码](https://github.com/vercel/next.js/tree/canary/packages/next) 点击此处\r\n\r\n1. 将所有依赖中的版本号在 `package.json` 中锁死。可见 [package.json](https://github.com/vercel/next.js/tree/canary/packages/next/package.json)\r\n1. 将部分依赖直接编译后直接引入，而非通过依赖的方式，如 `webpack`、`babel` 等。可见目录 [next/compiled](https://github.com/vercel/next.js/tree/canary/packages/next/compiled)\r\n\r\n以下是一部分 `package.json`\r\n\r\n``` js\r\n{\r\n  \"dependencies\": {\r\n    \"@babel/runtime\": \"7.15.4\",\r\n    \"@hapi/accept\": \"5.0.2\",\r\n    \"@napi-rs/triples\": \"1.0.3\"\r\n  }\r\n}\r\n```\r\n\r\n除了参考 `next.js` 直接锁死版本号方式外，还可以仍然按照 `^x.x.x` 加勤加维护并时时更新 `depencencies`\r\n\r\n## 总结\r\n\r\n`lockfile` 对于第三方库仍然必不可少。可见 `react`、`next.js`、`webpack` 均有 `yarn.lock`。(PS: 可见 yarn 的受欢迎程度，另外 vue3 采用了 pnpm)\r\n\r\n1. 第三方库的 `devDependencies` 必须锁定，这样 Contributor 可根据 lockfile 很容易将项目跑起来。\r\n2. 第三方库的 `dependencies` 虽然有可能存在不可控问题，但是可通过锁死 `package.json` 依赖或者勤加更新的方式来解决。",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "shfshanyue",
+            "url": "https://github.com/shfshanyue"
+          }
+        }
+      ]
+    },
+    "labels": {
+      "nodes": [
+        {
+          "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+          "name": "前端工程化"
+        }
+      ]
+    }
+  },
+  {
+    "id": "I_kwDODQzyOs4-7nRx",
+    "number": 748,
+    "title": "【Q722】请问什么是 CICD",
+    "body": "",
+    "comments": {
+      "nodes": [
+        {
+          "id": "IC_kwDODQzyOs46Cn1u",
+          "body": "\r\n+ `CI`，Continuous Integration，持续集成。\r\n+ `CD`，Continuous Deployment，持续部署。\r\n\r\n`CICD` 一般合称，无需特意区分二者区别。从开发、测试到上线的过程中，借助于 CICD 进行一些自动化处理，保障项目质量。\r\n\r\n`CICD` 与 git 集成在一起，可理解为服务器端的 `git hooks`: 当代码 push 到远程仓库后，借助 `WebHooks` 对当前代码在构建服务器(即 CI 服务器，也称作 Runner)中进行自动构建、测试及部署等。\r\n\r\n![](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2021-11-17/clipboard-6509.1b9b98.webp)\r\n\r\n它有若干好处:\r\n\r\n1. 功能分支提交后，通过 CICD 进行自动化测试、语法检查等，**如未通过 CICD，则无法 CodeReview，更无法合并到生产环境分支进行上线**\r\n1. 功能分支提交后，通过 CICD 检查 npm 库的风险、检查构建镜像容器的风险等\r\n1. 功能分支提交后，通过 CICD 对当前分支代码构建独立镜像并生成独立的分支环境地址进行测试，**如对每一个功能分支生成一个可供测试的地址，一般是 `<branch>.dev.shanyue.tech` 此种地址**\r\n1. 功能分支测试通过后，合并到主分支，自动构建镜像并部署到生成环境 (一般生成环境需要手动触发、自动部署)\r\n\r\n![](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2021-11-17/pr-checks-final.26fba2.webp)\r\n\r\n由于近些年来 CICD 的全面介入，项目开发的工作流就是 CICD 的工作流，请看一个比较完善的 CICD Workflow。\r\n\r\n![](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2021-11-17/clipboard-7669.a41a94.webp)\r\n\r\n## CICD 工具\r\n\r\n`CICD` 集成于 CICD 工具及代码托管服务。CICD 有时也可理解为进行 CICD 的构建服务器，而提供 CICD 的服务，如以下产品，将会提供构建服务与 github/gitlab 集成在一起。\r\n\r\n+ `jenkins`\r\n+ `Travis CI`\r\n\r\n如果你们公司没有 CICD 基础设置，那么你可以尝试 github 免费的 CICD 服务: [github actions](https://github.com/features/actions)。\r\n\r\n公司一般以 `gitlab CI` 作为 CICD 工具，此时需要自建 `gitlab Runner` 作为构建服务器。\r\n\r\n## 一段简单的 CICD 配置\r\n\r\n每一家 CICD 产品，都有各自的配置方式，但是总体上用法差不多。以下 CI 脚本指当在 master 有代码变更时，自动部署上线。\r\n\r\n```yaml\r\ndeploy:\r\n  stage: deploy\r\n  only:\r\n    - master\r\n  script:\r\n    - docker build -t harbor.shanyue.tech/fe/devtools-app\r\n    - docker push harbor.shanyue.tech/fe/devtools-app\r\n    - helm upgrade -install devtools-app-chart .\r\n```",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "shfshanyue",
+            "url": "https://github.com/shfshanyue"
+          }
+        }
+      ]
+    },
+    "labels": {
+      "nodes": [
+        {
+          "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+          "name": "前端工程化"
+        }
+      ]
+    }
+  },
+  {
+    "id": "I_kwDODQzyOs4_EiZ8",
+    "number": 749,
+    "title": "【Q723】如何使用 docker 部署前端",
+    "body": "",
+    "comments": {
+      "nodes": [
+        {
+          "id": "IC_kwDODQzyOs46CoJH",
+          "body": "\r\n使用 `docker` 部署前端最大的好处是隔离环境，单独管理：\r\n\r\n1. 前端项目依赖于 Node v16，而宿主机无法满足依赖，使用容器满足需求\r\n1. 前端项目依赖于 npm v8，而宿主机无法满足依赖，使用容器满足需求\r\n1. 前端项目需要将 8080 端口暴露出来，而容易与宿主机其它服务冲突，使用容器与服务发现满足需求\r\n\r\n## 使用 docker 部署前端\r\n\r\n假设本地跑起一个前端项目，需要以下步骤，并最终可在 `localhost:8080` 访问服务。\r\n\r\n``` bash\r\n$ npm i\r\n$ npm run build\r\n$ npm start\r\n```\r\n\r\n**那在 docker 中部署前端，与在本地将如何将项目跑起来步骤大致一致**，一个 Dockerfile 如下\r\n\r\n``` dockerfile\r\n# 指定 node 版本号，满足宿主环境\r\nFROM node:16-alpine\r\n\r\n# 指定工作目录，将代码添加至此\r\nWORKDIR /code\r\nADD . /code\r\n\r\n# 如何将项目跑起来\r\nRUN npm install\r\nRUN npm run build\r\nCMD npm start\r\n\r\n# 暴露出运行的端口号，可对外接入服务发现\r\nEXPOSE 8080\r\n```\r\n\r\n此时，我们使用 `docker build` 构建镜像并把它跑起来。\r\n\r\n``` bash\r\n# 构建镜像\r\n$ docker build -t fe-app .\r\n\r\n# 运行容器\r\n$ docker run -it --rm fe-app\r\n```\r\n\r\n恭喜你，能够写出以上的 Dockerfile，这说明你对 Docker 已经有了理解。但其中还有若干问题，我们对其进行一波优化\r\n\r\n1. 使用 `node:16` 作为基础镜像过于奢侈，占用体积太大，而最终产物 (js/css/html) 无需依赖该镜像。可使用更小的 nginx 镜像做多阶段构建。\r\n1. 多个 RUN 命令，不利于 Docker 的镜像分层存储。*可合并为一个 RUN 命令*\r\n1. 每次都需要 `npm i`，可合理利用 Docker 缓存，ADD 命令中内容发生改变将会破坏缓存。可将 package.json 提前移至目标目录，只要 *package.json/lockfile* 不发生变动，将不会重新 `npm i`\r\n\r\n优化后 Dockerfile 如下:\r\n\r\n``` dockerfile\r\nFROM node:16-alpine as builder\r\n\r\nWORKDIR /code\r\n\r\nADD package.json package-lock.json /code/\r\nRUN npm install\r\n\r\nADD . /code\r\n\r\nRUN npm run build \r\n\r\n# 选择更小体积的基础镜像\r\nFROM nginx:alpine\r\n\r\n# 将构建产物移至 nginx 中\r\nCOPY --from=builder code/build/ /usr/share/nginx/html/\r\n```",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "shfshanyue",
+            "url": "https://github.com/shfshanyue"
+          }
+        }
+      ]
+    },
+    "labels": {
+      "nodes": [
+        {
+          "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+          "name": "前端工程化"
+        }
+      ]
+    }
+  },
+  {
+    "id": "I_kwDODQzyOs4_EyNR",
+    "number": 750,
+    "title": "【Q724】软链接和硬链接有何区别",
+    "body": "",
+    "comments": {
+      "nodes": []
+    },
+    "labels": {
+      "nodes": [
+        {
+          "id": "MDU6TGFiZWwxNjkxMDQ3MDQ2",
+          "name": "os"
+        }
+      ]
+    }
+  },
+  {
+    "id": "I_kwDODQzyOs4_H6i7",
+    "number": 751,
+    "title": "【Q725】pnpm 有什么优势",
+    "body": "",
+    "comments": {
+      "nodes": [
+        {
+          "id": "IC_kwDODQzyOs46FuNe",
+          "body": "## 软链接和硬链接\r\n\r\n假设我们有一个文件，称为 `hello`\r\n\r\n通过 `ln -s` 创建一个软链接，通过 `ln` 可以创建一个硬链接。\r\n\r\n``` bash\r\n$ ln -s hello hello-soft\r\n$ ln hello hello-hard\r\n\r\n$ ls -lh\r\ntotal 768\r\n45459612 -rw-r--r--  2 xiange  staff   153K 11 19 17:56 hello\r\n45459612 -rw-r--r--  2 xiange  staff   153K 11 19 17:56 hello-hard\r\n45463415 lrwxr-xr-x  1 xiange  staff     5B 11 19 19:40 hello-soft -> hello\r\n```\r\n\r\n他们的区别有以下几点:\r\n\r\n1. 软链接可理解为指向源文件的指针，它是单独的一个文件，仅仅只有几个字节，它拥有独立的 `inode`\r\n1. 硬链接与源文件同时指向一个物理地址，它与源文件共享存储数据，它俩拥有相同的 `inode`\r\n\r\n## pnpm 为何节省空间\r\n\r\n它解决了 npm/yarn 平铺 node_modules 带来的依赖项重复的问题 (doppelgangers)\r\n\r\n假设存在依赖依赖:\r\n\r\n``` bash\r\n.\r\n├── package-a\r\n│   └── lodash@4.0.0\r\n├── package-b\r\n│   └── lodash@4.0.0\r\n├── package-c\r\n│   └── lodash@3.0.0\r\n└── package-d\r\n    └── lodash@3.0.0\r\n```\r\n\r\n那么不可避免地在 npm 或者 yarn 中，`lodash@3.0.0` 会被多次安装，无疑造成了空间的浪费与诸多问题。\r\n\r\n``` bash\r\n./node_modules/lodash\r\n./node_modules/package-a\r\n./node_modules/package-b\r\n./node_modules/package-c\r\n./node_modules/package-c/node_mdoules/lodash\r\n./node_modules/package-d\r\n./node_modules/package-d/node_mdoules/lodash\r\n```\r\n\r\n``` mermaid\r\ngraph\r\n  app(node_modules) ---> A(package-a)\r\n  app          ---> B(package-b)\r\n  app          ---> C(package-c)\r\n  app          ---> D(package-d)\r\n  app          ---> X(\"lodash@4.0.0\")\r\n  C            ---> Y(\"lodash@3.0.0\")\r\n  D            ---> Z(\"lodash@3.0.0\")\r\n```\r\n\r\n这里有一个来自 [Rush](https://rushjs.io/images/home/card-doppel.svg) 的图可以很形象的说明问题。\r\n\r\n这是一个较为常见的场景，在平时项目中有些库相同版本甚至会安装七八次，如 `postcss`、`ansi-styles`、`ansi-regex`、`braces` 等，你们可以去你们的 `yarn.lock`/`package-lock.json` 中搜索一下。\r\n\r\n而在 pnpm 中，它改变了 npm/yarn 的目录结构，采用软链接的方式，避免了 `doppelgangers` 问题更加节省空间。\r\n\r\n它最终生成的 `node_modules` 如下所示，从中也可以看出它解决了幽灵依赖的问题。\r\n\r\n``` bash\r\n./node_modules/package-a       ->  .pnpm/package-a@1.0.0/node_modules/package-a\r\n./node_modules/package-b       ->  .pnpm/package-b@1.0.0/node_modules/package-b\r\n./node_modules/package-c       ->  .pnpm/package-c@1.0.0/node_modules/package-c\r\n./node_modules/package-d       ->  .pnpm/package-d@1.0.0/node_modules/package-d\r\n./node_modules/.pnpm/lodash@3.0.0\r\n./node_modules/.pnpm/lodash@4.0.0\r\n./node_modules/.pnpm/package-a@1.0.0\r\n./node_modules/.pnpm/package-a@1.0.0/node_modules/package-a\r\n./node_modules/.pnpm/package-a@1.0.0/node_modules/lodash     -> .pnpm/package-a@1.0.0/node_modules/lodash@4.0.0\r\n./node_modules/.pnpm/package-b@1.0.0\r\n./node_modules/.pnpm/package-b@1.0.0/node_modules/package-b\r\n./node_modules/.pnpm/package-b@1.0.0/node_modules/lodash     -> .pnpm/package-b@1.0.0/node_modules/lodash@4.0.0\r\n./node_modules/.pnpm/package-c@1.0.0\r\n./node_modules/.pnpm/package-c@1.0.0/node_modules/package-c\r\n./node_modules/.pnpm/package-c@1.0.0/node_modules/lodash     -> .pnpm/package-c@1.0.0/node_modules/lodash@3.0.0\r\n./node_modules/.pnpm/package-d@1.0.0\r\n./node_modules/.pnpm/package-d@1.0.0/node_modules/package-d\r\n./node_modules/.pnpm/package-d@1.0.0/node_modules/lodash     -> .pnpm/package-d@1.0.0/node_modules/lodash@3.0.0\r\n```\r\n\r\n如此，依赖*软链接*的方式，可解决重复依赖安装 (doppelgangers) 的问题，**如果一个项目占用 1000 MB，那么使用 pnpm 可能仅占用 800 MB**\r\n\r\n然而它除此之外，还有一个最大的好处，**如果一个项目占用 1000 MB，传统方式十个项目占用 10000 MB，那么使用 pnpm 可能仅占用 3000 MB**，而它得益于硬链接。\r\n\r\n再借用以上示例，`lodash@3.0.0` 与 `lodash@4.0.0` 会生成一个指向全局目录(`~/.pnpm-store`)的硬链接，如果新项目依赖二者，则可复用存储空间。\r\n\r\n``` bash\r\n./node_modules/.pnpm/lodash@3.0.0/node_modules/lodash   -> hardlink \r\n./node_modules/.pnpm/lodash@4.0.0/node_modules/lodash   -> hardlink\r\n```\r\n",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "shfshanyue",
+            "url": "https://github.com/shfshanyue"
+          }
+        }
+      ]
+    },
+    "labels": {
+      "nodes": [
+        {
+          "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+          "name": "前端工程化"
+        }
+      ]
+    }
+  },
+  {
+    "id": "I_kwDODQzyOs4_MIMG",
+    "number": 752,
+    "title": "【Q726】浏览器中如何使用原生的 ESM",
+    "body": "",
+    "comments": {
+      "nodes": [
+        {
+          "id": "IC_kwDODQzyOs46JR42",
+          "body": "# Native Import: Import from URL\r\n\r\n通过 `script[type=module]`，可直接在浏览器中使用原生 `ESM`。这也使得前端不打包 (`Bundless`) 成为可能。\r\n\r\n``` html\r\n<script type=\"module\">\r\n  import lodash from 'https://cdn.skypack.dev/lodash'\r\n</script>\r\n```\r\n\r\n由于前端跑在浏览器中，**因此它也只能从 URL 中引入 `Package`**\r\n\r\n1. 绝对路径: `https://cdn.sykpack.dev/lodash`\r\n1. 相对路径: `./lib.js`\r\n\r\n现在打开浏览器控制台，把以下代码粘贴在控制台中。由于 `http import` 的引入，你发现你调试 `lodash` 此列工具库更加方便了。\r\n\r\n``` js\r\n> lodash = await import('https://cdn.skypack.dev/lodash')\r\n\r\n> lodash.get({ a: 3 }, 'a')\r\n```\r\n\r\n![](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2021-11-22/clipboard-2865.638ba7.webp)\r\n\r\n## ImportMap\r\n\r\n但 `Http Import` 每次都需要输入完全的 URL，相对以前的裸导入 (`bare import specifiers`)，很不太方便，如下例:\r\n\r\n``` js\r\nimport lodash from 'lodash'\r\n```\r\n\r\n它不同于 `Node.JS` 可以依赖系统文件系统，层层寻找 `node_modules`\r\n\r\n``` bash\r\n/home/app/packages/project-a/node_modules/lodash/index.js\r\n/home/app/packages/node_modules/lodash/index.js\r\n/home/app/node_modules/lodash/index.js\r\n/home/node_modules/lodash/index.js\r\n```\r\n\r\n在 ESM 中，可通过 `importmap` 使得裸导入可正常工作:\r\n\r\n``` html\r\n<script type=\"importmap\">\r\n{\r\n  \"imports\": {\r\n    \"lodash\": \"https://cdn.skypack.dev/lodash\",\r\n    \"ms\": \"https://cdn.skypack.dev/ms\"\r\n  }\r\n}\r\n</script>\r\n```\r\n\r\n此时可与以前同样的方式进行模块导入\r\n\r\n``` js\r\nimport lodash from 'lodash'\r\n\r\nimport(\"lodash\").then(_ => ...)\r\n```\r\n\r\n那么通过裸导入如何导入子路径呢？\r\n\r\n``` html\r\n<script type=\"importmap\">\r\n{\r\n  \"imports\": {\r\n    \"lodash\": \"https://cdn.skypack.dev/lodash\",\r\n    \"lodash/\": \"https://cdn.skypack.dev/lodash/\"\r\n  }\r\n}\r\n</script>\r\n<script type=\"module\">\r\nimport get from 'lodash/get.js'\r\n</script>\r\n```\r\n\r\n## Import Assertion\r\n\r\n通过 `script[type=module]`，不仅可引入 Javascript 资源，甚至可以引入 JSON/CSS，示例如下\r\n\r\n``` html\r\n<script type=\"module\">\r\nimport data from './data.json' assert { type: 'json' }\r\n\r\nconsole.log(data)\r\n</script>\r\n```",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "shfshanyue",
+            "url": "https://github.com/shfshanyue"
+          }
+        }
+      ]
+    },
+    "labels": {
+      "nodes": [
+        {
+          "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+          "name": "前端工程化"
+        },
+        {
+          "id": "MDU6TGFiZWwxNzY5MDg5MzQ2",
+          "name": "dom"
+        }
+      ]
+    }
+  },
+  {
+    "id": "I_kwDODQzyOs4_U75j",
+    "number": 753,
+    "title": "【Q727】如何将 CommonJS 转化为 ESM",
+    "body": "",
+    "comments": {
+      "nodes": [
+        {
+          "id": "IC_kwDODQzyOs46SYZ2",
+          "body": "> 本篇文章/答案本计划是三四百字，没想到最后越写越多，写了一千字。\r\n\r\n由于 Bundless 构建工具的兴起，要求所有的模块都是 ESM 模块化格式。\r\n\r\n目前社区有一部分模块同时支持 ESM 与 CommonJS，但仍有许多模块仅支持 CommonJS/UMD，因此将 CommonJS 转化为 ESM 是全部模块 ESM 化的过渡阶段。\r\n\r\n## ESM 与 CommonJS 的导入导出的不同\r\n\r\n在 ESM 中，导入导出有两种方式:\r\n\r\n1. 具名导出/导入: `Named Import/Export`\r\n1. 默认导出/导入: `Default Import/Export`\r\n\r\n代码示例如下:\r\n\r\n``` js\r\n// Named export/import\r\nexport { sum }\r\nimport { sum } from 'sum'\r\n\r\n// Default export/import\r\nexport default sum\r\nimport sum from 'sum'\r\n```\r\n\r\n而在 CommonJS 中，导入导出的方法只有一种:\r\n\r\n``` js\r\nmodule.exports = sum\r\n```\r\n\r\n而所谓的 `exports` 仅仅是 `module.exports` 的引用而已\r\n\r\n``` js\r\n// 实际上的 exports\r\nexports = module.exports\r\n\r\n// 以下两个是等价的\r\nexports.a = 3\r\nmodule.exports.a = 3\r\n```\r\n\r\n> PS: 一道题关于 `exports` 与 `module.exports` 的区别，以下 `console.log` 输出什么\r\n> ``` js\r\n> // hello.js\r\n> exports.a = 3\r\n> module.exports.b = 4\r\n> \r\n> // index.js\r\n> const hello = require('./hello')\r\n> console.log(hello)\r\n> ```\r\n\r\n> 再来一道题:\r\n> ``` js\r\n> // hello.js\r\n> exports.a = 3\r\n> module.exports = { b: 4 }\r\n> \r\n> // index.js\r\n> const hello = require('./hello')\r\n> console.log(hello)\r\n> ```\r\n\r\n正因为有二者的不同，因此在二者转换的时候有一些兼容问题需要解决。\r\n\r\n## exports 的转化\r\n\r\n正因为，二者有所不同，当 exports 转化时，既要转化为 `export {}`，又要转化为 `export default {}`\r\n\r\n``` js\r\n// Input:  index.cjs\r\nexports.a = 3\r\n\r\n// Output: index.mjs\r\n// 此处既要转化为默认导出，又要转化为具名导出！\r\nexport const a = 3\r\nexport default { a }\r\n```\r\n\r\n如果仅仅转为 `export const a = 3` 的具名导出，而不转换 `export default { a }`，将会出现什么问题？以下为例:\r\n\r\n``` js\r\n// Input: CJS\r\nexports.a = 3                   // index.cjs\r\n\r\nconst o = require('.')          // foo.cjs\r\nconsole.log(o.a)                // foo.cjs\r\n\r\n// Output: ESM\r\n// 这是有问题的错误转换示例:\r\n// 此处 a 应该再 export default { a } 一次\r\nexport const a = 3                    // index.mjs\r\n\r\nimport o from '.'               // foo.mjs\r\nconsole.log(o.a)                // foo.mjs 这里有问题，这里有问题，这里有问题\r\n```\r\n\r\n## module.exports 的转化\r\n\r\n对于 `module.exports`，我们可以遍历其中的 key (通过 AST)，将 key 转化为 `Named Export`，将 `module.exports` 转化为 `Default Export`\r\n\r\n``` js\r\n// Input:  index.cjs\r\nmodule.exports = {\r\n  a: 3,\r\n  b: 4\r\n}\r\n\r\n// Output: index.mjs\r\n// 此处既要转化为默认导出，又要转化为具名导出！\r\nexport default {\r\n  a: 3,\r\n  b: 4\r\n}\r\nexport const a = 3\r\nexport const b = 4\r\n```\r\n\r\n如果 `module.exports` 导出的是函数如何处理呢，特别是 `exports` 与 `module.exports` 的程序逻辑混合在一起？\r\n\r\n以下是一个正确的转换结果：\r\n\r\n``` js\r\n// Input: index.cjs\r\nmodule.exports = () => {}\r\nexports.a = 3\r\nexports.b = 4\r\n\r\n// Output: index.mjs\r\nconst sum = () => {}\r\nsum.a = 3\r\nsum.b = 4\r\nexport const a = 3\r\nexport const b = 4\r\nexport default = sum\r\n```\r\n\r\n也可以这么处理，将 `module.exports` 与 `exports` 的代码使用函数包裹起来，此时我们无需关心其中的逻辑细节。\r\n\r\n``` js\r\nvar esm$1 = {exports: {}};\r\n\r\n(function (module, exports) {\r\nmodule.exports = () => {};\r\nexports.a = 3;\r\nexports.b = 4;\r\n}(esm$1, esm$1.exports));\r\n\r\nvar esm = esm$1.exports;\r\n\r\nexport { esm as default };\r\n```\r\n\r\n## 一些复杂的转化\r\n\r\nESM 与 CommonJS 不仅仅是简单的语法上的不同，它们在思维方式上就完全不同，因此还有一些较为复杂的转换，本篇先不做谈论，感兴趣的可以去我的博客上查找相关文章。\r\n\r\n1. 如何处理 `__dirname`\r\n1. 如何处理 `require(dynamicString)`\r\n1. 如何处理 CommonJS 中的编程逻辑，如下\r\n\r\n以下代码涉及到编程逻辑，由于 `exports` 是一个动态的 Javascript 对象，而它自然可以使用两次，那应该如何正确编译为 ESM 呢？\r\n\r\n``` js\r\n// input: index.cjs\r\nexports.sum = 0\r\nPromise.resolve().then(() => {\r\n  exports.sum = 100\r\n})\r\n```\r\n\r\n以下是一种不会出问题的代码转换结果\r\n\r\n``` js\r\n// output: index.mjs\r\nconst _default = { }\r\nlet sum = _default.sum = 0\r\nPromise.resolve().then(() => {\r\n  sum = _default.sum = 100\r\n})\r\nexport default _default\r\nexport { sum }\r\n```\r\n\r\n## CommonJS To ESM 的构建工具\r\n\r\nCommonJS 向 ESM 转化，自然有构建工具的参与，比如\r\n\r\n+ [@rollup/plugin-commonjs](https://github.com/rollup/plugins/tree/master/packages/commonjs)\r\n\r\n甚至把一些 CommonJS 库转化为 ESM，并且置于 CDN 中，使得我们可以直接使用，而无需构建工具参与\r\n\r\n+ <https://cdn.skypack.dev/>\r\n+ <https://jspm.org/>\r\n",
           "star": {
             "totalCount": 0
           },
