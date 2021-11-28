@@ -140,7 +140,8 @@ const sidebar = [
           },
           {
             title: 'pnpm 的优势',
-            number: 751
+            number: 751,
+            b: 'BV1Sb4y1t7Qr'
           }
         ]
       },

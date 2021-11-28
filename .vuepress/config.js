@@ -140,7 +140,7 @@ module.exports = {
                 heroImage: 'logo.png',
                 tagline: '山月的全栈进阶之路',
                 actionText: '历史记录  →',
-                actionLink: '/weekly/',
+                actionLink: '/engineering/',
                 features: [{
                   title: '全栈',
                   details: '见其广，知其深'
