@@ -15540,6 +15540,17 @@
             "login": "nmsn",
             "url": "https://github.com/nmsn"
           }
+        },
+        {
+          "id": "IC_kwDODQzyOs46eVs1",
+          "body": "@nmsn 这是效果，查看源码即可",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "shfshanyue",
+            "url": "https://github.com/shfshanyue"
+          }
         }
       ]
     },
@@ -24313,7 +24324,7 @@
     "id": "MDU6SXNzdWU5ODE2Njc4MzE=",
     "number": 724,
     "title": "【Q702】return promise 与 return await promise 有何区别",
-    "body": "",
+    "body": "如\r\n\r\n``` js\r\nasync function p1 () {\r\n  return 3\r\n}\r\n\r\nasync function p2 () {\r\n  return Promise.resolve(3)\r\n}\r\n\r\nasync function p3 () {\r\n  return await Promise.resolve(3)\r\n}\r\n```",
     "comments": {
       "nodes": [
         {
@@ -24325,6 +24336,17 @@
           "author": {
             "login": "liweinanone",
             "url": "https://github.com/liweinanone"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs46eX51",
+          "body": "``` js\r\nasync function p1 () {\r\n  return 3\r\n}\r\n\r\nasync function p2 () {\r\n  return Promise.resolve(3)\r\n}\r\n\r\nasync function p3 () {\r\n  return await Promise.resolve(3)\r\n}\r\n\r\n// Output: p1、p3、p2\r\np3().then(o => console.log(o, 'p3'))\r\np2().then(o => console.log(o, 'p2'))\r\np1().then(o => console.log(o, 'p1'))\r\n```\r\n\r\n@liweinanone 最终返回得到的结果是相同的，但是有些顺序的变化，可看此例",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "shfshanyue",
+            "url": "https://github.com/shfshanyue"
           }
         }
       ]
@@ -25230,7 +25252,19 @@
     "title": "【Q734】如何修复某个 npm 包的紧急 bug",
     "body": "",
     "comments": {
-      "nodes": []
+      "nodes": [
+        {
+          "id": "IC_kwDODQzyOs46eink",
+          "body": "假设 `lodash` 有一个 Bug，影响线上开发，应该怎么办？\r\n\r\n![把大象扔进冰箱里需要几步](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2021-11-11/clipboard-5920.ee51bc.webp)\r\n\r\n答: 三步走。\r\n\r\n1. 在 Github 提交 Pull Request，修复 Bug，等待合并\r\n1. 合并 PR 后，等待新版本发包\r\n1. 升级项目中的 lodash 依赖\r\n\r\n很合理很规范的一个流程，但是它一个最大的问题就是，太慢了，三步走完黄花菜都凉了。\r\n\r\n此时可直接上手修改 `node_modules` 中 lodash 代码，并修复问题！\r\n\r\n新问题：`node_modules` 未纳入版本管理，在生产环境并没有用。请看流程\r\n\r\n1. 本地修改 `node_modules/lodash`，本地正常运行 ✅\r\n1. 线上 `npm i lodash`，lodash 未被修改，线上运行失败 ❌\r\n\r\n此时有一个简单的方案，临时将修复文件纳入工作目录，可以解决这个问题\r\n\r\n1. 本地修改 `node_modules/lodash`，本地正常运行 ✅\r\n2. 将修改文件复制到 `${work_dir}/patchs/lodash` 中，纳入版本管理 \r\n3. 线上 `npm i lodash`，并将修改文件再度复制到 `node_modules/lodash` 中，线上正常运行 ✅\r\n\r\n但此时并不是很智能，且略有小问题，演示如下:\r\n\r\n1. 本地修改 `node_modules/lodash`，本地正常运行 ✅\r\n2. 将修改文件复制到 `${work_dir}/patchs/lodash` 中，纳入版本管理 ✅\r\n3. 线上 `npm i lodash`，并将修改文件再度复制到 `node_modules/lodash` 中，线上正常运行 ✅\r\n4. 两个月后升级 `lodash`，该问题得以解决，而我们代码引用了 lodash 的新特性\r\n5. 线上 `npm i lodash`，并将修改文件再度复制到 `node_modules/lodash` 中，由于已更新了 lodash，并且依赖于新特性，线上运行失败 ❌\r\n\r\n此时有一个万能之策，那就是 [patch-package](https://github.com/ds300/patch-package)\r\n\r\n## patch-package\r\n\r\n想要知道 `patch-package` 如何解决上述问题，请先了解下它的用法，流程如下\r\n\r\n``` bash\r\n# 修改 lodash 的一个小问题\r\n$ vim node_modules/lodash/index.js\r\n\r\n# 对 lodash 的修复生成一个 patch 文件，位于 patches/lodash+4.17.21.patch\r\n$ npx patch-package lodash\r\n\r\n# 将修复文件提交到版本管理之中\r\n$ git add patches/lodash+4.17.21.patch\r\n$ git commit -m \"fix 一点儿小事 in lodash\"\r\n\r\n# 此后的命令在生产环境或 CI 中执行\r\n# 此后的命令在生产环境或 CI 中执行\r\n# 此后的命令在生产环境或 CI 中执行\r\n\r\n# 在生产环境装包\r\n$ npm i\r\n\r\n# 为生产环境的 lodash 进行小修复\r\n$ npx patch-package\r\n\r\n# 大功告成！\r\n```\r\n\r\n再次看下 `patch-package` 自动生成 patch 文件的本来面目吧:\r\n\r\n它实际上是一个 `diff` 文件，在生产环境中可自动根据 diff 文件与版本号 (根据patch文件名存取) 将修复场景复原！\r\n\r\n``` bash\r\n$ cat patches/lodash+4.17.21.patch\r\ndiff --git a/node_modules/lodash/index.js b/node_modules/lodash/index.js\r\nindex 5d063e2..fc6fa33 100644\r\n--- a/node_modules/lodash/index.js\r\n+++ b/node_modules/lodash/index.js\r\n@@ -1 +1,3 @@\r\n+console.log('DEBUG SOMETHING')\r\n+\r\n module.exports = require('./lodash');\r\n\\ No newline at end of file\r\n```",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "shfshanyue",
+            "url": "https://github.com/shfshanyue"
+          }
+        }
+      ]
     },
     "labels": {
       "nodes": [
@@ -25247,7 +25281,19 @@
     "title": "【Q735】前端如何进行高效的分包",
     "body": "",
     "comments": {
-      "nodes": []
+      "nodes": [
+        {
+          "id": "IC_kwDODQzyOs46eie8",
+          "body": "# 如何正确地进行分包\r\n\r\n## 为什么需要分包？\r\n\r\n*为什么需要进行分包，一个大的 `bundle.js` 不好吗？*\r\n\r\n极其不建议，可从两方面进行考虑:\r\n\r\n1. 一行代码将导致整个 `bundle.js` 的缓存失效\r\n1. 一个页面仅仅需要 `bundle.js` 中 1/N 的代码，剩下代码属于其它页面，完全没有必要加载\r\n\r\n## 如何更好的分包？\r\n\r\n### 打包工具运行时\r\n\r\n> webpack(或其他构建工具) 运行时代码不容易变更，需要单独抽离出来，比如 `webpack.runtime.js`。由于其体积小，**必要时可注入 `index.html` 中**，减少 HTTP 请求数，优化关键请求路径\r\n\r\n### 前端框架运行时\r\n\r\n> React(Vue) 运行时代码不容易变更，且每个组件都会依赖它，可单独抽离出来 `framework.runtime.js`。请且注意，**务必将 React 及其所有依赖(react-dom/object-assign)共同抽离出来**，否则有可能造成性能损耗，见下示例\r\n\r\n*假设仅仅抽离 React 运行时(不包含其依赖)为单独 Chunk*，且每个路由页面为单独 Chunk。*某页面不依赖任何第三方库*，则该页面会加载以下 Chunk\r\n\r\n1. `webpack.runtime.js`    5KB  ✅\r\n2. `framework.runtime.js`  30KB ✅\r\n3. `page-a.chunk.js`       50KB ✅\r\n4. `vendor.chunk.js`       50KB ❌ (因 webpack 依赖其 `object-assign`，而 `object-assign` 将被打入共同依赖 `vendor.chunk.js`，因此此时它必回加载，但是该页面并不依赖任何第三方库，完全没有必要全部加载 `vendor.chunk.js`)\r\n\r\n将 React 运行时及其所有依赖，共同打包，修复结果如下，拥有了更完美的打包方案。\r\n\r\n1. `webpack.runtime.js`    5KB  ✅\r\n2. `framework.runtime.js`  40KB ✅  (+10KB)\r\n3. `page-a.chunk.js`       50KB ✅\r\n\r\n### 高频库\r\n\r\n一个模块被 N(2个以上) 个 Chunk 引用，可称为公共模块，可把公共模块给抽离出来，形成 `vendor.js`。\r\n\r\n问：那如果一个模块被用了多次 (2次以上)，但是该模块体积过大(1MB)，每个页面都会加载它(但是无必要，因为不是每个页面都依赖它)，导致性能变差，此时如何分包？\r\n\r\n答：如果一个模块虽是公共模块，但是该模块体积过大，可直接 `import()` 引入，异步加载，单独分包，比如 `echarts` 等\r\n\r\n问：如果公共模块数量多，导致 vendor.js 体积过大(1MB)，每个页面都会加载它，导致性能变差，此时如何分包\r\n\r\n答：有以下两个思路\r\n\r\n1. 思路一: 可对 vendor.js 改变策略，比如被引用了十次以上，被当做公共模块抽离成 verdor-A.js，五次的抽离为 vendor-B.js，两次的抽离为 vendor-C.js\r\n1. 思路二: 控制 vendor.js 的体积，当大于 100KB 时，再次进行分包，多分几个 vendor-XXX.js，但每个 vendor.js 都不超过 100KB\r\n\r\n## 使用 webpack 分包\r\n\r\n在 webpack 中可以使用 [SplitChunksPlugin](https://webpack.js.org/plugins/split-chunks-plugin) 进行分包，它需要满足三个条件:\r\n\r\n1. minChunks: 一个模块是否最少被 minChunks 个 chunk 所引用\r\n1. maxInitialRequests/maxAsyncRequests: 最多只能有 maxInitialRequests/maxAsyncRequests 个 chunk 需要同时加载 (如一个 Chunk 依赖 VendorChunk 才可正常工作，此时同时加载chunk数为 2)\r\n1. minSize/maxSize: chunk 的体积必须介于 (minSize, maxSize) 之间\r\n\r\n以下是 `next.js` 的默认配置，可视作最佳实践\r\n\r\n> [源码位置: next/build/webpack-config.ts](https://github.com/vercel/next.js/blob/v12.0.5-canary.10/packages/next/build/webpack-config.ts#L728)\r\n\r\n``` js\r\n{\r\n  // Keep main and _app chunks unsplitted in webpack 5\r\n  // as we don't need a separate vendor chunk from that\r\n  // and all other chunk depend on them so there is no\r\n  // duplication that need to be pulled out.\r\n  chunks: (chunk) =>\r\n    !/^(polyfills|main|pages\\/_app)$/.test(chunk.name) &&\r\n    !MIDDLEWARE_ROUTE.test(chunk.name),\r\n  cacheGroups: {\r\n    framework: {\r\n      chunks: (chunk: webpack.compilation.Chunk) =>\r\n        !chunk.name?.match(MIDDLEWARE_ROUTE),\r\n      name: 'framework',\r\n      test(module) {\r\n        const resource =\r\n          module.nameForCondition && module.nameForCondition()\r\n        if (!resource) {\r\n          return false\r\n        }\r\n        return topLevelFrameworkPaths.some((packagePath) =>\r\n          resource.startsWith(packagePath)\r\n        )\r\n      },\r\n      priority: 40,\r\n      // Don't let webpack eliminate this chunk (prevents this chunk from\r\n      // becoming a part of the commons chunk)\r\n      enforce: true,\r\n    },\r\n    lib: {\r\n      test(module: {\r\n        size: Function\r\n        nameForCondition: Function\r\n      }): boolean {\r\n        return (\r\n          module.size() > 160000 &&\r\n          /node_modules[/\\\\]/.test(module.nameForCondition() || '')\r\n        )\r\n      },\r\n      name(module: {\r\n        type: string\r\n        libIdent?: Function\r\n        updateHash: (hash: crypto.Hash) => void\r\n      }): string {\r\n        const hash = crypto.createHash('sha1')\r\n        if (isModuleCSS(module)) {\r\n          module.updateHash(hash)\r\n        } else {\r\n          if (!module.libIdent) {\r\n            throw new Error(\r\n              `Encountered unknown module type: ${module.type}. Please open an issue.`\r\n            )\r\n          }\r\n\r\n          hash.update(module.libIdent({ context: dir }))\r\n        }\r\n\r\n        return hash.digest('hex').substring(0, 8)\r\n      },\r\n      priority: 30,\r\n      minChunks: 1,\r\n      reuseExistingChunk: true,\r\n    },\r\n    commons: {\r\n      name: 'commons',\r\n      minChunks: totalPages,\r\n      priority: 20,\r\n    },\r\n    middleware: {\r\n      chunks: (chunk: webpack.compilation.Chunk) =>\r\n        chunk.name?.match(MIDDLEWARE_ROUTE),\r\n      filename: 'server/middleware-chunks/[name].js',\r\n      minChunks: 2,\r\n      enforce: true,\r\n    },\r\n  },\r\n  maxInitialRequests: 25,\r\n  minSize: 20000,\r\n}\r\n```",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "shfshanyue",
+            "url": "https://github.com/shfshanyue"
+          }
+        }
+      ]
     },
     "labels": {
       "nodes": [

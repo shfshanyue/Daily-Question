@@ -44,7 +44,7 @@ const sidebar = [
         ]
       },
       {
-        title: '第二章：打包体积优化',
+        title: '第二章: 打包体积优化',
         children: [
           {
             title: '打包体积分析',
