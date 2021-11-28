@@ -6,27 +6,40 @@ const sidebar = [
         title: '第一章: Bundle 基础设施建设',
         children: [
           {
-            title: '1. 原理与运行时分析',
+            title: '模块化方案',
+            number: 475
+          },
+          {
+            title: 'AST 及其应用',
+            number: 756
+          },
+          {
+            title: '原理与运行时分析',
             number: 729
           },
           {
-            title: '2. 运行时 Chunk 加载分析',
+            title: '运行时 Chunk 加载分析',
             number: 733
           },
           {
-            title: '3. 加载非JS资源: JSON与图片'
+            title: '加载非JS资源: JSON与图片',
+            number: 736
           },
           {
-            title: '4. 加载非JS资源: Style'
+            title: '加载非JS资源: Style',
+            number: 737
           },
           {
-            title: '5. HTML 的处理'
+            title: '将脚本注入 HTML 的处理',
+            number: 735
           },
           {
-            title: '6. Hot Module Reload'
+            title: 'Hot Module Reload',
+            number: 79
           },
           {
-            title: '7. 构建性能优化'
+            title: '构建性能优化',
+            number: 738
           }
         ]
       },
@@ -34,19 +47,24 @@ const sidebar = [
         title: '第二章：打包体积优化',
         children: [
           {
-            title: '8. 打包体积分析'
+            title: '打包体积分析',
+            number: 755
           },
           {
-            title: '9. Javascript 压缩'
+            title: 'Javascript 压缩',
+            number: 138,
           },
           {
-            title: '10. Tree Shaking'
+            title: 'Tree Shaking',
+            number: 87
           },
           {
-            title: '11. Polyfill: corejs'
+            title: 'Polyfill: corejs',
+            number: 734
           },
           {
-            title: '12. browserslist 垫片体积控制'
+            title: 'browserslist 垫片体积控制',
+            number: 757
           }
         ]
       },
@@ -54,15 +72,16 @@ const sidebar = [
         title: '第三章: Bundless 基础设施建设',
         children: [
           {
-            title: '13. 原理与浏览器中的 ESM',
+            title: '原理与浏览器中的 ESM',
             number: 752,
           },
           {
-            title: '14. CommonJS To ESM',
+            title: 'CommonJS To ESM',
             number: 753
           },
           {
-            title: '15. Bundless 与生产环境'
+            title: 'Bundless 与生产环境',
+            number: 758
           }
         ]
       }
@@ -75,35 +94,35 @@ const sidebar = [
         title: '第四章: npm package 开发',
         children: [
           {
-            title: '16. semver 与版本管理',
+            title: 'semver 与版本管理',
             number: 534,
           },
           {
-            title: '17. main/module/export 入口',
+            title: 'main/module/export 入口',
             number: 535,
           },
           {
-            title: '18. dep/devDep 的区别',
+            title: 'dep/devDep 的区别',
             number: 521
           },
           {
-            title: '19. engines 宿主环境控制',
+            title: 'engines 宿主环境控制',
             number: 533
           },
           {
-            title: '20. script hooks 及其风险',
+            title: 'script hooks 及其风险',
             number: 740
           },
           {
-            title: '21. npm publish 发布第一个包',
-            number: 758
+            title: 'npm publish 发布第一个包',
+            number: 754
           },
           {
-            title: '22. lockfile 及其影响',
+            title: 'lockfile 及其影响',
             number: 196,
           },
           {
-            title: '23. package 中的 lockfile',
+            title: 'package 中的 lockfile',
             number: 747
           }
         ]
@@ -112,13 +131,16 @@ const sidebar = [
         title: '第五章: 包管理工具',
         children: [
           {
-            title: '24. npm cache'
+            title: 'npm cache',
+            number: 759
           },
           {
-            title: '25. node_modules 拓扑结构'
+            title: 'node_modules 拓扑结构',
+            number: 746
           },
           {
-            title: '26. pnpm 的优势'
+            title: 'pnpm 的优势',
+            number: 751
           }
         ]
       },
@@ -131,22 +153,28 @@ const sidebar = [
         title: '第五章: 前端质量保障',
         children: [
           {
-            title: '27. CICD'
+            title: 'CICD',
+            number: 748
           },
           {
-            title: '28. Git Hooks'
+            title: 'Git Hooks',
+            number: 741
           },
           {
-            title: '29. Audit'
+            title: 'Audit',
+            number: 742
           },
           {
-            title: '30. Upgrade'
+            title: 'Upgrade',
+            number: 745
           },
           {
-            title: '31. ESLint'
+            title: 'ESLint',
+            number: 744
           },
           {
-            title: '32. Package Patch'
+            title: 'Package Patch',
+            number: 760
           }
         ]
       },
@@ -154,20 +182,44 @@ const sidebar = [
         title: '第六章: 前端服务部署',
         children: [
           {
-            title: '33. Long Term Cache',
+            title: 'Long Term Cache',
+            number: 81
           },
           {
-            title: '34. Chunk Spliting 与缓存优化'
+            title: 'Chunk Spliting 与缓存优化',
+            number: 761
           },
           {
-            title: '35. Docker 部署',
+            title: 'Docker 部署',
             number: 749
           },
           {
-            title: '36. Docker Preview 部署'
+            title: 'Docker Preview 部署',
+            number: 762
           }
         ]
       },
     ]
   }
 ]
+
+function getItems () {
+  return sidebar.map(x => x.children.map(x => x.children)).flat(10)
+}
+
+function generateSidebar () {
+  const items = getItems()
+  let i = 1
+  for (const item of items) {
+    item.path = item.number.toString()
+    item.title = `${i++}. ${item.title}`
+  }
+  return {
+    '/engineering/': sidebar
+  }
+}
+
+module.exports = {
+  getItems,
+  generateSidebar
+}

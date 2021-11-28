@@ -7,11 +7,19 @@
       <div class="text">
         你可以跟着我的笔记 <a href="https://shanyue.tech/op/">当我有一台服务器时，我做了什么</a> 来开始维护服务器并搭建应用，将引导你使用 docker 和 k8s 搭建一个自己的服务器开发集群。
       </div> -->
-      <div class="text">
+      <!-- <div class="text">
         极客时间对于推广渠道会有返利优惠，比如山月在极客时间买了一门课，再把课程分享给好友购买，这时极客时间会向山月返利20元左右。
       </div>
       <div class="text">
         而我现在做了一个<a href="http://geek.shanyue.tech/">返利平台</a>，你可以在上边通过<a href="https://geek.shanyue.tech">山月的链接</a>购买课程，此时极客时间会向我返利。为了共同学习，而你可以添加我的微信 (shanyue94)，我将把<strong>极客时间给我的返利发一个红包全部返给你</strong>。
+      </div> -->
+      <div class="text">
+        <a href="http://geek.shanyue.tech/">极客时间返利平台</a>，你可以在上边通过<a href="https://geek.shanyue.tech">山月的链接</a>购买课程，并添加我的微信 (shanyue94) 领取返现。
+      </div>
+    </div>
+    <div class="bar-intro">
+      <div class="text">
+        每天晚上九点 <a href="https://space.bilibili.com/28696526">B站讲解前端工程化直播</a>，并解答相关问题。
       </div>
     </div>
   </div>

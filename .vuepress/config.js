@@ -1,5 +1,6 @@
 const _ = require('lodash')
 const { generateSiebar } = require('./header')
+const { generateSidebar: generateESidebar} = require('../data/engineering')
 
 module.exports = {
   base: '/',
@@ -8,17 +9,16 @@ module.exports = {
   head: [
     ['link', { rel: 'shortcut icon', href: '/favicon.ico', type: 'image/x-icon' }],
     // 设置 Google 的 Search Console
-    ['meta', { name: 'google-site-verification', content: '_rNB9Nt0ukzWmMfhXSSxCHUAeeMs24OiuhGm4QjdwXA'}]
+    ['meta', { name: 'google-site-verification', content: '_rNB9Nt0ukzWmMfhXSSxCHUAeeMs24OiuhGm4QjdwXA' }]
   ],
   shouldPrefetch: () => false,
+  bundler: '@vuepress/bundler-vite',
   themeConfig: {
     repo: 'shfshanyue/Daily-Question',
     nav: [
       { text: '主页', link: '/' },
       // { text: '周刊', link: '/weekly/' },
-      // { text: '我的面经', link: '/interviews/2018.html' },
-      { text: '面经大全', link: '/interview.html' },
-      { text: '大厂内推', link: '/infer/ali-ascp.md' },
+      { text: '前端工程化三十八讲', link: '/engineering/' },
       { text: '计算机基础', link: '/base/' },
       { text: '前端面试基础', link: '/fe/' },
       { text: '高级前端面试', link: '/server/' },
@@ -27,6 +27,8 @@ module.exports = {
         items: [
           { text: 'DevOps', link: '/devops/' },
           { text: '开放式问题', link: '/open/' },
+          { text: '大厂内推', link: '/infer/ali-ascp.md' },
+          { text: '面经大全', link: '/interview.html' },
         ]
       },
       { text: '各地求职', link: '/job/chengdu.html' },
@@ -36,6 +38,7 @@ module.exports = {
     ],
     sidebar: {
       ...generateSiebar(),
+      ...generateESidebar(),
       '/job/': [
         ['chengdu', '成都大厂'],
       ],
@@ -118,7 +121,7 @@ module.exports = {
         hostname: 'https://q.shanyue.tech'
       },
     ],
-    [ 
+    [
       '@vuepress/google-analytics',
       {
         'ga': 'UA-102193749-3'
@@ -134,7 +137,7 @@ module.exports = {
               frontmatter: {
                 home: true,
                 heroText: '互联网大厂面试每日一题',
-                heroImage: './logo.png',
+                heroImage: 'logo.png',
                 tagline: '山月的全栈进阶之路',
                 actionText: '历史记录  →',
                 actionLink: '/weekly/',
@@ -153,32 +156,6 @@ module.exports = {
             }
           ]
         },
-        // extendPageData ($page) {
-        //   const number = $page.path.split(/[\/\.]/g)[3]
-
-        //   // 根据 Issues 设置 TDK
-        //   if (/\d+/.test(number)) {
-        //     const issue = _.get(issuesByNumber, number, {})
-        //     const labels = _.flatMap(issue.labels, label => {
-        //       if (!label) { return null }
-        //       label = labelsByName[label.name]
-        //       const labels = [label.alias, label.name, GROUP_MAP[label.group]]
-        //       return labels
-        //     }).filter(_.identity)
-        //     const keywords = meta[number] ? meta[number].keywords.split(',') : issue.title.slice(6).split(/[,，!！?？]/g)
-        //     $page.frontmatter.meta = [{
-        //       name: 'keywords',
-        //       content: ['前端面试题', ...labels, ...keywords].join(',')
-        //     }, {
-        //       name: 'google-site-verification',
-        //       content: '_rNB9Nt0ukzWmMfhXSSxCHUAeeMs24OiuhGm4QjdwXA'
-        //     }]
-        //     $page.frontmatter.description = meta[number] && meta[number].description ? meta[number].description : (issue.body || _.slice(_.get(issue.comment, 'body', issue.title), 0, 240).join(''))
-        //     $page.frontmatter.metaTitle = `${$page.title} | 前端面试题`
-        //   } else {
-        //     $page.frontmatter.metaTitle = `${$page.title || '大厂前端面试题每日一题'} | Vue | React | JS | Mysql | 面试题`
-        //   }
-        // }
       }
     }
   ]

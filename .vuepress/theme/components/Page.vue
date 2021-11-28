@@ -4,16 +4,18 @@
 
     <div :class="{ 'theme-default-content': true, lock: isLock }">
       <Content />
-      <div class="content-lock" v-if="isLock">
+      <!-- <div class="content-lock" v-if="isLock">
         <p>扫码关注公众号<span>互联网大厂面试</span>，并发送 <span v-text="code"></span></p>
         <p>即可在关注期间<span>无限制</span>浏览本站全部文章内容</p>
         <img src="./we.jpg" width="180" height="180">
-        <!-- <p>该提示信息随机出现，你可以<span>再次刷新</span>页面，来浏览本站全部文章</p> -->
-        <p>
-          你也可以在文章<a href="https://github.com/shfshanyue/op-note/blob/master/blog-to-wechat.md">关于回复公众号扫码解锁全站的技术实现</a>中获得解锁代码，永久解锁本站全部文章
-        </p>
-      </div>
-      <div :style="{ border: '1px solid #eee', padding: '1rem', borderRadius: '6px' }">
+      </div> -->
+    </div>
+    <PageEdit />
+
+    <PageNav v-bind="{ sidebarItems }" />
+
+    <slot name="bottom" />
+      <!-- <div :style="{ border: '1px solid #eee', padding: '1rem', borderRadius: '6px' }">
         <h2>
           站长山月
         </h2>
@@ -42,13 +44,7 @@
           </li>
         </ul>
         <div>我的微信：shanyue94，欢迎交流</div>
-      </div>
-    </div>
-    <PageEdit />
-
-    <PageNav v-bind="{ sidebarItems }" />
-
-    <slot name="bottom" />
+      </div> -->
   </main>
 </template>
 
@@ -111,8 +107,8 @@ export default {
   },
   computed: {
     isLock () {
-      return !mobile.any && this.lock ? Math.random() > 0.01 : false
-      /* return false */
+      // return !mobile.any && this.lock ? Math.random() > 0.01 : false
+      return false
     }
   },
   components: { PageEdit, PageNav },

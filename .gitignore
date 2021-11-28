@@ -3,3 +3,5 @@ a.md
 .env
 dist
 mock-interviews
+.temp
+.cache

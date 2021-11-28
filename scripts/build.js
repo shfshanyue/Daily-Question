@@ -7,6 +7,8 @@ const LABELS = require('../data/labels')
 const labels = _.keyBy(LABELS, 'name')
 const issues = require('../data/issues.json')
 const meta = require('../data/meta.json')
+const { getItems } = require('../data/engineering')
+const engineeringItems = getItems().map(x => x.number)
 
 const GROUP_MAP = {
   fe: '前端',
@@ -34,6 +36,22 @@ description: "${description ? description.description + ' ' + (description.keywo
     return `${author}\n\n${body}`
   })
   const md = [frontmatter, title, body, more, ...comments].join('\n\n')
+  return md
+}
+
+function generateEngineeringIssueMd (issue) {
+  const frontmatter = `
+---
+title: "${issue.title.slice(6)} | 前端工程化三十八讲"
+---
+  `
+  const title = `# ${issue.title.slice(6)}`
+  const body = issue.body && `::: tip 更多描述 \r\n ${issue.body} \r\n::: `
+  const more = `::: tip Issue \r\n 欢迎在 Gtihub Issue 中回答此问题: [Issue ${issue.number}](https://github.com/shfshanyue/Daily-Question/issues/${issue.number}) \r\n:::`
+  const comment = _.maxBy(_.get(issue, 'comments.nodes', []).filter(comment => {
+    return _.get(comment, 'author.login') === 'shfshanyue'
+  }), x => x.star.totalCount)
+  const md = [frontmatter, title, body, more, comment?.body || ''].join('\n\n')
   return md
 }
 
@@ -79,6 +97,10 @@ async function generateMd () {
     for (const label of issue.labels.nodes) {
       const group = labels[label.name].group
       files.push([path.resolve(dir, group, label.name, `${issue.number}.md`), md])
+    }
+    if (engineeringItems.includes(issue.number)) {
+      const md = generateEngineeringIssueMd(issue)
+      files.push([path.resolve(dir, 'engineering', `${issue.number}.md`), md])
     }
   }
 

@@ -2860,7 +2860,7 @@
           "id": "IC_kwDODQzyOs44faCz",
           "body": "HMR，Hot Module Replacement，热模块替换，见名思意，即无需刷新再内存环境中即可替换掉过旧模块。与 Live Reload 相对应。\r\n\r\n在 webpack 的运行时中 `__webpack__modules__` 用以维护所有的模块。而热模块替换的原理，即通过 `chunk` 的方式加载最新的 `modules`，找到 `__webpack__modules__` 中对应的模块逐一替换，并删除其上下缓存。\r\n\r\n其精简数据结构用以下代码表示:\r\n\r\n``` js\r\nconst __webpack_modules = [\r\n  (module, exports, __webpack_require__) => { __webpack_require__(0)  },\r\n  () => { console.log(这是一号模块) }\r\n]\r\n\r\n// JSONP 异步加载的所需要更新的 modules\r\nself[\"webpackHotUpdate\"](0, {\r\n  1: () => {\r\n     console.log('这是最新的三号模块')\r\n  }\r\n})\r\n```\r\n\r\n其下为更具体更完整的流程，每一步都涉及众多，有兴趣的可阅读 `webpack-dev-server` 及开发环境 webpack 运行时的源码。\r\n\r\n1. `webpack-dev-server` 将打包输出 bundle 使用内存型文件系统控制，而非真实的文件系统。此时使用的是 [memfs](https://github.com/streamich/memfs) 模拟 node.js `fs` API\r\n1.  每当文件发生变更时，`webpac` 将会重新编译，`webpack-dev-server` 将会监控到此时文件变更事件，并找到其对应的 `module`。此时使用的是 [chokidar](https://github.com/paulmillr/chokidar) 监控文件变更\r\n1.  `webpack-dev-server` 将会把变更模块通知到浏览器端，此时使用 `websocket` 与浏览器进行交流。此时使用的是 [ws](https://github.com/websockets/ws)\r\n1. 浏览器根据 `websocket` 接收到 hash，并通过 hash 以 JSONP 的方式请求更新模块的 chunk\r\n1. 浏览器加载 chunk，并使用新的模块对旧模块进行热替换，并删除其缓存",
           "star": {
-            "totalCount": 0
+            "totalCount": 1
           },
           "author": {
             "login": "shfshanyue",
@@ -15529,6 +15529,17 @@
             "login": "qiutian00",
             "url": "https://github.com/qiutian00"
           }
+        },
+        {
+          "id": "IC_kwDODQzyOs46c2J2",
+          "body": "> 页面布局元素如下，item 数量不固定\r\n> \r\n> ```\r\n> <div class=\"container\">\r\n>   <div class=\"item\"></div>\r\n>   <div class=\"item\"></div>\r\n>   <div class=\"item\"></div>\r\n>   <div class=\"item\"></div>\r\n>   <div class=\"item\"></div>\r\n>   <div class=\"item\"></div>\r\n> </div>\r\n> ```\r\n> \r\n> 使用 Grid 布局可以轻松解决这个问题，如若使用其它方案，控制好等分的同时再控制好间距也是一个十分头疼的问题:\r\n> \r\n> 1. `grid-template-columns`: 控制等分\r\n> 2. `gap`: 控制间隙\r\n> \r\n> 效果可见 [codepen](https://codepen.io/shanyue/pen/rNyLvBe)\r\n> \r\n> ```css\r\n> @media (min-width: 768px) {\r\n>   .container {\r\n>     grid-template-columns: repeat(2, minmax(0,1fr));\r\n>   }\r\n> }\r\n> \r\n> @media (min-width: 1024px) {\r\n>   .container {\r\n>     grid-template-columns: repeat(3, minmax(0, 1fr));\r\n>   }\r\n> }\r\n> \r\n> .container {\r\n>   display: grid;\r\n> }\r\n> \r\n> .conainer {\r\n>   gap: 1rem;\r\n> }\r\n> ```\r\n> \r\n> `TailwindCSS` 是一款非常方便的 CSS 原子类框架，只需要一行即可搞定\r\n> \r\n> ```\r\n> <div class=\"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4\"></div>\r\n> ```\r\n> \r\n> 但是这就够了吗？\r\n> \r\n> 这远远不够，这也足够复杂！\r\n> \r\n> 1. 需要媒体查询\r\n> 2. 需要人为设置 breakpoint，设置大小屏幕的边界\r\n> \r\n> ## 终极解决方案\r\n> `Grid` 布局可以自动判断容器大小，无论大小屏幕自动撑满并均分，请看以下属性\r\n> \r\n> ```css\r\n> .container {\r\n>   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr))\r\n> }\r\n> ```\r\n> \r\n> 1. `repeat`: 用以 N 整分\r\n> 2. `auto-fill`：表示自动填充\r\n> 3. `minmx`: 即书面意思，最小宽度为 `300px`\r\n> \r\n> [使用终极解决方案的在线页面](https://devtool.tech/fe-logo)\r\n\r\n链接跳过去是图标大全",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "nmsn",
+            "url": "https://github.com/nmsn"
+          }
         }
       ]
     },
@@ -24787,7 +24798,7 @@
           "id": "IC_kwDODQzyOs45Lqiz",
           "body": "如何确保所有 `npm install` 的依赖都是安全的？\r\n\r\n当有一个库偷偷在你的笔记本后台挖矿怎么办？\r\n\r\n比如，不久前一个周下载量超过八百万的库被侵入，它在你的笔记本运行时会偷偷挖矿。\r\n\r\n![](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2021-11-03/clipboard-0833.d9da75.webp)\r\n\r\n## Audit\r\n\r\n`Audit`，审计，检测你的所有依赖是否安全。`npm audit`/`yarn audit` 均有效。\r\n\r\n通过审计，可看出有风险的 `package`、依赖库的依赖链、风险原因及其解决方案。\r\n\r\n``` bash\r\n$ npm audit\r\n┌───────────────┬──────────────────────────────────────────────────────────────┐\r\n│ high          │ Regular Expression Denial of Service in trim                 │\r\n├───────────────┼──────────────────────────────────────────────────────────────┤\r\n│ Package       │ trim                                                         │\r\n├───────────────┼──────────────────────────────────────────────────────────────┤\r\n│ Patched in    │ >=0.0.3                                                      │\r\n├───────────────┼──────────────────────────────────────────────────────────────┤\r\n│ Dependency of │ @mdx-js/loader                                               │\r\n├───────────────┼──────────────────────────────────────────────────────────────┤\r\n│ Path          │ @mdx-js/loader > @mdx-js/mdx > remark-mdx > remark-parse >   │\r\n│               │ trim                                                         │\r\n├───────────────┼──────────────────────────────────────────────────────────────┤\r\n│ More info     │ https://www.npmjs.com/advisories/1002775                     │\r\n└───────────────┴──────────────────────────────────────────────────────────────┘\r\n76 vulnerabilities found - Packages audited: 1076\r\nSeverity: 49 Moderate | 27 High\r\n✨  Done in 4.60s.\r\n```\r\n\r\n你可以在我的笔记本上挖矿，但绝不能在生产环境服务器下挖矿，此时可使用以下两条命令。\r\n\r\n``` bash\r\n$ npm audit production\r\n\r\n$ yarn audit dependencies\r\n```\r\n\r\n![Audit](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2021-11-03/clipboard-1904.f4c916.webp)\r\n\r\n通过 `npm audit fix` 可以自动修复该库的风险，原理就是升级依赖库，升级至已修复了风险的版本号。\r\n\r\n``` bash\r\n$ npm audit fix\r\n```\r\n\r\n`yarn audit` 无法自动修复，需要手动更新版本号，不过不够智能。\r\n\r\n[synk](https://snyk.io/) 是一个高级版的 `npm audit`，可自动修复，且支持 CICD 集成与多种语言。\r\n\r\n\r\n``` bash\r\n$ npx snyk\r\n\r\n$ npx wizard\r\n```\r\n\r\n![](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2021-11-03/clipboard-1409.96de76.webp)\r\n\r\n## CI 机器人\r\n\r\n可通过 CI/gitlab/github 中配置机器人，使他们每天轮询一次检查仓库的依赖中是否有风险。\r\n\r\n![Github 机器人](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2021-11-03/clipboard-4186.0dac46.webp)\r\n\r\n在 Github 中，可单独设置 `dependabot` 机器人，在仓库设置中开启小机器人，当它检测到有问题时，会自动向该仓库提交 PR。\r\n\r\n![dependabot](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2021-11-03/clipboard-6581.08f1c2.webp)\r\n\r\n而它的解决方案也是升级版本号。\r\n\r\n![Github Bot 提的 PR](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2021-11-03/clipboard-8617.e80863.webp)\r\n",
           "star": {
-            "totalCount": 1
+            "totalCount": 2
           },
           "author": {
             "login": "shfshanyue",
@@ -25077,6 +25088,183 @@
           }
         }
       ]
+    },
+    "labels": {
+      "nodes": [
+        {
+          "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+          "name": "前端工程化"
+        }
+      ]
+    }
+  },
+  {
+    "id": "I_kwDODQzyOs4_efCE",
+    "number": 754,
+    "title": "【Q728】如何对 npm package 进行发包",
+    "body": "",
+    "comments": {
+      "nodes": [
+        {
+          "id": "IC_kwDODQzyOs46ceEF",
+          "body": "## 准备工作：一个账号\r\n\r\n在发布公共 package 之前，需要在 [npm 官网](https://www.npmjs.com/)进行注册一个账号。\r\n\r\n随后，在本地(需要发包的地方)执行命令 `npm login`，进行交互式操作并且登录。\r\n\r\n``` bash\r\n$ npm login\r\n```\r\n\r\n## 发包\r\n\r\n发布一个 npm 包之前，填写 `package.json` 中以下三项最重要的字段。假设此时包的名称为 `@shanyue/just-demo`\r\n\r\n``` js\r\n{\r\n  name: '@shanyue/just-demo',\r\n  version: '1.0.0',\r\n  main: './index.js',\r\n}\r\n```\r\n\r\n之后执行 `npm publish` 发包即可。\r\n\r\n``` bash\r\n$ npm publish\r\n```\r\n\r\n一旦发布完成，在任意地方通过 `npm i` 均可依赖该包。\r\n\r\n``` js\r\nconst x = require('@shanyue/just-demo')\r\n\r\nconsole.log(x)\r\n```\r\n\r\n如若该包进行更新后，需要再次发包，可 `npm version` 控制该版本进行升级，记住需要遵守 [Semver 规范](https://github.com/shfshanyue/Daily-Question/issues/534)\r\n\r\n``` bash\r\n# 增加一个修复版本号: 1.0.1 -> 1.0.2 (自动更改 package.json 中的 version 字段)\r\n$ npm version patch\r\n\r\n# 增加一个小的版本号: 1.0.1 -> 1.1.0 (自动更改 package.json 中的 version 字段)\r\n$ npm version minor\r\n\r\n# 将更新后的包发布到 npm 中\r\n$ npm publish\r\n```\r\n\r\n## 实际发包的内容\r\n\r\n在 npm 发包时，实际发包内容为 `package.json` 中 `files` 字段，一般只需将构建后资源(如果需要构建)进行发包，源文件可发可不发。\r\n\r\n``` js\r\n{\r\n  files: ['dist']\r\n}\r\n```\r\n\r\n若需要查看一个 package 的发包内容，可直接在 `node_modules/${package}` 进行查看，将会发现它和源码有很大不同。也可以在 CDN 中进行查看，以 React 为例\r\n\r\n1. jsdelivr: <https://cdn.jsdelivr.net/npm/react/>\r\n1. unpkg: <https://unpkg.com/browse/react/>\r\n\r\n![UNPKG](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2021-11-27/clipboard-7248.4f8241.webp)\r\n\r\n## 发包的实际流程\r\n\r\n`npm publish` 将自动走过以下生命周期\r\n\r\n+ prepublishOnly: 如果发包之前需要构建，可以放在这里执行\r\n+ prepack\r\n+ prepare: 如果发包之前需要构建，可以放在这里执行 (该周期也会在 npm i 后自动执行)\r\n+ postpack\r\n+ publish\r\n+ postpublish\r\n\r\n发包实际上是将本地 package 中的所有资源进行打包，并上传到 npm 的一个过程。你可以通过 `npm pack` 命令查看详情\r\n\r\n``` bash\r\n$ npm pack\r\nnpm notice\r\nnpm notice 📦  midash@0.2.6\r\nnpm notice === Tarball Contents ===\r\nnpm notice 1.1kB  LICENSE\r\nnpm notice 812B   README.md\r\nnpm notice 5.7kB  dist/midash.cjs.development.js\r\nnpm notice 13.4kB dist/midash.cjs.development.js.map\r\nnpm notice 3.2kB  dist/midash.cjs.production.min.js\r\nnpm notice 10.5kB dist/midash.cjs.production.min.js.map\r\nnpm notice 5.3kB  dist/midash.esm.js\r\nnpm notice 13.4kB dist/midash.esm.js.map\r\nnpm notice 176B   dist/omit.d.ts\r\n......\r\nnpm notice === Tarball Details ===\r\nnpm notice name:          midash\r\nnpm notice version:       0.2.6\r\nnpm notice filename:      midash-0.2.6.tgz\r\nnpm notice package size:  11.5 kB\r\nnpm notice unpacked size: 67.8 kB\r\nnpm notice shasum:        c89d8c1aa96f78ce8b1dcf8f0f058fa7a6936a6a\r\nnpm notice integrity:     sha512-lyx8khPVkCHvH[...]kBL6K6VqOG6dQ==\r\nnpm notice total files:   46\r\nnpm notice\r\nmidash-0.2.6.tgz\r\n```\r\n\r\n当你发包成功后，也可以前往 [npm devtool](https://npm.devtool.tech/react) 查看各项数据。\r\n\r\n![](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2021-11-27/clipboard-8735.9e7628.webp)",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "shfshanyue",
+            "url": "https://github.com/shfshanyue"
+          }
+        }
+      ]
+    },
+    "labels": {
+      "nodes": [
+        {
+          "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+          "name": "前端工程化"
+        }
+      ]
+    }
+  },
+  {
+    "id": "I_kwDODQzyOs4_faBr",
+    "number": 755,
+    "title": "【Q729】如何分析前端打包体积",
+    "body": "",
+    "comments": {
+      "nodes": []
+    },
+    "labels": {
+      "nodes": [
+        {
+          "id": "MDU6TGFiZWwxNzA2NzQ0ODEz",
+          "name": "webpack"
+        }
+      ]
+    }
+  },
+  {
+    "id": "I_kwDODQzyOs4_fcHA",
+    "number": 756,
+    "title": "【Q730】什么是 AST，及其应用",
+    "body": "",
+    "comments": {
+      "nodes": [
+        {
+          "id": "IC_kwDODQzyOs46dox2",
+          "body": "`AST` 是 `Abstract Syntax Tree` 的简称，是前端工程化绕不过的一个名词。它涉及到工程化诸多环节的应用，比如:\r\n\r\n1. 如何将 Typescript 转化为 Javascript (typescript)\r\n1. 如何将 SASS/LESS 转化为 CSS     (sass/less)\r\n1. 如何将 ES6+ 转化为 ES5          (babel)\r\n1. 如何将 Javascript 代码进行格式化  (eslint/prettier)\r\n1. 如何识别 React 项目中的JSX       (babel)\r\n1. GraphQL、MDX、Vue SFC 等等\r\n\r\n而在语言转换的过程中，实质上就是对其 AST 的操作，核心步骤就是 AST 三步走\r\n\r\n1. Code -> AST  (Parse)\r\n1. AST  -> AST  (Transform)\r\n1. AST  -> Code (Generate)\r\n\r\n``` js\r\n// Code\r\nconst a = 4\r\n\r\n// AST\r\n{\r\n  \"type\": \"Program\",\r\n  \"start\": 0,\r\n  \"end\": 11,\r\n  \"body\": [\r\n    {\r\n      \"type\": \"VariableDeclaration\",\r\n      \"start\": 0,\r\n      \"end\": 11,\r\n      \"declarations\": [\r\n        {\r\n          \"type\": \"VariableDeclarator\",\r\n          \"start\": 6,\r\n          \"end\": 11,\r\n          \"id\": {\r\n            \"type\": \"Identifier\",\r\n            \"start\": 6,\r\n            \"end\": 7,\r\n            \"name\": \"a\"\r\n          },\r\n          \"init\": {\r\n            \"type\": \"Literal\",\r\n            \"start\": 10,\r\n            \"end\": 11,\r\n            \"value\": 4,\r\n            \"raw\": \"4\"\r\n          }\r\n        }\r\n      ],\r\n      \"kind\": \"const\"\r\n    }\r\n  ],\r\n  \"sourceType\": \"module\"\r\n}\r\n```\r\n\r\n不同的语言拥有不同的解析器，比如 Javascript 的解析器和 CSS 的解析器就完全不同。\r\n\r\n对相同的语言，也存在诸多的解析器，也就会生成多种 AST，如 `babel` 与 `espree`。\r\n\r\n在 [AST Explorer](https://astexplorer.net/) 中，列举了诸多语言的解析器(Parser)，及转化器(Transformer)。\r\n\r\n![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/96e2f4eba4e5475faab8068d7c06c43c~tplv-k3u1fbpfcp-zoom-1.image)\r\n\r\n## AST 的生成\r\n\r\nAST 的生成这一步骤被称为**解析(Parser)**，而该步骤也有两个阶段: 词法分析(Lexical Analysis)和语法分析(Syntactic Analysis)\r\n\r\n### 词法分析\r\n\r\n词法分析用以将代码转化为 `Token` 流，维护一个关于 Token 的数组\r\n\r\n``` js\r\n// Code\r\na = 3\r\n\r\n// Token\r\n[\r\n  { type: { ... }, value: \"a\", start: 0, end: 1, loc: { ... } },\r\n  { type: { ... }, value: \"=\", start: 2, end: 3, loc: { ... } },\r\n  { type: { ... }, value: \"3\", start: 4, end: 5, loc: { ... } },\r\n  ...\r\n]\r\n```\r\n\r\n词法分析后的 Token 流也有诸多应用，如:\r\n\r\n1. 代码检查，如 eslint 判断是否以分号结尾，判断是否含有分号的 token\r\n1. 语法高亮，如 highlight/prism 使之代码高亮\r\n1. 模板语法，如 ejs 等模板也离不开\r\n\r\n### 语法分析\r\n\r\n语法分析将 Token 流转化为结构化的 AST，方便操作\r\n\r\n``` js\r\n{\r\n  \"type\": \"Program\",\r\n  \"start\": 0,\r\n  \"end\": 5,\r\n  \"body\": [\r\n    {\r\n      \"type\": \"ExpressionStatement\",\r\n      \"start\": 0,\r\n      \"end\": 5,\r\n      \"expression\": {\r\n        \"type\": \"AssignmentExpression\",\r\n        \"start\": 0,\r\n        \"end\": 5,\r\n        \"operator\": \"=\",\r\n        \"left\": {\r\n          \"type\": \"Identifier\",\r\n          \"start\": 0,\r\n          \"end\": 1,\r\n          \"name\": \"a\"\r\n        },\r\n        \"right\": {\r\n          \"type\": \"Literal\",\r\n          \"start\": 4,\r\n          \"end\": 5,\r\n          \"value\": 3,\r\n          \"raw\": \"3\"\r\n        }\r\n      }\r\n    }\r\n  ],\r\n  \"sourceType\": \"module\"\r\n}\r\n```\r\n\r\n",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "shfshanyue",
+            "url": "https://github.com/shfshanyue"
+          }
+        }
+      ]
+    },
+    "labels": {
+      "nodes": [
+        {
+          "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+          "name": "前端工程化"
+        }
+      ]
+    }
+  },
+  {
+    "id": "I_kwDODQzyOs4_fhCs",
+    "number": 757,
+    "title": "【Q731】简述 browserslist 的意义",
+    "body": "",
+    "comments": {
+      "nodes": []
+    },
+    "labels": {
+      "nodes": [
+        {
+          "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+          "name": "前端工程化"
+        }
+      ]
+    }
+  },
+  {
+    "id": "I_kwDODQzyOs4_fimd",
+    "number": 758,
+    "title": "【Q732】简述 bundless 的优势与不足",
+    "body": "",
+    "comments": {
+      "nodes": []
+    },
+    "labels": {
+      "nodes": [
+        {
+          "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+          "name": "前端工程化"
+        }
+      ]
+    }
+  },
+  {
+    "id": "I_kwDODQzyOs4_fi8x",
+    "number": 759,
+    "title": "【Q733】简述 npm cache",
+    "body": "",
+    "comments": {
+      "nodes": []
+    },
+    "labels": {
+      "nodes": [
+        {
+          "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+          "name": "前端工程化"
+        }
+      ]
+    }
+  },
+  {
+    "id": "I_kwDODQzyOs4_foP6",
+    "number": 760,
+    "title": "【Q734】如何修复某个 npm 包的紧急 bug",
+    "body": "",
+    "comments": {
+      "nodes": []
+    },
+    "labels": {
+      "nodes": [
+        {
+          "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+          "name": "前端工程化"
+        }
+      ]
+    }
+  },
+  {
+    "id": "I_kwDODQzyOs4_fpMB",
+    "number": 761,
+    "title": "【Q735】前端如何进行高效的分包",
+    "body": "",
+    "comments": {
+      "nodes": []
+    },
+    "labels": {
+      "nodes": [
+        {
+          "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+          "name": "前端工程化"
+        }
+      ]
+    }
+  },
+  {
+    "id": "I_kwDODQzyOs4_fpOm",
+    "number": 762,
+    "title": "【Q736】前端如何对分支环境进行部署",
+    "body": "",
+    "comments": {
+      "nodes": []
     },
     "labels": {
       "nodes": [
