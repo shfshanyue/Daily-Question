@@ -23,16 +23,9 @@
 
 ## 请我喝杯咖啡
 
-<iframe src="//player.bilibili.com/player.html?aid=634255695&bvid=BV1Sb4y1t7Qr&cid=446911362&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<!-- ![](./sponsor.png) -->
 
 ## 大纲
-
-::: tip Bilibili
-<iframe src="//player.bilibili.com/player.html?aid=634255695&amp;bvid=BV1Sb4y1t7Qr&amp;cid=446911362&amp;page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="allowfullscreen" style="
-    width: 100%;
-    aspect-ratio: 4/3;
-"></iframe>
-:::
 
 ### 专题一: Bundle 基础设施建设
 
