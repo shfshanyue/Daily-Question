@@ -7,15 +7,19 @@ const sidebar = [
         children: [
           {
             title: '模块化方案',
-            number: 475
+            number: 475,
+            b: 'BV1hU4y1T7yn'
           },
           {
             title: 'AST 及其应用',
-            number: 756
+            number: 756,
+            b: 'BV1gb4y1B7Jk'
           },
           {
             title: '原理与运行时分析',
-            number: 729
+            number: 729,
+            code: 'https://github.com/shfshanyue/node-examples/blob/master/engineering/webpack/cjs/example/main.js',
+            b: 'BV1o44y1Y7Zs'
           },
           {
             title: '运行时 Chunk 加载分析',
