@@ -15963,7 +15963,19 @@
     "title": "【Q478】如何实现容器中子元素三个三列布局，子元素两个则两列布局",
     "body": "及容器中有三个及以上元素，则三列布局\r\n容器只有两个元素，两列布局平分\r\n容器只有一个元素，一列布局全占",
     "comments": {
-      "nodes": []
+      "nodes": [
+        {
+          "id": "IC_kwDODQzyOs46qkj-",
+          "body": "[代码演示](https://codepen.io/9527yl/pen/dyVyQJV)\r\n\r\ncss布局阔以使用`flex`，`grid`.\r\n\r\n关健在于如何判断有多少元素。我们只需要判断有1个，有2个的情况，其他都是三列布局\r\n\r\n```css\r\n\r\n/* 有1个元素 */\r\n.item:nth-last-child(1):first-child {\r\n  flex: 1;\r\n}\r\n\r\n.item:nth-last-child(1):first-child ~ .item {\r\n  flex: 1;\r\n}\r\n\r\n/* 有2个元素 */\r\n.item:nth-last-child(2):first-child {\r\n  flex: 1;\r\n}\r\n\r\n.item:nth-last-child(2):first-child ~ .item {\r\n  flex: 1;\r\n}\r\n\r\n```",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "9527YL",
+            "url": "https://github.com/9527YL"
+          }
+        }
+      ]
     },
     "labels": {
       "nodes": [
@@ -20286,7 +20298,7 @@
           "id": "MDEyOklzc3VlQ29tbWVudDg3MTA2ODM4NQ==",
           "body": "为了方便说明执行思路，把箭头函数换成了普通函数，起了名字，然后加上默认返回值 return  undefined\r\n```js\r\nPromise.resolve(console.log(0))\r\n    .then(function F1() {\r\n      console.log(1);\r\n      Promise.resolve(console.log(5))\r\n        .then(function F3() {\r\n          console.log(3)\r\n          return undefined\r\n        })\r\n        .then(function F4() {\r\n          console.log(4)\r\n          return undefined\r\n        })\r\n        .then(function F6() {\r\n          console.log(6)\r\n          return undefined\r\n        })\r\n\r\n      return undefined\r\n    })\r\n    .then(function F2() {\r\n      console.log(2)\r\n      return undefined\r\n    })\r\n    .then(function F7() {\r\n      console.log(7)\r\n      return undefined\r\n    })\r\n```\r\n\r\n执行过程：\r\n打印 0, **F1 放入 microtask**\r\n调用栈空了, 从 microtask 拿 F1 执行 \r\n打印 1, 遇到 Promise.resolve\r\n打印 5, 遇到 then, **F3 放入 microtask**\r\n继续执行同步的代码 也就是 return undefined, 然后看到 then\r\n**然后把 F2 放入 microtask**\r\n调用栈空了, 从 microtask 按顺序拿 F3 执行\r\n打印 3, 再遇到 return undefined, 然后看到 then, **再把 F4 放入 microtask**\r\n从 microtask 按顺序拿 F2 执行\r\n打印 2, 再遇到 return undefined, 然后看到 then, **再把 F7 放入 microtask**\r\n从 microtask 按顺序拿 F4 执行\r\n打印 4, 再遇到 return undefined, 然后看到 then, **再把 F6 放入 microtask**\r\n从 microtask 按顺序拿 F7 执行\r\n 打印 7 再遇到 return undefined, 没有 then 了\r\n从 microtask 按顺序拿 F6 执行\r\n打印 6\r\n\r\n\r\n画个图大概是这样：\r\n![image](https://user-images.githubusercontent.com/50768544/123897414-ecbb8980-d995-11eb-8293-01e274dd876f.png)\r\n",
           "star": {
-            "totalCount": 3
+            "totalCount": 4
           },
           "author": {
             "login": "xjxujing",
@@ -20903,6 +20915,17 @@
           "author": {
             "login": "shfshanyue",
             "url": "https://github.com/shfshanyue"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs46oLCK",
+          "body": "> ```js\r\n> Number.isNaN(NaN)\r\n> isNaN(NaN)\r\n> \r\n> Number.isNaN('NaN')\r\n> isNaN('NaN')\r\n> ```\r\n\r\n试了下 `Number.isNaN('NaN')` 是 `false`，其他都是 `true`\r\n\r\n",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "nmsn",
+            "url": "https://github.com/nmsn"
           }
         }
       ]
@@ -23078,7 +23101,7 @@
           "id": "IC_kwDODQzyOs40z5k-",
           "body": "不支持iframe 而且有一个理念问题 大屏是为了更大更清晰还是为了承载更多内容 \r\n\r\n其实这也是现在很多舍弃rem的原因  1:1还原之后 你希望pad也和手机一样？ 大屏手机也和普通手机一样？ 这个我觉得你体验过其实会发现这里其实不是一个好的展示逻辑\r\n\r\n还有一个找到的 但是没有实际踩过得坑 就是在很高的高倍屏上rem会有展示问题 但是我没遇到过...",
           "star": {
-            "totalCount": 1
+            "totalCount": 2
           },
           "author": {
             "login": "heretic-G",
@@ -24472,6 +24495,17 @@
             "login": "liweinanone",
             "url": "https://github.com/liweinanone"
           }
+        },
+        {
+          "id": "IC_kwDODQzyOs46vHCX",
+          "body": "0142356",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "mengliren666",
+            "url": "https://github.com/mengliren666"
+          }
         }
       ]
     },
@@ -24493,7 +24527,7 @@
       "nodes": [
         {
           "id": "IC_kwDODQzyOs43RFL_",
-          "body": "`webpack` 的 runtime，也就是 webpack 最后生成的代码，做了以下三件事:\r\n\r\n1. `__webpack_modules__`: 维护一个所有模块的数组。将入口模块解析为 AST，根据 AST 深度优先搜索所有的模块，并构建出这个模块数组。每个模块都由一个包裹函数 `(module, module.exports, __webpack_require__)` 对模块进行包裹构成。\r\n2. `__webpack_require__(moduleId)`: 手动实现加载一个模块。对已加载过的模块进行缓存，对胃加载过的模块，执行 id 定位到 `__webpack_modules__` 中的包裹函数，执行并返回 `module.exports`，并缓存\r\n3. `__webpack_require__(0)`: 运行第一个模块，即运行入口模块\r\n\r\n另外，当涉及到多个 chunk 的打包方式中，比如 `code spliting`，webpack 中会有 `jsonp` 加载 chunk 的运行时代码。\r\n\r\n以下是 `webpack runtime` 的最简代码，配置示例可见 [node-examples](https://github.com/shfshanyue/node-examples/blob/master/webpack/cjs/build.js)\r\n\r\n``` js\r\n/******/ var __webpack_modules__ = ([\r\n/* 0 */,\r\n/* 1 */\r\n/***/ ((module) => {\r\n\r\nmodule.exports = (...args) => args.reduce((x, y) => x + y, 0)\r\n\r\n/***/ })\r\n/******/ ]);\r\n/************************************************************************/\r\n/******/ // The module cache\r\n/******/ var __webpack_module_cache__ = {};\r\n/******/ \r\n/******/ // The require function\r\n/******/ function __webpack_require__(moduleId) {\r\n/******/ \t// Check if module is in cache\r\n/******/ \tvar cachedModule = __webpack_module_cache__[moduleId];\r\n/******/ \tif (cachedModule !== undefined) {\r\n/******/ \t\treturn cachedModule.exports;\r\n/******/ \t}\r\n/******/ \t// Create a new module (and put it into the cache)\r\n/******/ \tvar module = __webpack_module_cache__[moduleId] = {\r\n/******/ \t\t// no module.id needed\r\n/******/ \t\t// no module.loaded needed\r\n/******/ \t\texports: {}\r\n/******/ \t};\r\n/******/ \r\n/******/ \t// Execute the module function\r\n/******/ \t__webpack_modules__[moduleId](module, module.exports, __webpack_require__);\r\n/******/ \r\n/******/ \t// Return the exports of the module\r\n/******/ \treturn module.exports;\r\n/******/ }\r\n/******/ \r\n/************************************************************************/\r\nvar __webpack_exports__ = {};\r\n// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.\r\n(() => {\r\nconst sum = __webpack_require__(1)\r\n\r\nsum(3, 8)\r\n\r\n})();\r\n```\r\n\r\n对 `webpack runtime` 做进一步的精简，代码如下\r\n\r\n``` js\r\nconst __webpack_modules__ = [() => {}]\r\nconst __webpack_require = id => {\r\n  const module = { exports: {} }\r\n  const m = __webpack_modules__[id](module)\r\n  return module.exports\r\n}\r\n\r\n__webpack_require__(0)\r\n```",
+          "body": "`webpack` 的 runtime，也就是 webpack 最后生成的代码，做了以下三件事:\r\n\r\n1. `__webpack_modules__`: 维护一个所有模块的数组。将入口模块解析为 AST，根据 AST 深度优先搜索所有的模块，并构建出这个模块数组。每个模块都由一个包裹函数 `(module, module.exports, __webpack_require__)` 对模块进行包裹构成。\r\n2. `__webpack_require__(moduleId)`: 手动实现加载一个模块。对已加载过的模块进行缓存，对胃加载过的模块，执行 id 定位到 `__webpack_modules__` 中的包裹函数，执行并返回 `module.exports`，并缓存\r\n3. `__webpack_require__(0)`: 运行第一个模块，即运行入口模块\r\n\r\n另外，当涉及到多个 chunk 的打包方式中，比如 `code spliting`，webpack 中会有 `jsonp` 加载 chunk 的运行时代码。\r\n\r\n以下是 `webpack runtime` 的最简代码，配置示例可见 [node-examples](https://github.com/shfshanyue/node-examples/blob/master/engineering/webpack/cjs/example/main.js)\r\n\r\n``` js\r\n/******/ var __webpack_modules__ = ([\r\n/* 0 */,\r\n/* 1 */\r\n/***/ ((module) => {\r\n\r\nmodule.exports = (...args) => args.reduce((x, y) => x + y, 0)\r\n\r\n/***/ })\r\n/******/ ]);\r\n/************************************************************************/\r\n/******/ // The module cache\r\n/******/ var __webpack_module_cache__ = {};\r\n/******/ \r\n/******/ // The require function\r\n/******/ function __webpack_require__(moduleId) {\r\n/******/ \t// Check if module is in cache\r\n/******/ \tvar cachedModule = __webpack_module_cache__[moduleId];\r\n/******/ \tif (cachedModule !== undefined) {\r\n/******/ \t\treturn cachedModule.exports;\r\n/******/ \t}\r\n/******/ \t// Create a new module (and put it into the cache)\r\n/******/ \tvar module = __webpack_module_cache__[moduleId] = {\r\n/******/ \t\t// no module.id needed\r\n/******/ \t\t// no module.loaded needed\r\n/******/ \t\texports: {}\r\n/******/ \t};\r\n/******/ \r\n/******/ \t// Execute the module function\r\n/******/ \t__webpack_modules__[moduleId](module, module.exports, __webpack_require__);\r\n/******/ \r\n/******/ \t// Return the exports of the module\r\n/******/ \treturn module.exports;\r\n/******/ }\r\n/******/ \r\n/************************************************************************/\r\nvar __webpack_exports__ = {};\r\n// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.\r\n(() => {\r\nconst sum = __webpack_require__(1)\r\n\r\nsum(3, 8)\r\n\r\n})();\r\n```\r\n\r\n对 `webpack runtime` 做进一步的精简，代码如下\r\n\r\n``` js\r\nconst __webpack_modules__ = [() => {}]\r\nconst __webpack_require = id => {\r\n  const module = { exports: {} }\r\n  const m = __webpack_modules__[id](module)\r\n  return module.exports\r\n}\r\n\r\n__webpack_require__(0)\r\n```",
           "star": {
             "totalCount": 0
           },
@@ -24591,7 +24625,7 @@
       "nodes": [
         {
           "id": "IC_kwDODQzyOs437rs-",
-          "body": "一个 `webpack` 中运行时，包括最重要的两个数据结构：\r\n\r\n1. `__webpack_modules__`: 维护一个所有模块的数组。将入口模块解析为 AST，根据 AST 深度优先搜索所有的模块，并构建出这个模块数组。每个模块都由一个包裹函数 `(module, module.exports, __webpack_require__)` 对模块进行包裹构成。\r\n2. `__webpack_require__(moduleId)`: 手动实现加载一个模块。对已加载过的模块进行缓存，对未加载过的模块，根据 id 定位到 `__webpack_modules__` 中的包裹函数，执行并返回 `module.exports`，并缓存。\r\n\r\n在 webpack 中，通过 `import()` 可实现 code spliting.\r\n\r\n``` js\r\nimport('./sum').then(m => {\r\n  m.default(3, 4)\r\n})\r\n\r\n// 以下为 sum.js 内容\r\nconst sum = (x, y) => x + y\r\nexport default sum\r\n```\r\n\r\n使用 `import()` 加载数据时，以上代码将被 `webpack`  编译为以下代码\r\n\r\n``` js\r\n__webpack_require__.e(/* import() | sum */ 644).then(__webpack_require__.bind(__webpack_require__, 709)).then(m => {\r\n  m.default(3, 4)\r\n})\r\n```\r\n\r\n每一个 `chunk` 的代码如下，以下为 `sum` 函数所构建而成的 chunk:\r\n\r\n``` js\r\n\"use strict\";\r\n(self[\"webpackChunk\"] = self[\"webpackChunk\"] || []).push([[644],{\r\n\r\n/***/ 709:\r\n/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {\r\n\r\n        __webpack_require__.r(__webpack_exports__);\r\n        /* harmony export */ __webpack_require__.d(__webpack_exports__, {\r\n        /* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\r\n        /* harmony export */ });\r\n        const sum = (x, y) => x + y\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (sum);\r\n\r\n\r\n/***/ })\r\n\r\n}]);\r\n```\r\n\r\n以下两个数据结构是加载 `chunk` 的关键:\r\n\r\n1. `__webpack_require__.e`: 加载 chunk，如 644 为 chunkId。该函数将使用 JSONP (`document.createElement('script')`)异步加载 chunk 并封装为 Promise。\r\n1. `self[\"webpackChunk\"].push`: JSONP cllaback，收集 modules，如 709 为 sum 模块的 id。该函数将 709 置入  `__webpack_modules__` 中。\r\n\r\n实际上，在 `webpack` 中可配置 `output.chunkLoading` 来选择加载 chunk 的方式\r\n\r\n``` js\r\nwebpack({\r\n    entry: './index.js',\r\n    mode: 'none',\r\n    output: {\r\n      filename: 'main.[contenthash].js',\r\n      chunkFilename: '[name].chunk.[chunkhash].js',\r\n      path: path.resolve(__dirname, 'dist/import'),\r\n      clean: true,\r\n      // 默认为 `jsonp`\r\n      chunkLoading: 'import'\r\n    }\r\n  })\r\n```\r\n\r\n可参考示例 [webpack 运行时代码](https://github.com/shfshanyue/node-examples/blob/master/engineering/webpack/code-spliting/example/runtime.js) 中查看加载一个 chunk 的实现。\r\n",
+          "body": "一个 `webpack` 的运行时，包括最重要的两个数据结构：\r\n\r\n1. `__webpack_modules__`: 维护一个所有模块的数组。将入口模块解析为 AST，根据 AST 深度优先搜索所有的模块，并构建出这个模块数组。每个模块都由一个包裹函数 `(module, module.exports, __webpack_require__)` 对模块进行包裹构成。\r\n2. `__webpack_require__(moduleId)`: 手动实现加载一个模块。对已加载过的模块进行缓存，对未加载过的模块，根据 id 定位到 `__webpack_modules__` 中的包裹函数，执行并返回 `module.exports`，并缓存。\r\n\r\n## code spliting\r\n\r\n在 webpack 中，通过 `import()` 可实现 code spliting。假设我们有以下文件:\r\n\r\n``` js\r\n// 以下为 index.js 内容\r\nimport('./sum').then(m => {\r\n  m.default(3, 4)\r\n})\r\n\r\n// 以下为 sum.js 内容\r\nconst sum = (x, y) => x + y\r\nexport default sum\r\n```\r\n\r\n我们将使用以下简单的 `webpack` 配置进行打包，具体示例可参考 [node-examples:code-spliting](https://github.com/shfshanyue/node-examples/blob/master/engineering/webpack/code-spliting/build.js)\r\n\r\n``` js\r\n{\r\n  entry: './index.js',\r\n  mode: 'none',\r\n  output: {\r\n    filename: '[name].[contenthash].js',\r\n    chunkFilename: 'chunk.[name].[id].[contenthash].js',\r\n    path: path.resolve(__dirname, 'dist/deterministic'),\r\n    clean: true\r\n  },\r\n  optimization: {\r\n    moduleIds: 'deterministic',\r\n    chunkIds: 'deterministic'\r\n  }\r\n}\r\n```\r\n\r\n## 运行时解析\r\n\r\n通过观察打包后的文件 `dist/deterministic/main.xxxxxx.js`，可以发现: 使用 `import()` 加载数据时，以上代码将被 `webpack`  编译为以下代码\r\n\r\n``` js\r\n__webpack_require__.e(/* import() | sum */ 644)\r\n.then(__webpack_require__.bind(__webpack_require__, 709))\r\n.then(m => {\r\n  m.default(3, 4)\r\n})\r\n```\r\n\r\n此时 `644` 为 chunkId，观察 `chunk.sum.xxxx.js` 文件，以下为 `sum` 函数所构建而成的 chunk:\r\n\r\n``` js\r\n\"use strict\";\r\n(self[\"webpackChunk\"] = self[\"webpackChunk\"] || []).push([[644],{\r\n\r\n/***/ 709:\r\n/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {\r\n\r\n        __webpack_require__.r(__webpack_exports__);\r\n        /* harmony export */ __webpack_require__.d(__webpack_exports__, {\r\n        /* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\r\n        /* harmony export */ });\r\n        const sum = (x, y) => x + y\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (sum);\r\n\r\n\r\n/***/ })\r\n\r\n}]);\r\n```\r\n\r\n以下两个数据结构是加载 `chunk` 的关键:\r\n\r\n1. `__webpack_require__.e`: 加载 chunk。该函数将使用 `document.createElement('script')` 异步加载 chunk 并封装为 Promise。\r\n1. `self[\"webpackChunk\"].push`: JSONP cllaback，收集 modules 至 `__webpack_modules__`，并将 `__webpack_require__.e` 的 Promise 进行 resolve。\r\n\r\n实际上，在 `webpack` 中可配置 `output.chunkLoading` 来选择加载 chunk 的方式，比如选择通过 `import()` 的方式进行加载。(由于在生产环境需要考虑 import 的兼容性，目前还是 JSONP 方式较多)\r\n\r\n``` js\r\n{\r\n  entry: './index.js',\r\n  mode: 'none',\r\n  output: {\r\n    filename: 'main.[contenthash].js',\r\n    chunkFilename: '[name].chunk.[chunkhash].js',\r\n    path: path.resolve(__dirname, 'dist/import'),\r\n    clean: true,\r\n    // 默认为 `jsonp`\r\n    chunkLoading: 'import'\r\n  }\r\n})\r\n```\r\n\r\n可参考示例 [webpack 运行时代码](https://github.com/shfshanyue/node-examples/blob/master/engineering/webpack/code-spliting/example/runtime.js) 中查看加载一个 chunk 的实现。\r\n",
           "star": {
             "totalCount": 0
           },
@@ -25062,7 +25096,30 @@
     "title": "【Q724】软链接和硬链接有何区别",
     "body": "",
     "comments": {
-      "nodes": []
+      "nodes": [
+        {
+          "id": "IC_kwDODQzyOs46u1oq",
+          "body": "https://www.jianshu.com/p/dde6a01c4094\r\n\r\n这个解释满分",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "Gentlemancj",
+            "url": "https://github.com/Gentlemancj"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs46xDkF",
+          "body": "> https://www.jianshu.com/p/dde6a01c4094\r\n> \r\n> 这个解释满分\r\n\r\n链接挂了",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "nmsn",
+            "url": "https://github.com/nmsn"
+          }
+        }
+      ]
     },
     "labels": {
       "nodes": [
@@ -25219,7 +25276,7 @@
       "nodes": [
         {
           "id": "IC_kwDODQzyOs46dox2",
-          "body": "`AST` 是 `Abstract Syntax Tree` 的简称，是前端工程化绕不过的一个名词。它涉及到工程化诸多环节的应用，比如:\r\n\r\n1. 如何将 Typescript 转化为 Javascript (typescript)\r\n1. 如何将 SASS/LESS 转化为 CSS     (sass/less)\r\n1. 如何将 ES6+ 转化为 ES5          (babel)\r\n1. 如何将 Javascript 代码进行格式化  (eslint/prettier)\r\n1. 如何识别 React 项目中的JSX       (babel)\r\n1. GraphQL、MDX、Vue SFC 等等\r\n\r\n而在语言转换的过程中，实质上就是对其 AST 的操作，核心步骤就是 AST 三步走\r\n\r\n1. Code -> AST  (Parse)\r\n1. AST  -> AST  (Transform)\r\n1. AST  -> Code (Generate)\r\n\r\n``` js\r\n// Code\r\nconst a = 4\r\n\r\n// AST\r\n{\r\n  \"type\": \"Program\",\r\n  \"start\": 0,\r\n  \"end\": 11,\r\n  \"body\": [\r\n    {\r\n      \"type\": \"VariableDeclaration\",\r\n      \"start\": 0,\r\n      \"end\": 11,\r\n      \"declarations\": [\r\n        {\r\n          \"type\": \"VariableDeclarator\",\r\n          \"start\": 6,\r\n          \"end\": 11,\r\n          \"id\": {\r\n            \"type\": \"Identifier\",\r\n            \"start\": 6,\r\n            \"end\": 7,\r\n            \"name\": \"a\"\r\n          },\r\n          \"init\": {\r\n            \"type\": \"Literal\",\r\n            \"start\": 10,\r\n            \"end\": 11,\r\n            \"value\": 4,\r\n            \"raw\": \"4\"\r\n          }\r\n        }\r\n      ],\r\n      \"kind\": \"const\"\r\n    }\r\n  ],\r\n  \"sourceType\": \"module\"\r\n}\r\n```\r\n\r\n不同的语言拥有不同的解析器，比如 Javascript 的解析器和 CSS 的解析器就完全不同。\r\n\r\n对相同的语言，也存在诸多的解析器，也就会生成多种 AST，如 `babel` 与 `espree`。\r\n\r\n在 [AST Explorer](https://astexplorer.net/) 中，列举了诸多语言的解析器(Parser)，及转化器(Transformer)。\r\n\r\n![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/96e2f4eba4e5475faab8068d7c06c43c~tplv-k3u1fbpfcp-zoom-1.image)\r\n\r\n## AST 的生成\r\n\r\nAST 的生成这一步骤被称为**解析(Parser)**，而该步骤也有两个阶段: 词法分析(Lexical Analysis)和语法分析(Syntactic Analysis)\r\n\r\n### 词法分析\r\n\r\n词法分析用以将代码转化为 `Token` 流，维护一个关于 Token 的数组\r\n\r\n``` js\r\n// Code\r\na = 3\r\n\r\n// Token\r\n[\r\n  { type: { ... }, value: \"a\", start: 0, end: 1, loc: { ... } },\r\n  { type: { ... }, value: \"=\", start: 2, end: 3, loc: { ... } },\r\n  { type: { ... }, value: \"3\", start: 4, end: 5, loc: { ... } },\r\n  ...\r\n]\r\n```\r\n\r\n词法分析后的 Token 流也有诸多应用，如:\r\n\r\n1. 代码检查，如 eslint 判断是否以分号结尾，判断是否含有分号的 token\r\n1. 语法高亮，如 highlight/prism 使之代码高亮\r\n1. 模板语法，如 ejs 等模板也离不开\r\n\r\n### 语法分析\r\n\r\n语法分析将 Token 流转化为结构化的 AST，方便操作\r\n\r\n``` js\r\n{\r\n  \"type\": \"Program\",\r\n  \"start\": 0,\r\n  \"end\": 5,\r\n  \"body\": [\r\n    {\r\n      \"type\": \"ExpressionStatement\",\r\n      \"start\": 0,\r\n      \"end\": 5,\r\n      \"expression\": {\r\n        \"type\": \"AssignmentExpression\",\r\n        \"start\": 0,\r\n        \"end\": 5,\r\n        \"operator\": \"=\",\r\n        \"left\": {\r\n          \"type\": \"Identifier\",\r\n          \"start\": 0,\r\n          \"end\": 1,\r\n          \"name\": \"a\"\r\n        },\r\n        \"right\": {\r\n          \"type\": \"Literal\",\r\n          \"start\": 4,\r\n          \"end\": 5,\r\n          \"value\": 3,\r\n          \"raw\": \"3\"\r\n        }\r\n      }\r\n    }\r\n  ],\r\n  \"sourceType\": \"module\"\r\n}\r\n```\r\n\r\n",
+          "body": "\r\n`AST` 是 `Abstract Syntax Tree` 的简称，是前端工程化绕不过的一个名词。它涉及到工程化诸多环节的应用，比如:\r\n\r\n1. 如何将 Typescript 转化为 Javascript (typescript)\r\n1. 如何将 SASS/LESS 转化为 CSS (sass/less)\r\n1. 如何将 ES6+ 转化为 ES5 (babel)\r\n1. 如何将 Javascript 代码进行格式化 (eslint/prettier)\r\n1. 如何识别 React 项目中的 JSX (babel)\r\n1. GraphQL、MDX、Vue SFC 等等\r\n\r\n而在语言转换的过程中，实质上就是对其 AST 的操作，核心步骤就是 AST 三步走\r\n\r\n1. Code -> AST (Parse)\r\n1. AST -> AST (Transform)\r\n1. AST -> Code (Generate)\r\n\r\n```js\r\n// Code\r\nconst a = 4\r\n\r\n// AST\r\n{\r\n  \"type\": \"Program\",\r\n  \"start\": 0,\r\n  \"end\": 11,\r\n  \"body\": [\r\n    {\r\n      \"type\": \"VariableDeclaration\",\r\n      \"start\": 0,\r\n      \"end\": 11,\r\n      \"declarations\": [\r\n        {\r\n          \"type\": \"VariableDeclarator\",\r\n          \"start\": 6,\r\n          \"end\": 11,\r\n          \"id\": {\r\n            \"type\": \"Identifier\",\r\n            \"start\": 6,\r\n            \"end\": 7,\r\n            \"name\": \"a\"\r\n          },\r\n          \"init\": {\r\n            \"type\": \"Literal\",\r\n            \"start\": 10,\r\n            \"end\": 11,\r\n            \"value\": 4,\r\n            \"raw\": \"4\"\r\n          }\r\n        }\r\n      ],\r\n      \"kind\": \"const\"\r\n    }\r\n  ],\r\n  \"sourceType\": \"module\"\r\n}\r\n```\r\n\r\n不同的语言拥有不同的解析器，比如 Javascript 的解析器和 CSS 的解析器就完全不同。\r\n\r\n对相同的语言，也存在诸多的解析器，也就会生成多种 AST，如 `babel` 与 `espree`。\r\n\r\n在 [AST Explorer](https://astexplorer.net/) 中，列举了诸多语言的解析器(Parser)，及转化器(Transformer)。\r\n\r\n![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/96e2f4eba4e5475faab8068d7c06c43c~tplv-k3u1fbpfcp-zoom-1.image)\r\n\r\n## AST 的生成\r\n\r\nAST 的生成这一步骤被称为**解析(Parser)**，而该步骤也有两个阶段: 词法分析(Lexical Analysis)和语法分析(Syntactic Analysis)\r\n\r\n### 词法分析\r\n\r\n词法分析用以将代码转化为 `Token` 流，维护一个关于 Token 的数组\r\n\r\n```js\r\n// Code\r\na = 3\r\n\r\n// Token\r\n[\r\n  { type: { ... }, value: \"a\", start: 0, end: 1, loc: { ... } },\r\n  { type: { ... }, value: \"=\", start: 2, end: 3, loc: { ... } },\r\n  { type: { ... }, value: \"3\", start: 4, end: 5, loc: { ... } },\r\n  ...\r\n]\r\n```\r\n\r\n词法分析后的 Token 流也有诸多应用，如:\r\n\r\n1. 代码检查，如 eslint 判断是否以分号结尾，判断是否含有分号的 token\r\n1. 语法高亮，如 highlight/prism 使之代码高亮\r\n1. 模板语法，如 ejs 等模板也离不开\r\n\r\n### 语法分析\r\n\r\n语法分析将 Token 流转化为结构化的 AST，方便操作\r\n\r\n```js\r\n{\r\n  \"type\": \"Program\",\r\n  \"start\": 0,\r\n  \"end\": 5,\r\n  \"body\": [\r\n    {\r\n      \"type\": \"ExpressionStatement\",\r\n      \"start\": 0,\r\n      \"end\": 5,\r\n      \"expression\": {\r\n        \"type\": \"AssignmentExpression\",\r\n        \"start\": 0,\r\n        \"end\": 5,\r\n        \"operator\": \"=\",\r\n        \"left\": {\r\n          \"type\": \"Identifier\",\r\n          \"start\": 0,\r\n          \"end\": 1,\r\n          \"name\": \"a\"\r\n        },\r\n        \"right\": {\r\n          \"type\": \"Literal\",\r\n          \"start\": 4,\r\n          \"end\": 5,\r\n          \"value\": 3,\r\n          \"raw\": \"3\"\r\n        }\r\n      }\r\n    }\r\n  ],\r\n  \"sourceType\": \"module\"\r\n}\r\n```\r\n\r\n## 实践\r\n\r\n可通过自己写一个解析器，将语言 (DSL) 解析为 AST 进行练手，以下两个示例是不错的选择\r\n\r\n1. 解析简单的 HTML 为 AST\r\n1. 解析 Marktodwn List 为 AST\r\n\r\n或可参考一个最简编译器的实现 [the super tiny compiler](https://github.com/jamiebuilds/the-super-tiny-compiler)\r\n",
           "star": {
             "totalCount": 0
           },
