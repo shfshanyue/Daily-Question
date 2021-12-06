@@ -24,11 +24,13 @@ const sidebar = [
           {
             title: '运行时 Chunk 加载分析',
             number: 733,
-            code: 'https://github.com/shfshanyue/node-examples/blob/master/engineering/webpack/code-spliting/build.js'
+            code: 'https://github.com/shfshanyue/node-examples/blob/master/engineering/webpack/code-spliting/build.js',
+            b: 'BV1k44y1h7DW'
           },
           {
             title: '加载非JS资源: JSON与图片',
-            number: 736
+            number: 736,
+            code: 'https://github.com/shfshanyue/mini-code/tree/master/code/json-loader'
           },
           {
             title: '加载非JS资源: Style',

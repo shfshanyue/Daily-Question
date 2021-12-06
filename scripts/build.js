@@ -51,7 +51,8 @@ title: "${issue.title.slice(6)} | 前端工程化三十八讲"
     return _.get(comment, 'author.login') === 'shfshanyue'
   }), x => x.star.totalCount)
   const bilibili = issue.b ? `::: tip 视频讲解\r\n<iframe src="//player.bilibili.com/player.html?bvid=${issue.b}" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="allowfullscreen" style="width: 100%;aspect-ratio: 4 / 3;margin: 1rem 0;"></iframe>\r\n:::` : ''
-  const md = [frontmatter, title, body, more, bilibili, comment?.body || ''].join('\n\n')
+  const code = issue.code ? `::: tip Code\r\n可点击此处查看示例或实践代码: [Code](issue.code)\r\n:::` : ''
+  const md = [frontmatter, title, body, more, code, bilibili, comment?.body || ''].join('\n\n')
   return md
 }
 
@@ -103,6 +104,7 @@ async function generateMd () {
     }
     if (engineeringItems.includes(issue.number)) {
       issue.b = engineeringItemsById[issue.number].b
+      issue.code = engineeringItemsById[issue.number].code
       const md = generateEngineeringIssueMd(issue)
       files.push([path.resolve(dir, 'engineering', `${issue.number}.md`), md])
     }
