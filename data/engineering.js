@@ -30,19 +30,24 @@ const sidebar = [
           {
             title: '加载非JS资源: JSON与图片',
             number: 736,
-            code: 'https://github.com/shfshanyue/mini-code/tree/master/code/json-loader'
+            code: 'https://github.com/shfshanyue/mini-code/tree/master/code/json-loader',
+            b: 'BV1FS4y1971G'
           },
           {
             title: '加载非JS资源: Style',
-            number: 737
+            number: 737,
+            code: ''
           },
           {
             title: '将脚本注入 HTML 的处理',
-            number: 735
+            number: 735,
+            code: 'https://github.com/shfshanyue/mini-code/tree/master/code/html-webpack-plugin',
+            b: 'BV1rY411p7vc'
           },
           {
             title: 'Hot Module Reload',
-            number: 79
+            number: 79,
+            code: ''
           },
           {
             title: '构建性能优化',
