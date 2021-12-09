@@ -36,7 +36,8 @@ const sidebar = [
           {
             title: '加载非JS资源: Style',
             number: 737,
-            code: ''
+            code: 'https://github.com/shfshanyue/node-examples/tree/master/engineering/webpack/style',
+            b: 'bv1Wr4y1X7mY'
           },
           {
             title: '将脚本注入 HTML 的处理',
@@ -47,11 +48,12 @@ const sidebar = [
           {
             title: 'Hot Module Reload',
             number: 79,
-            code: ''
+            code: 'https://github.com/shfshanyue/node-examples/tree/master/engineering/webpack/hmr',
+            b: 'BV1R341147T3'
           },
           {
             title: '构建性能优化',
-            number: 738
+            number: 738,
           }
         ]
       },
