@@ -113,7 +113,8 @@ async function generateMd () {
   const format = content => prettier.format(content, { parser: 'markdown' })
 
   for (const file of files) {
-    fs.writeFileSync(file[0], format(file[1]))
+    // 138 先不用做格式化
+    fs.writeFileSync(file[0], file[0].includes('138') ? file[1] : format(file[1]))
   }
 }
 
