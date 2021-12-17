@@ -131,7 +131,7 @@
           "id": "MDEyOklzc3VlQ29tbWVudDU0OTMzNjQ4Nw==",
           "body": "从 `ping` 的 `man` 手册就可以看出来，`ping` 实际上发送了 **`ICMP ECHO_REQUEST`** 的报文\r\n\r\n> ping -- send ICMP ECHO_REQUEST packets to network hosts\r\n\r\n通过让目标 IP 地址返回 **`ICMP ECHO_RESPONSE`** 报文来判断 IP 可不可达。\r\n\r\n`ICMP` 分为 `Query` 查询报文及 `Error Message` 报文，ping 为查询报文。",
           "star": {
-            "totalCount": 3
+            "totalCount": 4
           },
           "author": {
             "login": "shfshanyue",
@@ -595,7 +595,7 @@
           "id": "MDEyOklzc3VlQ29tbWVudDczNDEyNTk0Mw==",
           "body": "1. Vue2.x通过给每个对象添加`getter setter`属性去改变对象,实现对数据的观测,Vue3.x通过Proxy代理目标对象,且一开始只代理最外层对象,嵌套对象`lazy by default` ,性能会更好\r\n2. 支持数组索引修改,对象属性的增加,删除\r\n",
           "star": {
-            "totalCount": 2
+            "totalCount": 3
           },
           "author": {
             "login": "hefeng1208",
@@ -2637,6 +2637,17 @@
           "author": {
             "login": "lf75152798",
             "url": "https://github.com/lf75152798"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs47U_ei",
+          "body": "感觉没有怎么说到原理的东西哇",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "spicylemonhaha",
+            "url": "https://github.com/spicylemonhaha"
           }
         }
       ]
@@ -21522,7 +21533,19 @@
     "title": "【Q636】你们项目中使用了哪些依赖/第三方库",
     "body": "",
     "comments": {
-      "nodes": []
+      "nodes": [
+        {
+          "id": "IC_kwDODQzyOs47ViZq",
+          "body": "lodash axios  echarts file-saver patch-package qs sortablejs vue-clipboard2 xlsx watermark-dom",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "Mikerui",
+            "url": "https://github.com/Mikerui"
+          }
+        }
+      ]
     },
     "labels": {
       "nodes": [
@@ -25056,7 +25079,29 @@
       "nodes": [
         {
           "id": "IC_kwDODQzyOs4505c4",
-          "body": "\r\n## 为何有人说第三方库不需要提交 package-lock.json/yarn.lock？\r\n\r\n> 该观点仅对第三方库的 `dependencies` 有效\r\n\r\n答: 你自己项目中所有依赖都会根据 lockfile 被锁死，**但并不会依照你第三方依赖的 lockfile**。\r\n\r\n试举一例:\r\n\r\n1. 项目中依赖 `react@^17.0.2`\r\n2. 而 `react@17.0.2` 依赖 `object-assign@^4.1.0`\r\n\r\n在 React 自身的 `yarn.lock` 中版本锁定依赖如下:\r\n\r\n``` bash\r\nreact@17.0.2\r\n└── object-assign@4.1.0 (PS: 请注意该版本号)\r\n```\r\n\r\n而在个人业务项目中 `yarn.lock` 中版本锁定依赖如下:\r\n\r\n``` bash\r\nApplication\r\n└── react@17.0.2\r\n    └── object-assign@4.99.99 (PS: 请注意该版本号)\r\n```\r\n\r\n**此时个人业务项目中 `object-assign@4.99.99` 与 React 中 `object-assign@4.1.0` 不符，将有可能出现问题**。\r\n\r\n此时，即使第三方库存在 `lockfile`，但也有着间接依赖(如此时的 `object-assign`，是第三方的依赖，个人业务项目中的依赖的依赖)不可控的问题。\r\n\r\n## 第三方库如何解决潜在的间接依赖不可控问题\r\n\r\n可参考 `next.js` 的解决方案。\r\n\r\n> [next.js 源码](https://github.com/vercel/next.js/tree/canary/packages/next) 点击此处\r\n\r\n1. 将所有依赖中的版本号在 `package.json` 中锁死。可见 [package.json](https://github.com/vercel/next.js/tree/canary/packages/next/package.json)\r\n1. 将部分依赖直接编译后直接引入，而非通过依赖的方式，如 `webpack`、`babel` 等。可见目录 [next/compiled](https://github.com/vercel/next.js/tree/canary/packages/next/compiled)\r\n\r\n以下是一部分 `package.json`\r\n\r\n``` js\r\n{\r\n  \"dependencies\": {\r\n    \"@babel/runtime\": \"7.15.4\",\r\n    \"@hapi/accept\": \"5.0.2\",\r\n    \"@napi-rs/triples\": \"1.0.3\"\r\n  }\r\n}\r\n```\r\n\r\n除了参考 `next.js` 直接锁死版本号方式外，还可以仍然按照 `^x.x.x` 加勤加维护并时时更新 `depencencies`\r\n\r\n## 总结\r\n\r\n`lockfile` 对于第三方库仍然必不可少。可见 `react`、`next.js`、`webpack` 均有 `yarn.lock`。(PS: 可见 yarn 的受欢迎程度，另外 vue3 采用了 pnpm)\r\n\r\n1. 第三方库的 `devDependencies` 必须锁定，这样 Contributor 可根据 lockfile 很容易将项目跑起来。\r\n2. 第三方库的 `dependencies` 虽然有可能存在不可控问题，但是可通过锁死 `package.json` 依赖或者勤加更新的方式来解决。",
+          "body": "## 为何有人说第三方库不需要提交 package-lock.json/yarn.lock？\r\n\r\n> 该观点仅对第三方库的 `dependencies` 有效\r\n\r\n答: 你自己项目中所有依赖都会根据 lockfile 被锁死，**但并不会依照你第三方依赖的 lockfile**。\r\n\r\n试举一例:\r\n\r\n1. 项目中依赖 `react@^17.0.2`\r\n2. 而 `react@17.0.2` 依赖 `object-assign@^4.1.0`\r\n\r\n在 React 自身的 `yarn.lock` 中版本锁定依赖如下:\r\n\r\n``` bash\r\nreact@17.0.2\r\n└── object-assign@4.1.0 (PS: 请注意该版本号)\r\n```\r\n\r\n而在个人业务项目中 `yarn.lock` 中版本锁定依赖如下:\r\n\r\n``` bash\r\nApplication\r\n└── react@17.0.2\r\n    └── object-assign@4.99.99 (PS: 请注意该版本号)\r\n```\r\n\r\n**此时个人业务项目中 `object-assign@4.99.99` 与 React 中 `object-assign@4.1.0` 不符，将有可能出现问题**。\r\n\r\n此时，即使第三方库存在 `lockfile`，但也有着间接依赖(如此时的 `object-assign`，是第三方的依赖，个人业务项目中的依赖的依赖)不可控的问题。\r\n\r\n## 第三方库如何解决潜在的间接依赖不可控问题\r\n\r\n可参考 `next.js` 的解决方案。\r\n\r\n> [next.js 源码](https://github.com/vercel/next.js/tree/canary/packages/next) 点击此处\r\n\r\n1. 将所有依赖中的版本号在 `package.json` 中锁死。可见 [package.json](https://github.com/vercel/next.js/tree/canary/packages/next/package.json)\r\n1. 将部分依赖直接编译后直接引入，而非通过依赖的方式，如 `webpack`、`babel` 等。可见目录 [next/compiled](https://github.com/vercel/next.js/tree/canary/packages/next/compiled)\r\n\r\n以下是一部分 `package.json`\r\n\r\n``` js\r\n{\r\n  \"dependencies\": {\r\n    \"@babel/runtime\": \"7.15.4\",\r\n    \"@hapi/accept\": \"5.0.2\",\r\n    \"@napi-rs/triples\": \"1.0.3\"\r\n  }\r\n}\r\n```\r\n\r\n除了参考 `next.js` 直接锁死版本号方式外，还可以仍然按照 `^x.x.x` 加勤加维护并时时更新 `depencencies`\r\n\r\n## 总结\r\n\r\n`lockfile` 对于第三方库仍然必不可少。可见 `react`、`next.js`、`webpack` 均有 `yarn.lock`。(PS: 可见 yarn 的受欢迎程度，另外 vue3 采用了 pnpm)\r\n\r\n1. 第三方库的 `devDependencies` 必须在 lockfile 中锁定，这样 Contributor 可根据 lockfile 很容易将项目跑起来。\r\n2. 第三方库的 `dependencies` 虽然有可能存在不可控问题，但是可通过锁死 `package.json` 依赖或者勤加更新的方式来解决。",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "shfshanyue",
+            "url": "https://github.com/shfshanyue"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs47MS2c",
+          "body": "对于业务开发者而言第三方库是否锁死自己无法决定吗？ 需要库的开发者自觉处理，请问大佬是这样吗",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "xiyuanyuan",
+            "url": "https://github.com/xiyuanyuan"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs47MXpw",
+          "body": "@xiyuanyuan 不对，恰好相反。我们是对于间接依赖而言的，在业务方可以锁死，但是库的开发者无法决定他们的依赖在我们业务方的锁死版本号",
           "star": {
             "totalCount": 0
           },

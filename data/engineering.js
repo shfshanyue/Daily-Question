@@ -67,10 +67,13 @@ const sidebar = [
           {
             title: 'Javascript 压缩',
             number: 138,
+            b: 'BV1U3411s7Y1'
           },
           {
             title: 'Tree Shaking',
-            number: 87
+            number: 87,
+            b: 'BV1wF41167eb',
+            code: 'https://github.com/shfshanyue/node-examples/tree/master/engineering/webpack/tree-shaking'
           },
           {
             title: 'Polyfill: corejs',
@@ -88,10 +91,14 @@ const sidebar = [
           {
             title: '原理与浏览器中的 ESM',
             number: 752,
+            b: 'BV1Ga411k7Fc',
+            code: 'https://github.com/shfshanyue/node-examples/tree/master/engineering/esm/importmap'
           },
           {
             title: 'CommonJS To ESM',
-            number: 753
+            number: 753,
+            b: 'BV1mq4y1q7Cb',
+            code: 'https://github.com/shfshanyue/node-examples/tree/master/engineering/rollup/esm'
           },
           {
             title: 'Bundless 与生产环境',
@@ -137,7 +144,8 @@ const sidebar = [
           },
           {
             title: 'package 中的 lockfile',
-            number: 747
+            number: 747,
+            b: 'BV1em4y1X7mD'
           }
         ]
       },
@@ -206,7 +214,8 @@ const sidebar = [
           },
           {
             title: 'Docker 部署',
-            number: 749
+            number: 749,
+            b: 'BV18T4y1R72R',
           },
           {
             title: 'Docker Preview 部署',
