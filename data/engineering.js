@@ -119,16 +119,20 @@ const sidebar = [
             number: 534,
           },
           {
-            title: 'main/module/export 入口',
+            title: 'main/module/exports 入口',
             number: 535,
+            code: 'https://github.com/d3/d3/blob/main/package.json#L33',
+            b: 'BV1jZ4y1X7Pc'
           },
           {
             title: 'dep/devDep 的区别',
-            number: 521
+            number: 521,
+            code: 'https://github.com/shfshanyue/node-examples/tree/master/engineering/package/devdep'
           },
           {
             title: 'engines 宿主环境控制',
-            number: 533
+            number: 533,
+            code: 'https://github.com/shfshanyue/node-examples/tree/master/engineering/package/engines'
           },
           {
             title: 'script hooks 及其风险',
@@ -141,6 +145,7 @@ const sidebar = [
           {
             title: 'lockfile 及其影响',
             number: 196,
+            b: 'BV1qL4y1J7bA'
           },
           {
             title: 'package 中的 lockfile',
@@ -197,7 +202,8 @@ const sidebar = [
           },
           {
             title: 'Package Patch',
-            number: 760
+            number: 760,
+            b: 'BV1dq4y127GA'
           }
         ]
       },
