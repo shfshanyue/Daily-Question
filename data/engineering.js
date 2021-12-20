@@ -168,7 +168,8 @@ const sidebar = [
           {
             title: 'pnpm 的优势',
             number: 751,
-            b: 'BV1Sb4y1t7Qr'
+            b: 'BV1Sb4y1t7Qr',
+            code: 'https://github.com/shfshanyue/node-examples/tree/master/engineering/package/topology-dup'
           }
         ]
       },
