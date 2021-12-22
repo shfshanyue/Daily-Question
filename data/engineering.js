@@ -117,17 +117,19 @@ const sidebar = [
           {
             title: 'semver 与版本管理',
             number: 534,
+            b: 'BV1d44y1E7zj'
           },
           {
             title: 'main/module/exports 入口',
             number: 535,
-            code: 'https://github.com/d3/d3/blob/main/package.json#L33',
+            code: 'https://github.com/shfshanyue/node-examples/tree/master/engineering/package/exportmap',
             b: 'BV1jZ4y1X7Pc'
           },
           {
             title: 'dep/devDep 的区别',
             number: 521,
-            code: 'https://github.com/shfshanyue/node-examples/tree/master/engineering/package/devdep'
+            code: 'https://github.com/shfshanyue/node-examples/tree/master/engineering/package/devdep',
+            b: 'BV1HM4y1c7ta'
           },
           {
             title: 'engines 宿主环境控制',
