@@ -348,6 +348,17 @@
             "login": "shfshanyue",
             "url": "https://github.com/shfshanyue"
           }
+        },
+        {
+          "id": "IC_kwDODQzyOs47iwQL",
+          "body": "我的意见和楼上相反，应该先大概看一遍文档…… 文档中会描述本地环境的配置方法\r\n\r\n```\r\n查看是否有 CI/CD，如果有跟着 CI/CD 部署的脚本跑命令\r\n查看是否有 dockerfile，如果有跟着 dockerfile 跑命令\r\n查看 npm scripts 中是否有 dev/start，尝试 npm run dev/npm start\r\n```\r\n\r\n大部分公司的开发环境都是本地环境，所以什么 CI/CD、Docker 可以先放到一边\r\n\r\nnpm run dev/npm start 这个是一般的约定，但不是所有的项目都是这样。所以需要先看 package.json 中的 script 来确定\r\n\r\n### npm run dev 和 npm start 的区别？\r\n\r\n1. npm start 是 npm run start 的别名，支持 prestart 和 poststart 钩子",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "acev-online",
+            "url": "https://github.com/acev-online"
+          }
         }
       ]
     },
@@ -4234,7 +4245,19 @@
     "title": "【Q113】如何看待 toB 与 toC",
     "body": "",
     "comments": {
-      "nodes": []
+      "nodes": [
+        {
+          "id": "IC_kwDODQzyOs47iswb",
+          "body": "从职业方向取舍的角度看，我认为纠结这两个点没必要，toB 的业务可能很简单，toC 的业务也可能很复杂，两个端的壁垒也没有那么大。\r\n\r\n从传统观点上看：\r\ntoB：业务复杂，表单和定制化需求较多，需要给出一整套解决方案，但对体验和交互要求没有那么重要\r\ntoC：偏向用户体验的内容稍多，移动端的内容稍多。对性能的要求略高，每个产品的功能不复杂，业务开始只需要满足用户的一个痛点\r\n\r\n但随着前端能力的增加，很多工具类软件都可以由前端承载，代码的复杂度也随之上升，前端从传统的辅助地位逐渐走向了客户端工程师的地位，内容也逐渐变得更有挑战性。\r\n\r\n但如果从公司的角度看，toB 的公司一般面向政府、企事业单位，以供应商的身份提供技术咨询、定制化开发、业务支持等服务，回款周期较长，如果外部环境不好，资金流不畅，很容易拖欠工资。\r\n但是，节奏没有那么快，一切都有较长的排期，相对更规范一些。\r\n\r\ntoC 的公司，一般都自负盈亏，现金流相对会快一些。但是现在的互联网企业都搞什么敏捷开发，基本上一周或者两周就一个版本，面向市场需要小步快跑\r\n\r\n",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "acev-online",
+            "url": "https://github.com/acev-online"
+          }
+        }
+      ]
     },
     "labels": {
       "nodes": [
@@ -7227,7 +7250,7 @@
           "id": "IC_kwDODQzyOs408XGZ",
           "body": "```js\r\n/**\r\n * 深拷贝关注点:\r\n * 1. JavaScript内置对象的复制: Set、Map、Date、Regex等\r\n * 2. 循环引用问题\r\n * @param {*} object \r\n * @returns \r\n */\r\nfunction deepClone(source, memory) {\r\n  const isPrimitive = (value) => {\r\n    return /Number|Boolean|String|Null|Undefined|Symbol|Function/.test(Object.prototype.toString.call(value));\r\n  }\r\n  let result = null;\r\n\r\n  memory || (memory = new WeakMap());\r\n  // 原始数据类型及函数\r\n  if (isPrimitive(source)) {\r\n    console.log('current copy is primitive', source);\r\n    result = source;\r\n  }\r\n  // 数组\r\n  else if (Array.isArray(source)) {\r\n    result = source.map(value => deepClone(value, memory));\r\n  }\r\n  // 内置对象Date、Regex\r\n  else if (Object.prototype.toString.call(source) === '[object Date]') {\r\n    result = new Date(source);\r\n  }\r\n  else if (Object.prototype.toString.call(source) === '[object Regex]') {\r\n    result = new RegExp(source);\r\n  }\r\n  // 内置对象Set、Map\r\n  else if (Object.prototype.toString.call(source) === '[object Set]') {\r\n    result = new Set();\r\n    for (const value of source) {\r\n      result.add(deepClone(value, memory));\r\n    }\r\n  }\r\n  else if (Object.prototype.toString.call(source) === '[object Map]') {\r\n    result = new Map();\r\n    for (const [key, value] of source.entries()) {\r\n      result.set(key, deepClone(value, memory));\r\n    }\r\n  }\r\n  // 引用类型\r\n  else {\r\n    if (memory.has(source)) {\r\n      result = memory.get(source);\r\n    } else {\r\n      result = Object.create(null);\r\n      memory.set(source, result);\r\n      Object.keys(source).forEach(key => {\r\n        const value = source[key];\r\n        result[key] = deepClone(value, memory);\r\n      });\r\n    }\r\n  }\r\n  return result;\r\n}\r\n```",
           "star": {
-            "totalCount": 1
+            "totalCount": 2
           },
           "author": {
             "login": "haotie1990",
@@ -8613,6 +8636,17 @@
             "totalCount": 0
           },
           "author": null
+        },
+        {
+          "id": "IC_kwDODQzyOs47vwDP",
+          "body": "看了一篇这个，好像可以\r\nhttps://blog.csdn.net/github_38589282/article/details/79268484",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "jeff-wangzhen",
+            "url": "https://github.com/jeff-wangzhen"
+          }
         }
       ]
     },
@@ -12168,6 +12202,17 @@
           "author": {
             "login": "jkLennon",
             "url": "https://github.com/jkLennon"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs47nqMx",
+          "body": "验证一下 https://codesandbox.io/s/sharp-dawn-5e5hp?file=/src/capture.js ",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "cloudXA",
+            "url": "https://github.com/cloudXA"
           }
         }
       ]
@@ -17404,7 +17449,7 @@
       "nodes": [
         {
           "id": "MDEyOklzc3VlQ29tbWVudDg0ODM3MTMwMw==",
-          "body": "指定一个项目所需的 node 最小版本，这属于一个项目的质量工程。\r\n\r\n如果对于版本不匹配将会报错(yarn)或警告(npm)，那我们需要在 `package.json` 中的 `engines` 字段中指定 Node 版本号\r\n\r\n> 更多质量工程问题，见 [如何保障项目质量](https://github.com/shfshanyue/Daily-Question/issues/552)\r\n\r\n``` json\r\n{\r\n  \"engines\": {\r\n    \"node\": \">=14.0.0\"\r\n  }\r\n}\r\n```\r\n\r\n一个示例：\r\n\r\n**我在本地把项目所需要的 node 版本号改成 `>=16.0.0`，而本地的 node 版本号为 `v8.17.0`**\r\n\r\n此时，npm 将会发生警告\r\n\r\n``` bash\r\nnpm WARN EBADENGINE Unsupported engine { package: 'next-app@1.0.0',\r\nnpm WARN EBADENGINE   required: { node: '>=16.0.0' },\r\nnpm WARN EBADENGINE   current: { node: 'v8.17.0', npm: '7.14.0' } }\r\n```\r\n\r\n而 yarn 将会直接报错\r\n\r\n``` bash\r\nerror next-app@1.0.0: The engine \"node\" is incompatible with this module. Expected version \">=16.0.0\". Got \"8.17.0\"\r\n```\r\n\r\n而如果我们**项目中某些依赖所需要的 Node 版本号与项目运行时的 Node 版本号不匹配，也会报错(在yarn中)**，此时无法正常运行项目，可避免意外发生",
+          "body": "> + 我: 老大，我这个项目本地白屏了，今天调了一天都没找到问题，快来看看\r\n> + leader: (瞄了一眼) 你的 node 版本号有问题\r\n> + 我: 老大，不能怪我跑挂了，我一个新入职的小前端怎么能够知道这个项目所需的 Node 版本号是多少呢\r\n> + leader: 怎么不能知道，这说明你水平不到家\r\n\r\n指定一个项目所需的 node 最小版本，这属于一个项目的质量工程。\r\n\r\n如果对于版本不匹配将会报错(yarn)或警告(npm)，那我们需要在 `package.json` 中的 `engines` 字段中指定 Node 版本号\r\n\r\n> 更多质量工程问题，见 [如何保障项目质量](https://github.com/shfshanyue/Daily-Question/issues/552)\r\n\r\n``` json\r\n{\r\n  \"engines\": {\r\n    \"node\": \">=14.0.0\"\r\n  }\r\n}\r\n```\r\n\r\n一个示例：\r\n\r\n**我在本地把项目所需要的 node 版本号改成 `>=16.0.0`，而本地的 node 版本号为 `v10.24.1`**\r\n\r\n此时，npm 将会发生警告，提示你本地的 node 版本与此项目不符。\r\n\r\n``` bash\r\nnpm WARN EBADENGINE Unsupported engine { package: 'next-app@1.0.0',\r\nnpm WARN EBADENGINE   required: { node: '>=16.0.0' },\r\nnpm WARN EBADENGINE   current: { node: 'v10.24.1', npm: '7.14.0' } }\r\n```\r\n\r\n而 yarn 将会直接报错，提示。\r\n\r\n``` bash\r\nerror next-app@1.0.0: The engine \"node\" is incompatible with this module. Expected version \">=16.0.0\". Got \"10.24.1\"\r\n```\r\n\r\n**最为重要的是，项目中某些依赖所需要的 Node 版本号与项目运行时的 Node 版本号不匹配，也会报错(在yarn中)**，此时无法正常运行项目，可避免意外发生。\r\n\r\n可看一个示例，[engines 示例](https://github.com/shfshanyue/node-examples/tree/master/engineering/package/engines)，其中 `ansi-regex` 该依赖所需的 node 版本号为 `12+`，而此时本地的 node 版本号为 10，使用 yarn 安装报错！\r\n\r\n``` js\r\n// 在 package.json 中，所需 node 版本号需要 >=10\r\n{\r\n  \"engines\": {\r\n    \"node\": \">=10.0.0\"\r\n  }\r\n}\r\n\r\n// 在 package-lock.json 中，所需 node 版本号需要 >=12\r\n{\r\n  \"node_modules/ansi-regex\": {\r\n    \"version\": \"6.0.1\",\r\n    \"engines\": {\r\n      \"node\": \">=12\"\r\n    }\r\n  }\r\n}\r\n```\r\n\r\n![](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2021-12-25/clipboard-2084.d06897.webp)\r\n\r\n> PS: 如果项目的 package.json 中没有 `engines` 字段，可查看 Dockerfile 中 node 镜像确定项目所需的 node 版本号。",
           "star": {
             "totalCount": 0
           },
@@ -24420,6 +24465,17 @@
             "login": "Asarua",
             "url": "https://github.com/Asarua"
           }
+        },
+        {
+          "id": "IC_kwDODQzyOs47qgl1",
+          "body": "首先明确nodeCallback的规范：\r\n1、回调函数在主函数参数的位置是最后一个\r\n2、回调函数的第一个参数是error\r\n 例如\r\n```\r\nfunction main(err, b, c, callback) {\r\n  let data = b+c\r\n  callback(err,data)\r\n }\r\n```\r\n所以实现的思路就是：\r\n 把结果由原先的放在callback中返回，改成放在Promise中返回\r\n```\r\nconst promisify = (fnc) => (...args) => {\r\n  return new Promise((resolve, reject) => {\r\n    fnc.call(this, ...args, function (err, data) {\r\n      if (err) {\r\n        reject(err);\r\n      } else {\r\n        resolve(data);\r\n      }\r\n    });\r\n  });\r\n};\r\n```\r\n测试结果：\r\n```\r\nvar func1 = function (a, b, c, callback) {\r\n  let rst = a + b + c;\r\n  callback(null, rst);\r\n};\r\n```\r\n```\r\nvar func2 = promisify(func1);\r\nfunc2(1, 2, 3).then((rst) => {\r\n  console.log(\"rst\", rst);\r\n}); //输出6\r\n```",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "wangjiayan",
+            "url": "https://github.com/wangjiayan"
+          }
         }
       ]
     },
@@ -24572,7 +24628,7 @@
       "nodes": [
         {
           "id": "IC_kwDODQzyOs43RFL_",
-          "body": "`webpack` 的 runtime，也就是 webpack 最后生成的代码，做了以下三件事:\r\n\r\n1. `__webpack_modules__`: 维护一个所有模块的数组。将入口模块解析为 AST，根据 AST 深度优先搜索所有的模块，并构建出这个模块数组。每个模块都由一个包裹函数 `(module, module.exports, __webpack_require__)` 对模块进行包裹构成。\r\n2. `__webpack_require__(moduleId)`: 手动实现加载一个模块。对已加载过的模块进行缓存，对胃加载过的模块，执行 id 定位到 `__webpack_modules__` 中的包裹函数，执行并返回 `module.exports`，并缓存\r\n3. `__webpack_require__(0)`: 运行第一个模块，即运行入口模块\r\n\r\n另外，当涉及到多个 chunk 的打包方式中，比如 `code spliting`，webpack 中会有 `jsonp` 加载 chunk 的运行时代码。\r\n\r\n以下是 `webpack runtime` 的最简代码，配置示例可见 [node-examples](https://github.com/shfshanyue/node-examples/blob/master/engineering/webpack/cjs/example/main.js)\r\n\r\n``` js\r\n/******/ var __webpack_modules__ = ([\r\n/* 0 */,\r\n/* 1 */\r\n/***/ ((module) => {\r\n\r\nmodule.exports = (...args) => args.reduce((x, y) => x + y, 0)\r\n\r\n/***/ })\r\n/******/ ]);\r\n/************************************************************************/\r\n/******/ // The module cache\r\n/******/ var __webpack_module_cache__ = {};\r\n/******/ \r\n/******/ // The require function\r\n/******/ function __webpack_require__(moduleId) {\r\n/******/ \t// Check if module is in cache\r\n/******/ \tvar cachedModule = __webpack_module_cache__[moduleId];\r\n/******/ \tif (cachedModule !== undefined) {\r\n/******/ \t\treturn cachedModule.exports;\r\n/******/ \t}\r\n/******/ \t// Create a new module (and put it into the cache)\r\n/******/ \tvar module = __webpack_module_cache__[moduleId] = {\r\n/******/ \t\t// no module.id needed\r\n/******/ \t\t// no module.loaded needed\r\n/******/ \t\texports: {}\r\n/******/ \t};\r\n/******/ \r\n/******/ \t// Execute the module function\r\n/******/ \t__webpack_modules__[moduleId](module, module.exports, __webpack_require__);\r\n/******/ \r\n/******/ \t// Return the exports of the module\r\n/******/ \treturn module.exports;\r\n/******/ }\r\n/******/ \r\n/************************************************************************/\r\nvar __webpack_exports__ = {};\r\n// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.\r\n(() => {\r\nconst sum = __webpack_require__(1)\r\n\r\nsum(3, 8)\r\n\r\n})();\r\n```\r\n\r\n对 `webpack runtime` 做进一步的精简，代码如下\r\n\r\n``` js\r\nconst __webpack_modules__ = [() => {}]\r\nconst __webpack_require = id => {\r\n  const module = { exports: {} }\r\n  const m = __webpack_modules__[id](module)\r\n  return module.exports\r\n}\r\n\r\n__webpack_require__(0)\r\n```",
+          "body": "## Webpack Runtime\r\n\r\n`webpack` 的 runtime，也就是 webpack 最后生成的代码，做了以下三件事:\r\n\r\n1. `__webpack_modules__`: 维护一个所有模块的数组。将入口模块解析为 AST，根据 AST 深度优先搜索所有的模块，并构建出这个模块数组。每个模块都由一个包裹函数 `(module, module.exports, __webpack_require__)` 对模块进行包裹构成。\r\n2. `__webpack_require__(moduleId)`: 手动实现加载一个模块。对已加载过的模块进行缓存，对未加载过的模块，执行 id 定位到 `__webpack_modules__` 中的包裹函数，执行并返回 `module.exports`，并缓存\r\n3. `__webpack_require__(0)`: 运行第一个模块，即运行入口模块\r\n\r\n另外，当涉及到多个 chunk 的打包方式中，比如 `code spliting`，webpack 中会有 `jsonp` 加载 chunk 的运行时代码。\r\n\r\n以下是 `webpack runtime` 的最简代码，配置示例可见 [node-examples](https://github.com/shfshanyue/node-examples/blob/master/engineering/webpack/cjs/example/main.js)\r\n\r\n``` js\r\n/******/ var __webpack_modules__ = ([\r\n/* 0 */,\r\n/* 1 */\r\n/***/ ((module) => {\r\n\r\nmodule.exports = (...args) => args.reduce((x, y) => x + y, 0)\r\n\r\n/***/ })\r\n/******/ ]);\r\n/************************************************************************/\r\n/******/ // The module cache\r\n/******/ var __webpack_module_cache__ = {};\r\n/******/ \r\n/******/ // The require function\r\n/******/ function __webpack_require__(moduleId) {\r\n/******/ \t// Check if module is in cache\r\n/******/ \tvar cachedModule = __webpack_module_cache__[moduleId];\r\n/******/ \tif (cachedModule !== undefined) {\r\n/******/ \t\treturn cachedModule.exports;\r\n/******/ \t}\r\n/******/ \t// Create a new module (and put it into the cache)\r\n/******/ \tvar module = __webpack_module_cache__[moduleId] = {\r\n/******/ \t\t// no module.id needed\r\n/******/ \t\t// no module.loaded needed\r\n/******/ \t\texports: {}\r\n/******/ \t};\r\n/******/ \r\n/******/ \t// Execute the module function\r\n/******/ \t__webpack_modules__[moduleId](module, module.exports, __webpack_require__);\r\n/******/ \r\n/******/ \t// Return the exports of the module\r\n/******/ \treturn module.exports;\r\n/******/ }\r\n/******/ \r\n/************************************************************************/\r\nvar __webpack_exports__ = {};\r\n// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.\r\n(() => {\r\nconst sum = __webpack_require__(1)\r\n\r\nsum(3, 8)\r\n\r\n})();\r\n```\r\n\r\n对 `webpack runtime` 做进一步的精简，代码如下\r\n\r\n``` js\r\nconst __webpack_modules__ = [() => {}]\r\nconst __webpack_require__ = id => {\r\n  const module = { exports: {} }\r\n  const m = __webpack_modules__[id](module, __webpack_require__)\r\n  return module.exports\r\n}\r\n\r\n__webpack_require__(0)\r\n```\r\n\r\n使用动画表示 Webpack 的输入输出:\r\n\r\n![](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2021-12-28/bundle-webpack.0693ce.gif)\r\n\r\n## Rollup\r\n\r\n在 Rollup 中，并不会将所有模块置于 `modules` 中使用 Module Wrapper 进行维护，**它仅仅将所有模块铺平展开**。\r\n\r\n试举一例:\r\n\r\n``` js\r\n// index.js\r\nimport name from './name'\r\nconsole.log(name)\r\n```\r\n\r\n``` js\r\n// name.js\r\nconst name = 'shanyue'\r\nexport default name\r\n```\r\n\r\n在打包后，直接把所有模块平铺展开即可，可见[实时示例](https://rollupjs.org/repl/?version=2.62.0&shareable=JTdCJTIybW9kdWxlcyUyMiUzQSU1QiU3QiUyMm5hbWUlMjIlM0ElMjJtYWluLmpzJTIyJTJDJTIyY29kZSUyMiUzQSUyMmltcG9ydCUyMG5hbWUlMjBmcm9tJTIwJy4lMkZuYW1lJyU1Q25jb25zb2xlLmxvZyhuYW1lKSUyMiUyQyUyMmlzRW50cnklMjIlM0F0cnVlJTdEJTJDJTdCJTIybmFtZSUyMiUzQSUyMm5hbWUuanMlMjIlMkMlMjJjb2RlJTIyJTNBJTIyY29uc3QlMjBuYW1lJTIwJTNEJTIwJ3NoYW55dWUnJTVDbmV4cG9ydCUyMGRlZmF1bHQlMjBuYW1lJTIyJTJDJTIyaXNFbnRyeSUyMiUzQWZhbHNlJTdEJTVEJTJDJTIyb3B0aW9ucyUyMiUzQSU3QiUyMmZvcm1hdCUyMiUzQSUyMmVzJTIyJTJDJTIybmFtZSUyMiUzQSUyMm15QnVuZGxlJTIyJTJDJTIyYW1kJTIyJTNBJTdCJTIyaWQlMjIlM0ElMjIlMjIlN0QlMkMlMjJnbG9iYWxzJTIyJTNBJTdCJTdEJTdEJTJDJTIyZXhhbXBsZSUyMiUzQW51bGwlN0Q=)\r\n\r\n``` js\r\n// output.js\r\nconst name = 'shanyue'\r\nconsole.log(name)\r\n```\r\n\r\n对于 Rollup 这种方案，当两个模块中发生变量冲突如何解决？很简单，直接重新命名，看示例:\r\n\r\n![](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2021-12-28/clipboard-9429.b9ad82.webp)\r\n\r\n使用动画表示 Rollup 的输入输出:\r\n\r\n![](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2021-12-28/bundle-rollup.60cb6a.gif)",
           "star": {
             "totalCount": 0
           },
@@ -24963,7 +25019,7 @@
       "nodes": [
         {
           "id": "IC_kwDODQzyOs45Lqiz",
-          "body": "如何确保所有 `npm install` 的依赖都是安全的？\r\n\r\n当有一个库偷偷在你的笔记本后台挖矿怎么办？\r\n\r\n比如，不久前一个周下载量超过八百万的库被侵入，它在你的笔记本运行时会偷偷挖矿。\r\n\r\n![](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2021-11-03/clipboard-0833.d9da75.webp)\r\n\r\n## Audit\r\n\r\n`Audit`，审计，检测你的所有依赖是否安全。`npm audit`/`yarn audit` 均有效。\r\n\r\n通过审计，可看出有风险的 `package`、依赖库的依赖链、风险原因及其解决方案。\r\n\r\n``` bash\r\n$ npm audit\r\n┌───────────────┬──────────────────────────────────────────────────────────────┐\r\n│ high          │ Regular Expression Denial of Service in trim                 │\r\n├───────────────┼──────────────────────────────────────────────────────────────┤\r\n│ Package       │ trim                                                         │\r\n├───────────────┼──────────────────────────────────────────────────────────────┤\r\n│ Patched in    │ >=0.0.3                                                      │\r\n├───────────────┼──────────────────────────────────────────────────────────────┤\r\n│ Dependency of │ @mdx-js/loader                                               │\r\n├───────────────┼──────────────────────────────────────────────────────────────┤\r\n│ Path          │ @mdx-js/loader > @mdx-js/mdx > remark-mdx > remark-parse >   │\r\n│               │ trim                                                         │\r\n├───────────────┼──────────────────────────────────────────────────────────────┤\r\n│ More info     │ https://www.npmjs.com/advisories/1002775                     │\r\n└───────────────┴──────────────────────────────────────────────────────────────┘\r\n76 vulnerabilities found - Packages audited: 1076\r\nSeverity: 49 Moderate | 27 High\r\n✨  Done in 4.60s.\r\n```\r\n\r\n你可以在我的笔记本上挖矿，但绝不能在生产环境服务器下挖矿，此时可使用以下两条命令。\r\n\r\n``` bash\r\n$ npm audit production\r\n\r\n$ yarn audit dependencies\r\n```\r\n\r\n![Audit](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2021-11-03/clipboard-1904.f4c916.webp)\r\n\r\n通过 `npm audit fix` 可以自动修复该库的风险，原理就是升级依赖库，升级至已修复了风险的版本号。\r\n\r\n``` bash\r\n$ npm audit fix\r\n```\r\n\r\n`yarn audit` 无法自动修复，需要手动更新版本号，不过不够智能。\r\n\r\n[synk](https://snyk.io/) 是一个高级版的 `npm audit`，可自动修复，且支持 CICD 集成与多种语言。\r\n\r\n\r\n``` bash\r\n$ npx snyk\r\n\r\n$ npx wizard\r\n```\r\n\r\n![](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2021-11-03/clipboard-1409.96de76.webp)\r\n\r\n## CI 机器人\r\n\r\n可通过 CI/gitlab/github 中配置机器人，使他们每天轮询一次检查仓库的依赖中是否有风险。\r\n\r\n![Github 机器人](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2021-11-03/clipboard-4186.0dac46.webp)\r\n\r\n在 Github 中，可单独设置 `dependabot` 机器人，在仓库设置中开启小机器人，当它检测到有问题时，会自动向该仓库提交 PR。\r\n\r\n![dependabot](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2021-11-03/clipboard-6581.08f1c2.webp)\r\n\r\n而它的解决方案也是升级版本号。\r\n\r\n![Github Bot 提的 PR](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2021-11-03/clipboard-8617.e80863.webp)\r\n",
+          "body": "如何确保所有 `npm install` 的依赖都是安全的？\r\n\r\n当有一个库偷偷在你的笔记本后台挖矿怎么办？\r\n\r\n比如，不久前一个周下载量超过八百万的库被侵入，它在你的笔记本运行时会偷偷挖矿。\r\n\r\n![](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2021-11-03/clipboard-0833.d9da75.webp)\r\n\r\n## Audit\r\n\r\n`Audit`，审计，检测你的所有依赖是否安全。`npm audit`/`yarn audit` 均有效。\r\n\r\n通过审计，可看出有风险的 `package`、依赖库的依赖链、风险原因及其解决方案。\r\n\r\n``` bash\r\n$ npm audit\r\n┌───────────────┬──────────────────────────────────────────────────────────────┐\r\n│ high          │ Regular Expression Denial of Service in trim                 │\r\n├───────────────┼──────────────────────────────────────────────────────────────┤\r\n│ Package       │ trim                                                         │\r\n├───────────────┼──────────────────────────────────────────────────────────────┤\r\n│ Patched in    │ >=0.0.3                                                      │\r\n├───────────────┼──────────────────────────────────────────────────────────────┤\r\n│ Dependency of │ @mdx-js/loader                                               │\r\n├───────────────┼──────────────────────────────────────────────────────────────┤\r\n│ Path          │ @mdx-js/loader > @mdx-js/mdx > remark-mdx > remark-parse >   │\r\n│               │ trim                                                         │\r\n├───────────────┼──────────────────────────────────────────────────────────────┤\r\n│ More info     │ https://www.npmjs.com/advisories/1002775                     │\r\n└───────────────┴──────────────────────────────────────────────────────────────┘\r\n76 vulnerabilities found - Packages audited: 1076\r\nSeverity: 49 Moderate | 27 High\r\n✨  Done in 4.60s.\r\n```\r\n\r\n你可以在我的笔记本上挖矿，但绝不能在生产环境服务器下挖矿，此时可使用以下两条命令。\r\n\r\n``` bash\r\n$ npm audit production\r\n\r\n$ yarn audit dependencies\r\n```\r\n\r\n![Audit](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2021-11-03/clipboard-1904.f4c916.webp)\r\n\r\n通过 `npm audit fix` 可以自动修复该库的风险，原理就是升级依赖库，升级至已修复了风险的版本号。\r\n\r\n``` bash\r\n$ npm audit fix\r\n```\r\n\r\n`yarn audit` 无法自动修复，需要使用 `yarn upgrade` 手动更新版本号，不够智能。\r\n\r\n[synk](https://snyk.io/) 是一个高级版的 `npm audit`，可自动修复，且支持 CICD 集成与多种语言。\r\n\r\n\r\n``` bash\r\n$ npx snyk\r\n\r\n$ npx wizard\r\n```\r\n\r\n![](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2021-11-03/clipboard-1409.96de76.webp)\r\n\r\n## CI 机器人\r\n\r\n可通过 CI/gitlab/github 中配置机器人，使他们每天轮询一次检查仓库的依赖中是否有风险。\r\n\r\n![Github 机器人](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2021-11-03/clipboard-4186.0dac46.webp)\r\n\r\n在 Github 中，可单独设置 `dependabot` 机器人，在仓库设置中开启小机器人，当它检测到有问题时，会自动向该仓库提交 PR。\r\n\r\n![dependabot](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2021-11-03/clipboard-6581.08f1c2.webp)\r\n\r\n而它的解决方案也是升级版本号。\r\n\r\n![Github Bot 提的 PR](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2021-11-03/clipboard-8617.e80863.webp)\r\n",
           "star": {
             "totalCount": 2
           },
