@@ -8,8 +8,8 @@ on:
   #   types: [labeled, edited]
   # issue_comment:
   #   types: [created, edited]
-  # schedule:
-  # - cron:  '50 20 * * *'
+  schedule:
+  - cron:  '50 20 * * *'
 
 jobs:
   build:
@@ -25,15 +25,9 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: 14.x
-    # npm install
-    - name: npm install and build
-      run: |
-        npm install
-        npm run build
-      env:
-        CI: true
-        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        NODE_OPTIONS: "--max-old-space-size=4096"
+    - uses: bahmutov/npm-install@v1
+    - run: npm run build
+
     # 设置阿里云OSS的 id/secret，存储到 github 的 secrets 中
     - name: setup aliyun oss
       uses: manyuanrong/setup-ossutil@master
