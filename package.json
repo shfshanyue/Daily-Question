@@ -15,9 +15,9 @@
   },
   "scripts": {
     "doc": "node scripts/build",
-    "issues": "curl  https://cdn.jsdelivr.net/gh/shfshanyue/interview-api@master/data/issues.json --compressed > data/issues.json",
     "dev": "vuepress dev",
     "build": "vuepress build",
+    "issues": "curl https://cdn.jsdelivr.net/gh/shfshanyue/interview-api@master/data/issues.json --compressed > data/issues.json",
     "ncu": "ncu"
   },
   "repository": {

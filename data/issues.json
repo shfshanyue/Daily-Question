@@ -171,11 +171,22 @@
           "id": "MDEyOklzc3VlQ29tbWVudDY1Mzg5OTIzNw==",
           "body": "## 防抖 (debounce)\r\n\r\n防抖，顾名思义，防止抖动，以免把一次事件误认为多次，敲键盘就是一个每天都会接触到的防抖操作。\r\n\r\n想要了解一个概念，必先了解概念所应用的场景。在 JS 这个世界中，有哪些防抖的场景呢\r\n\r\n1. 登录、发短信等按钮避免用户点击太快，以致于发送了多次请求，需要防抖\r\n1. 调整浏览器窗口大小时，resize 次数过于频繁，造成计算过多，此时需要一次到位，就用到了防抖\r\n1. 文本编辑器实时保存，当无任何更改操作一秒后进行保存\r\n\r\n代码如下，可以看出来**防抖重在清零 `clearTimeout(timer)`**\r\n\r\n``` js\r\nfunction debounce (f, wait) {\r\n  let timer\r\n  return (...args) => {\r\n    clearTimeout(timer)\r\n    timer = setTimeout(() => {\r\n      f(...args)\r\n    }, wait)\r\n  }\r\n}\r\n```\r\n\r\n## 节流 (throttle)\r\n\r\n节流，顾名思义，控制水的流量。控制事件发生的频率，如控制为1s发生一次，甚至1分钟发生一次。与服务端(server)及网关(gateway)控制的限流 (Rate Limit) 类似。\r\n\r\n1. `scroll` 事件，每隔一秒计算一次位置信息等\r\n1. 浏览器播放事件，每个一秒计算一次进度信息等\r\n1. input 框实时搜索并发送请求展示下拉列表，每隔一秒发送一次请求 (也可做防抖)\r\n\r\n代码如下，可以看出来**节流重在加锁 `timer=timeout`**\r\n\r\n``` js\r\nfunction throttle (f, wait) {\r\n  let timer\r\n  return (...args) => {\r\n    if (timer) { return }\r\n    timer = setTimeout(() => {\r\n      f(...args)\r\n      timer = null\r\n    }, wait)\r\n  }\r\n}\r\n```\r\n\r\n## 总结 (简要答案)\r\n\r\n+ 防抖：防止抖动，单位时间内事件触发会被重置，避免事件被误伤触发多次。**代码实现重在清零 `clearTimeout`**。防抖可以比作等电梯，只要有一个人进来，就需要再等一会儿。业务场景有避免登录按钮多次点击的重复提交。\r\n+ 节流：控制流量，单位时间内事件只能触发一次，与服务器端的限流 (Rate Limit) 类似。**代码实现重在开锁关锁 `timer=timeout; timer=null`**。节流可以比作过红绿灯，每等一个红灯时间就可以过一批。",
           "star": {
-            "totalCount": 8
+            "totalCount": 9
           },
           "author": {
             "login": "shfshanyue",
             "url": "https://github.com/shfshanyue"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs48RR7m",
+          "body": "你好，向请问一下防抖函数的`let _this = this`的作用是什么，这里的`this`不是都指向window吗？小白求指教，谢谢！！！",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "Janezhang650",
+            "url": "https://github.com/Janezhang650"
           }
         }
       ]
@@ -356,8 +367,8 @@
             "totalCount": 0
           },
           "author": {
-            "login": "acev-online",
-            "url": "https://github.com/acev-online"
+            "login": "lyhwoc",
+            "url": "https://github.com/lyhwoc"
           }
         }
       ]
@@ -986,7 +997,7 @@
         },
         {
           "id": "MDEyOklzc3VlQ29tbWVudDU1Mjc3OTIwMg==",
-          "body": "多节点部署就会产生分布式问题，解决分布式问题就要找一个大家都能够访问到的中介，比如 `Redis`，`Consul`，`Zookeeper`\r\n\r\n以下是一个 `redis` 实现的操作\r\n\r\n`set User:10086 Random:shanyue EX 100 NX`\r\n",
+          "body": "多节点部署就会产生分布式问题，分布式锁由两个词组成，**分布式**和**锁**\r\n\r\n1. 分布式: 解决分布式问题就要找一个大家都能够访问到的中介，比如 `Redis`，`Consul`，`Zookeeper`\r\n2. 锁: 解决原子问题，当不存在时便加锁，**不存在** 和 **加锁** 要作为原子进行操作\r\n\r\n以下是一个 `redis` 实现的操作\r\n\r\n``` bash\r\n# EX 100：100s 的过期时间\r\n# NX: 如果不存在 User:10086，设置成功返回 OK，否则返回 nil，也就是说 100s 之内只有第一次操作返回 OK\r\nset User:10086 Random:shanyue EX 100 NX\r\n```",
           "star": {
             "totalCount": 0
           },
@@ -1943,7 +1954,19 @@
     "title": "【Q048】如何实现一个优先级队列",
     "body": "",
     "comments": {
-      "nodes": []
+      "nodes": [
+        {
+          "id": "IC_kwDODQzyOs48wSTf",
+          "body": "// 封装优先级队列\r\nfunction PriorityQueue() {\r\n    // 在PriorityQueue中重新创建一个类，和java中的内部类很相似\r\n    function QueueElement(element, priority) {\r\n     this.element = element;\r\n     this.priority = priority;\r\n    }\r\n    // 封装属性，用数组来存储队列\r\n    this.items = [];\r\n    \r\n    // 入队\r\n    PriorityQueue.prototype.enQueue = function (element, priority) {\r\n     // 1.创建对象\r\n     var queueElement = new QueueElement(element, priority);\r\n     // 2.判断队列是否为空\r\n     if(this.items.length == 0) \r\n       this.items.push(queueElement);\r\n     else {\r\n       var flag = false;\r\n       for(var i = 0; i< this.items.length; i++){\r\n         if(queueElement.priority < this.items[i].priority){\r\n           this.items.splice(i,0,queueElement);\r\n           flag = true;\r\n           break;\r\n         }\r\n       }\r\n       if(!flag) \r\n         this.items.push(queueElement);\r\n     }\r\n    }\r\n    \r\n    // 2.出队\r\n    PriorityQueue.prototype.deQueue = function () {\r\n     return this.items.shift();\r\n    }\r\n    \r\n    // 3.查看队头元素\r\n    PriorityQueue.prototype.front = function() {\r\n     return this.items[0];\r\n    }\r\n    \r\n    // 4.判断队列是否为空\r\n    PriorityQueue.prototype.isEmpty = function() {\r\n     return this.items.length == 0;\r\n    }\r\n    \r\n    // 5.查看队列中元素的个数\r\n    PriorityQueue.prototype.size = function() {\r\n     return this.items.length;\r\n    }\r\n    \r\n    // 6.将队列元素按字符串格式输出\r\n    PriorityQueue.prototype.toString = function() {\r\n     var result = \"\";\r\n     for(var i = 0; i < this.items.length; i++)\r\n       result += this.items[i].element + \"  \";\r\n     return result;\r\n    }\r\n    }\r\n    ",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "hx-code",
+            "url": "https://github.com/hx-code"
+          }
+        }
+      ]
     },
     "labels": {
       "nodes": [
@@ -3018,6 +3041,17 @@
           "author": {
             "login": "shfshanyue",
             "url": "https://github.com/shfshanyue"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs49QRsw",
+          "body": "## HTTP代理的原理\r\n\r\n代理服务器会自动提取请求数据包中的`HTTP请求数据`发送给服务端，并服务端的`HTTP响应数据`转发给发送请求的客户端，HTTP代理服务器使用的端口通常是8080。\r\n\r\n-   对于Web客户端来说，代理扮演的服务器角色，接收请求（Request），返回响应（Response）。\r\n-   对于Web服务器来说，代理扮演的客户端角色，发送请求（Request），接收响应（Response）。\r\n\r\n### HTTP 代理步骤\r\n\r\n-   `客户端`向`代理`发起`TCP连接`；\r\n-   代理接收客户端的连接，双方`建立连接`；\r\n-   `客户端`向`代理`发送`HTTP请求`，请求内容和没有HTTP代理的内容完全相同；\r\n-   代理`解析HTTP请求`；\r\n-   `代理`向`服务器`发起`TCP连接`；\r\n-   `服务器`接收`代理`的连接；\r\n-   `代理`向`服务器`发送`HTTP`请求（这个HTTP请求是基于用户的HTTP请求，`可能会有修改`）\r\n-   `服务器`发送`响应`给`代理`；\r\n-   `代理`发送`响应`给发送请求的`客户端`；\r\n\r\n### 不同HTTP代理的区别：\r\n\r\n-   全匿名代理，不改变客户端的request fields（请求信息），使服务器端看来就像有个真正的客户浏览器在访问。客户端的真实IP是隐藏起来的。\r\n-   普通匿名代理，能隐藏客户端的真实IP，但会更改客户端的request fields（请求信息），服务器端有可能会被认为使用了代理。\r\n-   透明代理（简单代理），改变客户端的request fields（请求信息），并会传送真实IP地址。\r\n\r\n## HTTPS代理\r\n\r\nHTTPS代理有多种做法，通常使用`CONNECT method`，通过proxy建立一条隧道(隧道代理)，这样，`proxy无法解密数据`；此外，还有一种类似于中间人攻击的代理手法。\r\n\r\n### CONNECT方法代理步骤\r\n\r\n-   `客户端`向`代理`发起`CONNECT`请求；\r\n-   `代理`向`服务端`发起`TCP`连接请求；\r\n-  当TCP连接建立完成后， `代理`向`客户端`返回`HTTP/1.0 OK`，隧道建立完成；\r\n-   `代理`转发`客户端`的数据给`服务器`，转发`服务器`的数据给`客户端`，直到任何一方连接结束；\r\n\r\n> 内容参考[HTTP、HTTPS代理分析及原理](https://lilywei739.github.io/2017/01/25/principle_for_http_https.html)",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "Merlin218",
+            "url": "https://github.com/Merlin218"
           }
         }
       ]
@@ -4253,8 +4287,8 @@
             "totalCount": 0
           },
           "author": {
-            "login": "acev-online",
-            "url": "https://github.com/acev-online"
+            "login": "lyhwoc",
+            "url": "https://github.com/lyhwoc"
           }
         }
       ]
@@ -5788,7 +5822,7 @@
       "nodes": [
         {
           "id": "MDEyOklzc3VlQ29tbWVudDY2NDgxMjkzOQ==",
-          "body": "通过把该 `cookie` 的过期时间改为过去时即可删除成功，具体操作的话可以通过操作两个字段来完成\r\n\r\n1. `max-age`: 将要过期的最大秒数，设置为 `-1` 即可删除\r\n1. `expires`: 将要过期的绝对时间，存储到 `cookies` 中需要通过 `date.toUTCString()` 处理，设置为过期时间即可删除\r\n\r\n很明显，`max-age` 更为简单，以下代码可在命令行控制台中进行测试\r\n\r\n``` js\r\n// max-age 设置为 -1 即可成功\r\ndocument.cookie = 'a=3; max-age=-1'\r\n```\r\n\r\n``` js\r\n> document.cookie\r\n< \"\"\r\n\r\n> document.cookie = 'a=3'\r\n< \"a=3\"\r\n\r\n> document.cookie\r\n< \"a=3\"\r\n\r\n// 把该字段的 max-age 设置为 -1\r\n> document.cookie = 'a=3; max-age=-1'\r\n< \"a=3; max-age=-1\"\r\n\r\n// 删除成功\r\n> document.cookie\r\n< \"\"\r\n```\r\n\r\n同时，也可以使用最新关于 cookie 操作的 API: `CookieStorea API` 其中的 `cookieStore.delete(name)` 删除某个 cookie",
+          "body": "通过把该 `cookie` 的过期时间改为过去时即可删除成功，具体操作的话可以通过操作两个字段来完成\r\n\r\n1. `max-age`: 将要过期的最大秒数，设置为 `-1` 即可删除\r\n1. `expires`: 将要过期的绝对时间，存储到 `cookies` 中需要通过 `date.toUTCString()` 处理，设置为过期时间即可删除\r\n\r\n很明显，`max-age` 更为简单，以下代码可在命令行控制台中进行测试\r\n\r\n``` js\r\n// max-age 设置为 -1 即可成功\r\ndocument.cookie = 'a=3; max-age=-1'\r\n```\r\n\r\n``` js\r\n> document.cookie\r\n< \"\"\r\n\r\n> document.cookie = 'a=3'\r\n< \"a=3\"\r\n\r\n> document.cookie\r\n< \"a=3\"\r\n\r\n// 把该字段的 max-age 设置为 -1\r\n> document.cookie = 'a=3; max-age=-1'\r\n< \"a=3; max-age=-1\"\r\n\r\n// 删除成功\r\n> document.cookie\r\n< \"\"\r\n```\r\n\r\n同时，也可以使用最新关于 cookie 操作的 API: [CookieStore API](https://developer.mozilla.org/en-US/docs/Web/API/CookieStore) 其中的 `cookieStore.delete(name)` 删除某个 cookie",
           "star": {
             "totalCount": 0
           },
@@ -6216,7 +6250,19 @@
     "title": "【Q175】如何使用 css 写一个魔方",
     "body": "",
     "comments": {
-      "nodes": []
+      "nodes": [
+        {
+          "id": "IC_kwDODQzyOs49dcsq",
+          "body": "https://jsbin.com/xemaxovisa/edit?css,output",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "dsize1",
+            "url": "https://github.com/dsize1"
+          }
+        }
+      ]
     },
     "labels": {
       "nodes": [
@@ -6543,8 +6589,8 @@
             "totalCount": 0
           },
           "author": {
-            "login": "cxbind",
-            "url": "https://github.com/cxbind"
+            "login": "linlai163",
+            "url": "https://github.com/linlai163"
           }
         }
       ]
@@ -9079,7 +9125,19 @@
     "title": "【Q259】爬虫如何实现一个去重器",
     "body": "",
     "comments": {
-      "nodes": []
+      "nodes": [
+        {
+          "id": "IC_kwDODQzyOs4939T4",
+          "body": "urlMap[url,hash(data)]\r\nurlSet[fullURL]\r\nurlMap存不包含查询字符串的url，data相同也不存储\r\nurlSet存完整url，即Map里没有查询到，则通过完整url去重",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "shay-an",
+            "url": "https://github.com/shay-an"
+          }
+        }
+      ]
     },
     "labels": {
       "nodes": [
@@ -9778,8 +9836,8 @@
             "totalCount": 0
           },
           "author": {
-            "login": "cxbind",
-            "url": "https://github.com/cxbind"
+            "login": "linlai163",
+            "url": "https://github.com/linlai163"
           }
         },
         {
@@ -9800,8 +9858,8 @@
             "totalCount": 0
           },
           "author": {
-            "login": "cxbind",
-            "url": "https://github.com/cxbind"
+            "login": "linlai163",
+            "url": "https://github.com/linlai163"
           }
         },
         {
@@ -10099,6 +10157,17 @@
           "author": {
             "login": "shfshanyue",
             "url": "https://github.com/shfshanyue"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs49qGKI",
+          "body": "当一个函数执行结束之后，JavaScript 引擎会通过向下移动 ESP 来销毁该函数保存在栈中的执行上下文。\r\n要回收堆中的垃圾数据，就需要用到 JavaScript 中的垃圾回收器了。\r\n代际假说（The Generational Hypothesis），是垃圾回收领域中一个重要的术语，后续垃圾回收的策略都是建立在该假说的基础之上的，所以很是重要。\r\n代际假说有以下两个特点：\r\n1. 大部分对象在内存中存在的时间很短，简单来说，就是很多对象一经分配内存，很快就变得不可访问；\r\n2. 是不死的对象，会活得更久。\r\n在 V8 中会把堆分为新生代和老生代两个区域，新生代中存放的是生存时间短的对象，老生代中存放的生存时间久的对象。\r\n● 副垃圾回收器，主要负责新生代的垃圾回收。\r\n● 主垃圾回收器，主要负责老生代的垃圾回收。\r\n\r\n全停顿\r\n![1620974853612-a480b43e-b3bb-452f-a502-3a0162548a7f](https://user-images.githubusercontent.com/19986739/153329224-c2120a5d-4f25-4659-9347-d6217d5a5ce8.png)\r\n\r\n增量标记\r\n![1620975019709-efc33748-fbfc-4fb5-a19d-97abadbf8f97](https://user-images.githubusercontent.com/19986739/153329251-e6a21086-f646-48d5-a23c-c2e3351497ef.png)\r\n\r\n使用增量标记算法，可以把一个完整的垃圾回收任务拆分为很多小的任务，这些小的任务执行时间比较短，可以穿插在其他的 JavaScript 任务中间执行，增强用户体验。\r\n\r\n参考： [浏览器工作原理与实践](https://time.geekbang.org/column/article/131233)",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "wjw-gavin",
+            "url": "https://github.com/wjw-gavin"
           }
         }
       ]
@@ -10402,8 +10471,8 @@
             "totalCount": 0
           },
           "author": {
-            "login": "sk-xie",
-            "url": "https://github.com/sk-xie"
+            "login": "vincent-sk",
+            "url": "https://github.com/vincent-sk"
           }
         }
       ]
@@ -10520,8 +10589,8 @@
             "totalCount": 0
           },
           "author": {
-            "login": "cxbind",
-            "url": "https://github.com/cxbind"
+            "login": "linlai163",
+            "url": "https://github.com/linlai163"
           }
         }
       ]
@@ -12295,7 +12364,19 @@
     "title": "【Q372】redis 是如何删掉过期数据的",
     "body": "",
     "comments": {
-      "nodes": []
+      "nodes": [
+        {
+          "id": "IC_kwDODQzyOs493_tZ",
+          "body": "懒删除：查询时删除\r\n定时删除：通过定时任务删除",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "shay-an",
+            "url": "https://github.com/shay-an"
+          }
+        }
+      ]
     },
     "labels": {
       "nodes": [
@@ -14854,7 +14935,7 @@
           "id": "MDEyOklzc3VlQ29tbWVudDc2MDc1MTgyNw==",
           "body": "```js\r\nfunction unique(arr) {\r\n  if (!Array.isArray(arr)) throw new TypeError();\r\n  return [...new Set(arr)];\r\n}\r\n```",
           "star": {
-            "totalCount": 0
+            "totalCount": 1
           },
           "author": {
             "login": "justable",
@@ -14887,7 +14968,7 @@
           "id": "IC_kwDODQzyOs401s27",
           "body": "```js\r\nfunction unique(array) {\r\n  return array.filter((item, index) => array.indexOf(item) === index);\r\n}\r\n```",
           "star": {
-            "totalCount": 0
+            "totalCount": 1
           },
           "author": {
             "login": "haotie1990",
@@ -15464,6 +15545,17 @@
           "author": {
             "login": "hhhpw",
             "url": "https://github.com/hhhpw"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs48HWVi",
+          "body": "首屏时间: window.performance.timing.domInteractive - window.performace.timing.navigationStart\r\n\r\nwindow.performace.timing.navigationStart\r\n\r\nperformace ->  performance少了个n\r\n",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "wuyuehui",
+            "url": "https://github.com/wuyuehui"
           }
         }
       ]
@@ -17984,8 +18076,8 @@
             "totalCount": 0
           },
           "author": {
-            "login": "cxbind",
-            "url": "https://github.com/cxbind"
+            "login": "linlai163",
+            "url": "https://github.com/linlai163"
           }
         }
       ]
@@ -18342,7 +18434,19 @@
     "title": "【Q547】某元素的 fontSize: 2rem; lineHeight: 1.5em; 此时 lineHeight 为多少像素",
     "body": "",
     "comments": {
-      "nodes": []
+      "nodes": [
+        {
+          "id": "IC_kwDODQzyOs493bJQ",
+          "body": "font-size: 2rem. ---->  则该元素默认情况下，font-size: 32px\r\nline-height: 1.5em, em相对于自身元素的font-size， 则 \r\nline-height: 1.5 * 32 === 48px",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "HunterXing",
+            "url": "https://github.com/HunterXing"
+          }
+        }
+      ]
     },
     "labels": {
       "nodes": [
@@ -20481,8 +20585,8 @@
             "totalCount": 0
           },
           "author": {
-            "login": "cxbind",
-            "url": "https://github.com/cxbind"
+            "login": "linlai163",
+            "url": "https://github.com/linlai163"
           }
         }
       ]
@@ -22785,6 +22889,17 @@
             "login": "haotie1990",
             "url": "https://github.com/haotie1990"
           }
+        },
+        {
+          "id": "IC_kwDODQzyOs48gW7i",
+          "body": "const render = function(template,data){\r\n\t\t return\ttemplate.replace(/\\{\\{(.*?)\\}\\}/g,($0,$1) => eval('data.' + $1))\r\n\t\t}",
+          "star": {
+            "totalCount": 1
+          },
+          "author": {
+            "login": "sunwenlong1995",
+            "url": "https://github.com/sunwenlong1995"
+          }
         }
       ]
     },
@@ -23800,7 +23915,7 @@
       "nodes": [
         {
           "id": "IC_kwDODQzyOs41KJDN",
-          "body": "TODO",
+          "body": "1. `Reflect.ownKeys({ a: 3, b: 4})`\r\n2. `Object.keys({ a: 3, b: 4 })`",
           "star": {
             "totalCount": 0
           },
@@ -23818,6 +23933,17 @@
           "author": {
             "login": "DanielLeefu",
             "url": "https://github.com/DanielLeefu"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs49q_DT",
+          "body": "普通对象可以通过添加一个`Symbol.iterator`属性，实现使用 `for of` 遍历\r\n```js\r\nconst obj = {a: 1, b: 2, c: 3}\r\n\r\nobj[Symbol.iterator] = function () {\r\n  let i = 0\r\n  const keys = Object.keys(this)\r\n  return {\r\n    next: () => {\r\n      return i <= keys.length - 1 ? \r\n        {value: this[keys[i++]], done: false} : \r\n        {value: undefined, done: true}\r\n    }\r\n  }\r\n}\r\n\r\nfor (let item of obj) {\r\n  console.log(item)\r\n}\r\n\r\n//   1\r\n//   2\r\n//   3\r\n```\r\n`for of` 遍历每次都会调用 `Symbol.iterator` 中的 `next` 方法",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "Yand-hi",
+            "url": "https://github.com/Yand-hi"
           }
         }
       ]
@@ -24066,6 +24192,17 @@
           "author": {
             "login": "Camliar",
             "url": "https://github.com/Camliar"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs49lsNG",
+          "body": "```javascript\r\nfunction rand5 () {\r\n    return Math.random() * 6 | 0\r\n}\r\n\r\nfunction rand7 () {\r\n    while (true) {\r\n        let num = rand5() * 6 + rand5()\r\n        if (num < 32) {\r\n            return num % 8\r\n        }\r\n    } \r\n};\r\n```",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "heretic-G",
+            "url": "https://github.com/heretic-G"
           }
         }
       ]
@@ -24607,6 +24744,17 @@
             "login": "mengliren666",
             "url": "https://github.com/mengliren666"
           }
+        },
+        {
+          "id": "IC_kwDODQzyOs48yOTk",
+          "body": "`0 1 2 3 4 5 6`",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "9527YL",
+            "url": "https://github.com/9527YL"
+          }
         }
       ]
     },
@@ -24930,7 +25078,19 @@
     "title": "【Q714】如何处理白屏错误页的监控的？",
     "body": "用户反馈白屏了，你怎么处理？",
     "comments": {
-      "nodes": []
+      "nodes": [
+        {
+          "id": "IC_kwDODQzyOs48v_HS",
+          "body": "1. 排查兼容性。大部分原因是因为低端机型/浏览器低版本 polyfill的问题导致报错\r\n2. 排查网络。js是否下载成功 cdn是否生效\r\n3. 做js错误上报。分析是否存在代码缺陷\r\n4. 做重试逻辑/诱导用户重试\r\n5. Error Boundry避免整页崩溃。限制在组件级别",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "akbchris",
+            "url": "https://github.com/akbchris"
+          }
+        }
+      ]
     },
     "labels": {
       "nodes": [
@@ -25321,6 +25481,17 @@
             "login": "shfshanyue",
             "url": "https://github.com/shfshanyue"
           }
+        },
+        {
+          "id": "IC_kwDODQzyOs49jEF1",
+          "body": "补充三点 \r\n\r\n1.module默认是defer的加载和执行方式\r\n\r\n2.这里会存在单独的module的域不会污染到全局\r\n\r\n3.直接是strict\r\n\r\n",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "heretic-G",
+            "url": "https://github.com/heretic-G"
+          }
         }
       ]
     },
@@ -25447,7 +25618,19 @@
     "title": "【Q731】简述 browserslist 的意义",
     "body": "",
     "comments": {
-      "nodes": []
+      "nodes": [
+        {
+          "id": "IC_kwDODQzyOs471Z8f",
+          "body": "browserslist 是在不同的前端工具之间共用目标浏览器和 node 版本的配置工具。\r\n相当于给 Babel、PostCSS、ESLint、StyleLint 等这些前端工具预设一个浏览器支持范围，这些工具转换或检查代码时会参考这个范围。",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "HY0606",
+            "url": "https://github.com/HY0606"
+          }
+        }
+      ]
     },
     "labels": {
       "nodes": [
@@ -25563,6 +25746,63 @@
         {
           "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
           "name": "前端工程化"
+        }
+      ]
+    }
+  },
+  {
+    "id": "I_kwDODQzyOs5DC-vH",
+    "number": 764,
+    "title": "【Q737】如何取得一个数字的小数部分与整数部分",
+    "body": "试举几例\r\n\r\n+ `1.3e-19`\r\n+ `1.6`\r\n\r\n引用一些第三方包处理也可以",
+    "comments": {
+      "nodes": [
+        {
+          "id": "IC_kwDODQzyOs49i-_s",
+          "body": "```typescript \r\nfunction splitNum (data: unknown): [string, string] {\r\n    if (typeof data === 'number' && !isNaN(data)) {\r\n        const dataStr = data.toString()\r\n        const eIndex = dataStr.indexOf('e-')\r\n        if (eIndex > -1) {\r\n            const result = dataStr.split('e-')\r\n            return ['0', `0.${'0'.repeat(Number(result[1]) - 1)}${result[0].replace('.', '')}`]\r\n        } else {\r\n            const result = dataStr.split('.')\r\n            if (result.length === 1) {\r\n                result.push('0')\r\n            }\r\n            return [result[0], `0.${result[1]}`]\r\n        }\r\n    }\r\n    return ['0', '0']\r\n}\r\n```",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "heretic-G",
+            "url": "https://github.com/heretic-G"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs49m-zr",
+          "body": "```typescript\r\n/**科学计数法兼容*/\r\nconst SNFn = (val: string) => {\r\n  let state = val.includes('e-');\r\n  let splitStr = `e${state ? '-' : '+'}`;\r\n  let data = val.split(splitStr);\r\n  let fixBit = Number(data[1]);\r\n  let temp = data[0];\r\n  if (temp.includes('.')) {\r\n    let poinitPosition = temp.indexOf('.');\r\n    let len = temp.length;\r\n    fixBit = fixBit + (poinitPosition + (state ? 0 : 1)) - len;\r\n    temp = `${temp}`.replace('.', '');\r\n  }\r\n  let result = state\r\n    ? `0.${`0`.repeat(fixBit)}${temp}`\r\n    : `${temp}${`0`.repeat(fixBit)}`;\r\n  if (state && result.includes('-')) {\r\n    result = `-${result.replace('-', '')}`;\r\n  }\r\n  return state ? [`0`, result] : [result, `0`];\r\n};\r\n\r\n/**main*/\r\nconst splitFn = (val: number) => {\r\n  const valStr = `${val}`;\r\n  /**完全整数返回*/\r\n  if (!valStr.includes('.') && !valStr.includes('e')) return [valStr, `0`];\r\n  /**科学计数法兼容*/\r\n  if (valStr.includes('e')) {\r\n    let result = SNFn(valStr);\r\n    return result;\r\n  }\r\n  /**正常含小数返回*/\r\n  const result = valStr.split('.');\r\n  let state=result[0].includes('-')\r\n  return [`${result[0]}`, `${state?'-':''}0.${result[1]}`];\r\n};\r\n```\r\n\r\nhttps://stackblitz.com/edit/typescript-hr1bbp",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "Feahter",
+            "url": "https://github.com/Feahter"
+          }
+        }
+      ]
+    },
+    "labels": {
+      "nodes": [
+        {
+          "id": "MDU6TGFiZWwxNjUxNDAyMzE4",
+          "name": "js"
+        }
+      ]
+    }
+  },
+  {
+    "id": "I_kwDODQzyOs5DQggf",
+    "number": 765,
+    "title": "【Q738】websocket 和短轮询有什么区别",
+    "body": "",
+    "comments": {
+      "nodes": []
+    },
+    "labels": {
+      "nodes": [
+        {
+          "id": "MDU6TGFiZWwxNjgwMDkyMDA5",
+          "name": "http"
         }
       ]
     }
