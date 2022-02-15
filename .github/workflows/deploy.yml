@@ -3,7 +3,7 @@ name: deploy to aliyun oss
 on:
   push:
     barches:
-      - main
+      - master
   schedule:
   - cron:  '50 20 * * *'
 
@@ -35,4 +35,6 @@ jobs:
       run: ossutil rm oss://shanyue-question/assets -rf
       if: github.event_name == 'schedule'
     - name: cp files to aliyun
-      run: ossutil cp -rf --meta Cache-Control:max-age=31536000 .vuepress/dist oss://shanyue-question/
+      run: |
+        ossutil cp -rf --meta Cache-Control:no-cache .vuepress/dist oss://shanyue-question/
+        ossutil cp -rf --meta Cache-Control:max-age=31536000 .vuepress/dist/assets oss://shanyue-question/assets

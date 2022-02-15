@@ -20,6 +20,7 @@
 1. [React.memo 和记忆化数据](https://codesandbox.io/s/reactmemo-and-memo-1dt59)
 1. [React.memo 和 React.useMemo 优化性能](https://codesandbox.io/s/reactmemo-and-reactusememo-79txp)
 1. [React.memo 和 React.useCallback 优化性能](https://codesandbox.io/s/reactusecallback-and-perf-d3k6s)
+1. [React useEffect cleanup](https://codesandbox.io/s/useeffect-clean-i2fi3?file=/src/App.js)。在这段代码中，示例演示 cleanup 的时机
 1. [React 中可以以数组的 index 作为 key 吗?](https://codesandbox.io/s/react-key-shuzudeindex-nl47k)。在这段代码中，使用 index 作为 key，其中夹杂了 input，引发 bug
 1. [React 中以数组的 index 作为 key](https://codesandbox.io/s/index-as-key-yichangshili-pfmpk)。在这段代码中，使用 index 作为 key，其中夹杂了随机数，引发了 bug
 1. [React 兄弟组件通信](https://codesandbox.io/s/react-xiongdizujiantongxin-f2jf6)。兄弟组件在 React 中如何通信
