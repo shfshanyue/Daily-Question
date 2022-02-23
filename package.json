@@ -4,13 +4,13 @@
   "description": "勤学如春起之苗，不见其增，日有所长；辍学如磨刀之石，不见其损，日有所亏。",
   "main": "index.js",
   "dependencies": {
-    "@vuepress/plugin-google-analytics": "^1.8.2",
+    "@vuepress/plugin-google-analytics": "^1.9.7",
     "args": "^5.0.1",
-    "axios": "^0.24.0",
+    "axios": "^0.26.1",
     "ismobilejs": "^1.1.1",
     "isomorphic-unfetch": "^3.1.0",
     "lodash": "^4.17.21",
-    "vuepress": "^1.8.2",
+    "vuepress": "^1.9.7",
     "vuepress-plugin-sitemap": "^2.3.1"
   },
   "scripts": {
@@ -18,7 +18,8 @@
     "dev": "vuepress dev",
     "build": "vuepress build",
     "issues": "curl https://cdn.jsdelivr.net/gh/shfshanyue/interview-api@master/data/issues.json --compressed > data/issues.json",
-    "ncu": "ncu"
+    "ncu": "ncu",
+    "deploy": "ossutil cp -rf --meta Cache-Control:no-cache .vuepress/dist oss://shanyue-question/ && ossutil cp -rf --meta Cache-Control:max-age=31536000 .vuepress/dist/assets oss://shanyue-question/assets"
   },
   "repository": {
     "type": "git",
