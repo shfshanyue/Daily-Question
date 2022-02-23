@@ -9,9 +9,20 @@
 
       <h1 v-if="data.heroText !== null" id="main-title">{{ data.heroText || $title || 'Hello' }}</h1>
 
+      <div class="sponser">
+        特别赞助
+        <a href="https://www.apifox.cn?utm_source=shanyue-question" class="logo">
+          <img src="https://cdn.apifox.cn/logo/apifox-logo-text.png" height="32px" alt="apifox">
+        </a>
+        <a href="https://www.apifox.cn?utm_source=shanyue-question">
+          API 文档、API 调试、API Mock、API 自动化测试
+        </a>
+      </div>
+
       <p class="description">
         {{ data.tagline || $description || 'Welcome to your VuePress site' }}
       </p>
+
 
       <p
         class="action"
@@ -130,6 +141,17 @@ export default {
     border-top 1px solid $borderColor
     text-align center
     color lighten($textColor, 25%)
+  .sponser
+    padding 1rem 0
+    border-top 1px solid $borderColor
+    border-bottom 1px solid $borderColor
+    display flex
+    align-items center
+    justify-content center
+    .logo
+      margin 0 1rem
+    img
+      margin 0
 
 @media (max-width: $MQMobile)
   .home

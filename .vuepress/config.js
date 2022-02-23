@@ -28,12 +28,12 @@ module.exports = {
           { text: 'DevOps', link: '/devops/' },
           { text: '开放式问题', link: '/open/' },
           { text: '大厂内推', link: '/infer/ali-ascp.md' },
-          { text: '面经大全', link: '/interview.html' },
+          { text: '各地求职', link: '/job/chengdu.html' },
+          { text: '面试路线图', link: '/roadmap/code.html' },
         ]
       },
-      { text: '各地求职', link: '/job/chengdu.html' },
-      { text: '面试路线图', link: '/roadmap/code.html' },
-      // { text: '山月的博客', link: 'https://shanyue.tech' },
+      { text: '面经大全', link: '/interview.html' },
+      { text: 'Apifox', link: 'https://www.apifox.cn?utm_source=shanyue-question' },
       // { text: '极客时间返现', link: 'https://geek.shanyue.tech' },
     ],
     sidebar: {
