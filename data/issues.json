@@ -65,7 +65,7 @@
           "id": "IC_kwDODQzyOs42MkyK",
           "body": "方案二的简单Demo:\r\n```html\r\n<!DOCTYPE html>\r\n<html lang=\"en\">\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n    <title>图片懒加载</title>\r\n    <style>\r\n        img {\r\n            width: 100%;\r\n            height: 600px;\r\n        }\r\n    </style>\r\n</head>\r\n<body>\r\n    <img src=\"https://cdn.pixabay.com/photo/2021/08/24/15/38/sand-6570980_960_720.jpg\" alt=\"1\">\r\n    <img src=\"https://cdn.pixabay.com/photo/2013/02/21/19/06/drink-84533_960_720.jpg\" alt=\"2\">\r\n    <img data-src=\"https://cdn.pixabay.com/photo/2014/12/15/17/16/boardwalk-569314_960_720.jpg\" alt=\"3\">\r\n    <img data-src=\"https://cdn.pixabay.com/photo/2013/07/18/20/26/sea-164989_960_720.jpg\" alt=\"4\">\r\n    <img data-src=\"https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg\" alt=\"5\">\r\n    <img data-src=\"https://cdn.pixabay.com/photo/2017/03/26/21/54/yoga-2176668_960_720.jpg\" alt=\"6\">\r\n    <img data-src=\"https://cdn.pixabay.com/photo/2015/03/17/14/05/sparkler-677774_960_720.jpg\" alt=\"7\">\r\n    <script src=\"https://cdn.bootcdn.net/ajax/libs/lodash.js/4.17.20/lodash.js\"></script>\r\n    <script>\r\n        const images = document.querySelectorAll('img');\r\n        const lazyLoad = () => {\r\n            images.forEach((item) => {\r\n                // 触发条件为img元素的CSSOM对象到视口顶部的距离 < 100px + 视口高度，+100px为了提前触发图片加载\r\n                if (item.getBoundingClientRect().top < document.documentElement.clientHeight + 100) {\r\n                    if ('src' in item.dataset) {\r\n                        item.src = item.dataset.src;\r\n                    }\r\n                }\r\n            })\r\n        }\r\n        document.addEventListener('scroll', _.throttle(lazyLoad, 200));\r\n    </script>\r\n</body>\r\n</html>\r\n```",
           "star": {
-            "totalCount": 2
+            "totalCount": 3
           },
           "author": {
             "login": "hwb2017",
@@ -103,6 +103,28 @@
           "author": {
             "login": "Ha0ran2001",
             "url": "https://github.com/Ha0ran2001"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs4-OrJP",
+          "body": "方案一的实现[demo](https://codesandbox.io/s/manual-image-lazy-6zzhr?file=/index.html)，ScrollListener类用于监听和处理滚动，在Controller（实现onEnterViewport方法）元素出现在视窗内时调用controller.onEnterViewport()，最后移除controller。\r\n```html\r\n<!DOCTYPE html>\r\n<html lang=\"zh-CN\">\r\n  <head>\r\n    <meta charset=\"UTF-8\" />\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\r\n    <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\" />\r\n    <title>offsetTop计算实现图片懒加载</title>\r\n    <style>\r\n      body {\r\n        margin: 0;\r\n      }\r\n      .img {\r\n        width: 100%;\r\n        height: 100%;\r\n        object-fit: cover;\r\n        object-position: center;\r\n      }\r\n\r\n      .wrap {\r\n        margin: 10px;\r\n        display: inline-block;\r\n        width: 480px;\r\n        height: 270px;\r\n      }\r\n\r\n      .container {\r\n        width: 100vw;\r\n        height: 100vh;\r\n        overflow: auto;\r\n      }\r\n\r\n      h1 {\r\n        text-align: center;\r\n      }\r\n\r\n      .main {\r\n        margin: 0;\r\n        width: 2000px;\r\n      }\r\n    </style>\r\n  </head>\r\n\r\n  <body>\r\n    <section class=\"container\">\r\n      <h1>请滚动页面查看效果</h1>\r\n      <div class=\"main\"></div>\r\n    </section>\r\n  </body>\r\n  <script defer>\r\n    \"use strict\";\r\n\r\n    // 图片url列表\r\n    const images = [\r\n      \"https://h2.ioliu.cn/bing/Latern2022_ZH-CN0112710917_640x480.jpg?imageslim\",\r\n      \"https://h2.ioliu.cn/bing/MaldivesHeart_ZH-CN0032539727_640x480.jpg?imageslim\",\r\n      \"https://h2.ioliu.cn/bing/FaceOff_ZH-CN9969100257_640x480.jpg?imageslim\",\r\n      \"https://h2.ioliu.cn/bing/DarwinsArch_ZH-CN9740478501_640x480.jpg?imageslim\",\r\n      \"https://h2.ioliu.cn/bing/TeaGardensMunnar_ZH-CN9587720369_640x480.jpg?imageslim\",\r\n      \"https://h2.ioliu.cn/bing/SnowyBern_ZH-CN5472524801_640x480.jpg?imageslim\",\r\n      \"https://h2.ioliu.cn/bing/SevenSistersCliffs_ZH-CN5362127173_640x480.jpg?imageslim\",\r\n      \"https://h2.ioliu.cn/bing/SpeloncatoSnow_ZH-CN8115437163_640x480.jpg?imageslim\",\r\n      \"https://h2.ioliu.cn/bing/WinterludeIce_ZH-CN7868524911_640x480.jpg?imageslim\",\r\n      \"https://h2.ioliu.cn/bing/Oymyakon_ZH-CN7758768574_640x480.jpg?imageslim\",\r\n      \"https://h2.ioliu.cn/bing/MexicoMonarchs_ZH-CN7526758236_640x480.jpg?imageslim\",\r\n      \"https://h2.ioliu.cn/bing/WinterOlymics_ZH-CN7384614076_640x480.jpg?imageslim\",\r\n      \"233\"\r\n    ];\r\n\r\n    // 未加载时默认url\r\n    const defaultUrl =\r\n      \"data:image/svg+xml;base64,PHN2ZyB0PSIxNjQ0ODk5MzI0NDgwIiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjIwOTMiIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIj48cGF0aCBkPSJNODc0LjEgODEzLjc1SDE0OS45Yy0yMi4yMiAwLTQwLjIzLTE4LjAxLTQwLjIzLTQwLjIzVjI1MC40OWMwLTIyLjIyIDE4LjAxLTQwLjIzIDQwLjIzLTQwLjIzaDcyNC4yYzIyLjIyIDAgNDAuMjMgMTguMDEgNDAuMjMgNDAuMjN2NTIzLjAzYzAgMjIuMjEtMTguMDIgNDAuMjMtNDAuMjMgNDAuMjN6TTI4MC42NiAzMTAuODRjLTM4Ljg5IDAtNzAuNDEgMzEuNTItNzAuNDEgNzAuNDFzMzEuNTIgNzAuNDEgNzAuNDEgNzAuNDEgNzAuNDEtMzEuNTIgNzAuNDEtNzAuNDEtMzEuNTItNzAuNDEtNzAuNDEtNzAuNDF6IG01MTIuOTcgMTAwLjU4YzAtMjIuMjItMTguMDEtNDAuMjMtNDAuMjMtNDAuMjNoLTQwLjIzYy02Ni42NiAwLTEyMC43IDU0LjA0LTEyMC43IDEyMC43djQwLjIzYzAgMzMuMzMtMjcuMDIgNjAuMzUtNjAuMzUgNjAuMzUtMTguMjkgMC0zNC40Ny04LjMxLTQ1LjU0LTIxLjE1LTAuMDUtMC4wNi0wLjI1LTAuMjgtMC4yOS0wLjMzLTIyLjA5LTI0LjA1LTU5Ljc3LTM4Ljg2LTk0Ljk4LTM4Ljg2LTAuNDQgMC0wLjg0IDAuMTItMS4yOCAwLjEzbC0wLjA2LTAuMDZjLTg4LjI2IDAuNzMtMTU5LjU5IDcyLjQ0LTE1OS41OSAxNjAuODYgMCAyMi4yMiAxOC4wMSA0MC4yMyA0MC4yMyA0MC4yM0g3NTMuNGMyMi4yMiAwIDQwLjIzLTE4LjAxIDQwLjIzLTQwLjIzVjQxMS40MnoiIHAtaWQ9IjIwOTQiIGZpbGw9IiNjZGNkY2QiPjwvcGF0aD48L3N2Zz4=\";\r\n\r\n    // 加载错误时代替\r\n    const errorUrl =\r\n      \"data:image/svg+xml;base64,PHN2ZyB0PSIxNjQ0ODk5ODEzMDQ1IiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjQ0OTEiIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIj48cGF0aCBkPSJNNjQuMzgzMjM0IDUxMkM2NC4zODMyMzQgMjY0Ljc4NzgyOSAyNjQuNzg3ODI5IDY0LjM4MzIzNCA1MTIgNjQuMzgzMjM0IDc1OS4yMTIxNzEgNjQuMzgzMjM0IDk1OS42MTY3NjYgMjY0Ljc4NzgyOSA5NTkuNjE2NzY2IDUxMiA5NTkuNjE2NzY2IDc1OS4yMTIxNzEgNzU5LjIxMjE3MSA5NTkuNjE2NzY2IDUxMiA5NTkuNjE2NzY2IDI2NC43ODc4MjkgOTU5LjYxNjc2NiA2NC4zODMyMzQgNzU5LjIxMjE3MSA2NC4zODMyMzQgNTEyWk00NzQuMjMyMzc5IDc3MS4yNDUxMjRDNDc2LjQwODcxOCA3OTcuMzU1NTEyIDQ5MC41NTEzNzIgODEwLjQxMjEyMyA1MTYuNjYzMTc2IDgxMC40MTIxMjMgNTQyLjc3MzU2NCA4MTAuNDEyMTIzIDU1Ni45MTc2MzUgNzk3LjM1NTUxMiA1NTkuMDkyNTU2IDc3MS4yNDUxMjQgNTU2LjkxNzYzNSA3NDUuMTMzMzE5IDU0Mi43NzM1NjQgNzMwLjk5MDY2NiA1MTYuNjYzMTc2IDcyOC44MTQzMjcgNDkwLjU1MTM3MiA3MzAuOTkwNjY2IDQ3Ni40MDg3MTggNzQ1LjEzMzMxOSA0NzQuMjMyMzc5IDc3MS4yNDUxMjRaTTQ4MC43NTk5NzcgNjExLjMxNDc0OEM0ODAuNzU5OTc3IDYzNy40MjY1NTQgNDkyLjcyNzcxIDY1MC40ODE3NDcgNTE2LjY2MzE3NiA2NTAuNDgxNzQ3IDU0MC41OTcyMjYgNjUwLjQ4MTc0NyA1NTIuNTY0OTYgNjM3LjQyNjU1NCA1NTIuNTY0OTYgNjExLjMxNDc0OEw1NTIuNTY0OTYgMjQ5LjAyNDYxOEM1NTIuNTY0OTYgMjIyLjkxNDIzMSA1NDAuNTk3MjI2IDIwOS44NTc2MTkgNTE2LjY2MzE3NiAyMDkuODU3NjE5IDQ5Mi43Mjc3MSAyMDkuODU3NjE5IDQ4MC43NTk5NzcgMjIyLjkxNDIzMSA0ODAuNzU5OTc3IDI0OS4wMjQ2MThMNDgwLjc1OTk3NyA2MTEuMzE0NzQ4WiIgcC1pZD0iNDQ5MiIgZmlsbD0iI2NkY2RjZCI+PC9wYXRoPjwvc3ZnPg==\";\r\n\r\n    // 滚动监听和防抖\r\n    class ScrollListener {\r\n      entries = [];\r\n      taskId = 0;\r\n\r\n      constructor() {\r\n        document.addEventListener(\"scroll\", this.scrollDebounce.bind(this), {\r\n          capture: true,\r\n          passive: true\r\n        });\r\n      }\r\n\r\n      isInViewport(controller) {\r\n        let offsetTop = 0,\r\n          offsetLeft = 0,\r\n          el = controller.el,\r\n          scrollTop = 0,\r\n          scrollLeft = 0,\r\n          html = document.documentElement;\r\n        while (el && el !== html) {\r\n          offsetTop = offsetTop + el.offsetTop;\r\n          offsetLeft = offsetLeft + el.offsetLeft;\r\n          el = el.offsetParent;\r\n        }\r\n\r\n        el = controller.el;\r\n        while (el) {\r\n          scrollTop += el.scrollTop;\r\n          scrollLeft += el.scrollLeft;\r\n          el = el.parentElement;\r\n        }\r\n        offsetTop -= scrollTop;\r\n        offsetLeft -= scrollLeft;\r\n\r\n        el = controller.el;\r\n        return (\r\n          offsetTop < html.scrollTop + innerHeight &&\r\n          offsetTop + el.clientHeight > html.scrollTop &&\r\n          offsetLeft < html.scrollLeft + innerWidth &&\r\n          offsetLeft + el.clientWidth > html.scrollLeft\r\n        );\r\n      }\r\n\r\n      scrollDebounce() {\r\n        if (this.taskId) {\r\n          clearTimeout(this.taskId);\r\n        }\r\n        this.taskId = setTimeout(this.handleScroll.bind(this), 200);\r\n      }\r\n\r\n      addController(controller) {\r\n        this.entries.push(controller);\r\n        this.scrollDebounce();\r\n      }\r\n\r\n      handleScroll() {\r\n        this.entries = this.entries.filter((controller) => {\r\n          return !controller.blob;\r\n        });\r\n        this.entries.forEach((controller) => {\r\n          if (this.isInViewport(controller)) {\r\n            controller.onEnterViewport();\r\n          }\r\n        });\r\n      }\r\n    }\r\n\r\n    // 图片控制对象\r\n    class ImageController {\r\n      img = \"\";\r\n      blob = null;\r\n      el = null;\r\n      wrap = null;\r\n      constructor(\r\n        url = \"\",\r\n        parent = document.body,\r\n        className = \"wrap\",\r\n        el = document.createElement(\"img\")\r\n      ) {\r\n        el.src = defaultUrl;\r\n        el.classList.add(\"img\");\r\n\r\n        this.el = el;\r\n        this.img = url;\r\n\r\n        this.wrap = document.createElement(\"div\");\r\n        this.wrap.classList.add(className);\r\n        this.wrap.append(el);\r\n        parent.append(this.wrap);\r\n      }\r\n\r\n      showImage() {\r\n        const target = this;\r\n        this.fetchImage().then(() => {\r\n          target.el.src = this.blob;\r\n        });\r\n      }\r\n\r\n      showLoading() {\r\n        this.el.src = defaultUrl;\r\n      }\r\n\r\n      showError() {\r\n        this.el.src = errorUrl;\r\n      }\r\n\r\n      onEnterViewport() {\r\n        this.showImage();\r\n      }\r\n\r\n      async fetchImage() {\r\n        if (typeof fetch !== \"function\") {\r\n          this.thowError();\r\n          throw new Error(\"浏览器不支持fetch接口\");\r\n        }\r\n\r\n        // 如果已经加载过，直接返回\r\n        if (!this.blob) {\r\n          const target = this;\r\n          return fetch(this.img)\r\n            .then((res) => {\r\n              if (res.status > 199 && res.status < 300) return res.blob();\r\n              else return Promise.reject();\r\n            })\r\n            .then((blob) => {\r\n              if (/image/.test(blob.type)) return URL.createObjectURL(blob);\r\n              else return Promise.reject();\r\n            })\r\n            .then((url) => {\r\n              target.blob = url;\r\n            })\r\n            .catch(() => {\r\n              target.showError();\r\n              throw new Error(\"URL不正确或MIME类型不正确\");\r\n            });\r\n        }\r\n      }\r\n    }\r\n\r\n    const scrollListener = new ScrollListener(),\r\n      main = document.getElementsByClassName(\"main\")[0],\r\n      imageControllers = images.map((url) => {\r\n        const controller = new ImageController(url, main);\r\n        scrollListener.addController(controller);\r\n      });\r\n  </script>\r\n</html>\r\n```\r\n",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "liucan233",
+            "url": "https://github.com/liucan233"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs4-WDRr",
+          "body": "方案二有那么一点点抖动，这里重新实现了一下\r\n```html\r\n<!DOCTYPE html>\r\n<html lang=\"en\">\r\n\r\n<head>\r\n  <meta charset=\"UTF-8\">\r\n  <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\r\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n  <title>Document</title>\r\n  <style>\r\n    * {\r\n      margin: 0px;\r\n      padding: 0px;\r\n    }\r\n\r\n    body {\r\n      margin: 0px;\r\n      padding: 0px;\r\n    }\r\n\r\n    img {\r\n      display: block;\r\n    }\r\n  </style>\r\n</head>\r\n\r\n<body>\r\n  <div class=\"demo\">\r\n    <img data-src=\"https://cdn.pixabay.com/photo/2021/08/24/15/38/sand-6570980_960_720.jpg\" alt=\"1\" />\r\n    <img data-src=\"https://cdn.pixabay.com/photo/2013/02/21/19/06/drink-84533_960_720.jpg\" alt=\"2\" />\r\n    <img data-src=\"https://cdn.pixabay.com/photo/2013/07/18/20/26/sea-164989_960_720.jpg\" alt=\"3\" />\r\n    <img data-src=\"https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg\" alt=\"4\" />\r\n    <img data-src=\"https://cdn.pixabay.com/photo/2017/03/26/21/54/yoga-2176668_960_720.jpg\" alt=\"5\" />\r\n  </div>\r\n</body>\r\n<script>\r\n  const demo = document.querySelectorAll('img')\r\n  function lazy () {\r\n    for (let elem of demo) {\r\n      if (elem.getBoundingClientRect().top < document.documentElement.clientHeight) {\r\n        if (elem.dataset.src && elem.src == '') {\r\n          elem.src = elem.dataset.src\r\n        }\r\n      }\r\n    }\r\n  }\r\n  function throttle (t, fn) {\r\n    let time\r\n    return function () {\r\n      if (!time) {\r\n        time = setTimeout(() => {\r\n          time = null\r\n          fn()\r\n        }, t)\r\n      }\r\n    }\r\n  }\r\n  lazy()\r\n  window.addEventListener('scroll', throttle(500, lazy))\r\n</script>\r\n\r\n</html>\r\n```",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "LMW-lmw",
+            "url": "https://github.com/LMW-lmw"
           }
         }
       ]
@@ -171,7 +193,7 @@
           "id": "MDEyOklzc3VlQ29tbWVudDY1Mzg5OTIzNw==",
           "body": "## 防抖 (debounce)\r\n\r\n防抖，顾名思义，防止抖动，以免把一次事件误认为多次，敲键盘就是一个每天都会接触到的防抖操作。\r\n\r\n想要了解一个概念，必先了解概念所应用的场景。在 JS 这个世界中，有哪些防抖的场景呢\r\n\r\n1. 登录、发短信等按钮避免用户点击太快，以致于发送了多次请求，需要防抖\r\n1. 调整浏览器窗口大小时，resize 次数过于频繁，造成计算过多，此时需要一次到位，就用到了防抖\r\n1. 文本编辑器实时保存，当无任何更改操作一秒后进行保存\r\n\r\n代码如下，可以看出来**防抖重在清零 `clearTimeout(timer)`**\r\n\r\n``` js\r\nfunction debounce (f, wait) {\r\n  let timer\r\n  return (...args) => {\r\n    clearTimeout(timer)\r\n    timer = setTimeout(() => {\r\n      f(...args)\r\n    }, wait)\r\n  }\r\n}\r\n```\r\n\r\n## 节流 (throttle)\r\n\r\n节流，顾名思义，控制水的流量。控制事件发生的频率，如控制为1s发生一次，甚至1分钟发生一次。与服务端(server)及网关(gateway)控制的限流 (Rate Limit) 类似。\r\n\r\n1. `scroll` 事件，每隔一秒计算一次位置信息等\r\n1. 浏览器播放事件，每个一秒计算一次进度信息等\r\n1. input 框实时搜索并发送请求展示下拉列表，每隔一秒发送一次请求 (也可做防抖)\r\n\r\n代码如下，可以看出来**节流重在加锁 `timer=timeout`**\r\n\r\n``` js\r\nfunction throttle (f, wait) {\r\n  let timer\r\n  return (...args) => {\r\n    if (timer) { return }\r\n    timer = setTimeout(() => {\r\n      f(...args)\r\n      timer = null\r\n    }, wait)\r\n  }\r\n}\r\n```\r\n\r\n## 总结 (简要答案)\r\n\r\n+ 防抖：防止抖动，单位时间内事件触发会被重置，避免事件被误伤触发多次。**代码实现重在清零 `clearTimeout`**。防抖可以比作等电梯，只要有一个人进来，就需要再等一会儿。业务场景有避免登录按钮多次点击的重复提交。\r\n+ 节流：控制流量，单位时间内事件只能触发一次，与服务器端的限流 (Rate Limit) 类似。**代码实现重在开锁关锁 `timer=timeout; timer=null`**。节流可以比作过红绿灯，每等一个红灯时间就可以过一批。",
           "star": {
-            "totalCount": 9
+            "totalCount": 10
           },
           "author": {
             "login": "shfshanyue",
@@ -367,8 +389,19 @@
             "totalCount": 0
           },
           "author": {
-            "login": "lyhwoc",
-            "url": "https://github.com/lyhwoc"
+            "login": "justyunhe",
+            "url": "https://github.com/justyunhe"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs4-dZ2t",
+          "body": "> 我的意见和楼上相反，应该先大概看一遍文档…… 文档中会描述本地环境的配置方法\r\n> \r\n> ```\r\n> 查看是否有 CI/CD，如果有跟着 CI/CD 部署的脚本跑命令\r\n> 查看是否有 dockerfile，如果有跟着 dockerfile 跑命令\r\n> 查看 npm scripts 中是否有 dev/start，尝试 npm run dev/npm start\r\n> ```\r\n> \r\n> 大部分公司的开发环境都是本地环境，所以什么 CI/CD、Docker 可以先放到一边\r\n> \r\n> npm run dev/npm start 这个是一般的约定，但不是所有的项目都是这样。所以需要先看 package.json 中的 script 来确定\r\n> \r\n> ### npm run dev 和 npm start 的区别？\r\n> 1. npm start 是 npm run start 的别名，支持 prestart 和 poststart 钩子\r\n\r\n你是真没吃过文档的亏。。。管他什么公司，文档都有坑。",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "linlai163",
+            "url": "https://github.com/linlai163"
           }
         }
       ]
@@ -1965,6 +1998,17 @@
             "login": "hx-code",
             "url": "https://github.com/hx-code"
           }
+        },
+        {
+          "id": "IC_kwDODQzyOs4-I_sd",
+          "body": "基于最大堆实现优先队列\r\n````js\r\nclass MaxHeap {\r\n  constructor(arr = []) {\r\n    this.heap = [] // 用数组表示堆结构\r\n    arr.forEach(item => this.add(item))\r\n  }\r\n\r\n  add(value) { // O(logK) 插入节点值: 放入数组末尾并上浮到合适位置\r\n    this.heap.push(value)\r\n    this.shiftUp(this.heap.length - 1)\r\n  }\r\n\r\n  pop() { // O(logK) 提取最大值/堆顶: 提取 heap[0] 并用 heap[-1] 进行代替，然后从顶部开始下沉到合适位置\r\n    const max = this.heap[0]\r\n    this.swap(0, this.size() - 1)\r\n    this.heap.pop()\r\n    this.shiftDown(0)\r\n    return max\r\n  }\r\n\r\n  peek() { // 获取最值/堆顶\r\n    return this.heap[0]\r\n  }\r\n\r\n  size() { // 获取当前堆大小\r\n    return this.heap.length\r\n  }\r\n\r\n  // ↓私有属性↓\r\n  swap(index1, index2) { // 交换节点位置\r\n    const temp = this.heap[index1]\r\n    this.heap[index1] = this.heap[index2]\r\n    this.heap[index2] = temp\r\n  }\r\n\r\n  parentIndex(index) { // 获取父节点的位置 (index - 1) / 2 向下取整\r\n    return (index - 1) >> 1\r\n  }\r\n\r\n  leftChildIndex(index) { // 获取左子节点\r\n    return index * 2 + 1\r\n  }\r\n\r\n  rightChildIndex(index) { // 获取右子节点\r\n    return index * 2 + 2\r\n  }\r\n\r\n  shiftUp(index) { // 上浮节点，当前值小于父节点值时停止，使当前堆保持最大堆的性质\r\n    let parentIndex = this.parentIndex(index)\r\n    while (index > 0 && this.heap[parentIndex] < this.heap[index]) {\r\n      this.swap(index, parentIndex)\r\n      parentIndex = this.parentIndex(index = parentIndex)\r\n    }\r\n  }\r\n\r\n  shiftDown(index) { // 下沉节点，当前值大于子节点值时停止，使当前堆保持最大堆的性质\r\n    const leftIndex = this.leftChildIndex(index)\r\n    const rightIndex = this.rightChildIndex(index)\r\n    //  先比较左子节点值，当前值小于左子节点，则交换,并递归进行下沉\r\n    if (this.heap[index] < this.heap[leftIndex]) {\r\n      this.swap(leftIndex, index)\r\n      this.shiftDown(leftIndex)\r\n    }\r\n    if (this.heap[index] < this.heap[rightIndex]) {\r\n      this.swap(rightIndex, index)\r\n      this.shiftDown(rightIndex)\r\n    }\r\n  }\r\n}\r\n\r\n// ==TEST==\r\nconst priorityQueue = new MaxHeap([2, 5, 3])\r\nconsole.log(priorityQueue.peek()) // 5\r\npriorityQueue.add(7)\r\nconsole.log(priorityQueue.peek()) // 7\r\npriorityQueue.pop()\r\npriorityQueue.add(1)\r\nconsole.log(priorityQueue.peek()) // 5\r\n\r\n````",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "someGenki",
+            "url": "https://github.com/someGenki"
+          }
         }
       ]
     },
@@ -2108,7 +2152,7 @@
           "id": "MDEyOklzc3VlQ29tbWVudDU1OTcwNTkzMw==",
           "body": "我：你在吗？\r\n他： 我在的。\r\n我： 那开始聊天吧",
           "star": {
-            "totalCount": 0
+            "totalCount": 1
           },
           "author": {
             "login": "WenHaiYana",
@@ -2124,6 +2168,17 @@
           "author": {
             "login": "shfshanyue",
             "url": "https://github.com/shfshanyue"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs4_QP54",
+          "body": "第一次：服务端知道客户端有发送能力\r\n第二次：客户端知道服务端有发送和接受的能力\r\n第三次：服务端知道客户端有接受能力",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "changshou83",
+            "url": "https://github.com/changshou83"
           }
         }
       ]
@@ -2172,7 +2227,19 @@
     "title": "【Q056】什么是服务降级",
     "body": "",
     "comments": {
-      "nodes": []
+      "nodes": [
+        {
+          "id": "IC_kwDODQzyOs4-Wu0x",
+          "body": "服务降级就是将某些服务停掉或者不进行业务处理，释放资源来维持主要服务的功能。",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "18820227745",
+            "url": "https://github.com/18820227745"
+          }
+        }
+      ]
     },
     "labels": {
       "nodes": [
@@ -2905,7 +2972,7 @@
           "id": "IC_kwDODQzyOs44faCz",
           "body": "HMR，Hot Module Replacement，热模块替换，见名思意，即无需刷新在内存环境中即可替换掉过旧模块。与 Live Reload 相对应。\r\n\r\n> PS: Live Reload，当代码进行更新后，在浏览器自动刷新以获取最新前端代码。\r\n\r\n在 webpack 的运行时中 `__webpack__modules__` 用以维护所有的模块。\r\n\r\n而热模块替换的原理，即通过 `chunk` 的方式加载最新的 `modules`，找到 `__webpack__modules__` 中对应的模块逐一替换，并删除其上下缓存。\r\n\r\n其精简数据结构用以下代码表示:\r\n\r\n``` js\r\n// webpack 运行时代码\r\nconst __webpack_modules = [\r\n  (module, exports, __webpack_require__) => { __webpack_require__(0)  },\r\n  () => { console.log(\"这是一号模块\") }\r\n]\r\n\r\n// HMR Chunk 代码\r\n// JSONP 异步加载的所需要更新的 modules，并在 __webpack_modules__ 中进行替换\r\nself[\"webpackHotUpdate\"](0, {\r\n  1: () => {\r\n     console.log('这是最新的一号模块')\r\n  }\r\n})\r\n```\r\n\r\n其下为更具体更完整的流程，每一步都涉及众多，有兴趣的可阅读 `webpack-dev-server` 及开发环境 webpack 运行时的源码。\r\n\r\n1. `webpack-dev-server` 将打包输出 bundle 使用内存型文件系统控制，而非真实的文件系统。此时使用的是 [memfs](https://github.com/streamich/memfs) 模拟 node.js `fs` API\r\n1.  每当文件发生变更时，`webpack` 将会重新编译，`webpack-dev-server` 将会监控到此时文件变更事件，并找到其对应的 `module`。此时使用的是 [chokidar](https://github.com/paulmillr/chokidar) 监控文件变更\r\n1.  `webpack-dev-server` 将会把变更模块通知到浏览器端，此时使用 `websocket` 与浏览器进行交流。此时使用的是 [ws](https://github.com/websockets/ws)\r\n1. 浏览器根据 `websocket` 接收到 hash，并通过 hash 以 JSONP 的方式请求更新模块的 chunk\r\n1. 浏览器加载 chunk，并使用新的模块对旧模块进行热替换，并删除其缓存",
           "star": {
-            "totalCount": 1
+            "totalCount": 2
           },
           "author": {
             "login": "shfshanyue",
@@ -2945,7 +3012,7 @@
           "id": "MDEyOklzc3VlQ29tbWVudDcyMDg4ODE1OA==",
           "body": "Http 缓存分为以下两种，两者都是通过 HTTP 响应头控制缓存\r\n\r\n1. 强制缓存\r\n1. 协商缓存\r\n\r\n## 强制缓存\r\n\r\n再次请求时无需再向服务器发送请求\r\n\r\n``` bash\r\n              client         server\r\nGET /a.ab389z.js ------->\r\n                      <------- 200 OK\r\n(再也不会发请求)\r\n```\r\n\r\n与之相关的 Response Headers 有以下几个\r\n\r\n+ `Expires`\r\n\r\n  这个头部也是丧心病狂：使用绝对时间，且有固定的格式 <https://tools.ietf.org/html/rfc822#section-5.1>\r\n\r\n  ``` bash\r\n  Expires: Mon, 25 Oct 2021 20:11:12 GMT\r\n  ```\r\n\r\n+ `Cache-Control`，具有强大的缓存控制能力\r\n\r\n  常用的有以下两个\r\n\r\n  + `no-cache`，每次请求需要校验服务器资源的新鲜度\r\n  + `max-age=31536000`，浏览器在一年内都不需要向服务器请求资源\r\n\r\n## 协商缓存\r\n\r\n再次请求时，需要向服务器校验新鲜度，如果资源是新鲜的，返回 304，从浏览器获取资源\r\n\r\n``` bash\r\n           client         server\r\nGET /a.js   ----------->\r\n                   <----------- 200 OK\r\nGET /a.js   ----------->\r\n                   <----------- 304 Not Modified\r\n```\r\n\r\n与之相关的 Request/Response Headers 有以下几个\r\n\r\n+ `Last-Modified`/`If-Modified-Since`\r\n+ `Etag`/`If-None-Match`",
           "star": {
-            "totalCount": 1
+            "totalCount": 2
           },
           "author": {
             "login": "shfshanyue",
@@ -3799,6 +3866,17 @@
             "login": "guanwanxiao",
             "url": "https://github.com/guanwanxiao"
           }
+        },
+        {
+          "id": "IC_kwDODQzyOs4-oCTz",
+          "body": "用createPortal会好点，符合createPortal的使用场景并且如果message复杂点createElement就用不了",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "Drowned-fish",
+            "url": "https://github.com/Drowned-fish"
+          }
         }
       ]
     },
@@ -4287,8 +4365,8 @@
             "totalCount": 0
           },
           "author": {
-            "login": "lyhwoc",
-            "url": "https://github.com/lyhwoc"
+            "login": "justyunhe",
+            "url": "https://github.com/justyunhe"
           }
         }
       ]
@@ -4518,6 +4596,17 @@
           "author": {
             "login": "Carrie999",
             "url": "https://github.com/Carrie999"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs4_QQOC",
+          "body": "@Carrie999 大佬细说",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "changshou83",
+            "url": "https://github.com/changshou83"
           }
         }
       ]
@@ -6229,7 +6318,19 @@
     "title": "【Q174】TCP 三次握手发生在 socket 建立的哪一步",
     "body": "",
     "comments": {
-      "nodes": []
+      "nodes": [
+        {
+          "id": "IC_kwDODQzyOs4_QQ-i",
+          "body": "TCP Client调用connec()请求建立连接时",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "changshou83",
+            "url": "https://github.com/changshou83"
+          }
+        }
+      ]
     },
     "labels": {
       "nodes": [
@@ -6255,7 +6356,7 @@
           "id": "IC_kwDODQzyOs49dcsq",
           "body": "https://jsbin.com/xemaxovisa/edit?css,output",
           "star": {
-            "totalCount": 0
+            "totalCount": 1
           },
           "author": {
             "login": "dsize1",
@@ -6279,7 +6380,19 @@
     "title": "【Q176】如何在数组中找出三个数之和为N",
     "body": "",
     "comments": {
-      "nodes": []
+      "nodes": [
+        {
+          "id": "IC_kwDODQzyOs4-tl6K",
+          "body": "排序之后使用双指针\r\nlet ar = [5, 12, 6, 3, 9, 2, 1, 7];\r\n\r\nfunction getthreenum(arr, target, result = []) {\r\n    arr = arr.sort((a, b) => a - b)\r\n    const len = arr.length;\r\n    for (let i = 0; i < len; i++) {\r\n        let j = i + 1;\r\n        let k = len - 1;\r\n        while (j < k) {\r\n            if (arr[j] + arr[k] > target - arr[i]) {\r\n                k--;\r\n            } else if (arr[j] + arr[k] < target - arr[i]) {\r\n                j++;\r\n            } else {\r\n                result.push([arr[i], arr[j], arr[k]]);\r\n                j++;\r\n            }\r\n        }\r\n    }\r\n    return result;\r\n}\r\nconsole.log(getthreenum(ar, 13, []));",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "HNHED",
+            "url": "https://github.com/HNHED"
+          }
+        }
+      ]
     },
     "labels": {
       "nodes": [
@@ -6505,6 +6618,17 @@
             "login": "manondidi",
             "url": "https://github.com/manondidi"
           }
+        },
+        {
+          "id": "IC_kwDODQzyOs4_QSFK",
+          "body": "第一次：客户端通知服务端我要结束了\r\n第二次：服务端告诉客户端我知道了\r\n第三次：服务端通知客户端我准备好了\r\n第四次：客户端通知服务端表示我知道了",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "changshou83",
+            "url": "https://github.com/changshou83"
+          }
         }
       ]
     },
@@ -6523,7 +6647,19 @@
     "title": "【Q183】tcp 中 time_wait 堆积过多会有什么问题，为什么它超时时间这么长",
     "body": "",
     "comments": {
-      "nodes": []
+      "nodes": [
+        {
+          "id": "IC_kwDODQzyOs4_QTcq",
+          "body": "会占用大量网络资源(接口)，导致网络响应卡顿。超时时间长是为了有足够的时间确保客户端能接受到消息",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "changshou83",
+            "url": "https://github.com/changshou83"
+          }
+        }
+      ]
     },
     "labels": {
       "nodes": [
@@ -6545,7 +6681,7 @@
           "id": "MDEyOklzc3VlQ29tbWVudDU5NTY3ODE3MQ==",
           "body": "css变量减少样式重复定义，比如同一个颜色值要在多个地方重复使用，以前通过less和sass预处理做到，现在css变量也可以做到，方便维护，提高可读性\r\n```\r\n:root{\r\n  --bgcolor: blue;\r\n  --color: red;\r\n}\r\np {\r\n  color: var(--color);\r\n}\r\ndiv {\r\n  backgroung-color: var(--bgcolor);\r\n  color: var(--color)\r\n}\r\n```\r\n在媒体查询中使用，精简代码，减少冗余\r\n```\r\n.box {\r\n  --base-size: 10;\r\n  width: calc(var(--base-size)* 10px);\r\n  height: clac(var(--base-size)* 5px);\r\n  padding:calc(var(--base-size) * 1px);\r\n}\r\n@media screen and (min-width: 1480px) {\r\n  .box{\r\n    --base-size: 8;\r\n  }\r\n}\r\n```\r\n方便在js中使用\r\n```\r\n// 设置变量\r\ndocument.getElementById(\"box\").style.setPropertyValue('--color', 'pink')\r\n// 读取变量\r\ndoucment.getElementById('box').style.getPropertyValue('--color').trim()    //pink\r\n// 删除变量\r\ndocument.getElementById('box').style.removeProperty('--color')\r\n```",
           "star": {
-            "totalCount": 1
+            "totalCount": 2
           },
           "author": {
             "login": "Cicelychen",
@@ -6620,6 +6756,17 @@
           "author": {
             "login": "shfshanyue",
             "url": "https://github.com/shfshanyue"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs4-jZGf",
+          "body": "优点： 可维护性高， 易读性好， 可抽象， 可扩展性好。\r\n\r\n缺点： runtime   对性能有一定的影响。 不能直接用postcss\r\n\r\n生态: \r\n\r\ntwin.macos  tailwind\r\n\r\n[babel-plugin-styled-components](https://link.juejin.cn/?target=https%3A%2F%2Fstyled-components.com%2Fdocs%2Ftooling%23better-debugging)   解决 className是名随机字符串的问题\r\n\r\n[typescript-styled-components-px2rem](https://github.com/xuyuanxiang/typescript-styled-components-px2rem)",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "leeleoo",
+            "url": "https://github.com/leeleoo"
           }
         }
       ]
@@ -6808,6 +6955,17 @@
           "author": {
             "login": "Innocentw",
             "url": "https://github.com/Innocentw"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs4_AUqe",
+          "body": "```js\r\n .container{\r\nwidth:0;\r\nborder:100px solid transparent;\r\nborder-bottom-color:#000;\r\n}\r\n```",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "wangliang000",
+            "url": "https://github.com/wangliang000"
           }
         }
       ]
@@ -7920,7 +8078,19 @@
     "title": "【Q219】工作中你有没有很佩服的人",
     "body": "",
     "comments": {
-      "nodes": []
+      "nodes": [
+        {
+          "id": "IC_kwDODQzyOs4--zZF",
+          "body": "月哥",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "maya1900",
+            "url": "https://github.com/maya1900"
+          }
+        }
+      ]
     },
     "labels": {
       "nodes": [
@@ -8184,6 +8354,17 @@
           "author": {
             "login": "haotie1990",
             "url": "https://github.com/haotie1990"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs4_hnuF",
+          "body": "https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/flat",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "719676340",
+            "url": "https://github.com/719676340"
           }
         }
       ]
@@ -9217,7 +9398,7 @@
           "id": "MDEyOklzc3VlQ29tbWVudDY2OTI0NDM2Mg==",
           "body": "1. 分析任务\r\n这个任务是活动页面开发？还是常规需求？\r\n如果是常规需求，可以考虑延期\r\n如果是活动页面，尤其是节假日、特殊纪念日的活动，可以考虑降低用户体验、砍需求等从而降低工作量，继而保证正常上线。因为运营活动的时效性较高\r\n2. 在排期阶段多估算时间，预计是常规工作时间的 1.5 倍\r\n3. 通过加班等方式弥补工期的缺失",
           "star": {
-            "totalCount": 0
+            "totalCount": 1
           },
           "author": null
         }
@@ -10231,7 +10412,19 @@
     "title": "【Q293】semver 指什么，试图解释一下",
     "body": "",
     "comments": {
-      "nodes": []
+      "nodes": [
+        {
+          "id": "IC_kwDODQzyOs4-9_Wg",
+          "body": "语义化版本号。版本格式：主版本号.次版本号.修订号",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "maya1900",
+            "url": "https://github.com/maya1900"
+          }
+        }
+      ]
     },
     "labels": {
       "nodes": [
@@ -10592,6 +10785,17 @@
             "login": "linlai163",
             "url": "https://github.com/linlai163"
           }
+        },
+        {
+          "id": "IC_kwDODQzyOs4_iLyo",
+          "body": "```\r\n <div class=\"container\">\r\n        <div class=\"left\"></div>\r\n        <div class=\"main\"></div>\r\n        <div class=\"right\"></div>\r\n  </div>\r\n```\r\n\r\n```\r\n<style>\r\n    /* grid布局 */\r\n    \r\n    .container {\r\n        height: 20rem;\r\n        margin: 2rem;\r\n        background-color: #eeeeee;\r\n        display: grid;\r\n        grid-template-columns: 300px 1fr 300px;\r\n    }\r\n   \r\n    .left {\r\n        height: 100%;\r\n        border: 1px solid black;\r\n    }\r\n    \r\n    .main {\r\n        height: 100%;\r\n    }\r\n    \r\n    .right {\r\n        height: 100%;\r\n        border: 1px solid;\r\n    }\r\n</style>\r\n```\r\n",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "WangKang1555",
+            "url": "https://github.com/WangKang1555"
+          }
         }
       ]
     },
@@ -10650,6 +10854,17 @@
             "login": "thundernet8",
             "url": "https://github.com/thundernet8"
           }
+        },
+        {
+          "id": "IC_kwDODQzyOs4-z7Aw",
+          "body": "dns.resolve为内核api，无需占用thread pool，优先级更高\r\ndns.lookup为thread pool api，占用thread pool，影响线程池方法（例如fs模块方法等）",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "paul-wj",
+            "url": "https://github.com/paul-wj"
+          }
         }
       ]
     },
@@ -10673,7 +10888,7 @@
           "id": "MDEyOklzc3VlQ29tbWVudDY2MDYxNjUyMA==",
           "body": "`css specificity` 即 css 中关于选择器的权重，以下三种类型的选择器依次下降\r\n\r\n1. `id` 选择器，如 `#app`\r\n1. `class`、`attribute` 与 `pseudo-classes` 选择器，如 `.header`、`[type=\"radio\"]` 与 `:hover`\r\n1. `type` 标签选择器和伪元素选择器，如 `h1`、`p` 和 `::before`\r\n\r\n其中通配符选择器 `*`，组合选择器 `+ ~ >`，否定伪类选择器 `:not()` 对优先级无影响\r\n\r\n另有内联样式 `<div class=\"foo\" style=\"color: red;\"></div>` 及 `!important`(最高) 具有更高的权重\r\n\r\n> [`:not` 的优先级影响 - codepen](https://codepen.io/shanyue/pen/dyGQqBe) 可以看出 `:not` 对选择器的优先级无任何影响\r\n\r\n> [CSS Specificity - codepen](https://codepen.io/shanyue/pen/XWMRQOw) 可以看出十几个 class 选择器也没有一个 id 选择器权重高",
           "star": {
-            "totalCount": 2
+            "totalCount": 3
           },
           "author": {
             "login": "shfshanyue",
@@ -11269,6 +11484,17 @@
           "author": {
             "login": "shfshanyue",
             "url": "https://github.com/shfshanyue"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs4-f8qY",
+          "body": "MDN的解释：position: sticky 在正常文档流中仍然保有位置，然后会相对于它的最近的滚动祖先和最近的块级祖先根据 top, left, right, bottom 的值进行偏移。元素偏移不会影响其他任何元素的位置，因为会为该元素创建一个新的层叠上下文，从而不会影响到页面上的其他元素\r\n\r\ncss-tricks一篇文章的理解：在窗口的管轮向下滚动没有让该元素完全消失前，该元素的表现就与postion:relative的元素相同，之后该元素的表现就类似于position: fixed 的元素， 只不过该元素是相对于离他最近的滚轮祖先\r\n\r\nReference: \r\nDocs: https://developer.mozilla.org/zh-CN/docs/Web/CSS/position\r\nCode: https://css-tricks.com/almanac/properties/p/position/",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "CsongL",
+            "url": "https://github.com/CsongL"
           }
         }
       ]
@@ -12329,6 +12555,17 @@
             "login": "shfshanyue",
             "url": "https://github.com/shfshanyue"
           }
+        },
+        {
+          "id": "IC_kwDODQzyOs4-j4sa",
+          "body": "实现方式：\r\n```css\r\n    html[theme=\"dark-model\"] {\r\n        filter: invert(1) hue-rotate(180);\r\n        transition: color 300ms, background-color 300ms; /*过渡动画*/\r\n    }\r\n```\r\n\r\n解释：\r\n  css 的 filter属性 是将用于图片上的过滤，颜色变化等图形效果应用与元素上，\r\n  上面所使用到的 invert 可以用来反转应用程序的颜色; hue-rotate 是用来改变图像上的应用色颜色\r\n  通过invert(1)将白色变成黑色，那么为了适配颜色的变化，网页上的图像的颜色应该也做一个改变，这个改变就是通过hue-rotate(180edg)来实现的\r\n  filter属性 其他著名的应用还有:\r\n    * blur() 模糊图像\r\n    * opacity() 图像透明程度\r\n    * drop-shadow() 对图像应用阴影效果\r\n    * ...\r\n\r\n## Reference \r\n[MDN Docs](https://developer.mozilla.org/zh-CN/docs/Web/CSS/filter)\r\n[如何实现网页dark-model](https://segmentfault.com/a/1190000023598551)",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "CsongL",
+            "url": "https://github.com/CsongL"
+          }
         }
       ]
     },
@@ -12347,7 +12584,19 @@
     "title": "【Q371】在 redux 中如何发送请求",
     "body": "",
     "comments": {
-      "nodes": []
+      "nodes": [
+        {
+          "id": "IC_kwDODQzyOs4_aQy2",
+          "body": "使用redux-thunk中间件 就能够在redux中发送请求 ",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "selecaing",
+            "url": "https://github.com/selecaing"
+          }
+        }
+      ]
     },
     "labels": {
       "nodes": [
@@ -13669,6 +13918,28 @@
           "author": {
             "login": "hwb2017",
             "url": "https://github.com/hwb2017"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs4-AaSB",
+          "body": "```javascript\r\nfunction solution(s, limit) {\r\n    const n = s.length;\r\n    let res = '';\r\n    for (let i = 0, cnt = 0; i < n; i += cnt) {\r\n        cnt = 1;\r\n        while (s[i] === s[i + cnt]) cnt++;\r\n        res += cnt > limit ? s[i] + cnt : s[i].repeat(cnt);\r\n    }\r\n    return res;\r\n}\r\n```",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "chenxinan",
+            "url": "https://github.com/chenxinan"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs4-Vntu",
+          "body": "const encode = word => {\r\n  if(!word) return \"\";\r\n  let ary = word.split('');\r\n  let group = {}\r\n  let result = \"\"\r\n  group[ary[0]] = 1\r\n  for(let i = 1, j = ary.length; i <= j; i++) {\r\n    if(ary[i - 1] != ary[i]) {\r\n      result += Object.entries(group).flat().join('')\r\n      group = {}\r\n      group[ary[i]] = 1\r\n    } else {\r\n      group[ary[i]]++\r\n    }\r\n  }\r\n  return result\r\n\r\n}\r\n\r\n\r\n\r\nconst encode1 = word => {\r\n  return word.replace(/1/gi, '')\r\n}\r\n\r\n\r\nconst encode2 = word => {\r\n  let one = word.substring(0, 1)\r\n  let newWord = ''\r\n  for(item of word) {\r\n    newWord += item == 2 ? one : item\r\n    one = item\r\n  }\r\n  return newWord\r\n}\r\n\r\n",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "LiJinWD",
+            "url": "https://github.com/LiJinWD"
           }
         }
       ]
@@ -16962,7 +17233,19 @@
     "title": "【Q506】Grid 布局如何实现类似 flex: row-reverse",
     "body": "",
     "comments": {
-      "nodes": []
+      "nodes": [
+        {
+          "id": "IC_kwDODQzyOs4-0rQl",
+          "body": "通过 grid-auto-flow属性 和 direction属性 来实现grid布局类似 flex: row-reverse的样式\r\n\r\ngrid-auto-flow: [row | column] || dense      该属性指定采用grid布局的容器内部的元素如何排序\r\ndirection: rtl | ltr  指定文本, 表列的水平方向\r\n\r\n[Code](https://codepen.io/csongl/pen/RwjegQL)\r\n\r\n## Reference\r\n[MDN](https://developer.mozilla.org/zh-CN/docs/Web/CSS/direction)\r\n[Article](https://blog.csdn.net/qq_42740797/article/details/113737171)",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "CsongL",
+            "url": "https://github.com/CsongL"
+          }
+        }
+      ]
     },
     "labels": {
       "nodes": [
@@ -17774,6 +18057,17 @@
             "login": "shfshanyue",
             "url": "https://github.com/shfshanyue"
           }
+        },
+        {
+          "id": "IC_kwDODQzyOs4_Kczv",
+          "body": "```javascript\r\nfunction getTargetAndRest(target, originList) {\r\n  let targetArr = []\r\n  for(let i = 0; i<originList.length; i++) {\r\n    if (originList[i] === target) {\r\n      targetArr = originList.splice(i, 1)\r\n      break\r\n    }\r\n  }\r\n  return targetArr.concat(originList)\r\n}\r\n\r\nconst list = [1, 2, 3, 4, 5]\r\nlet [a, ...c] = getTargetAndRest(3, list)\r\n```",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "JoeWrights",
+            "url": "https://github.com/JoeWrights"
+          }
         }
       ]
     },
@@ -18308,7 +18602,19 @@
     "title": "【Q543】什么是事件冒泡和事件捕获",
     "body": "",
     "comments": {
-      "nodes": []
+      "nodes": [
+        {
+          "id": "IC_kwDODQzyOs4_ks_S",
+          "body": "个人记录\r\n[事件冒泡与事件捕获](https://github.com/CsongL/javaScript-learning/blob/main/interviewJs/BrowserDom/%E4%BA%8B%E4%BB%B6%E5%86%92%E6%B3%A1%E4%BA%8B%E4%BB%B6%E6%8D%95%E8%8E%B7%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%89%98.md)",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "CsongL",
+            "url": "https://github.com/CsongL"
+          }
+        }
+      ]
     },
     "labels": {
       "nodes": [
@@ -19534,7 +19840,19 @@
     "title": "【Q578】HTTP 响应头 cache-control: s-maxage=0 是什么意思",
     "body": "",
     "comments": {
-      "nodes": []
+      "nodes": [
+        {
+          "id": "IC_kwDODQzyOs4--qiR",
+          "body": "缓存立即失效",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "maya1900",
+            "url": "https://github.com/maya1900"
+          }
+        }
+      ]
     },
     "labels": {
       "nodes": [
@@ -21270,6 +21588,17 @@
             "login": "shfshanyue",
             "url": "https://github.com/shfshanyue"
           }
+        },
+        {
+          "id": "IC_kwDODQzyOs4--C8f",
+          "body": "压缩的具体操作\r\n1. 去除多余字符，eg：空格，换行、注释\r\n2. 压缩变量名，函数名、属性名\r\n3. 使用更简单的表达，eg：合并声明、布尔值简化",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "1689851268",
+            "url": "https://github.com/1689851268"
+          }
         }
       ]
     },
@@ -22036,7 +22365,7 @@
           "id": "IC_kwDODQzyOs40hz5T",
           "body": "``` js\r\nfunction chunk (list, size) {\r\n  const l = []\r\n  for (let i = 0; i < list.length; i++ ) {\r\n    const index = Math.floor(i / size)\r\n    l[index] ??= [];\r\n    l[index].push(list[i])\r\n  }\r\n  return l\r\n}\r\n\r\n```",
           "star": {
-            "totalCount": 2
+            "totalCount": 3
           },
           "author": {
             "login": "shfshanyue",
@@ -22243,6 +22572,39 @@
             "login": "heretic-G",
             "url": "https://github.com/heretic-G"
           }
+        },
+        {
+          "id": "IC_kwDODQzyOs4-U1fY",
+          "body": "//可重复的\r\nfunction liunum() {\r\n    let yanzheng = ''\r\n    for (let i = 0; i < 6; i++) {\r\n        let num = Math.floor(Math.random()*10)\r\n        yanzheng += num\r\n    }\r\n    return yanzheng\r\n}\r\nlet num = liunum()\r\nconsole.log('重复的',num);\r\n//不可重复的\r\nfunction liunum1() {\r\n    let yanzheng1 = ''\r\n    for (let j = 0; j < 6; j++) {\r\n        let num1 = Math.floor(Math.random()*10)\r\n        if (yanzheng1.indexOf(num1)==-1)yanzheng1 += num1\r\n        else j--;\r\n    }\r\n    return yanzheng1\r\n}\r\nlet num1 = liunum1()\r\nconsole.log('不重复的',num1);",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "liunengnengneng",
+            "url": "https://github.com/liunengnengneng"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs4-dI4l",
+          "body": "```typescript\r\nconst randTo = (n: number) => ~~(Math.random() * (n + 1))\r\n\r\nconst shuffle = (list: Array<any>) => list.sort(() => Math.random() - 0.5)\r\n\r\n// 随机生成六位数的手机验证码(重复/不可重复)\r\nconst vc = ({ len = 6, repeat = true } = {}) => {\r\n  if (len > 10 && repeat === false) {\r\n    throw new Error('len should less equal than 10 if repeat is false')\r\n  }\r\n  if (repeat) {\r\n    return Array(len)\r\n      .fill(0)\r\n      .map(() => randTo(9))\r\n  } else {\r\n    return shuffle([...Array(10).keys()]).slice(0, len)\r\n  }\r\n}\r\n\r\nconsole.log(vc())\r\nconsole.log(vc({ len: 9 }))\r\nconsole.log(vc({ repeat: false }))\r\nconsole.log(vc({ len: 9, repeat: false }))\r\nconsole.log(vc({ len: 11, repeat: false }))\r\n```",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "ryanmoyo",
+            "url": "https://github.com/ryanmoyo"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs4-n0la",
+          "body": "``` js\r\nconst random = (length) => Math.floor(Math.random() * length);\r\n\r\n// 重复\r\nconst randomCode = () => {\r\n  return [...new Array(6)].map((i) => random(10));\r\n};\r\n\r\n// 不重复\r\nconst randomUniqueCode = () => {\r\n  let arr = [...new Array(10)].map((_, index) => index);\r\n  return [...new Array(6)].map((i) => {\r\n    const selectIndex = random(arr.length);\r\n    return arr.splice(selectIndex, 1)[0];\r\n  });\r\n};\r\n```",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "createhappymemoryforlife",
+            "url": "https://github.com/createhappymemoryforlife"
+          }
         }
       ]
     },
@@ -22294,7 +22656,19 @@
     "title": "【Q647】Array 中那些 API 可改变自身",
     "body": "",
     "comments": {
-      "nodes": []
+      "nodes": [
+        {
+          "id": "IC_kwDODQzyOs4_LWCw",
+          "body": "增删改\r\npush，pop，shift，unshift，splice",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "oooooooyk",
+            "url": "https://github.com/oooooooyk"
+          }
+        }
+      ]
     },
     "labels": {
       "nodes": [
@@ -22361,6 +22735,17 @@
           "author": {
             "login": "heretic-G",
             "url": "https://github.com/heretic-G"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs4-n2wt",
+          "body": "> ```js\r\n> const trim = str => str.trim || str.replace(/^\\s+|\\s+$/g, '')\r\n> ```\r\n\r\nconst trim = str => str.trim?.() || str.replace(/^\\s+|\\s+$/g, '')\r\n",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "createhappymemoryforlife",
+            "url": "https://github.com/createhappymemoryforlife"
           }
         }
       ]
@@ -22657,7 +23042,7 @@
           "id": "IC_kwDODQzyOs41CCva",
           "body": "bind/softBind/apply/call 都是this显式绑定的方法\r\n\r\n- bind会返回一个硬绑定的新函数，新函数会使用指定的第一个thisCtx去调用原始函数，并将其它参数传给原始函数。 硬绑定会降低函数的灵活性，在绑定之后不能通过显式或硬绑定的方式改变this，只能通过new改变\r\n- softBind 会对指定的函数进行封装，首先检查调用时的 this，如果 this 绑定到全局对象或者 undefined，那就用指定的thisCtx 去调用函数，否则不会修改 this  \r\n- apply和call功能相同，都是以指定的thisCtx和参数去执行方法，并返回原方法的返回值，只是apply中参数以数组传递\r\n```javascript\r\nFunction.prototype.myBind = function (ctx = globalThis) {\r\n  const fn = this;\r\n  const args = Array.from(arguments).slice(1);\r\n  function bound() {\r\n    if (this instanceof bound) {\r\n      fn.apply(this, args);\r\n    } else {\r\n      fn.apply(ctx, args);\r\n    }\r\n  }\r\n  bound.prototype = fn.prototype;\r\n  return bound;\r\n};\r\n```\r\n\r\n```javascript\r\nFunction.prototype.mySoftBind = function (ctx = globalThis) {\r\n  const fn = this;\r\n  const args = Array.from(arguments).slice(1);\r\n  function bound() {\r\n    if (!this || this === globalThis) {\r\n      fn.apply(ctx, args);\r\n    } else {\r\n      fn.apply(this, args);\r\n    }\r\n  }\r\n  bound.prototype = fn.prototype;\r\n  return bound;\r\n};\r\n```\r\n\r\n```javascript\r\nFunction.prototype.myCall = function (ctx = globalThis) {\r\n  const args = Array.from(arguments).slice(1);\r\n  const key = Symbol(\"key\");\r\n  ctx[key] = this;\r\n  const res=ctx[key](...args);\r\n  delete ctx[key]\r\n  return res\r\n};\r\n```\r\n```javascript\r\nFunction.prototype.myApply = function (ctx = globalThis) {\r\n  const args = arguments[1];\r\n  const key = Symbol(\"key\");\r\n  ctx[key] = this;\r\n  const res=ctx[key](...args);\r\n  delete ctx[key]\r\n  return res\r\n};\r\n```",
           "star": {
-            "totalCount": 1
+            "totalCount": 2
           },
           "author": {
             "login": "wussss",
@@ -23346,7 +23731,7 @@
           "id": "IC_kwDODQzyOs40x20A",
           "body": "1. 对于 pv 量比较高的页面，比如b站等流量图也比较大的，采用ssr \r\n   采用 ssr 如何优化性能\r\n    - 性能瓶颈在于 react-dom render/hydrate 和 server 端的 renderToString \r\n    - 尽量减少 dom 结构， 采用流式渲染，jsonString 一个对象，而不是 literal 对象\r\n    - server 去获取数据\r\n    - 不同情况不同分析，减少主线程阻塞时间\r\n    - 减少不必要的应用逻辑在服务端运行\r\n2. 减少依赖和包的体积\r\n   - 利用 webpack 的 contenthash 缓存\r\n   -  重复依赖包处理，可以采用 pnpm\r\n   - 采用code splitting，减少首次请求体积\r\n   - 减少第三方依赖的体积\r\n   \r\n 3. FP (First Paint) 首次绘制\r\n  FCP (First Contentful Paint) 首次内容绘制\r\n  LCP (Largest Contentful Paint) 最大内容渲染\r\n  DCL (DomContentloaded)\r\n  FMP(First Meaningful Paint) 首次有效绘制\r\n  L (onLoad)\r\n  TTI (Time to Interactive) 可交互时间\r\n  TBT (Total Blocking Time) 页面阻塞总时长\r\n  FID (First Input Delay) 首次输入延迟\r\n  CLS (Cumulative Layout Shift) 累积布局偏移\r\n  SI (Speed Index)\r\n  一些性能指标可以监控性能\r\n\r\n4.网络 prefetch cdn ",
           "star": {
-            "totalCount": 0
+            "totalCount": 1
           },
           "author": {
             "login": "illumi520",
@@ -23837,6 +24222,17 @@
             "login": "heretic-G",
             "url": "https://github.com/heretic-G"
           }
+        },
+        {
+          "id": "IC_kwDODQzyOs4-AXoz",
+          "body": "```javascript\r\nfunction solution(n) {\r\n    const dp = Array.from({ length: 2 }, () => new Array(n + 1).fill(0));\r\n    for (let i = 1; i <= n; i++) {\r\n        dp[0][i] = i;\r\n        dp[1][i] = n;\r\n        for (let j = 1; j <= i; j++) {\r\n            dp[1][i] = Math.min(dp[1][i], Math.max(dp[0][j - 1], dp[1][i - j]) + 1);\r\n        }\r\n    }\r\n    return dp[1][n - 1];\r\n}\r\n```",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "chenxinan",
+            "url": "https://github.com/chenxinan"
+          }
         }
       ]
     },
@@ -24203,6 +24599,17 @@
           "author": {
             "login": "heretic-G",
             "url": "https://github.com/heretic-G"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs4-AT8c",
+          "body": "```javascript\r\nfunction rand5 () {\r\n    return Math.random() * 6 | 0\r\n}\r\n\r\nfunction rand7 () {\r\n    return (rand5() & 1) * 4 + (rand5() & 1) * 2 + (rand5() & 1);\r\n};\r\n```",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "chenxinan",
+            "url": "https://github.com/chenxinan"
           }
         }
       ]
@@ -24754,6 +25161,17 @@
           "author": {
             "login": "9527YL",
             "url": "https://github.com/9527YL"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs4-Dnpx",
+          "body": "之前看过PromiseA+源码，结果碰上这道题还是理解，我给大家找到了相应的知乎解答：https://www.zhihu.com/question/453677175。\r\n这边，我来阐述下我的理解：\r\n顺序执行 0 和 1 应该大家都没什么问题，所以现在问题变成了为什么return Promise 为什么产生了 2 次微任务？\r\n知乎评论里有人说：根据 promise/A+ ，结果应该为 0 1 2 4 3 5 6 ，也就是根据Promise/A++ 标准只产生了1次微任务。\r\n按照PromiseA+的规范，此处应该是2.3.2标准：`If x is a promise` ,根据A+准则的源码是以这么处理的：\r\n1. 遇到.then就创建一pending状态的Promise保存起来。\r\n2. 如果是一个普通的number类型，则直接用Promise.resolve(number)即可。\r\n    如果是 promise类型的话，需要做一个状态同步操作，代码如下：\r\n    其中 x 是接收的已经resolved 的 Promise，即(Promise.resolve(4))，而this指向我们刚创建的 pending 状态的 Promise \r\n```javascript\r\nresolveWithPromise(x) {\r\n    x.then(\r\n      result => {\r\n        this.resolve(result); // promise将结果给resolve\r\n      },\r\n      reason => {\r\n        this.reject(reason);\r\n      }\r\n    );\r\n```\r\n也就是说，这1个micro task的作用就是同步状态。\r\n\r\n至于还有一个微任务的产生原因是来自：v8和PromiseA+规范的差异。\r\nv8中的Promie实现是通过C++编写的，与promise/A+规范的不同之处在于，v8并没有对`x is a promise` 的情况做处理，而是只有对`x is an object`的处理。所以多了一步micro task：作用就是将 resolveWithPromise => resolveWithThenableObject，伪代码如下：\r\n```javascript\r\nif(x instanceOf MyPromise){\r\n    createPromiseResolveThenableJob // + micro task\r\n}\r\n```\r\n========================================================================\r\n以上仅仅只是我阅读知乎后的粗略理解，如果有说的不对的望指正！\r\n面试的时候只需要简单记住：如果resolve()的括号内的结果是一个promise的话，会多执行两个`micro task`\r\n类似的题目有：\r\n\r\n```javascript\r\nnew Promise(resolve => {\r\n    let resolvedPromise = Promise.resolve()\r\n    resolve(resolvedPromise)\r\n}).then(() => {\r\n    console.log('resolvePromise resolved')\r\n})\r\n\r\nPromise.resolve()\r\n   .then(() => { console.log('promise1') })\r\n   .then(() => { console.log('promise2') })\r\n   .then(() => { console.log('promise3') })\r\n```\r\n结果是：'resolvePromise resolved' 是在 'promise2' 后面打印出来的。\r\n\r\n\r\n\r\n",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "wangjs-jacky",
+            "url": "https://github.com/wangjs-jacky"
           }
         }
       ]
@@ -25572,7 +25990,19 @@
     "title": "【Q729】如何分析前端打包体积",
     "body": "",
     "comments": {
-      "nodes": []
+      "nodes": [
+        {
+          "id": "IC_kwDODQzyOs4_tVD3",
+          "body": "1. 安装用于分析包的模块\r\n\r\n```shell\r\nnpm install webpack-bundle-analyzer --save-dev\r\n```\r\n\r\n2. vue.config.js 新增内容\r\n\r\n```js\r\nmodule.exports = {\r\n  chainWebpack: config => {\r\n    if(process.env.analyzer) {\r\n      config\r\n        .plugin(\"webpack-bundle-analyzer\")\r\n        .use(require(\"webpack-bundle-analyzer\").BundleAnalyzerPlugin)\r\n    }\r\n  }\r\n}\r\n```\r\n\r\n3. package.json 新加一条 script -- \"analyzer\"\r\n\r\n```js\r\n\"scripts\": {\r\n  \"analyzer\": \"set analyzer=true && vue-cli-service build\" \r\n}\r\n```\r\n\r\n4. 命令行下输入\r\n\r\n```shell\r\nnpm run analyzer\r\n```\r\n\r\n如果需要修改默认端口，可按如下修改配置\r\n\r\n```js\r\nconst BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin\r\n \r\nmodule.exports = {\r\n  chainWebpack: config => {\r\n    if(process.env.analyzer)\r\n      config\r\n        .plugin('webpack-bundle-analyzer')\r\n        .use(new BundleAnalyzerPlugin({ analyzerPort : 7888 }))\r\n  }\r\n}\r\n```\r\n",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "wenreq",
+            "url": "https://github.com/wenreq"
+          }
+        }
+      ]
     },
     "labels": {
       "nodes": [
@@ -25600,6 +26030,17 @@
             "login": "shfshanyue",
             "url": "https://github.com/shfshanyue"
           }
+        },
+        {
+          "id": "IC_kwDODQzyOs4-DTzb",
+          "body": "你好，请问下 token流 怎么理解这个名词？因为通常理解的token就是一个唯一的字符串，流，一般想到的是什么文件流什么的。一些什么序列化相关的，而token流说是一个数组，那就是说是由很多字符串组成的一个数组吗？为什么不直接说是一个数组反而要说是token流，为什么要提到 token 以及流（有点咬文嚼字了:( ），谢谢~~",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "wenhui7788",
+            "url": "https://github.com/wenhui7788"
+          }
         }
       ]
     },
@@ -25626,8 +26067,8 @@
             "totalCount": 0
           },
           "author": {
-            "login": "HY0606",
-            "url": "https://github.com/HY0606"
+            "login": "YaoHuangMark",
+            "url": "https://github.com/YaoHuangMark"
           }
         }
       ]
@@ -25647,7 +26088,19 @@
     "title": "【Q732】简述 bundless 的优势与不足",
     "body": "",
     "comments": {
-      "nodes": []
+      "nodes": [
+        {
+          "id": "IC_kwDODQzyOs4_dpcR",
+          "body": "Bundleless 的优势。\r\n1.项目启动快。因为不需要过多的打包，只需要处理修改后的单个文件，所以响应速度是 O(1) 级别，刷新即可即时生效，速度很快。\r\n2.浏览器加载块。利用浏览器自主加载的特性，跳过打包的过程。\r\n3.本地文件更新，重新请求单个文件。\r\n![Bundleless](http://oss.tianmasport.com/gx/size/2022-03-11/196/951803225336446976.png) ",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "wenreq",
+            "url": "https://github.com/wenreq"
+          }
+        }
+      ]
     },
     "labels": {
       "nodes": [
@@ -25664,7 +26117,19 @@
     "title": "【Q733】简述 npm cache",
     "body": "",
     "comments": {
-      "nodes": []
+      "nodes": [
+        {
+          "id": "IC_kwDODQzyOs4_fWtg",
+          "body": "npm 会把所有下载的包，保存在用户文件夹下面。\r\n\r\n默认值：~/.npm在Posix上 或 %AppData%/npm-cache在Windows上。根缓存文件夹。\r\n\r\nnpm install 之后会计算每个包的 sha1 值(PS:安全散列算法(Secure Hash Algorithm))，然后将包与他的 sha1 值关联保存在 package-lock.json 里面，下次 npm install 时，会根据 package-lock.json 里面保存的 sha1 值去文件夹里面寻找包文件，如果找到就不用从新下载安装了。\r\n\r\n```sh\r\nnpm cache verify\r\n```\r\n\r\n上面这个命令是重新计算，磁盘文件是否与 sha1 值匹配，如果不匹配可能删除。\r\n\r\n> 要对现有缓存内容运行脱机验证，请使用 `npm cache verify`。\r\n\r\n```sh\r\nnpm cache clean --force\r\n```\r\n\r\n上面这个命令是删除磁盘所有缓存文件。",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "wenreq",
+            "url": "https://github.com/wenreq"
+          }
+        }
+      ]
     },
     "labels": {
       "nodes": [

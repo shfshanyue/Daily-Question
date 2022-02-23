@@ -19,7 +19,7 @@
     </div>
     <div class="bar-intro">
       <div class="text">
-        每天晚上九点 <a href="https://space.bilibili.com/28696526">B站讲解前端工程化直播</a>，并解答相关问题。
+        <a href="https://www.apifox.cn/?utm_source=shanyue-question">Apifox，在国内可替代 Postman 并强烈适用于团队的 API 管理工具。</a>
       </div>
     </div>
   </div>
