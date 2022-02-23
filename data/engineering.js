@@ -1,6 +1,7 @@
 const sidebar = [
   {
     title: '打包篇',
+    collapsable: false, 
     children: [
       {
         title: '第一章: Bundle 基础设施建设',
@@ -110,6 +111,7 @@ const sidebar = [
   },
   {
     title: '开发篇',
+    collapsable: false, 
     children: [
       {
         title: '第四章: npm package 开发',
@@ -179,6 +181,7 @@ const sidebar = [
   },
   {
     title: '运维篇',
+    collapsable: false, 
     children: [
       {
         title: '第五章: 前端质量保障',
