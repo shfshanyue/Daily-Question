@@ -1,10 +1,12 @@
+const once = require('lodash/once')
+
 const sidebar = [
   {
     title: '打包篇',
     collapsable: false, 
     children: [
       {
-        title: '第一章: Bundle 基础设施建设',
+        title: '第一章: 打包器的资源处理',
         children: [
           {
             title: '模块化方案',
@@ -243,7 +245,7 @@ function getItems () {
   return sidebar.map(x => x.children?.map(x => x.children)).flat(10)
 }
 
-function generateSidebar () {
+function _generateSidebar () {
   const items = getItems()
   let i = 1
   for (const item of items) {
@@ -259,6 +261,7 @@ function generateSidebar () {
 }
 
 module.exports = {
+  sidebar,
   getItems,
-  generateSidebar
+  generateSidebar: once(_generateSidebar)
 }
