@@ -240,7 +240,7 @@ const sidebar = [
 ]
 
 function getItems () {
-  return sidebar.map(x => x.children.map(x => x.children)).flat(10)
+  return sidebar.map(x => x.children?.map(x => x.children)).flat(10)
 }
 
 function generateSidebar () {
@@ -251,7 +251,10 @@ function generateSidebar () {
     item.title = `${i++}. ${item.title}`
   }
   return {
-    '/engineering/': sidebar
+    '/engineering/': [
+      ['', '开篇词'],
+      ...sidebar
+    ]
   }
 }
 
