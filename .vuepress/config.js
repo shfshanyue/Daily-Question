@@ -1,6 +1,7 @@
 const _ = require('lodash')
 const { generateSiebar } = require('./header')
 const { generateSidebar: generateESidebar} = require('../data/engineering')
+const { sidebar: deploySidebar } = require('../data/deploy')
 
 module.exports = {
   base: '/',
@@ -19,6 +20,7 @@ module.exports = {
       { text: '主页', link: '/' },
       // { text: '周刊', link: '/weekly/' },
       { text: '前端工程化三十八讲', link: '/engineering/' },
+      // { text: '前端部署十五章', link: '/deploy/' },
       { text: '计算机基础', link: '/base/' },
       { text: '前端面试基础', link: '/fe/' },
       { text: '高级前端面试', link: '/server/' },
@@ -29,17 +31,17 @@ module.exports = {
           { text: '开放式问题', link: '/open/' },
           { text: '大厂内推', link: '/infer/ali-ascp.md' },
           { text: '各地求职', link: '/job/chengdu.html' },
-          // { text: '面试路线图', link: '/roadmap/code.html' },
+          { text: '面经大全', link: '/interview.html' },
         ]
       },
       { text: '面试路线图', link: '/roadmap/code.html' },
-      { text: '面经大全', link: '/interview.html' },
       { text: 'Apifox', link: 'https://www.apifox.cn?utm_source=shanyue-question' },
       // { text: '极客时间返现', link: 'https://geek.shanyue.tech' },
     ],
     sidebar: {
       ...generateSiebar(),
       ...generateESidebar(),
+      ...deploySidebar,
       '/job/': [
         ['chengdu', '成都大厂'],
       ],
