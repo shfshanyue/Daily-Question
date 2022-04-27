@@ -39,8 +39,7 @@ description: "${description ? description.description + ' ' + (description.keywo
 }
 
 function generateEngineeringIssueMd (issue) {
-  const frontmatter = `
----
+  const frontmatter = `---
 title: "${issue.title.slice(6)} | 前端工程化三十八讲"
 ---
   `

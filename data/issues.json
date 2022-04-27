@@ -2881,7 +2881,19 @@
     "title": "【Q075】webpack 中plugin的作用是什么，有没有自己写过",
     "body": "",
     "comments": {
-      "nodes": []
+      "nodes": [
+        {
+          "id": "IC_kwDODQzyOs5BxKa1",
+          "body": "loaders的作用是转换其他类型的语言到JS语言, plugins可以做其他所有loaders做不了的事情, 比如: \r\n* bundle optimization(bundle优化)\r\n* assets management(assets管理)\r\n* injection of environment variables(注入环境变量)\r\n* etc.\r\n\r\n实际上plugins是webpack的基石, webpack就是在plugin system上建立起来的.\r\n\r\n为了使用plugins, 我们需要 **require()** 并将它加入 **plugins** 数组. \r\n\r\n``` js\r\n// webpack.config.js\r\n\r\nconst HtmlWebpackPlugin = require('html-webpack-plugin');\r\nconst webpack = require('webpack'); //to access built-in plugins\r\n\r\nmodule.exports = {\r\n  module: {\r\n    rules: [{ test: /\\.txt$/, use: 'raw-loader' }],\r\n  },\r\n  plugins: [new HtmlWebpackPlugin({ template: './src/index.html' })],\r\n};\r\n```\r\n\r\n在上面的例子中, **html-webpack-plugin**为我们的应用程序生成了一个html文件并自动注入所有生成的bundle.\r\n\r\n[webpack提供的plugin列表](https://webpack.js.org/plugins/)\r\n\r\nreference: [webpack官方文档](https://webpack.js.org/concepts/)",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "swingpenguin",
+            "url": "https://github.com/swingpenguin"
+          }
+        }
+      ]
     },
     "labels": {
       "nodes": [
@@ -3430,7 +3442,7 @@
           "id": "IC_kwDODQzyOs40hU2T",
           "body": "以下代码见 [如何实现 promise.map - codepen](https://codepen.io/shanyue/pen/zYwZXPN?editors=0012)\r\n\r\n``` js\r\nfunction pMap(list, mapper, concurrency = Infinity) {\r\n  // list 为 Iterator，先转化为 Array\r\n  list = Array.from(list)\r\n  return new Promise((resolve, reject) => {\r\n    let currentIndex = 0\r\n    let result = []\r\n    let resolveCount = 0\r\n    let len = list.length\r\n    function next() {\r\n      const index = currentIndex\r\n      currentIndex++\r\n      Promise.resolve(list[index]).then(o => mapper(o, index)).then(o => {\r\n        result[index] = o\r\n        resolveCount++\r\n        if (resolveCount === len) { resolve(result) }\r\n        if (currentIndex < len) { next() }\r\n      })\r\n    }\r\n    for (let i = 0; i < concurrency && i < len; i ++) {\r\n      next()\r\n    }\r\n  })\r\n}\r\n```",
           "star": {
-            "totalCount": 2
+            "totalCount": 3
           },
           "author": {
             "login": "shfshanyue",
@@ -3485,7 +3497,7 @@
           "id": "MDEyOklzc3VlQ29tbWVudDU2MTkzNDA3NQ==",
           "body": "> v-show always compiles and renders everything - it simply adds the \"display: none\" style to the element. It has a higher initial load cost, but toggling is very cheap.\r\n> Incomparison, v-if is truely conditional: it is lazy, so if its initial condition is false, it won't even do anything. This can be good for initial load time. When the condition is true, v-if will then compile and render its content. Toggling a v-if block actually tearsdown everything inside it, e.g. Components inside v-if are acually destroyed and re-created when toggled, so toggling a huge v-if block can be more expensive than v-show.\r\n\r\nv-show 总是会进行编译和渲染的工作 - 它只是简单的在元素上添加了 `display: none;` 的样式。v-show 具有较高的初始化性能成本上的消耗，但是使得转换状态变得很容易。\r\n相比之下，v-if 才是真正「有条件」的：它的加载是惰性的，因此，若它的初始条件是 false，它就不会做任何事情。这对于初始加载时间来说是有益的，当条件为 true 时，v-if 才会编译并渲染其内容。切换 v-if 下的块儿内容实际上时销毁了其内部的所有元素，比如说处于v-if下的组件实际上在切换状态时会被销毁并重新生成，因此，切换一个较大v-if块儿时会比v-show消耗的性能多。",
           "star": {
-            "totalCount": 3
+            "totalCount": 4
           },
           "author": {
             "login": "zhaofeihao",
@@ -9695,6 +9707,17 @@
             "login": "newwangyiyang",
             "url": "https://github.com/newwangyiyang"
           }
+        },
+        {
+          "id": "IC_kwDODQzyOs5Bw00o",
+          "body": "> \r\n\r\n这也太短了吧。。具体点呢",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "EricWong1994",
+            "url": "https://github.com/EricWong1994"
+          }
         }
       ]
     },
@@ -11365,7 +11388,19 @@
     "title": "【Q324】为什么会发生样式抖动",
     "body": "",
     "comments": {
-      "nodes": []
+      "nodes": [
+        {
+          "id": "IC_kwDODQzyOs5B3TLb",
+          "body": "因为没有指定元素具体高度和宽度,比如数据还没有加载进来时元素高度是100px(假设这里是100px),数据加载进来后,因为有了数据,然后元素被撑大,所有出现了抖动",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "caro1xxx",
+            "url": "https://github.com/caro1xxx"
+          }
+        }
+      ]
     },
     "labels": {
       "nodes": [
@@ -13252,7 +13287,7 @@
           "id": "MDEyOklzc3VlQ29tbWVudDY3MTQxNTAyMw==",
           "body": "1 => 3 => 4 => 2 => 5 => 6 => 0",
           "star": {
-            "totalCount": 3
+            "totalCount": 4
           },
           "author": null
         }
@@ -14927,6 +14962,17 @@
             "login": "shfshanyue",
             "url": "https://github.com/shfshanyue"
           }
+        },
+        {
+          "id": "IC_kwDODQzyOs5CB4F7",
+          "body": "使用setTimeout有意义吗",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "shengrongchun",
+            "url": "https://github.com/shengrongchun"
+          }
         }
       ]
     },
@@ -15196,6 +15242,17 @@
           "author": {
             "login": "shfshanyue",
             "url": "https://github.com/shfshanyue"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs5B4_uf",
+          "body": "我们都知道 `UDP` 不可靠，那么如何保证连接传输的`可靠性`？",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "marsk6",
+            "url": "https://github.com/marsk6"
           }
         }
       ]
@@ -21310,7 +21367,7 @@
           "id": "MDEyOklzc3VlQ29tbWVudDg3MjcyNjQ0OA==",
           "body": "一个简单的订阅发布模式实现如下，主要有两个核心 API\r\n\r\n+ `emit`: 发布一个事件\r\n+ `on`: 监听一个事件\r\n+ `off`: 取消一个事件监听\r\n\r\n实现该模式，使用一个 events 维护发布的事件：\r\n\r\n``` js\r\nconst events = {\r\n  click: [{\r\n    once: true,\r\n    listener: callback,\r\n  }, {\r\n    listener: callback\r\n  }]\r\n}\r\n```\r\n\r\n具体实现代码如下所示\r\n\r\n``` js\r\nclass Event {\r\n  events = {}\r\n \r\n  emit (type, ...args) {\r\n    const listeners = this.events[type]\r\n    for (const listener of listeners) {\r\n      listener.listener(...args)\r\n      if (listener.once) {\r\n        this.off(type, listener.listener)\r\n      }\r\n    }\r\n  }\r\n\r\n  on (type, listener) {\r\n    this.events[type] = this.events[type] || []\r\n    this.events[type].push({ listener })\r\n  }\r\n\r\n  once (type, listener) {\r\n    this.events[type] = this.events[type] || []\r\n    this.events[type].push({ listener, once: true })\r\n  }\r\n\r\n  off (type, listener) {\r\n    this.events[type] = this.events[type] || []\r\n    this.events[type] = this.events[type].filter(listener => listener.listener !== listener)\r\n  }\r\n}\r\n```\r\n\r\n以上代码不够优雅，且有点小瑕疵，再次实现如下，代码可见 [如何实现发布订阅器  - codepen](https://codepen.io/shanyue/pen/WNjprpe?editors=0012)\r\n\r\n``` js\r\nclass Event {\r\n  events = {}\r\n \r\n  emit (type, ...args) {\r\n    const listeners = this.events[type]\r\n    for (const listener of listeners) {\r\n      listener(...args)\r\n    }\r\n  }\r\n\r\n  on (type, listener) {\r\n    this.events[type] = this.events[type] || []\r\n    this.events[type].push(listener)\r\n  }\r\n\r\n  once (type, listener) {\r\n    const callback = (...args) => {\r\n      this.off(type, callback)\r\n      listener(...args)\r\n    }\r\n    this.on(type, callback)\r\n  }\r\n\r\n  off (type, listener) {\r\n    this.events[type] = this.events[type] || []\r\n    this.events[type] = this.events[type].filter(callback => callback !== listener)\r\n  }\r\n}\r\n\r\nconst e = new Event()\r\n\r\nconst callback = x => { console.log('Click', x.id) }\r\ne.on('click', callback)\r\ne.on('click', callback)\r\n\r\n// 只打印一次\r\nconst onceCallback = x => console.log('Once Click', x.id)\r\ne.once('click', onceCallback)\r\ne.once('click', onceCallback)\r\n\r\n//=> 3\r\ne.emit('click', { id: 3 })\r\n\r\n//=> 4\r\ne.emit('click', { id: 4 })\r\n```",
           "star": {
-            "totalCount": 1
+            "totalCount": 2
           },
           "author": {
             "login": "shfshanyue",
@@ -22745,6 +22802,17 @@
             "login": "iceycc",
             "url": "https://github.com/iceycc"
           }
+        },
+        {
+          "id": "IC_kwDODQzyOs5CD3Bj",
+          "body": "function add(a, b) {\r\n  return Promise.resolve(a + b);\r\n}\r\n\r\nfunction sum(arr) {\r\n  const promises = []\r\n  for(let i=0,j=arr.length;i<j;i=i+2) {\r\n      promises.push(add(arr[i]||0,arr[i+1]||0))\r\n  }\r\n    Promise.all(promises).then((arr)=> {\r\n        const result = arr.reduce((total,item)=> {\r\n            return total+item\r\n        },0)\r\n    })\r\n}",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "shengrongchun",
+            "url": "https://github.com/shengrongchun"
+          }
         }
       ]
     },
@@ -22815,8 +22883,8 @@
             "totalCount": 0
           },
           "author": {
-            "login": "ryanmoyo",
-            "url": "https://github.com/ryanmoyo"
+            "login": "echoeureka",
+            "url": "https://github.com/echoeureka"
           }
         },
         {
@@ -26248,6 +26316,17 @@
             "login": "1138943712",
             "url": "https://github.com/1138943712"
           }
+        },
+        {
+          "id": "IC_kwDODQzyOs5CFThu",
+          "body": "在 webpack 中，可以使用 [webpack-bundle-analyzer](https://github.com/webpack-contrib/webpack-bundle-analyzer) 分析打包后体积分析。\r\n\r\n其原理是根据 webpack 打包后的 [Stats](https://webpack.js.org/api/stats/#root) 数据进行分析，在 webpack compiler 的 [done hook](https://webpack.js.org/api/compiler-hooks/#done) 进行处理，见[源码](https://github.com/webpack-contrib/webpack-bundle-analyzer/blob/master/src/BundleAnalyzerPlugin.js#L75)\r\n\r\n``` js\r\ncompiler.hooks.done.tapAsync('webpack-bundle-analyzer',  stats => {  });\r\n```\r\n\r\n在默认配置下，[webpack-bundle-analyzer](https://github.com/webpack-contrib/webpack-bundle-analyzer) 将会启动服务打开一个各个 chunk 下各个 module 占用体积的可视化图。\r\n\r\n![image.png](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/538692bbcc8d485b893ebeac02cc90a5~tplv-k3u1fbpfcp-watermark.image?)\r\n\r\n**你可以通过它，找到在在打包中占用体积最大的模块，并进行优化。**\r\n\r\n在查看页面中，有三个体积选项：\r\n\r\n1. `stat`: 每个模块的原始体积\r\n2. `parsed `: 每个模块经 webpack 打包处理之后的体积，比如 terser 等做了压缩，便会体现在上边\r\n3. `gzip`: 经 gzip 压缩后的体积\r\n\r\n## ANALYZE 环境变量\r\n\r\n在实际项目中，往往通过环境变量 `ANALYZE` 配置该插件，代码如下，可见[bundle-analyze/build.js](https://github.com/shfshanyue/node-examples/blob/master/engineering/webpack/bundle-analyzer/build.js)。\r\n\r\n``` js\r\nconst webpack = require('webpack')\r\nconst BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;\r\n\r\n// 1. BundleAnalyzerPlugin 是如何工作的？\r\n// 2. Stat、Parsed、Gziped 分别是何意义？\r\n// 3. terserplugin 对此结果有影响吗？\r\n\r\nfunction f1 () {\r\n  return webpack({\r\n    entry: './index.js',\r\n    mode: 'none',\r\n    plugins: [\r\n      process.env.ANALYZE && new BundleAnalyzerPlugin()\r\n    ]\r\n  })\r\n}\r\n\r\nf1().run((err, stat) => {\r\n})\r\n```\r\n\r\n在打包时，通过制定环境变量即可分析打包体积\r\n\r\n``` bash\r\nANALYZE=true npm run build\r\n```",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "shfshanyue",
+            "url": "https://github.com/shfshanyue"
+          }
         }
       ]
     },
@@ -26316,6 +26395,17 @@
           "author": {
             "login": "YaoHuangMark",
             "url": "https://github.com/YaoHuangMark"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs5CMORT",
+          "body": "\r\n[browserslist](https://github.com/browserslist/browserslist) 用特定的语句来查询浏览器列表，如 `last 2 Chrome versions`。\r\n\r\n``` js\r\n$ npx browserslist \"last 2 Chrome versions\"\r\nchrome 100\r\nchrome 99\r\n```\r\n\r\n细说起来，**它是现代前端工程化不可或缺的工具，无论是处理 JS 的 `babel`，还是处理 CSS 的 `postcss`，凡是与垫片相关的，他们背后都有 `browserslist` 的身影。**\r\n\r\n+ `babel`，在 `@babel/preset-env` 中使用 `core-js` 作为垫片\r\n+ `postcss` 使用 `autoprefixer` 作为垫片\r\n\r\n关于前端打包体积与垫片关系，我们有以下几点共识:\r\n\r\n1. 由于低浏览器版本的存在，垫片是必不可少的\r\n2. 垫片越少，则打包体积越小\r\n3. 浏览器版本越新，则垫片越少\r\n\r\n那在前端工程化实践中，当我们确认了浏览器版本号，那么它的垫片体积就会确认。\r\n\r\n假设项目只需要支持最新的两个谷歌浏览器。那么关于 `browserslist` 的查询，可以写作 `last 2 Chrome versions`。\r\n\r\n而随着时间的推移，**该查询语句将会返回更新的浏览器，垫片体积便会减小。**\r\n\r\n**如使用以上查询语句，一年前可能还需要 `Promise.any` 的垫片，但目前肯定不需要了。**\r\n\r\n## 原理\r\n\r\n最终，谈一下 `browserslist` 的原理: `browserslist` 根据正则解析查询语句，对浏览器版本数据库 `caniuse-lite` 进行查询，返回所得的浏览器版本列表。\r\n\r\n> PS: `caniuse-lite` 这个库也由 `browserslist` 团队进行维护，它是基于 [caniuse](https://caniuse.com/) 的数据库进行的数据整合。\r\n\r\n因为 `browserslist` 并不维护数据库，因此它会经常提醒你去更新 `caniuse-lite` 这个库，由于 lock 文件的存在，因此需要使用以下命令手动更新数据库。\r\n\r\n``` bash\r\n$ npx browserslist@latest --update-db\r\n```\r\n\r\n该命令将会对 caniuse-lite 进行升级，可体现在 lock 文件中。\r\n\r\n``` diff\r\n     \"caniuse-lite\": {\r\n-      \"version\": \"1.0.30001265\",\r\n-      \"resolved\": \"https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001265.tgz\",\r\n-      \"integrity\": \"sha512-YzBnspggWV5hep1m9Z6sZVLOt7vrju8xWooFAgN6BA5qvy98qPAPb7vNUzypFaoh2pb3vlfzbDO8tB57UPGbtw==\",\r\n+      \"version\": \"1.0.30001332\",\r\n+      \"resolved\": \"https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001332.tgz\",\r\n+      \"integrity\": \"sha512-10T30NYOEQtN6C11YGg411yebhvpnC6Z102+B95eAsN0oB6KUs01ivE8u+G6FMIRtIrVlYXhL+LUwQ3/hXwDWw==\",\r\n       \"dev\": true\r\n     },\r\n```\r\n\r\n## 一些常用的查询语法\r\n\r\n### 根据用户份额:\r\n\r\n+ `> 5%`: 在全球用户份额大于 `5%` 的浏览器\r\n+ `> 5% in CN`: 在中国用户份额大于 `5%` 的浏览器\r\n\r\n### 根据最新浏览器版本\r\n\r\n+ `last 2 versions`: 所有浏览器的最新两个版本\r\n+ `last 2 Chrome versions`: Chrome 浏览器的最新两个版本\r\n\r\n### 不再维护的浏览器\r\n\r\n+ `dead`: 官方不在维护已过两年，比如 `IE10`\r\n\r\n### 浏览器版本号\r\n\r\n+ `Chrome > 90`: Chrome 大于 90 版本号的浏览器\r\n",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "shfshanyue",
+            "url": "https://github.com/shfshanyue"
           }
         }
       ]
@@ -26533,6 +26623,57 @@
           }
         }
       ]
+    },
+    "labels": {
+      "nodes": [
+        {
+          "id": "MDU6TGFiZWwxNjgwMDkyMDA5",
+          "name": "http"
+        }
+      ]
+    }
+  },
+  {
+    "id": "I_kwDODQzyOs5H8lxa",
+    "number": 771,
+    "title": "【Q739】webpack 中是如何处理 new URL 资源的",
+    "body": "",
+    "comments": {
+      "nodes": []
+    },
+    "labels": {
+      "nodes": [
+        {
+          "id": "MDU6TGFiZWwxNzA2NzQ0ODEz",
+          "name": "webpack"
+        }
+      ]
+    }
+  },
+  {
+    "id": "I_kwDODQzyOs5H8l8l",
+    "number": 772,
+    "title": "【Q740】vite 中是如何处理 new URL 资源的",
+    "body": "",
+    "comments": {
+      "nodes": []
+    },
+    "labels": {
+      "nodes": [
+        {
+          "id": "MDU6TGFiZWwxNzA3OTU2MjIw",
+          "name": "前端工程化"
+        }
+      ]
+    }
+  },
+  {
+    "id": "I_kwDODQzyOs5IGhN6",
+    "number": 773,
+    "title": "【Q741】我们上传图片为 Blob/File 对象时，是如何向服务器端传送数据的",
+    "body": "",
+    "comments": {
+      "nodes": []
     },
     "labels": {
       "nodes": [

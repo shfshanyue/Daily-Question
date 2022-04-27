@@ -20,13 +20,13 @@ module.exports = {
       { text: '主页', link: '/' },
       // { text: '周刊', link: '/weekly/' },
       { text: '前端工程化三十八讲', link: '/engineering/' },
-      // { text: '前端部署十五章', link: '/deploy/' },
-      { text: '计算机基础', link: '/base/' },
+      { text: '前端部署十五章', link: '/deploy/' },
       { text: '前端面试基础', link: '/fe/' },
       { text: '高级前端面试', link: '/server/' },
       {
         text: '更多面试题',
         items: [
+          { text: '计算机基础', link: '/base/' },
           { text: 'DevOps', link: '/devops/' },
           { text: '开放式问题', link: '/open/' },
           { text: '大厂内推', link: '/infer/ali-ascp.md' },
@@ -35,7 +35,7 @@ module.exports = {
         ]
       },
       { text: '面试路线图', link: '/roadmap/code.html' },
-      { text: 'Apifox', link: 'https://www.apifox.cn?utm_source=shanyue-question' },
+      // { text: 'Apifox', link: 'https://www.apifox.cn?utm_source=shanyue-question' },
       // { text: '极客时间返现', link: 'https://geek.shanyue.tech' },
     ],
     sidebar: {
