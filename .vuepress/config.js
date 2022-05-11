@@ -2,6 +2,7 @@ const _ = require('lodash')
 const { generateSiebar } = require('./header')
 const { generateSidebar: generateESidebar} = require('../data/engineering')
 const { sidebar: deploySidebar } = require('../data/deploy')
+const { sidebar: mockSidebar } = require('../data/mock')
 
 module.exports = {
   base: '/',
@@ -21,8 +22,9 @@ module.exports = {
       // { text: '周刊', link: '/weekly/' },
       { text: '前端工程化三十八讲', link: '/engineering/' },
       { text: '前端部署十五章', link: '/deploy/' },
-      { text: '前端面试基础', link: '/fe/' },
-      { text: '高级前端面试', link: '/server/' },
+      { text: '前端基础', link: '/fe/' },
+      { text: '高级前端', link: '/server/' },
+      { text: '模拟面试', link: '/mock/' },
       {
         text: '更多面试题',
         items: [
@@ -42,6 +44,7 @@ module.exports = {
       ...generateSiebar(),
       ...generateESidebar(),
       ...deploySidebar,
+      ...mockSidebar,
       '/job/': [
         ['chengdu', '成都大厂'],
       ],

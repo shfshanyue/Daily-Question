@@ -70,9 +70,9 @@ networks:
 1. 暴露了一个 `http` 服务，主要提供一些 `header` 以及 `ip` 信息
 1. 配置了容器的 `labels`，设置该服务的 `Host` 为 `whoami.shanyue.local`，给 `traefik` 提供标记
 
-此时我们可以通过主机名 `whoami.docker.localhost` 来访问 `whoami` 服务，我们使用 `curl` 做测试
+此时我们可以通过主机名 `whoami.shanyue.locol` 来访问 `whoami` 服务，我们使用 `curl` 做测试
 
-> PS: `whoami.docker.localhost` 可以是任意域名，此处仅做测试。如果你拥有个人域名，替换成个人域名后，可在任意互联网处进行访问。
+> PS: `whoami.shanyue.locol` 可以是任意域名，此处仅做测试。如果你拥有个人域名，替换成个人域名后，可在任意互联网处进行访问。
 
 ``` bash
 # 通过 -H 来指定 Host

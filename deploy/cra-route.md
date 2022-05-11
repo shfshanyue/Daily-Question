@@ -121,7 +121,7 @@ location /static {
 }
 ```
 
-## 更强的长期缓存与构建配置
+<!-- ## 更强的长期缓存与构建配置
 
 1. 
 1. 
@@ -132,7 +132,7 @@ location /static {
 
 + contenthash
 + chunkhash
-+ splitChunks
++ splitChunks -->
 
 ## nginx 配置文件
 

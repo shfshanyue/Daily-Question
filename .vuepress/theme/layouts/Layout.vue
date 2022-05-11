@@ -21,7 +21,7 @@
     >
       <template #top>
         <div :style="{ paddingLeft: '1.5rem' }">
-          <QR />
+          <!-- <QR /> -->
         </div>
       </template>
       <slot
