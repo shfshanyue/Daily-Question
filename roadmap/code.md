@@ -35,7 +35,7 @@ sidebarDepth: 4
 
 1. 是否有一致的代码规范
 2. 是否有清晰可读的变量命名
-3. 是否有更简介的代码
+3. 是否有更简洁的代码
 
 对于优雅代码的养成能力可以查看 [Clean Code concepts adapted for JavaScript.](https://github.com/ryanmcdermott/clean-code-javascript)，在 Github 上拥有 50+ K的星星数。
 
