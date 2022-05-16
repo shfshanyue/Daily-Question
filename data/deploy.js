@@ -72,30 +72,30 @@ const sidebar = [
         title: '十一章: 质量保障实践',
         path: 'ci-ci'
       },
-      // {
-      //   title: '十二章: CI 中的缓存',
-      //   path: 'ci-cache'
-      // },
-      // {
-      //   title: '十三章: CI 中的环境变量',
-      //   path: 'ci-env'
-      // },
-      // {
-      //   title: '十四章: 构建功能分支测试环境',
-      //   path: 'ci-preview'
-      // },
+      {
+        title: '十二章: CI 中的缓存',
+        path: 'ci-cache'
+      },
+      {
+        title: '十三章: CI 中的环境变量',
+        path: 'ci-env'
+      },
+      {
+        title: '十四章: 构建功能分支测试环境',
+        path: 'ci-preview'
+      },
     ]
   },
-  // {
-  //   title: '云原生篇',
-  //   collapsable: true,
-  //   children: [
-  //     {
-  //       title: '十五章: k8s 简单概念介绍与部署',
-  //       path: 'k8s-intro'
-  //     },
-  //   ]
-  // }
+  {
+    title: '云原生篇',
+    collapsable: true,
+    children: [
+      {
+        title: '十五章: k8s 简单概念介绍与部署',
+        path: 'k8s-intro'
+      },
+    ]
+  }
 ]
 
 module.exports = {

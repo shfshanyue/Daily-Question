@@ -1,4 +1,4 @@
-## 专栏介绍
+# 专栏介绍
 
 > 为了更深入理解前端部署，我们将从最原始的部署方案过渡到 Docker 与 Kubernetes，逐步进行优化，并使用 CICD 完善工程质量及部署效率。
 
@@ -8,7 +8,15 @@
 
 实际上我们对于前端的部署，就是对其静态资源的服务。本专栏通过使用 nodejs 写一个简单的静态服务器，来简单理解前端部署。接下来本专栏将引导你使用 Docker 部署，并优化镜像、优化 Pipieline，一步一步探索前端部署优化及发展，并以单页应用为例进行实践部署。
 
-![大纲](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2022-02-24/deploy.c0b122.webp)
+![大纲](https://static.shanyue.tech/images/22-05-18/deploy.2b4547.webp)
+
+## 文字与视频内容
+
+本专栏维护在我的 Github 仓库 [Daily-Question](https://github.com/shfshanyue/Daily-Question)，若有错别字或者疑问可向我提交 PR/Issue。
+
+而在我的网站大厂面试每日一题的[前端部署十五章](https://q.shanyue.tech/deploy/)专栏中，拥有更好的阅读体验。
+
+为了更好的理解与操作，我在哔哩哔哩也录制了相应的视频合集，见 [前端部署视频合集](https://www.bilibili.com/video/BV1AY4y1671e/)，若有疑问可直接在视频下方进行评论。
 
 ## 前置知识
 
@@ -44,13 +52,17 @@
 1. 想进一步扩展自己的技术宽度的前端
 1. 想将个人应用部署到个人服务器并发布
 
-<!-- 大家好，我是山月，这是我最近新开的专栏：**前端部署系列**。包括 Docker、CICD 等内容，大纲图示如下：
+## 作者简介
 
-![大纲](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2022-02-24/deploy.c0b122.webp)
+山月，前端开发工程师，目前在 Bilibili 作为 UP 主[免费前端模拟面试](https://q.shanyue.tech/mock/)。
 
-示例代码开源，置于 Github 中，演示如何对真实项目进行部署上线。
+同时也是以下网站的站长:
 
-+ [simple-deploy](https://github.com/shfshanyue/simple-deploy): 了解最简单的部署，不涉及打包等内容。
-+ [cra-deploy](https://github.com/shfshanyue/cra-deploy): 了解如何部署单页应用，这里以 [create-react-app](https://github.com/facebook/create-react-app) 为例，但实际上所讲述东西与 React 无关，仅与单页应用有关。
++ [大厂面试每日一题](https://q.shanyue.tech)，包含诸多大厂面试真题以及面经。
++ [一纸简历](https://cv.devtool.tech)，以 Markdown 格式书写简历，包含诸多简历内容模板与样式模板。
++ [开发者武器库](https://devtool.tech/)，包含诸多小工具，比如压缩图片、个人图床等小工具
 
-**前端部署**系列正在更新: *1*/20。 -->
+可添加我的微信 **shanyue-bot** 与我交流。
+
+![](https://static.shanyue.tech/images/22-05-18/clipboard-8626.a61f42.webp)
+

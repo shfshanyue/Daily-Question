@@ -1,4 +1,6 @@
 const _ = require('lodash')
+const path = require('path')
+const fs = require('fs')
 const { generateSiebar } = require('./header')
 const { generateSidebar: generateESidebar} = require('../data/engineering')
 const { sidebar: deploySidebar } = require('../data/deploy')
@@ -133,6 +135,20 @@ module.exports = {
         'ga': 'UA-102193749-3'
       }
     ], 
+    (options, ctx) => {
+      return {
+        name: 'caption',
+        extendPageData ($page) {
+          if ($page.path.startsWith('/mock/') && $page.path.endsWith('.html')) {
+            const p = path.resolve('.' + $page.path.replace('.html', '.srt'))
+            if (fs.existsSync(p)) {
+              const o = fs.readFileSync(p)
+              $page.frontmatter.srt = o.toString()
+            }
+          }
+        }
+      }
+    },
     (options, ctx) => {
       return {
         name: 'archive',
