@@ -2,7 +2,7 @@
 
 + [山月的博客点击这里](https://github.com/shfshanyue/blog)
 + [一日一题官方网站点击这里](https://q.shanyue.tech)
-+ [一日一题 bilibili 讲解点击这里](https://account.bilibili.com/account/home)，每天晚上九点十分B站直播讲解面试题。
++ [一日一题 bilibili 讲解点击这里](https://space.bilibili.com/28696526)，每天晚上九点十分B站直播讲解面试题。
 
 > 勤学如春起之苗，不见其增，日有所长；辍学如磨刀之石，不见其损，日有所亏。
 

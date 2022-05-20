@@ -60,7 +60,9 @@ export PUBLIC_URL=https://cdn.shanyue.tech
 1. 跨域配置 CORS (manifest.json 需要配置 cors)
 1. 记住 Endpoint，比如 `oss-cn-beijing.aliyuncs.com`。将会在配置 PUBLIC_URL 中使用到
 
-最终的 PUBLIC_URL 为 `$Bucket.$Endpoint`，比如本篇文章示例项目的 PUBLIC_URL 为 `shanyue-cra.oss-cn-beijing.aliyuncs.com`。
+### PUBLIC_URL
+
+最终的 PUBLIC_URL 为 `$Bucket.$Endpoint`，比如本篇文章示例项目的 PUBLIC_URL 为 `https://shanyue-cra.oss-cn-beijing.aliyuncs.com`。
 
 但是，你也可以配置 CNAME 记录并使用自己的域名。
 
@@ -86,6 +88,8 @@ $ ossutil config -i $ACCESS_KEY_ID -k $ACCESS_KEY_SECRET -e $ENDPOINT
 
 ``` bash
 # 将资源上传到 OSS Bucket
+# --meta: 配置响应头，也就是这里的缓存策略
+# oss://shanyue-cra/: bucket 名字
 $ ossutil cp -rf --meta Cache-Control:no-cache build oss://shanyue-cra/
 
 # 将带有 hash 资源上传到 OSS Bucket，并且配置长期缓存
@@ -165,7 +169,7 @@ COPY --from=builder code/build /usr/share/nginx/html
 
 在 `docker-compose` 配置文件中，通过 `build.args` 可对 `Dockerfile` 进行传参。
 
-而 `docker-compose.yaml` 同样不允许出现敏感数据，此时**通过环境变量进行传参**。在 `build.args` 中，默认从同名环境变量中取值。
+而 `docker-compose.yaml` 同样不允许出现敏感数据，此时**通过环境变量进行传参**。在 `build.args` 中，默认从宿主机的同名环境变量中取值。
 
 > PS: 在本地可通过环境变量传值，那在 CI 中呢，在生产环境中呢？待以后 CI 篇进行揭晓。
 
@@ -177,7 +181,7 @@ services:
       context: .
       dockerfile: oss.Dockerfile
       args:
-        # 此处默认从环境变量中传参
+        # 此处默认从宿主机(host)环境变量中传参
         - ACCESS_KEY_ID
         - ACCESS_KEY_SECRET
         - ENDPOINT=oss-cn-beijing.aliyuncs.com

@@ -80,8 +80,12 @@ for await (const entry of readdirp('./build', { depth: 0, type: 'files' })) {
 1. 断点续传
 1. 压缩传输
 
+> 选择阿里云 oss 作为云存储时，配置时其 type 为 s3，其 provider 为 Alibaba
+
 ``` bash
 # 将资源上传到 OSS Bucket
+# alioss: 通过 rclone 配置的云存储名称，此处为阿里云的 oss，个人取名为 alioss
+# shanyue-cra: oss 中的 bucket 名称
 $ rclone copy --exclude 'static/**' --header 'Cache-Control: no-cache' build alioss:/shanyue-cra --progress 
 
 # 将带有 hash 资源上传到 OSS Bucket，并且配置长期缓存
