@@ -8,7 +8,7 @@
 
 实际上我们对于前端的部署，就是对其静态资源的服务。本专栏通过使用 nodejs 写一个简单的静态服务器，来简单理解前端部署。接下来本专栏将引导你使用 Docker 部署，并优化镜像、优化 Pipieline，一步一步探索前端部署优化及发展，并以单页应用为例进行实践部署。
 
-![大纲](https://static.shanyue.tech/images/22-05-18/deploy.2b4547.webp)
+![大纲](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5b3f781a9f324adf80a2fb35fd5d3d4e~tplv-k3u1fbpfcp-zoom-1.image)
 
 ## 文字与视频内容
 
