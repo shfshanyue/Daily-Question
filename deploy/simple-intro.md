@@ -69,7 +69,7 @@ Keep-Alive: timeout=5
 
 以下是对**hello版前端应用**的 HTTP 请求及响应报文的图文表示
 
-![](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2022-02-24/simple-deploy.67a117.webp)
+![](https://static.shanyue.tech/images/22-05-25/clipboard-9525.6bbfcd.webp)
 
 好，那接下来我们写一段服务器代码，用以响应 HTML。
 
@@ -127,7 +127,7 @@ Listening 3000
 
 启动服务后，在浏览器端打开 `localhost:3000`，可查看到响应头及响应体 `hello, shanyue`。
 
-![](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2021-12-31/clipboard-3621.529aef.webp)
+![](https://static.shanyue.tech/images/22-05-25/clipboard-1233.d58ef2.webp)
 
 **恭喜你，部署成功！**
 
@@ -171,9 +171,20 @@ $ node server-fs.js
 Listening 3000
 ```
 
+## 为什么需要专业的静态资源服务器
+
 当然，对于前端这类纯静态资源，**自己写代码无论从开发效率还是性能而言都是极差的**，这也是我们为何要求助于专业工具 nginx 之类进行静态资源服务的原因所在。
 
-试举一例，比如将文件系统修改为 `ReadStream` 的形式进行响应将会提升该静态服务器的性能，代码如下。
+第一、**从开发而言**，其基本的 Rewrite、Redirect 都需要重新开发，而一个稍微完备的静态资源服务器需要满足以下功能，这也是本文的作业内容。
+
+![静态资源服务器目标功能](https://static.shanyue.tech/images/22-05-25/static-server.85e1d1.webp)
+
+其中，Rewrite 的场景使用十分广泛，比如:
+
+1. 单页应用中所有的 `*.html` 均为读取根目录 index.html
+2. vuepress 等静态网站生成器将会有 .html 后缀，此时可通过 Rewrite 去除后缀。比如，将 `/hello` 重写(rewrite)到 `/hello.html`。(去除后缀名的功能也叫 cleanUrls，vercel)
+
+第二、**从性能出发**，试举一例，比如将文件系统修改为 `ReadStream` 的形式进行响应将会提升该静态服务器的性能，代码如下。
 
 ```js
 const server = http.createServer((req, res) => {
@@ -190,7 +201,7 @@ $ npx serve .
 
 `serve` 是 `next.js` 的母公司 `vercel` 开发的一款静态资源服务器。作为前端久负盛名的静态服务器，广泛应用在现代前端开发中，如在 `create-react-app` 构建成功后，它会提示使用 `serve` 进行部署。本地环境而言，还是 [serve](https://github.com/vercel/serve) 要方便很多啊。
 
-![Creact React APP 构建后，提示使用 serve 进行部署](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2021-12-31/clipboard-3980.619061.webp)
+![Creact React APP 构建后，提示使用 serve 进行部署](https://static.shanyue.tech/images/22-05-25/clipboard-7803.748bd9.webp)
 
 **然而，Javascript 的性能毕竟有限，使用 `nginx` 作为静态资源服务器拥有更高的性能。**
 
@@ -218,7 +229,7 @@ $ npx serve .
 
 当然，如果你不介意别人通过端口号去访问你的应用，不用 nginx 等反向代理器也是可以的。
 
-![反向代理](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2022-02-24/Nginx.632fa5.webp)
+![反向代理](https://static.shanyue.tech/images/22-05-25/clipboard-3787.b7b3ed.webp)
 
 关于 nginx 的学习可以查看后续章节。
 
@@ -243,6 +254,12 @@ $ npx serve .
 对于前端而言，此时你可以通过由自己在项目中单独维护 `nginx.conf` 进行一些 nginx 的配置，大大提升前端的自由性和灵活度，而无需通过运维或者后端来进行。
 
 关于 docker 的学习可以查看后续章节。
+
+## 作业
+
++ 初阶: 继续完善静态服务器，使其基于 stream，并能给出正确的 Content-Length。
++ 高阶: 继续完善静态服务器，使其作为一个命令行工具，支持指定端口号、读取目录、404、stream，甚至 trailingSlash、cleanUrls、rewrite、redirect 等。可参考 [serve-handler](https://github.com/vercel/serve-handler)。
++ 面试: 了解 docker 常见操作，如构建镜像、运行容器、进入容器执行命令。
 
 ## 小结
 
