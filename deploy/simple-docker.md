@@ -17,10 +17,12 @@
 
 你可以**在本地安装 docker**完成本篇文章的部署实践内容，部署内容与上篇文章一致。在本篇文章之前，你需要先做一些功课:
 
-1. 在本地安装 docker/docker-compose。通过 [Docker Desktop](https://www.docker.com/products/docker-desktop) 下载 docker 后，双击安装即可。
+1. 在本地安装 docker/docker-compose。通过 [Docker Desktop](https://www.docker.com/get-started/) 下载 docker 后，双击安装即可。
 1. 了解 [Dockerfile Reference](https://docs.docker.com/engine/reference/builder/)。了解最常见的 FROM/ADD/CMD 即可。不需要全部过一遍，遇到没见过的指令及时查阅即可。
 1. 了解 [Compose file Reference](https://docs.docker.com/compose/compose-file/compose-file-v3/)。不需要全部过一遍，遇到没见过的指令及时查阅即可。
 1. 了解 [Docker Hub](https://hub.docker.com/)。在该网站，可查找适合于自己的诸多基础镜像，比如 [node](https://hub.docker.com/_/node) 与 [nginx](https://hub.docker.com/_/nginx)。
+
+如果你在此之前没有学习过 Docker，可参照山月以前的文章 [Docker 简易入门](https://shanyue.tech/op/docker.html) 进行学习
 
 > PS: 本项目以 [simple-deploy](https://github.com/shfshanyue/simple-deploy) 仓库作为实践，配置文件位于 [node.Dockerfile](https://github.com/shfshanyue/simple-deploy/blob/master/node.Dockerfile)
 
@@ -190,6 +192,12 @@ $ docker build --progress plain --no-cache .
 5 0.237 shanyue
 5 DONE 0.3s
 ```
+
+## 作业
+
++ 初阶: 了解 docker 常见操作，如构建镜像、运行容器、进入容器执行命令
++ 高阶: docker 原理，如何模拟 docker 隔离环境及限制资源
++ 面试: Dockerfile、Image、Container 的区别 
 
 ## 小结
 
