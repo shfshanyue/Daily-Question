@@ -1,4 +1,4 @@
-# 单页应用的路由与永久缓存优化
+# 单页应用的路由与持久缓存优化
 
 在上篇文章中，我们介绍了在 Docker 中使用构建缓存与多阶段构建进行缓存优化。
 
@@ -6,11 +6,13 @@
 
 在这篇文章中，将会由 `react-router-dom` 实现一个简单的单页路由，并通过 Docker 进行部署。
 
-> PS: 本项目以 [cra-deploy](https://github.com/shfshanyue/simple-deploy) 仓库作为实践，配置文件位于 [router.Dockerfile](https://github.com/shfshanyue/cra-deploy/blob/master/router.Dockerfile)
+> PS: 本项目以 [cra-deploy](https://github.com/shfshanyue/cra-deploy) 仓库作为实践，配置文件位于 [router.Dockerfile](https://github.com/shfshanyue/cra-deploy/blob/master/router.Dockerfile)
 
 ## 路由
 
 使用 `react-dom` 为单页应用添加一个路由，由于路由不是本专栏的核心内容，省略掉路由的用法，最终代码如下。
+
+> 源码位于 [cra-deploy/src/App.js](https://github.com/shfshanyue/cra-deploy/blob/master/src/App.js)
 
 ``` jsx
 import logo from './logo.svg';
@@ -70,17 +72,19 @@ $ docker-compose up --build simple
 
 此时访问 `https://localhost:4000/about`，将会显示 404。
 
-![404 Not Found](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2022-02-01/clipboard-1750.46d804.webp)
+![404 Not Found](https://static.shanyue.tech/images/22-05-26/clipboard-0368.df3cbf.webp)
 
 其实道理很简单：**在静态资源中并没有 `about` 或者 `about.html` 该资源，因此返回 404 Not Found。而在单页应用中，`/about` 是由前端通过 `history API` 进行控制。**
 
-解决方法也很简单：**在服务端将所有页面路由均指向 `index.html`，而单页应用再通过 `history API` 控制当前路由显示哪个页面。**
+解决方法也很简单：**在服务端将所有页面路由均指向 `index.html`，而单页应用再通过 `history API` 控制当前路由显示哪个页面。** 这也是静态资源服务器的重写(`Rewrite`)功能。
+
+我们在使用 nginx 镜像部署前端应用时，可通过挂载 nginx 配置解决该问题。
 
 ## nginx 的 try_files 指令
 
 在 nginx 中，可通过 try_files 指令将所有页面导向 `index.html`。
 
-``` conf
+``` nginx
 location / {
     # 如果资源不存在，则回退到 index.html
     try_files  $uri $uri/ /index.html;  
@@ -88,6 +92,8 @@ location / {
 ```
 
 此时，可解决服务器端路由问题。
+
+除此之外，我们还可以通过 nginx 配置解决更多问题。
 
 ## 长期缓存 (Long Term Cache)
 
@@ -115,7 +121,7 @@ $ tree ./build/static
 
 那为什么带有 hash 的资源可设置长期缓存呢: **资源的内容发生变更，他将会生成全新的 hash 值，即全新的资源路径。**而旧有资源将不会进行访问。
 
-``` conf
+``` nginx
 location /static {
     expires 1y;
 }
@@ -141,11 +147,13 @@ location /static {
 1. 带有 hash 的资源一年长期缓存
 1. 非带 hash 的资源，需要配置 Cache-Control: no-cache，**避免浏览器默认为强缓存**
 
+![Cache-Control](https://static.shanyue.tech/images/22-05-26/cache-control.9aa610.webp)
+
 `nginx.conf` 文件需要维护在项目当中，经过路由问题的解决与缓存配置外，最终配置如下:
 
 > 该 nginx 配置位于 [cra-deploy/nginx.conf](https://github.com/shfshanyue/cra-deploy/blob/master/nginx.conf)
 
-``` conf
+``` nginx
 server {
     listen       80;
     server_name  localhost;
@@ -223,7 +231,7 @@ services:
 
 此时对于**非带** hash 资源， `Cache-Control: no-cache` 响应头已配置。
 
-![查看响应头设置](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2022-02-18/clipboard-6107.13189f.webp)
+![查看响应头设置](https://static.shanyue.tech/images/22-05-26/clipboard-1569.785658.webp)
 
 ## 百尺竿头更进一步
 
@@ -237,13 +245,18 @@ services:
 1. 使用 webpack 将小图片转化为 DataURI
 1. 使用 webpack 进行更精细的分包，避免一行代码的改动使大量文件的缓存失效
 
-网络性能的优化:
+<!-- 网络性能的优化:
 
 1. HTTP2，HTTP2多路复用、头部压缩功能提升网络性能
 1. OSCP Stapling，减少浏览器端的 OSCP 查询(可验证证书合法性)
 1. TLS v1.3，TLS 握手时间从 2RTT 优化到了 1RTT，并可 0-RTT Resumption
 1. HSTS，无需301跳转，直接使用 HTTPS，但更重要的是安全性能
-1. Brotli，相对 gzip 更高性能的压缩算法
+1. Brotli，相对 gzip 更高性能的压缩算法 -->
+
+## 作业
+
++ 初阶: 挂载 nginx 配置，解决其路由及缓存问题
++ 高阶: 配置 gzip/brotli
 
 ## 小结
 
