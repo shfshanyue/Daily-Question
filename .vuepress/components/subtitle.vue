@@ -1,8 +1,18 @@
 <template>
   <div>
-    <div v-for="line in caption" :key="line.start + line.text" :style="{ display: 'flex', marginBottom: '5px' }">
-      <a :href="b + `?t=${line.start}`" target="_blank" v-text="line.time" :style="{ width: '6rem' }"></a>  
-      <div v-text="line.text"></div>
+    <h3>
+      关键节点字幕
+    </h3>
+    <div v-for="line in keyCaption" :key="line.start + line.text" :style="{ marginBottom: '5px' }">
+      <a :href="b + `?t=${line.start}`" target="_blank" v-text="line.time" :style="{ width: '6rem', display: 'inline-block' }"></a>  
+      <span v-text="line.text"></span>
+    </div>
+    <h3>
+      全部字幕
+    </h3>
+    <div v-for="line in caption" :key="line.start + line.text" :style="{ marginBottom: '5px' }">
+      <a :href="b + `?t=${line.start}`" target="_blank" v-text="line.time" :style="{ width: '6rem', display: 'inline-block' }"></a>  
+      <span v-text="line.text"></span>
     </div>
   </div>
 </template>
@@ -29,6 +39,9 @@ export default {
     caption () {
       const lines = parseSrt(this.srt)
       return lines
+    },
+    keyCaption () {
+      return this.caption.filter(x => x.text.startsWith('[问]') || x.text.startsWith('【问】'))
     }
   }
 }

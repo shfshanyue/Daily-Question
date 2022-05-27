@@ -4,6 +4,18 @@
 
 在实际生产经验中，一般选择体积更小，性能更好，基于 nginx 的镜像。
 
+我们通过 `docker images` 查看镜像体积，发现 `node:alpine` 体积是 `nginx:alpine` 的数倍大小。
+
+``` bash
+$ docker images nginx
+REPOSITORY   TAG       IMAGE ID       CREATED        SIZE
+nginx        alpine    b46db85084b8   6 months ago   23.2MB
+
+$ docker images node
+REPOSITORY   TAG         IMAGE ID       CREATED        SIZE
+node         alpine      025c3cbb849f   4 months ago   169MB
+```
+
 > PS: 本项目以 [simple-deploy](https://github.com/shfshanyue/simple-deploy) 仓库作为实践，配置文件位于 [nginx.Dockerfile](https://github.com/shfshanyue/simple-deploy/blob/master/nginx.Dockerfile)
 
 ## nginx 镜像
@@ -55,7 +67,7 @@ $ docker run -it --rm -p 3000:80 nginx:alpine
 
 ```
 
-![](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2022-01-01/clipboard-2503.ad02e7.webp)
+![](https://static.shanyue.tech/images/22-05-27/clipboard-3430.10c55e.webp)
 
 嗯，熟悉的界面。
 
@@ -129,7 +141,7 @@ $ docker-compose up --build
 
 此时，访问 `https://localhost:4000` 即可访问成功。在控制台查看响应头，可发现有: `Server: nginx/1.21.4`。
 
-![](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2022-01-02/clipboard-6010.941d93.webp)
+![](https://static.shanyue.tech/images/22-05-27/clipboard-1770.fa03ad.webp)
 
 ## 基于 node/nginx 镜像体积对比
 
@@ -168,7 +180,7 @@ simple-deploy_node-app_1    simple-deploy_node-app    latest   14054cb0f1d8   13
 
 最后，推荐一种高效学习 nginx 的方法: **在本地使用 nginx 镜像并挂载 nginx 配置启动容器**。
 
-![Learning Nginx](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2022-02-24/Nginx-Learning.9b210e.webp)
+![Learning Nginx](https://static.shanyue.tech/images/22-05-27/clipboard-9608.a01108.webp)
 
 无需 Linux 环境，也无需自购个人服务器，你可以通过该方法快速掌握以下 nginx 的常用配置。
 
@@ -201,6 +213,12 @@ services:
 ``` bash
 $ docker-compose -f learn-nginx.docker-compose.yaml up learn-nginx
 ```
+
+## 作业
+
++ 初阶: 基于 docker 学习 nginx 配置，并可配置 index.html 强缓存 60s 时间
++ 高阶: 基于 docker 学习 nginx 配置，并可配置 gzip/brotli
++ 面试: brotli/gzip 有何区别
 
 ## 小结
 

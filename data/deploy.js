@@ -96,6 +96,16 @@ const sidebar = [
         path: 'k8s-intro'
       },
     ]
+  },
+  {
+    title: '附录',
+    collapsable: true,
+    children: [
+      {
+        title: '附录一: docker 使用指南',
+        path: 'docker'
+      },
+    ]
   }
 ]
 
