@@ -1,5 +1,6 @@
 const sidebar = [
   ['', '开篇词'],
+  ['train', '训练营'],
   {
     title: '极简部署',
     collapsable: true,

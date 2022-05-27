@@ -146,13 +146,22 @@ module.exports = {
               $page.frontmatter.srt = o.toString()
             }
           }
+          if ($page.path.startsWith('/deploy/')) {
+            $page.frontmatter.metaTitle = `${$page.title} | 前端部署十五篇 | 大厂面试`
+          }
+          if ($page.path.startsWith('/mock/')) {
+            $page.frontmatter.metaTitle = `${$page.title} | 山月的模拟面试 | 大厂面试`
+          }
+          // if ($page.path.startsWith('/engineering/')) {
+          //   $page.frontmatter.metaTitle = `${$page.title} | 前端工程化三十八讲 | 大厂面试`
+          // }
         }
       }
     },
     (options, ctx) => {
       return {
         name: 'archive',
-        async additionalPages () {
+        async additionalPages() {
           return [
             {
               path: '/',
