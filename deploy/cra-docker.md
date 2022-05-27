@@ -4,9 +4,11 @@
 
 终于可以来一个与真实项目接近带有复杂度的项目，以 CRA 部署为例:
 
-**部署一个 [Creact React APP](https://github.com/facebook/create-react-app) 单页应用。**
+**部署一个 [Creact React APP](https://github.com/facebook/create-react-app) 单页应用，并通过构建缓存与多阶段构建进行优化**
 
-实际上，即使你们技术栈是 Vue 也无所谓，本系列文章很少涉及 React 相关内容，只要你们项目是单页应用即可。
+![](https://static.shanyue.tech/images/22-06-01/spa-deployment-2.1bed89.webp)
+
+实际上，即使你们技术栈是 Vue 也无所谓，本系列文章很少涉及 React 相关内容，**只要你们项目是单页应用即可**。
 
 > PS: 本项目以 [cra-deploy](https://github.com/shfshanyue/cra-deploy) 仓库作为实践，配置文件位于 [simple.Dockerfile](https://github.com/shfshanyue/cra-deploy/blob/master/simple.Dockerfile)
 
@@ -80,8 +82,8 @@ EXPOSE 3000
 
 构建完成。然而还可以针对以下两点进行优化。
 
-1. 构建镜像时间过长，**优化构建时间**
-1. 构建镜像大小过大，**优化镜像体积**
+1. 构建镜像时间过长，**优化构建时间**。
+1. 构建镜像大小过大，**优化镜像体积**。
 
 ## 构建时间优化: 构建缓存
 
@@ -176,6 +178,11 @@ services:
 使用 `docker-compose up --build simple` 启动容器。
 
 访问 `http://localhost:4000` 页面成功。
+
+## 作业
+
++ 初阶: 完成基于单页应用的多阶段构建及缓存优化
++ 面试: 在你对镜像体积优化后，前后镜像体积对比是多少
 
 ## 小结
 

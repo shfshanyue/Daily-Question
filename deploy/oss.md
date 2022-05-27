@@ -54,11 +54,13 @@ export PUBLIC_URL=https://cdn.shanyue.tech
 
 `Bucket` 是 OSS 中的存储空间。**对于生产环境，可对每一个项目创建单独的 Bucket**，而在测试环境，多个项目可共用 Bucket。
 
-在创建 Bucket 时，需要注意以下事项。
+在创建 Bucket 时，**需要注意以下事项**。
 
 1. 权限设置为公共读 (Public Read)
 1. 跨域配置 CORS (manifest.json 需要配置 cors)
 1. 记住 Endpoint，比如 `oss-cn-beijing.aliyuncs.com`。将会在配置 PUBLIC_URL 中使用到
+
+对于 Endpoint 的选择，可参考 [访问域名和数据中心](https://help.aliyun.com/document_detail/31837.html)
 
 ### PUBLIC_URL
 
@@ -169,9 +171,19 @@ COPY --from=builder code/build /usr/share/nginx/html
 
 在 `docker-compose` 配置文件中，通过 `build.args` 可对 `Dockerfile` 进行传参。
 
-而 `docker-compose.yaml` 同样不允许出现敏感数据，此时**通过环境变量进行传参**。在 `build.args` 中，默认从宿主机的同名环境变量中取值。
+而 `docker-compose.yaml` 同样不允许出现敏感数据，此时**通过环境变量进行传参**，在 `build.args` 中，默认从宿主机的**同名环境变量**中取值。
 
-> PS: 在本地可通过环境变量传值，那在 CI 中呢，在生产环境中呢？待以后 CI 篇进行揭晓。
+> PS: 在本地可通过宿主机环境变量传值，那在 CI 中呢，在生产环境中呢？待以后 CI 篇进行揭晓。
+
+首先手动配置宿主机的环境变量，与 Dockerfile 中环境变量同名:
+
+``` bash
+# 此两项数据需要在阿里云进行获取
+export ACCESS_KEY_ID=LTshanyueoworlJEdoPhello
+export ACCESS_KEY_SECRET=bhZHelloShanzOxsHelloshanIyueM
+```
+
+此时可通过 docker-compose 中的 build.args 将宿主机的环境变量传递给 Dockerfile:
 
 ``` yaml
 version: "3"
@@ -181,7 +193,7 @@ services:
       context: .
       dockerfile: oss.Dockerfile
       args:
-        # 此处默认从宿主机(host)环境变量中传参
+        # 此处默认从宿主机(host)环境变量中传参，在宿主机中需要提前配置 ACCESS_KEY_ID/ACCESS_KEY_SECRET 环境变量
         - ACCESS_KEY_ID
         - ACCESS_KEY_SECRET
         - ENDPOINT=oss-cn-beijing.aliyuncs.com

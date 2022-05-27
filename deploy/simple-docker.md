@@ -195,9 +195,8 @@ $ docker build --progress plain --no-cache .
 
 ## 作业
 
-+ 初阶: 了解 docker 常见操作，如构建镜像、运行容器、进入容器执行命令
-+ 高阶: docker 原理，如何模拟 docker 隔离环境及限制资源
-+ 面试: Dockerfile、Image、Container 的区别 
++ 初阶: 通过 docker/docker-compose 将单文件 html 进行部署
++ 面试: 我们为什么可以直接在 node 镜像中使用 yarn 命令行工具
 
 ## 小结
 
