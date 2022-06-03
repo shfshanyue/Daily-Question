@@ -216,9 +216,9 @@ $ docker-compose -f learn-nginx.docker-compose.yaml up learn-nginx
 
 ## 作业
 
-+ 初阶: 基于 docker 学习 nginx 配置，并可配置 index.html 强缓存 60s 时间
++ 初阶: 基于 docker 将极简前端项目进行部署
 + 高阶: 基于 docker 学习 nginx 配置，并可配置 gzip/brotli
-+ 面试: brotli/gzip 有何区别
++ 面试: 我们的基础镜像 tag 总是携带 `alpine`，它是什么
 
 ## 小结
 

@@ -105,6 +105,10 @@ const sidebar = [
         title: '附录一: docker 使用指南',
         path: 'docker'
       },
+      {
+        title: '附录二: nginx 配置指南',
+        path: 'nginx'
+      },
     ]
   }
 ]
