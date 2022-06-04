@@ -1,6 +1,8 @@
 # 将静态资源推至 OSS
 
-本篇文章需要 OSS(Object Storage) 云服务服务，一个月几毛钱，可自行购买。我们可以把静态资源上传至 OSS，并对 OSS 提供 CDN 服务。
+本篇文章需要 OSS(Object Storage) 云存储服务，一个月几毛钱，可自行购买。
+
+我们可以把静态资源上传至 OSS，并对 OSS 提供 CDN 服务。
 
 本篇文章还是以项目 [cra-deploy](https://github.com/shfshanyue/cra-deploy) 示例，并将静态资源上传至 OSS 处理。
 

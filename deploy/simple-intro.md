@@ -81,6 +81,8 @@ Keep-Alive: timeout=5
 
 在 Node 中写服务端最重要的内置模块(`builtinModule`)为 [node:http](https://nodejs.org/api/http.html)，通过 `node:` 前缀，可指明其为内置模块，被称作 `Protocol Import`。从而避免了 node 内置模块与第三方模块的命名冲突。
 
+> `node:` 前缀见官方文档 [core-modules](https://nodejs.org/api/modules.html#core-modules)，需升级 node 版本号至 `v14.18.0` 及以上
+
 ``` js
 const http = require('node:http')
 ```
