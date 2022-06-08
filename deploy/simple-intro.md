@@ -8,7 +8,7 @@ console.log('hello, world')
 
 初学部署前端，如同学习编程一样，不能一开始就要求将生产环境的项目进行部署要从简单的开始学习。
 
-比如本系列专栏，**先部署一个最简单 HTML 如下所示，只有几行代码，无任何 CSS/Javascript 代码，我称它为hello 版前端应用**。
+比如本系列专栏，**先部署一个最简单 HTML 如下所示，只有几行代码，无任何 CSS/Javascript 代码，我称它为 hello 版前端应用**。
 
 ``` html
 <!DOCTYPE html>
