@@ -114,7 +114,7 @@ server {
 
 ## 构建镜像、运行容器
 
-写一个 `Dockerfile` 将我们的示例项目跑起来，仅仅需要两行代码。由于 nxinx 镜像会默认将 80 端口暴露出来，因此我们无需再暴露端口。
+写一个 `Dockerfile` 将我们的示例项目跑起来，仅仅需要两行代码。由于 nginx 镜像会默认将 80 端口暴露出来，因此我们无需再暴露端口。
 
 > PS: 该 Dockerfile 配置位于 [simple-deploy/nginx.Dockerfile](https://github.com/shfshanyue/simple-deploy/blob/master/nginx.Dockerfile)
 
@@ -217,7 +217,6 @@ $ docker-compose -f learn-nginx.docker-compose.yaml up learn-nginx
 ## 作业
 
 + 初阶: 基于 docker 将极简前端项目进行部署
-+ 高阶: 基于 docker 学习 nginx 配置，并可配置 gzip/brotli
 + 面试: 我们的基础镜像 tag 总是携带 `alpine`，它是什么
 
 ## 小结

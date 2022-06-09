@@ -1,6 +1,6 @@
 # 单页应用的路由与持久缓存优化
 
-在上篇文章中，我们介绍了在 Docker 中使用构建缓存与多阶段构建进行缓存优化。
+在上篇文章中，我们介绍了在 Docker 中使用构建缓存与多阶段构建进行优化。
 
 但是在部署单页应用时，仍然有一个问题，那就是客户端路由。
 
@@ -70,7 +70,7 @@ export default App;
 $ docker-compose up --build simple
 ```
 
-此时访问 `https://localhost:4000/about`，将会显示 404。
+此时访问 <http://localhost:4000/about>，将会显示 404。
 
 ![404 Not Found](https://static.shanyue.tech/images/22-05-26/clipboard-0368.df3cbf.webp)
 
@@ -220,12 +220,12 @@ services:
 
 使用 `docker-compose up --build route` 启动容器。
 
-+ 访问 `http://localhost:3000` 页面成功。
-+ 访问 `http://localhost:3000/about` 页面成功。
++ 访问 <http://localhost:3000> 页面成功。
++ 访问 <http://localhost:3000/about> 页面成功。
 
 ## 检验长期缓存配置
 
-访问 `https://localhost:3000` 页面，打开浏览器控制台网络面板。
+访问 <http://localhost:3000> 页面，打开浏览器控制台网络面板。
 
 此时对于**带有** hash 资源， `Cache-Control: max-age=31536000` 响应头已配置。
 
@@ -257,6 +257,7 @@ services:
 
 + 初阶: 挂载 nginx 配置，解决其路由及缓存问题
 + 高阶: 配置 gzip/brotli
++ 面试: 为什么带有 hash 值的资源可设置为长期缓存
 
 ## 小结
 

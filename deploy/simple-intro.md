@@ -260,8 +260,8 @@ $ npx serve .
 ## 作业
 
 + 初阶: 继续完善静态服务器，使其基于 stream，并能给出正确的 Content-Length。
-+ 高阶: 继续完善静态服务器，使其作为一个命令行工具，支持指定端口号、读取目录、404、stream，甚至 trailingSlash、cleanUrls、rewrite、redirect 等。可参考 [serve-handler](https://github.com/vercel/serve-handler)。
-+ 面试: 了解 docker 常见操作，如构建镜像、运行容器、进入容器执行命令。
++ 高阶: 继续完善静态服务器，使其作为一个命令行工具，支持指定端口号、读取目录、404、stream (甚至 trailingSlash、cleanUrls、rewrite、redirect 等)。可参考 [serve-handler](https://github.com/vercel/serve-handler)。
++ 面试: 什么是 rewrite 和 redirect
 
 ## 小结
 

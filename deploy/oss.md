@@ -64,6 +64,8 @@ export PUBLIC_URL=https://cdn.shanyue.tech
 
 对于 Endpoint 的选择，可参考 [访问域名和数据中心](https://help.aliyun.com/document_detail/31837.html)
 
+![Bucket 权限设置](https://static.shanyue.tech/images/22-06-05/clipboard-6835.c38858.webp)
+
 ### PUBLIC_URL
 
 最终的 PUBLIC_URL 为 `$Bucket.$Endpoint`，比如本篇文章示例项目的 PUBLIC_URL 为 `https://shanyue-cra.oss-cn-beijing.aliyuncs.com`。
@@ -227,6 +229,11 @@ $ docker-compose up --build oss
 1. Vercel
 1. Github Pages
 1. Netlify
+
+## 作业
+
++ 初阶: 使用 gatsby/vuepress 搭建个人博客，并使用 oss 部署 (通过 npm scripts 部署即可)
++ 面试: 我们如何向 Dockerfile 中传递宿主机环境变量
 
 ## 小结
 

@@ -151,6 +151,10 @@ export COMMIT_REF_NAME=$(git rev-parse --abbrev-ref HEAD)
 
 以上两个环境变量非常重要，将会在以后篇章经常用到。
 
+## 作业
+
++ 初阶: 使用 rconee 部署自己的博客
+
 ## 小结
 
 通过对 OSS 进行优化后，OSS 篇基本完结。
