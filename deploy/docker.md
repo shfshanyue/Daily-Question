@@ -27,6 +27,27 @@
 
 如果是个人服务器且为 centos，可参考 [安装 docker](https://shanyue.tech/op/docker.html#%E5%AE%89%E8%A3%85-docker)。
 
+<!-- ## 镜像加速器
+
+如果拉取镜像网速过慢，可尝试使用镜像加速器。
+
+```bash
+# 在 linux 中直接修改 dockerd 配置文件
+$ vim /etc/docker/daemon.json
+```
+
+在 docker desktop 可图形界面修改配置。
+
+添加阿里云的镜像加速器，阿里云为个人提供了镜像加速服务，可参考 [阿里云官方镜像加速文档](https://help.aliyun.com/document_detail/60750.html)。
+
+```json
+{
+  "registry-mirrors": ["https://5bic8lua.mirror.aliyuncs.com"]
+}
+```
+
+重启。 -->
+
 ## 底层原理
 
 `docker` 底层使用了一些 `linux` 内核的特性，大概有 `namespace`，`cgroups` 和 `ufs`。
