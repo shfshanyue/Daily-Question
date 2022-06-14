@@ -10,7 +10,8 @@
 
 ## file system
 
-+ pwd/ls/cd/tree/~/.
++ pwd/ls/tree/~/.
++ stat/ls
 + chown/chmod
 + mkdir/rm/cp/rsync
 + cat/less/head/tail
@@ -21,6 +22,7 @@
 
 + which
 + bash/zsh
++ ohmyzsh
 + zsh autocomplete
 + 快捷键
 + env/export
@@ -30,7 +32,11 @@
 ## editor
 
 + vim
+  + 快速移动
+  + 编辑
+  + 常用插件
 + tmux
+  + 快捷键
 
 ## system
 
