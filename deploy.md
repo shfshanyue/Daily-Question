@@ -719,24 +719,24 @@ $ docker-compose -f learn-nginx.docker-compose.yaml up learn-nginx
 下一篇文章以 [create-react-app](https://github.com/facebook/create-react-app) 为例，部署一个复杂的单页应用，与业务项目完全一致。
 # 第四章：CRA部署之 Docker 缓存优化技术以及多阶段构建
 
-部署完一个简单页面后，此时对于 Docker 与服务部署也有了简单理解。
+在部署完一个简单页面后，此时对于 Docker 与服务部署也有了简单理解。
 
-终于可以来一个与真实项目接近带有复杂度的项目，以 CRA 部署为例:
+终于可以来一个与真实项目接近带有复杂度的项目，以 CRA 部署为例：
 
-**部署一个 [Creact React APP](https://github.com/facebook/create-react-app) 单页应用。**
+**部署一个 [Creact React APP](https://github.com/facebook/create-react-app) 单页应用，并通过构建缓存与多阶段构建进行优化**。
 
 实际上，即使你们技术栈是 Vue 也无所谓，本系列文章很少涉及 React 相关内容，只要你们项目是单页应用即可。
 
-> PS: 本项目以 [cra-deploy](https://github.com/shfshanyue/simple-deploy) 仓库作为实践，配置文件位于 [simple.Dockerfile](https://github.com/shfshanyue/cra-deploy/blob/master/simple.Dockerfile)
+> PS：本项目以 [cra-deploy](https://github.com/shfshanyue/simple-deploy) 仓库作为实践，配置文件位于 [simple.Dockerfile](https://github.com/shfshanyue/cra-deploy/blob/master/simple.Dockerfile)。
 
 ## 单页应用的静态资源
 
-**所有的前端单页应用对于部署，最重要的就是两点:**
+**所有的前端单页应用对于部署，最重要的就是两点：**
 
-1. 静态资源如何构建: 大部分项目都是 `npm run build`。
-1. 静态资源目录在哪: 有的项目是 `/dist`，有的项目是 `/build`。**CRA 是 `/build` 目录**。
+1. 静态资源如何构建：大部分项目都是 `npm run build`。
+2. 静态资源目录在哪：有的项目是 `/dist`，有的项目是 `/build`。**CRA 是 `/build` 目录**。
 
-以下，便是在 cra 中获得静态资源的命令。
+以下，便是在 CRA 中获得静态资源的命令。
 
 ``` bash
 # 创建一个 cra 应用
@@ -771,7 +771,7 @@ build
 
 ## Dockerfile
 
-在本地将 CRA 应用跑起来，可通过以下步骤:
+在本地将 CRA 应用跑起来，可通过以下步骤：
 
 ``` bash
 $ yarn
@@ -779,11 +779,11 @@ $ npm run build
 $ npx serve -s build
 ```
 
-将命令通过以下几步翻译为一个 Dockerfile:
+将命令通过以下几步翻译为一个 Dockerfile：
 
-1. 选择一个基础镜像。由于需要构建，需要 node 的运行环境，因此选择 node。
-1. 将以上几个脚本命令放在 RUN 指令中。
-1. 启动服务命令放在 CMD 指令中。
+1. 选择一个基础镜像。由于需要在容器中执行构建操作，我们需要 node 的运行环境，因此 `FROM` 选择 node。
+2. 将以上几个脚本命令放在 `RUN` 指令中。
+3. 启动服务放在 `CMD` 指令中。
 
 ``` dockerfile
 FROM node:14-alpine
@@ -800,20 +800,20 @@ EXPOSE 3000
 构建完成。然而还可以针对以下两点进行优化。
 
 1. 构建镜像时间过长，**优化构建时间**
-1. 构建镜像大小过大，**优化镜像体积**
+2. 构建镜像文件过大，**优化镜像体积**
 
-## 构建时间优化: 构建缓存
+## 构建时间优化：构建缓存
 
-我们注意到，一个前端项目的耗时时间主要集中在两个命令:
+我们注意到，一个前端项目的耗时时间主要集中在两个命令：
 
-1. npm install (yarn)
-1. npm run build
+1. npm i (yarn)
+2. npm run build
 
-在本地环境中，如果没有新的 npm package 需要下载，不需要重新 npm i。
+在本地环境中，如果没有新的 npm package 需要下载，不需要重新 `npm i`。
 
 **那 Docker 中是不也可以做到这一点？**
 
-在 Dockerfile 中，对于 `ADD` 指令来讲，如果**添加文件内容的 `checksum` 没有发生变化，则可以利用构建缓存**。
+在 Dockerfile 中，对于 `ADD` 指令（[官方文档](https://docs.docker.com/engine/reference/builder/#add)）来讲，如果**添加文件内容的 `checksum` 没有发生变化，则可以利用构建缓存**（[Best practices for writing Dockerfiles](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#leverage-build-cache)）。
 
 而对于前端项目而言，如果 `package.json/yarn.lock` 文件内容没有变更，则无需再次 `npm i`。
 
@@ -847,14 +847,14 @@ $ docker-compose up --build
 ...
 ```
 
-## 构建体积优化: 多阶段构建
+## 构建体积优化：多阶段构建
 
-我们的目标静态资源，完全不需要依赖于 node.js 环境进行服务化，而 node.js 环境将造成极大的资源浪费。
+我们的目标是提供静态服务（资源），完全**不**需要依赖于 node.js 环境进行服务化。node.js 环境在完成构建后即完成了它的使命，它的继续存在会造成极大的资源浪费。
 
 我们可以使用多阶段构建进行优化，最终使用 nginx 进行服务化。
 
-1. 第一阶段 Node 镜像: 使用 node 镜像对单页应用进行构建，生成静态资源
-1. 第二阶段 Nginx 镜像: 使用 nginx 镜像对单页应用的静态资源进行服务化
+1. 第一阶段 Node 镜像：使用 node 镜像对单页应用进行构建，生成静态资源。
+2. 第二阶段 Nginx 镜像：使用 nginx 镜像对单页应用的静态资源进行服务化。
 
 > 该 Dockerfile 配置位于 [cra-deploy/simple.Dockerfile](https://github.com/shfshanyue/cra-deploy/blob/master/simple.Dockerfile)
 
