@@ -204,7 +204,7 @@ services:
     ports:
       - 4000:80
     volumes:
-      - nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
       - .:/usr/share/nginx/html
 ```
 

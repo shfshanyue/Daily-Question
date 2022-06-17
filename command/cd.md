@@ -1,4 +1,4 @@
-# 文件系统中的目录
+# 文件系统中的目录与切换展现操作
 
 ## cd
 
@@ -54,42 +54,42 @@ $ pwd
 # -h: 以可读的形式表示文件体积，比如 100M
 $ ls -lah
 total 2176
-drwxr-xr-x    36 shanyue  staff   1.1K  6 10 15:45 .
-drwx------@  242 shanyue  staff   7.6K  5 29 09:37 ..
-drwxr-xr-x     3 shanyue  staff    96B  6 10 15:45 .circleci
-drwxr-xr-x     3 shanyue  staff    96B  6 10 15:45 .codesandbox
--rw-r--r--     1 shanyue  staff   294B  5 22  2021 .editorconfig
--rw-r--r--     1 shanyue  staff   759B  6 10 15:45 .eslintignore
--rw-r--r--     1 shanyue  staff   8.4K  6 10 15:45 .eslintrc.js
-drwxr-xr-x    14 shanyue  staff   448B  6 10 15:45 .git
--rw-r--r--     1 shanyue  staff    12B  5 22  2021 .gitattributes
-drwxr-xr-x     6 shanyue  staff   192B  9  8  2021 .github
--rw-r--r--     1 shanyue  staff   881B  6 10 15:45 .gitignore
--rw-r--r--     1 shanyue  staff   7.6K  5 22  2021 .mailmap
--rw-r--r--     1 shanyue  staff     9B  6 10 15:45 .nvmrc
--rw-r--r--     1 shanyue  staff   546B  6 10 15:45 .prettierignore
--rw-r--r--     1 shanyue  staff   363B  5 22  2021 .prettierrc.js
--rw-r--r--     1 shanyue  staff     3B  5 22  2021 .watchmanconfig
--rw-r--r--     1 shanyue  staff    42K  5 22  2021 AUTHORS
--rw-r--r--     1 shanyue  staff   198K  6 10 15:45 CHANGELOG.md
--rw-r--r--     1 shanyue  staff   3.5K  5 22  2021 CODE_OF_CONDUCT.md
--rw-r--r--     1 shanyue  staff   216B  5 22  2021 CONTRIBUTING.md
--rw-r--r--     1 shanyue  staff   1.1K  5 22  2021 LICENSE
--rw-r--r--     1 shanyue  staff   5.1K  6 10 15:45 README.md
--rw-r--r--     1 shanyue  staff   1.5K  6 10 15:45 ReactVersions.js
--rw-r--r--     1 shanyue  staff   400B  5 22  2021 SECURITY.md
--rw-r--r--     1 shanyue  staff   671B  9  2  2021 appveyor.yml
--rw-r--r--     1 shanyue  staff   1.0K  5 22  2021 babel.config.js
-drwxr-xr-x     6 shanyue  staff   192B  9  4  2021 build
-drwxr-xr-x     2 shanyue  staff    64B  9  4  2021 build2
--rw-r--r--     1 shanyue  staff   7.5K  6 10 15:45 dangerfile.js
-drwxr-xr-x    23 shanyue  staff   736B  6 10 15:45 fixtures
--rw-r--r--     1 shanyue  staff   220B  5 22  2021 netlify.toml
-drwxr-xr-x  1426 shanyue  staff    45K  9  2  2021 node_modules
--rw-r--r--     1 shanyue  staff   7.2K  6 10 15:45 package.json
-drwxr-xr-x    39 shanyue  staff   1.2K  6 10 15:45 packages
-drwxr-xr-x    22 shanyue  staff   704B  9  2  2021 scripts
--rw-r--r--     1 shanyue  staff   733K  6 10 15:45 yarn.lock
+drwxr-xr-x    36 shanyue  shanyue   1.1K  6 10 15:45 .
+drwx------@  242 shanyue  shanyue   7.6K  5 29 09:37 ..
+drwxr-xr-x     3 shanyue  shanyue    96B  6 10 15:45 .circleci
+drwxr-xr-x     3 shanyue  shanyue    96B  6 10 15:45 .codesandbox
+-rw-r--r--     1 shanyue  shanyue   294B  5 22  2021 .editorconfig
+-rw-r--r--     1 shanyue  shanyue   759B  6 10 15:45 .eslintignore
+-rw-r--r--     1 shanyue  shanyue   8.4K  6 10 15:45 .eslintrc.js
+drwxr-xr-x    14 shanyue  shanyue   448B  6 10 15:45 .git
+-rw-r--r--     1 shanyue  shanyue    12B  5 22  2021 .gitattributes
+drwxr-xr-x     6 shanyue  shanyue   192B  9  8  2021 .github
+-rw-r--r--     1 shanyue  shanyue   881B  6 10 15:45 .gitignore
+-rw-r--r--     1 shanyue  shanyue   7.6K  5 22  2021 .mailmap
+-rw-r--r--     1 shanyue  shanyue     9B  6 10 15:45 .nvmrc
+-rw-r--r--     1 shanyue  shanyue   546B  6 10 15:45 .prettierignore
+-rw-r--r--     1 shanyue  shanyue   363B  5 22  2021 .prettierrc.js
+-rw-r--r--     1 shanyue  shanyue     3B  5 22  2021 .watchmanconfig
+-rw-r--r--     1 shanyue  shanyue    42K  5 22  2021 AUTHORS
+-rw-r--r--     1 shanyue  shanyue   198K  6 10 15:45 CHANGELOG.md
+-rw-r--r--     1 shanyue  shanyue   3.5K  5 22  2021 CODE_OF_CONDUCT.md
+-rw-r--r--     1 shanyue  shanyue   216B  5 22  2021 CONTRIBUTING.md
+-rw-r--r--     1 shanyue  shanyue   1.1K  5 22  2021 LICENSE
+-rw-r--r--     1 shanyue  shanyue   5.1K  6 10 15:45 README.md
+-rw-r--r--     1 shanyue  shanyue   1.5K  6 10 15:45 ReactVersions.js
+-rw-r--r--     1 shanyue  shanyue   400B  5 22  2021 SECURITY.md
+-rw-r--r--     1 shanyue  shanyue   671B  9  2  2021 appveyor.yml
+-rw-r--r--     1 shanyue  shanyue   1.0K  5 22  2021 babel.config.js
+drwxr-xr-x     6 shanyue  shanyue   192B  9  4  2021 build
+drwxr-xr-x     2 shanyue  shanyue    64B  9  4  2021 build2
+-rw-r--r--     1 shanyue  shanyue   7.5K  6 10 15:45 dangerfile.js
+drwxr-xr-x    23 shanyue  shanyue   736B  6 10 15:45 fixtures
+-rw-r--r--     1 shanyue  shanyue   220B  5 22  2021 netlify.toml
+drwxr-xr-x  1426 shanyue  shanyue    45K  9  2  2021 node_modules
+-rw-r--r--     1 shanyue  shanyue   7.2K  6 10 15:45 package.json
+drwxr-xr-x    39 shanyue  shanyue   1.2K  6 10 15:45 packages
+drwxr-xr-x    22 shanyue  shanyue   704B  9  2  2021 scripts
+-rw-r--r--     1 shanyue  shanyue   733K  6 10 15:45 yarn.lock
 ```
 
 那在 `ls` 每一行都代表什么信息？在下一节内容讲述。
