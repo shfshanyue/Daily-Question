@@ -84,6 +84,8 @@ export PUBLIC_URL=https://cdn.shanyue.tech
 在进行资源上传之前，需要通过 `ossutil config` 进行权限配置。
 
 ``` bash
+# 在该命令中我将 key/secret/endpoint 使用环境变量进行维护
+# 如果没有使用环境变量维护，请手动输入 key/secret/endpoint
 $ ossutil config -i $ACCESS_KEY_ID -k $ACCESS_KEY_SECRET -e $ENDPOINT
 ```
 
@@ -93,8 +95,9 @@ $ ossutil config -i $ACCESS_KEY_ID -k $ACCESS_KEY_SECRET -e $ENDPOINT
 1. 非带 hash 的资源，需要配置 Cache-Control: no-cache，**避免浏览器默认为强缓存**
 
 ``` bash
-# 将资源上传到 OSS Bucket
+# 将本地目录 build 上传到 Bucket oss://shanyue-cra 中
 # --meta: 配置响应头，也就是这里的缓存策略
+# build: 本地静态资源目录
 # oss://shanyue-cra/: bucket 名字
 $ ossutil cp -rf --meta Cache-Control:no-cache build oss://shanyue-cra/
 
