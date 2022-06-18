@@ -8,7 +8,7 @@ console.log('hello, world')
 
 初学部署前端，如同学习编程一样，不能一开始就要求将生产环境的项目进行部署要从简单的开始学习。
 
-比如本系列专栏，**先部署一个最简单 HTML 如下所示，只有几行代码，无任何 CSS/Javascript 代码，我称它为hello 版前端应用**。
+比如本系列专栏，**先部署一个最简单 HTML 如下所示，只有几行代码，无任何 CSS/Javascript 代码，我称它为 hello 版前端应用**。
 
 ``` html
 <!DOCTYPE html>
@@ -32,13 +32,13 @@ console.log('hello, world')
 
 ## HTTP 报文
 
-HTTP 是在互联网中进行数据交互的协议，你可从互联网中拿到文档、图片、音频及视频各种资源。HTTP 可视为 Web 的基石，更是前端的
+HTTP 是在互联网中进行数据交互的协议，你可从互联网中拿到文档、图片、音频及视频各种资源。HTTP 可视为 Web 的基石，更是前端的。
 
 而最简部署可看做，你向服务器发送一个获取 HTML 资源的请求，而服务端将响应一段 HTML 资源。我们在请求资源的过程中将发送一段请求报文(Request Message)，而服务端返回的 HTML 资源为响应报文(Response Message)。
 
 **我们写一段服务器代码，在 HTTP 响应报文中设置响应体为 HTML，便完成了对极简前端的部署。**
 
-以下是对**hello版前端应用**的真实的 HTTP 请求及响应报文。
+以下是对 **hello 版前端应用**的真实的 HTTP 请求及响应报文。
 
 > 通过 `curl -vvv localhost:3000` 可获得报文信息。
 
@@ -67,7 +67,7 @@ Keep-Alive: timeout=5
 </html>
 ```
 
-以下是对**hello版前端应用**的 HTTP 请求及响应报文的图文表示
+以下是对 **hello版前端应用** 的 HTTP 请求及响应报文的图文表示
 
 ![](https://static.shanyue.tech/images/22-05-25/clipboard-9525.6bbfcd.webp)
 
@@ -75,9 +75,9 @@ Keep-Alive: timeout=5
 
 ## 手写简单静态资源服务器: 响应字符串
 
-作为前端，以我们最为熟悉的 Node 为例，写一段最简单的前端部署服务。该服务监听本地的 3000 端口，并在响应体返回我们的**hello 版前端应用**。
+作为前端，以我们最为熟悉的 Node 为例，写一段最简单的前端部署服务。该服务监听本地的 3000 端口，并在响应体返回我们的 **hello 版前端应用**。
 
-为求简单，我们直接将**hello 版前端应用**以字符串的形式进行响应。
+为求简单，我们直接将 **hello 版前端应用**以字符串的形式进行响应。
 
 在 Node 中写服务端最重要的内置模块(`builtinModule`)为 [node:http](https://nodejs.org/api/http.html)，通过 `node:` 前缀，可指明其为内置模块，被称作 `Protocol Import`。从而避免了 node 内置模块与第三方模块的命名冲突。
 
@@ -96,7 +96,7 @@ server.listen(3000, () => {
 })
 ```
 
-我们将**hello 版前端应用**以字符串的方式在代码中进行维护，并通过 `res.end()` 设置其为响应报文的响应体。最终代码如下。
+我们将 **hello 版前端应用**以字符串的方式在代码中进行维护，并通过 `res.end()` 设置其为响应报文的响应体。最终代码如下。
 
 > PS: 该段服务器 nodejs 代码位于 [simple-deploy/server.js](https://github.com/shfshanyue/simple-deploy/blob/master/server.js)
 
@@ -139,7 +139,7 @@ Listening 3000
 
 当然，部署前端作为**纯静态资源**，需要我们使用文件系统(file system)去读取资源并将数据返回。
 
-在代码中，html 以前以字符串形式进行维护，现在将其置于文件系统中的 `index.html` 中，并通过 nodejs 中文件系统读取文件的相关 API `fs.readFileSync('./index.html')` 进行获取文件内容，代码如下。
+在代码中，HTML 以前以字符串形式进行维护，现在将其置于文件系统中的 `index.html` 中，并通过 nodejs 中文件系统读取文件的相关 API `fs.readFileSync('./index.html')` 进行获取文件内容，代码如下。
 
 ``` js
 // fs 为内置模块，
@@ -149,7 +149,7 @@ const fs = require('node:fs')
 const html = fs.readFileSync('./index.html')
 ```
 
-我们将**hello 版前端应用**以文件系统的方式进行维护，并通过 `res.end()` 设置其为响应报文的响应体。最终代码如下。
+我们将 **hello 版前端应用**以文件系统的方式进行维护，并通过 `res.end()` 设置其为响应报文的响应体。最终代码如下。
 
 > PS: 该段服务器 nodejs 代码位于 [simple-deploy/server-fs.js](https://github.com/shfshanyue/simple-deploy/blob/master/server-fs.js)
 
@@ -225,7 +225,7 @@ $ npx serve .
 
 接下来，我回应一些关于前端部署的更多疑问。
 
-### 问: 那既然通过 `npm start` 可以启动服务并暴露端口对外提供服务，那为什么还需要 nginx 呢？
+### 问：那既然通过 `npm start` 可以启动服务并暴露端口对外提供服务，那为什么还需要 nginx 呢？
 
 **你需要管理诸多服务(比如A网站、B网站)，通过 nginx 进行路由转发至不同的服务，这也就是反向代理**，另外 TLS、GZIP、HTTP2 等诸多功能，也需要使用 nginx 进行配置。
 
@@ -235,9 +235,9 @@ $ npx serve .
 
 关于 nginx 的学习可以查看后续章节。
 
-### 问: 我确实不介意别人通过 IP:Port 的方式来访问我的应用，那在服务器可以 npm run dev 部署吗？
+### 问：我确实不介意别人通过 IP:Port 的方式来访问我的应用，那在服务器可以 npm run dev 部署吗？
 
-**可以，但是非常不推荐**。`npm run dev` 往往需要监听文件变更并重启服务，此处需要消耗较大的内存及CPU等性能。
+**可以，但是非常不推荐**。`npm run dev` 往往需要监听文件变更并重启服务，此处需要消耗较大的内存及 CPU 时间，导致性能问题。
 
 比如针对 Typescript 写的后端服务器，不推荐在服务器中直接使用 `ts-node` 而需要事先编译的理由同样如此。
 
@@ -259,9 +259,9 @@ $ npx serve .
 
 ## 作业
 
-+ 初阶: 继续完善静态服务器，使其基于 stream，并能给出正确的 Content-Length。
-+ 高阶: 继续完善静态服务器，使其作为一个命令行工具，支持指定端口号、读取目录、404、stream (甚至 trailingSlash、cleanUrls、rewrite、redirect 等)。可参考 [serve-handler](https://github.com/vercel/serve-handler)。
-+ 面试: 什么是 rewrite 和 redirect
++ 初阶：继续完善静态服务器，使其基于 stream，并能给出正确的 Content-Length。
++ 高阶：继续完善静态服务器，使其作为一个命令行工具，支持指定端口号、读取目录、404、stream (甚至 trailingSlash、cleanUrls、rewrite、redirect 等)。可参考 [serve-handler](https://github.com/vercel/serve-handler)。
++ 面试：什么是 rewrite 和 redirect
 
 ## 小结
 
