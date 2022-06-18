@@ -6,6 +6,8 @@
 
 本篇文章还是以项目 [cra-deploy](https://github.com/shfshanyue/cra-deploy) 示例，并将静态资源上传至 OSS 处理。
 
+![](https://static.shanyue.tech/images/22-06-18/4.d8d109.webp)
+
 ## PUBLIC_PATH 与 webpack 的处理
 
 假设将带有 hash 值的静态资源推至 CDN 中，此时静态资源的地址为: `https://cdn.shanyue.tech`。而它即是我们将要在 webpack 中配置的 `config.output.publicPath`。
@@ -134,7 +136,7 @@ $ ossutil cp -rf --meta Cache-Control:max-age=31536000 build/static oss://shanyu
 
 脚本略过不提。
 
-> PS: 上传 OSS 的配置文件位于 [scripts/uploadOSS.js](https://github.com/shfshanyue/simple-deploy/blob/master/scripts/uploadOSS.js) 中，可通过它使用脚本控制静态资源上传。
+> PS: 上传 OSS 的配置文件位于 [scripts/uploadOSS.js](https://github.com/shfshanyue/cra-deploy/blob/master/scripts/uploadOSS.mjs) 中，可通过它使用脚本控制静态资源上传。
 
 ## Dockerfile 与环境变量
 
@@ -229,13 +231,14 @@ $ docker-compose up --build oss
 
 如果，你既没有个人服务器，也没有属于个人的域名，可将自己所做的前端网站置于以下免费的托管服务平台。
 
-1. Vercel
+1. [Vercel](https://vercel.com/)
+1. [Netlify](https://www.netlify.com/)
 1. Github Pages
-1. Netlify
 
 ## 作业
 
-+ 初阶: 使用 gatsby/vuepress 搭建个人博客，并使用 oss 部署 (通过 npm scripts 部署即可)
++ 中阶: 使用 gatsby/vuepress 搭建个人博客，并使用 vercel 等部署
++ 中阶: 使用 gatsby/vuepress 搭建个人博客，并使用 oss 部署 (通过 npm scripts 部署即可)
 + 面试: 我们如何向 Dockerfile 中传递宿主机环境变量
 
 ## 小结
