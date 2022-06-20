@@ -153,7 +153,7 @@ export COMMIT_REF_NAME=$(git rev-parse --abbrev-ref HEAD)
 
 ## 作业
 
-+ 初阶: 使用 rconee 部署自己的博客
++ 初阶: 使用 rclone 部署自己的博客
 
 ## 小结
 
