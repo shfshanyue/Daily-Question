@@ -746,7 +746,7 @@ $ npx create-react-app cra-deploy
 $ cd cra-deploy
 
 # 进行依赖安装
-$ yarn
+$ npm i
 
 # 对资源进行构建
 $ npm run build
@@ -774,7 +774,7 @@ build
 在本地将 CRA 应用跑起来，可通过以下步骤：
 
 ``` bash
-$ yarn
+$ npm i
 $ npm run build
 $ npx serve -s build
 ```
@@ -791,7 +791,7 @@ FROM node:14-alpine
 WORKDIR /code
 
 ADD . /code
-RUN yarn && npm run build
+RUN npm i && npm run build
 
 CMD npx serve -s build
 EXPOSE 3000
@@ -815,9 +815,9 @@ EXPOSE 3000
 
 在 Dockerfile 中，对于 `ADD` 指令（[官方文档](https://docs.docker.com/engine/reference/builder/#add)）来讲，如果**添加文件内容的 `checksum` 没有发生变化，则可以利用构建缓存**（[Best practices for writing Dockerfiles](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#leverage-build-cache)）。
 
-而对于前端项目而言，如果 `package.json/yarn.lock` 文件内容没有变更，则无需再次 `npm i`。
+而对于前端项目而言，如果 `package.json/package-lock.json` 文件内容没有变更，则无需再次 `npm i`。
 
-将 `package.json/yarn.lock` 事先置于镜像中，安装依赖将可以获得缓存的优化，优化如下。
+将 `package.json/package-lock.json` 事先置于镜像中，安装依赖将可以获得缓存的优化，优化如下。
 
 ``` dockerfile
 FROM node:14-alpine as builder
@@ -825,9 +825,9 @@ FROM node:14-alpine as builder
 WORKDIR /code
 
 # 单独分离 package.json，是为了安装依赖可最大限度利用缓存
-ADD package.json yarn.lock /code/
-# 此时，yarn 可以利用缓存，如果 yarn.lock 内容没有变化，则不会重新依赖安装
-RUN yarn
+ADD package.json package-lock.json /code/
+# 此时，npm 可以利用缓存，如果 package-lock.json 内容没有变化，则不会重新依赖安装
+RUN npm i
 
 ADD . /code
 RUN npm run build
@@ -839,11 +839,12 @@ EXPOSE 3000
 进行构建时，若可利用缓存，可看到 `CACHED` 标记。
 
 ``` bash
-$ docker-compose up --build
+# 参数根据你时机情况进行修改
+$ docker build -t xxx:x -f ./Dockerfile .
 ...
  => CACHED [builder 2/6] WORKDIR /code                                                                            0.0s
- => CACHED [builder 3/6] ADD package.json yarn.lock /code/                                                        0.0s
- => CACHED [builder 4/6] RUN yarn                                                                                 0.0s
+ => CACHED [builder 3/6] ADD package.json package-lock.json /code/                                                        0.0s
+ => CACHED [builder 4/6] RUN npm i                                                                                 0.0s
 ...
 ```
 
@@ -864,8 +865,8 @@ FROM node:14-alpine as builder
 WORKDIR /code
 
 # 单独分离 package.json，是为了安装依赖可最大限度利用缓存
-ADD package.json yarn.lock /code/
-RUN yarn
+ADD package.json package-lock.json /code/
+RUN npm i
 
 ADD . /code
 RUN npm run build
