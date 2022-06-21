@@ -30,23 +30,101 @@ HISTSIZE=10000
 _=/usr/bin/env
 ```
 
-## printenv/echo
+从以上命令输出，可以看出 **环境变量命名一般为全部大写**。
 
-并可以通过 `echo` 命令进行查看。
+我们也可以通过 `printenv`，来获得某个环境变量的值。
 
 ``` bash
-$ echo $A
-3
-
-$ echo ${A}
-l
+$ printenv HOME
+/home/shanyue
 ```
+
+除此之外，通过 `$var` 或者 `${var}` 可以取得环境变量，并通过 `echo` 进行打印。
+
+``` bash
+$ echo $HOME
+/home/shanyue
+
+$ echo ${HOME}
+```
+
+## $HOME
+
+`$HOME`，当前用户目录，也就是 `~` 目录。
+
+``` bash
+$ echo $HOME
+/home/shanyue
+
+# 以下两个命令是等价的
+$ cd $HOME
+$ cd ~
+```
+
+## $USER
+
+`$USER`，即当前用户名。
+
+``` bash
+$ echo $USER
+shanyue
+
+# 该命令也可获得当前用户名
+$ id --user --name
+shanyue
+```
+
+## $SHELL
+
+在 linux 中，有许多的 shell 工具，比如：
+
++ [bash](https://www.gnu.org/software/bash/)
++ [zsh](https://www.zsh.org/)
++ `sh`
+
+而 `bash` 是 linux 系统内置的 shell，我们可以通过环境变量 `SHELL` 获得当前是哪一个 SHELL。
+
+``` bash
+$ echo $SHELL
+/bin/bash
+```
+
+## $PATH
+
+见 [PATH](./path.md)
 
 ## export
 
-我们可以通过 `export` 来设置某一个环境变量，或者说在 shell 中赋值变量。
+通过 `export` 可配置环境变量
 
 ``` bash
-export A=3
+$ export A=3
+$ echo $A
+3
+$
+$ export NODE_ENV=production
+$ echo $NODE_ENV
+production
+```
+
+**如果需要使得配置的环境变量永久有效，需要写入 `~/.bashrc` 或者 `~/.zshrc`**
+
+## 前置环境变量
+
+在执行命令之前置入环境变量，可以用以指定仅在该命令中有效的环境变量。
+
+``` bash
+# 该环境变量仅在当前命令中有效
+$ NODE_ENV=production printenv NODE_ENV
+production
+
+# 没有输出
+$ printenv NODE_ENV
+```
+
+在前端中大量使用，如
+
+``` bash
+$ NODE_ENV=production npm run build
 ```
 
