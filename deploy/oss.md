@@ -237,8 +237,9 @@ $ docker-compose up --build oss
 
 ## 作业
 
++ 初阶: 使用 ossutil 上传文件至 oss
 + 中阶: 使用 gatsby/vuepress 搭建个人博客，并使用 vercel 等部署
-+ 中阶: 使用 gatsby/vuepress 搭建个人博客，并使用 oss 部署 (通过 npm scripts 部署即可)
++ 高阶: 使用 gatsby/vuepress 搭建个人博客，并使用 oss 部署 (通过 npm scripts 部署即可)
 + 面试: 我们如何向 Dockerfile 中传递宿主机环境变量
 
 ## 小结

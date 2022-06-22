@@ -1,4 +1,4 @@
-# 部署 CRA: 部署时间与云服务优化
+# oss 上传时间及空间优化
 
 ![](https://static.shanyue.tech/images/22-05-23/oss-optimize.79b9fc.webp)
 
@@ -131,7 +131,7 @@ async function main() {
 ``` js
 {
   "scripts": {
-    "oss:rclone": "rclone copy --exclude 'static/**' --header 'Cache-Control: no-cache' build alioss:/shanyue-cra --progress && rclone copy --header  'Cache-Control: max-age=31536000' build/static alioss:/shanyue-cra/static --progress",
+    "oss:prune": "node scripts/deleteOSS.mjs"
   }
 }
 ```
@@ -153,7 +153,9 @@ export COMMIT_REF_NAME=$(git rev-parse --abbrev-ref HEAD)
 
 ## 作业
 
-+ 初阶: 使用 rclone 部署自己的博客
++ 初阶: 使用 rclone 上传文件至 oss/cos
++ 高阶: 使用 rclone 部署自己的博客
++ 面试: 针对你们项目静态资源的存储及上传做了那些优化
 
 ## 小结
 
