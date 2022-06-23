@@ -95,7 +95,7 @@ $ echo $SHELL
 
 ## export
 
-通过 `export` 可配置环境变量
+通过 `export` 可配置环境变量。
 
 ``` bash
 $ export A=3
@@ -107,7 +107,23 @@ $ echo $NODE_ENV
 production
 ```
 
+通过 `export` 配置的环境变量仅在当前 shell(tty) 窗口有效，如果再开一个 shell，则无法读取变量。
+
 **如果需要使得配置的环境变量永久有效，需要写入 `~/.bashrc` 或者 `~/.zshrc`**
+
+``` bash
+# 判断当前是哪个 shell
+# 如果是 zsh，写入 ~/.zshrc
+# 如果是 bash，写入 ~/.bashrc
+$ echo $SHELL
+/bin/zsh
+
+# 写入 ~/.zshrc，如果不存在该文件，请新建
+$ vim ~/.zshrc
+
+写入 ~/.bashrc 后记得使它生效，或者重开一个 shell 窗口
+$ source ~/.zshrc
+```
 
 ## 前置环境变量
 

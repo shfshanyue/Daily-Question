@@ -1,4 +1,4 @@
-# 文件系统中的目录与切换展现操作
+# 文件系统中的目录与切换操作
 
 ## cd
 
@@ -98,13 +98,24 @@ drwxr-xr-x    22 shanyue  shanyue   704B  9  2  2021 scripts
 >
 > ![](https://static.shanyue.tech/images/22-06-10/clipboard-5898.571b6c.webp)
 
+## exa
+
+一个 `ls` 的替代品，拥有更友好的色彩更丰富的输出，同时支持更丰富的选项。
+
+``` bash
+# 支持查看 git 情况
+$ exa -lah --git
+```
+
+![](https://static.shanyue.tech/images/22-06-22/clipboard-2959.65b7f4.webp)
+
 ## tree
 
 `tree`，以树状图的形式列出文件。
 
 该命令需要手动下载。
 
-``` 
+``` bash
 # macos
 $ brew install tree
 
@@ -156,3 +167,21 @@ packages/react-dom
 
 8 directories, 25 files
 ```
+
+同时，也可以使用更高级的 `exa -T` 打印树状文件。
+
+``` bash
+# -T: --tree，以树状图的形式列出文件
+# -L: --level，指定层级
+$ exa -lah -T -L 2 packages/react-dom
+```
+
+![](https://static.shanyue.tech/images/22-06-22/clipboard-2119.7fe9bb.webp)
+
+## 作业
+
+1. 熟悉 cd、pwd、ls、exa、tree 等命令
+2. 在 `ls` 单指令列出文件列表时为何不显示 `.git` 目录，应如何显示
+3. 在 Node.js 或其它语言中如何获得 `pwd`
+4. 在 Node.js 或其它语言中如何获得 `ls` 子文件列表。参考 [fsp.readdir](https://nodejs.org/api/fs.html#fspromisesreaddirpath-options) 及 [readdir](https://man7.org/linux/man-pages/man3/readdir.3.html)
+
