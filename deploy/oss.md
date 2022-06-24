@@ -8,6 +8,8 @@
 
 ![](https://static.shanyue.tech/images/22-06-18/4.d8d109.webp)
 
+> 关于环境变量及配置可参考 [linux 中的环境变量](https://q.shanyue.tech/command/env.html)
+
 ## PUBLIC_PATH 与 webpack 的处理
 
 假设将带有 hash 值的静态资源推至 CDN 中，此时静态资源的地址为: `https://cdn.shanyue.tech`。而它即是我们将要在 webpack 中配置的 `config.output.publicPath`。
@@ -87,7 +89,7 @@ export PUBLIC_URL=https://cdn.shanyue.tech
 
 ``` bash
 # 在该命令中我将 key/secret/endpoint 使用环境变量进行维护
-# 如果没有使用环境变量维护，请手动输入 key/secret/endpoint
+# 如果没有使用环境变量维护，请手动替换 key/secret/endpoint
 $ ossutil config -i $ACCESS_KEY_ID -k $ACCESS_KEY_SECRET -e $ENDPOINT
 ```
 

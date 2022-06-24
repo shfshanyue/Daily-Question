@@ -28,3 +28,13 @@ $ vim Readme.md
 + insert。插入模式。在普通模式下通过 `i` 进入插入模式，在插入模式下进行文字编辑。
 + command。命令模式。在普通模式下通过 `:` 进入命令模式，在命令模式下执行命令。
 
+## insert mode commands
+
++ i
++ I
++ a
++ A
++ o
++ O
+
+## normal mode commands
