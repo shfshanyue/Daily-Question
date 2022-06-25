@@ -107,7 +107,7 @@ X-Real-Ip: 172.20.0.1
 
 ## 终极配置文件
 
-终极配置文件已经配置好了 LTS、Access Log 等，但是细节就不讲了，直接上配置。
+终极配置文件已经配置好了 LTS、Access Log 等，但是细节就不讲了，直接上配置，完整配置文件详见 [compose:traefik](https://github.com/shfshanyue/compose/tree/master/traefik)。
 
 编辑配置文件 `traefik.toml`，内容如下。
 

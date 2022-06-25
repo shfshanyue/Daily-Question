@@ -10,7 +10,7 @@ const sidebar = [
         path: 'ssh',
       },
       {
-        title: 'ssh -L',
+        title: 'ssh 隧道',
         path: 'ssh-l'
       },
       {

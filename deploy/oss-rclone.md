@@ -82,7 +82,7 @@ for await (const entry of readdirp('./build', { depth: 0, type: 'files' })) {
 1. 断点续传
 1. 压缩传输
 
-> 选择阿里云 oss 作为云存储时，配置时其 type 为 s3，其 provider 为 Alibaba
+> 选择阿里云 oss 作为云存储时，配置时其 type 为 s3，其 provider 为 Alibaba，详见文档 [](https://rclone.org/s3/#alibaba-oss)
 
 ``` bash
 # 将资源上传到 OSS Bucket
