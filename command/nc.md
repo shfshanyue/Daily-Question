@@ -1,4 +1,4 @@
-# rsync
+# nc
 
 ``` bash
 ```

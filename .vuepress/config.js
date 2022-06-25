@@ -4,6 +4,7 @@ const fs = require('fs')
 const { generateSiebar } = require('./header')
 const { generateSidebar: generateESidebar} = require('../data/engineering')
 const { sidebar: deploySidebar } = require('../data/deploy')
+const { sidebar: commandSidebar } = require('../data/command')
 const { sidebar: mockSidebar } = require('../data/mock')
 
 module.exports = {
@@ -22,7 +23,6 @@ module.exports = {
     nav: [
       { text: '主页', link: '/' },
       // { text: '周刊', link: '/weekly/' },
-      { text: '前端工程化三十八讲', link: '/engineering/' },
       { text: '前端部署十五章', link: '/deploy/' },
       { text: '前端基础', link: '/fe/' },
       { text: '高级前端', link: '/server/' },
@@ -47,6 +47,7 @@ module.exports = {
       ...generateESidebar(),
       ...deploySidebar,
       ...mockSidebar,
+      ...commandSidebar,
       '/job/': [
         ['chengdu', '成都大厂'],
       ],

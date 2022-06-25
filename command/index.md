@@ -20,7 +20,7 @@
 
 ## shell
 
-+ which
++ path/which
 + bash/zsh
 + ohmyzsh
 + zsh autocomplete
