@@ -126,6 +126,28 @@
             "login": "LMW-lmw",
             "url": "https://github.com/LMW-lmw"
           }
+        },
+        {
+          "id": "IC_kwDODQzyOs5CxH2p",
+          "body": "**方法三的简单 demo**\r\n\r\n```HTML\r\n<!DOCTYPE html>\r\n<html lang=\"en\">\r\n  <head>\r\n    <meta charset=\"UTF-8\" />\r\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\r\n    <title>3.IntersectionObserver API + DataSet API</title>\r\n    <style>\r\n\r\n      * {\r\n        margin: 0px;\r\n        padding: 0px;\r\n      }\r\n\r\n      body {\r\n        margin: 0px;\r\n        padding: 0px;\r\n      }\r\n\r\n      img {\r\n        width: 100%;\r\n        height: 600px;\r\n      }\r\n    </style>\r\n  </head>\r\n  <body>\r\n    <img src=\"https://cdn.pixabay.com/photo/2021/08/24/15/38/sand-6570980_960_720.jpg\" alt=\"1\" />\r\n    <img src=\"https://cdn.pixabay.com/photo/2013/02/21/19/06/drink-84533_960_720.jpg\" alt=\"2\" />\r\n    <img data-src=\"https://cdn.pixabay.com/photo/2014/12/15/17/16/boardwalk-569314_960_720.jpg\" alt=\"3\" />\r\n    <img data-src=\"https://cdn.pixabay.com/photo/2013/07/18/20/26/sea-164989_960_720.jpg\" alt=\"4\" />\r\n    <img data-src=\"https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg\" alt=\"5\" />\r\n    <img data-src=\"https://cdn.pixabay.com/photo/2017/03/26/21/54/yoga-2176668_960_720.jpg\" alt=\"6\" />\r\n    <img data-src=\"https://cdn.pixabay.com/photo/2015/03/17/14/05/sparkler-677774_960_720.jpg\" alt=\"7\" />\r\n    <script>\r\n      const images = document.querySelectorAll('img')\r\n\r\n      // 新的 api  IntersectionObserver \r\n      const observer = new IntersectionObserver((changes) => {\r\n        changes.forEach(change => {\r\n          if (change.isIntersecting) {\r\n            const img = change.target\r\n            // if (img.dataset.src && img.src == \"\") {\r\n            //   img.src = img.dataset.src\r\n            // }\r\n            img.dataset.src && img.src == \"\" && (img.src = img.dataset.src)\r\n            observer.unobserve(img)\r\n          }\r\n        })\r\n      })\r\n\r\n      images.forEach(img => observer.observe(img))\r\n    </script>\r\n  </body>\r\n</html>\r\n",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "gethinzz",
+            "url": "https://github.com/gethinzz"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs5EWm_g",
+          "body": "在vue中实现图片懒加载\r\nhttps://github.com/wangkaiwd/vue-image-lazy",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "yanshuaidong",
+            "url": "https://github.com/yanshuaidong"
+          }
         }
       ]
     },
@@ -153,7 +175,7 @@
           "id": "MDEyOklzc3VlQ29tbWVudDU0OTMzNjQ4Nw==",
           "body": "从 `ping` 的 `man` 手册就可以看出来，`ping` 实际上发送了 **`ICMP ECHO_REQUEST`** 的报文\r\n\r\n> ping -- send ICMP ECHO_REQUEST packets to network hosts\r\n\r\n通过让目标 IP 地址返回 **`ICMP ECHO_RESPONSE`** 报文来判断 IP 可不可达。\r\n\r\n`ICMP` 分为 `Query` 查询报文及 `Error Message` 报文，ping 为查询报文。",
           "star": {
-            "totalCount": 4
+            "totalCount": 5
           },
           "author": {
             "login": "shfshanyue",
@@ -400,8 +422,8 @@
             "totalCount": 0
           },
           "author": {
-            "login": "xwxgjs",
-            "url": "https://github.com/xwxgjs"
+            "login": "yundove",
+            "url": "https://github.com/yundove"
           }
         },
         {
@@ -413,6 +435,17 @@
           "author": {
             "login": "linlai163",
             "url": "https://github.com/linlai163"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs5DOFl6",
+          "body": "先看readme啊，node版本之类的都不知道，待会node-sass之类的东西都装不上岂不是搞笑了",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "Gumplefik",
+            "url": "https://github.com/Gumplefik"
           }
         }
       ]
@@ -471,7 +504,7 @@
           "id": "MDEyOklzc3VlQ29tbWVudDYwOTUzMTA5NQ==",
           "body": "引自：https://css-tricks.com/centering-css-complete-guide/\r\n1 该元素的宽高固定吗？\r\n在将元素绝对定位为top: 50%; left: 50%;后，可以使用值为宽的一半和高的一半的负margin实现垂直水平居中。（跨浏览器支持很不错）\r\n```\r\n.parent {\r\n  position: relative;\r\n}\r\n\r\n.child {\r\n  width: 300px;\r\n  height: 100px;\r\n  padding: 20px;\r\n\r\n  position: absolute;\r\n  top: 50%;\r\n  left: 50%;\r\n\r\n  margin: -70px 0 0 -170px;\r\n}\r\n```\r\n2 该元素宽高未知？\r\n（1）如果宽高未知，在将元素绝对定位为top: 50%; left: 50%;后，可以使用transform属性来做负的50%移动（基于当前元素宽高）。\r\n```\r\n.parent {\r\n  position: relative;\r\n}\r\n.child {\r\n  position: absolute;\r\n  top: 50%;\r\n  left: 50%;\r\n  transform: translate(-50%, -50%);\r\n}\r\n```\r\n（2）也可以元素相对父容器绝对定位(left: 0;right: 0;top: 0;bottom: 0;)并margin: auto，不需要提前知道尺寸兼容性好。\r\n```\r\n.container {\r\n  position: relative;\r\n  height: 300px;\r\n  border: 1px solid red;\r\n}\r\n.item {\r\n  width: 100px;\r\n  height: 50px;\r\n  position: absolute;\r\n  left: 0;\r\n  top: 0;\r\n  right: 0;\r\n  bottom: 0;\r\n  margin: auto;\r\n  border: 1px solid green;\r\n}\r\n```\r\n3 你要用flexbox吗？\r\n对flexbox进行垂直水平居中，只需设置两个属性为center: align-items、justify-content。\r\n```\r\n.parent {\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n}\r\n```\r\n4 你要用grid布局吗？\r\n父容器设置为grid布局后，子元素直接margin: auto;即可实现垂直水平居中。\r\n```\r\nbody, html {\r\n  height: 100%;\r\n  display: grid;\r\n}\r\nspan { /* thing to center */\r\n  margin: auto;\r\n}\r\n```\r\n详细案例解释可参考：https://zhuanlan.zhihu.com/p/87134477",
           "star": {
-            "totalCount": 3
+            "totalCount": 4
           },
           "author": {
             "login": "SageSanyue",
@@ -482,7 +515,7 @@
           "id": "MDEyOklzc3VlQ29tbWVudDc5NDgyMzc1NQ==",
           "body": "你不知道的 flex 布局～\r\n\r\n```\r\n.box {\r\n  display: flex;\r\n}\r\n\r\n.item {\r\n  margin: auto;\r\n}\r\n```",
           "star": {
-            "totalCount": 1
+            "totalCount": 2
           },
           "author": {
             "login": "lastSeries",
@@ -599,7 +632,7 @@
           "id": "MDEyOklzc3VlQ29tbWVudDU3MDUyOTQ2Nw==",
           "body": "了解，在推出之前报错会直接白屏，总是需要我们前端进行手动try catch，react16新增了两个生命周期componentdidcatch和static getDerivedStateFromError从框架级别让我们更方便捕捉异常并显示备用ui。其实就是在整个workloop外面包一层try catch，报错时候遍历父组件找到这两个生命周期并把堆栈信息塞给生命周期进行判断。",
           "star": {
-            "totalCount": 1
+            "totalCount": 2
           },
           "author": {
             "login": "into-piece",
@@ -615,6 +648,17 @@
           "author": {
             "login": "into-piece",
             "url": "https://github.com/into-piece"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs5DgQnF",
+          "body": "嵌套的比较深的组件存在出错的风险，组件自身没有容错机制，会逐层交给外层组件处理。这个过程会导致整个组件树销毁。页面结果就是白屏。而且生产环境不会报出有效的错误信息，不好定位问题。\r\n使用ErrorBoundary 就是在可能出错的组件上套一层组件，在这个新的组件中去容错",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "Murraya-paniculata",
+            "url": "https://github.com/Murraya-paniculata"
           }
         }
       ]
@@ -661,7 +705,7 @@
           "id": "MDEyOklzc3VlQ29tbWVudDczNDEyNTk0Mw==",
           "body": "1. Vue2.x通过给每个对象添加`getter setter`属性去改变对象,实现对数据的观测,Vue3.x通过Proxy代理目标对象,且一开始只代理最外层对象,嵌套对象`lazy by default` ,性能会更好\r\n2. 支持数组索引修改,对象属性的增加,删除\r\n",
           "star": {
-            "totalCount": 3
+            "totalCount": 4
           },
           "author": {
             "login": "hefeng1208",
@@ -806,8 +850,8 @@
             "totalCount": 15
           },
           "author": {
-            "login": "shaul-xu",
-            "url": "https://github.com/shaul-xu"
+            "login": "xu1xiang",
+            "url": "https://github.com/xu1xiang"
           }
         },
         {
@@ -819,6 +863,17 @@
           "author": {
             "login": "shfshanyue",
             "url": "https://github.com/shfshanyue"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs5DOJiy",
+          "body": "这题不要想当然的就超时1s加或者减1，要记录开始时间戳，重新set时检查剩余多少秒，去set对应的值。\r\n定时器都是指定时间后开始执行，不是指定时间执行",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "Gumplefik",
+            "url": "https://github.com/Gumplefik"
           }
         }
       ]
@@ -1076,7 +1131,7 @@
           "id": "MDEyOklzc3VlQ29tbWVudDU1NDY4ODc0MQ==",
           "body": "``` js\r\nReact.cloneElement(\r\n  element,\r\n  [props],\r\n  [...children]\r\n)\r\n\r\nReact.createElement(\r\n  type,\r\n  [props],\r\n  [...children]\r\n)\r\n```\r\n\r\n直接上 API，很容易得出结论：首参不一样。这也是他们的最大区别：\r\n\r\n1. `cloneElement`，根据 Element 生成新的 Element\r\n1.  `createElement`，根据 Type 生成新的 Element\r\n\r\n然而，此时估计还是云里雾里，含糊不清，需要弄清它，首先要明白俩概念\r\n\r\n1. Type\r\n1. Element\r\n\r\n## React.cloneElement 的使用场景",
           "star": {
-            "totalCount": 0
+            "totalCount": 1
           },
           "author": {
             "login": "shfshanyue",
@@ -1105,7 +1160,7 @@
           "id": "MDEyOklzc3VlQ29tbWVudDU1MzE4MjA0Mg==",
           "body": "一个简单的 `Promise` 的粗糙实现，关键点在于\r\n\r\n1. 当 `pending` 时， `thenable` 函数由一个队列维护\r\n1. 当状态变为 `resolved(fulfilled)` 时，队列中所有 `thenable` 函数执行\r\n1. 当 `resolved` 时， `thenable` 函数直接执行\r\n\r\n<!--more-->\r\n\r\n`rejected` 状态同理\r\n\r\n```javascript\r\nclass Prom {\r\n  static resolve (value) {\r\n    if (value && value.then) {\r\n      return value \r\n    }\r\n    return new Prom(resolve => resolve(value))\r\n  }\r\n\r\n  constructor (fn) {\r\n    this.value = undefined\r\n    this.reason = undefined\r\n    this.status = 'PENDING'\r\n\r\n    // 维护一个 resolve/pending 的函数队列\r\n    this.resolveFns = []\r\n    this.rejectFns = []\r\n\r\n    const resolve = (value) => {\r\n      // 注意此处的 setTimeout\r\n      setTimeout(() => {\r\n        this.status = 'RESOLVED'\r\n        this.value = value\r\n        this.resolveFns.forEach(({ fn, resolve: res, reject: rej }) => res(fn(value)))\r\n      })\r\n    }\r\n\r\n    const reject = (e) => {\r\n      setTimeout(() => {\r\n        this.status = 'REJECTED'\r\n        this.reason = e\r\n        this.rejectFns.forEach(({ fn, resolve: res, reject: rej }) => rej(fn(e)))\r\n      })\r\n    }\r\n\r\n    fn(resolve, reject)\r\n  }\r\n\r\n\r\n  then (fn) {\r\n    if (this.status === 'RESOLVED') {\r\n      const result = fn(this.value)\r\n      // 需要返回一个 Promise\r\n      // 如果状态为 resolved，直接执行\r\n      return Prom.resolve(result)\r\n    }\r\n    if (this.status === 'PENDING') {\r\n      // 也是返回一个 Promise\r\n      return new Prom((resolve, reject) => {\r\n        // 推进队列中，resolved 后统一执行\r\n        this.resolveFns.push({ fn, resolve, reject }) \r\n      })\r\n    }\r\n  }\r\n\r\n  catch (fn) {\r\n    if (this.status === 'REJECTED') {\r\n      const result = fn(this.value)\r\n      return Prom.resolve(result)\r\n    }\r\n    if (this.status === 'PENDING') {\r\n      return new Prom((resolve, reject) => {\r\n        this.rejectFns.push({ fn, resolve, reject }) \r\n      })\r\n    }\r\n  }\r\n}\r\n\r\nProm.resolve(10).then(o => o * 10).then(o => o + 10).then(o => {\r\n  console.log(o)\r\n})\r\n\r\nreturn new Prom((resolve, reject) => reject('Error')).catch(e => {\r\n  console.log('Error', e)\r\n})\r\n```\r\n",
           "star": {
-            "totalCount": 0
+            "totalCount": 1
           },
           "author": {
             "login": "shfshanyue",
@@ -1132,6 +1187,28 @@
           "author": {
             "login": "hsq777",
             "url": "https://github.com/hsq777"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs5FOM0U",
+          "body": "话不多说，看码！\r\n\r\n```js\r\n// 1、基本架构：\r\n//   状态\r\n//   then\r\n//   执行器函数 executor\r\n\r\n// 2、executor、resolve、reject\r\n// 3、then 同步下调用\r\n// 4、then 异步下调用\r\n// 5、then 链式调用\r\n//   返回 Promise\r\n//   then 函数递归返回常量结果，供下个 then 使用\r\n//   考虑 then 成功的回调为 null 的情况\r\n\r\nclass Promise {\r\n  static PENDING = 'pending';\r\n  static RESOLVED = 'resolved';\r\n  static REJECTED = 'rejected';\r\n\r\n  static resolve(value) {\r\n    return new Promise((resolve, reject) => {\r\n      resolve(value);\r\n    });\r\n  }\r\n\r\n  static reject(reason) {\r\n    return new Promise((resolve, reject) => {\r\n      reject(reason);\r\n    });\r\n  }\r\n\r\n  constructor(executor) {\r\n    this.state = Promise.PENDING;\r\n    this.value = undefined;\r\n    this.reason = undefined;\r\n\r\n    this.onResolvedCallbacks = [];\r\n    this.onRejectedCallbacks = [];\r\n\r\n    const resolve = value => {\r\n      if (value instanceof Promise) {\r\n        return value.then(resolve, reject);\r\n      }\r\n\r\n      if (this.state === Promise.PENDING) {\r\n        this.state = Promise.RESOLVED;\r\n        this.value = value;\r\n\r\n        this.onResolvedCallbacks.forEach(fn => fn());\r\n      }\r\n    };\r\n    const reject = reason => {\r\n      this.state = Promise.REJECTED;\r\n      this.reason = reason;\r\n      this.onRejectedCallbacks.forEach(fn => fn());\r\n    };\r\n\r\n    try {\r\n      executor(resolve, reject);\r\n    } catch (error) {\r\n      reject(error);\r\n    }\r\n  }\r\n\r\n  then(onFulfilled, onRejected) {\r\n    onFulfilled =\r\n      typeof onFulfilled === 'function' ? onFulfilled : value => value;\r\n    onRejected =\r\n      typeof onRejected === 'function'\r\n        ? onRejected\r\n        : reason => {\r\n            throw reason;\r\n          };\r\n\r\n    let promise = new Promise((resolve, reject) => {\r\n      if (this.state === Promise.PENDING) {\r\n        this.onResolvedCallbacks.push(() => {\r\n          setTimeout(() => {\r\n            try {\r\n              let x = onFulfilled(this.value);\r\n              resolvePromise(promise, x, resolve, reject);\r\n            } catch (error) {\r\n              reject(error);\r\n            }\r\n          });\r\n        });\r\n        this.onRejectedCallbacks.push(() => {\r\n          setTimeout(() => {\r\n            try {\r\n              let x = onRejected(this.reason);\r\n              resolvePromise(promise, x, resolve, reject);\r\n            } catch (error) {\r\n              reject(error);\r\n            }\r\n          });\r\n        });\r\n      }\r\n\r\n      if (this.state === Promise.RESOLVED) {\r\n        setTimeout(() => {\r\n          try {\r\n            let x = onFulfilled(this.value);\r\n            resolvePromise(promise, x, resolve, reject);\r\n          } catch (error) {\r\n            reject(error);\r\n          }\r\n        });\r\n      }\r\n\r\n      if (this.state === Promise.REJECTED) {\r\n        setTimeout(() => {\r\n          try {\r\n            let x = onRejected(this.reason);\r\n            resolvePromise(promise, x, resolve, reject);\r\n          } catch (error) {\r\n            reject(error);\r\n          }\r\n        });\r\n      }\r\n    });\r\n\r\n    return promise;\r\n  }\r\n\r\n  catch(onRejected) {\r\n    return this.then(null, onRejected);\r\n  }\r\n\r\n  all(arr) {\r\n    let count = 0;\r\n    let result = [];\r\n\r\n    return new Promise((resolve, reject) => {\r\n      for (let i = 0; i < arr.length; i++) {\r\n        Promise.resolve(arr[i])\r\n          .then(res => {\r\n            result[i] = res;\r\n            if (++count === arr.length) {\r\n              resolve(res);\r\n            }\r\n          })\r\n          .catch(error => {\r\n            reject(error);\r\n          });\r\n      }\r\n    });\r\n  }\r\n\r\n  race(arr) {\r\n    return new Promise((resolve, reject) => {\r\n      arr.forEach(item => Promise.resolve(item).then(resolve, reject));\r\n    });\r\n  }\r\n\r\n  finally(callback) {\r\n    return this.then(\r\n      value => {\r\n        return Promise.resolve(callback()).then(() => value);\r\n      },\r\n      reason => {\r\n        return Promise.resolve(callback()).then(() => {\r\n          throw reason;\r\n        });\r\n      },\r\n    );\r\n  }\r\n\r\n  allSettled(arr) {\r\n    let count = 0;\r\n    let result = [];\r\n\r\n    return new Promise((resolve, reject) => {\r\n      const fn = (i, data) => {\r\n        if (count === arr.length) {\r\n          resolve(result);\r\n        }\r\n\r\n        result[i] = data;\r\n        count++;\r\n      };\r\n\r\n      for (let i = 0; i < arr.length; i++) {\r\n        Promise.resolve(arr[i])\r\n          .then(res => {\r\n            fn(i, { status: 'fulfilled', value: res });\r\n          })\r\n          .catch(error => {\r\n            fn(i, { status: 'rejected', reason: error });\r\n          });\r\n      }\r\n    });\r\n  }\r\n\r\n  // from Node Util.promisify\r\n  promisify(f) {\r\n    return function(...args) {\r\n      return new Promise((resolve, reject) => {\r\n        function callback(error, result) {\r\n          if (error) {\r\n            reject(error);\r\n          } else {\r\n            resolve(result);\r\n          }\r\n        }\r\n\r\n        args.push(callback);\r\n\r\n        f.call(this, ...args);\r\n      });\r\n    };\r\n  }\r\n\r\n  // from Node Util.promisifyAll\r\n  promisifyAll(obj) {\r\n    for (let key in obj) {\r\n      if (typeof obj[key] === 'function') {\r\n        obj[key] = this.promisify(obj[key]);\r\n      }\r\n    }\r\n  }\r\n}\r\n\r\nfunction resolvePromise(promise, x, resolve, reject) {\r\n  // let promise = new Promise((resolve) => {\r\n  //   resolve(1);\r\n  // }).then((res) => {\r\n  //   return promise;\r\n  // });\r\n\r\n  if (x === promise) {\r\n    throw TypeError('循环引用');\r\n  }\r\n\r\n  if ((typeof x === 'object' && x !== null) || typeof x === 'function') {\r\n    let called;\r\n\r\n    try {\r\n      let then = x.then;\r\n\r\n      if (typeof then === 'function') {\r\n        then.call(\r\n          x,\r\n          y => {\r\n            if (called) return;\r\n            called = true;\r\n            resolvePromise(promise, y, resolve, reject);\r\n          },\r\n          r => {\r\n            if (called) return;\r\n            called = true;\r\n            reject(r);\r\n          },\r\n        );\r\n      } else {\r\n        // x: { then: {} }\r\n        if (called) return;\r\n        called = true;\r\n        resolve(x);\r\n      }\r\n    } catch (error) {\r\n      if (called) return;\r\n      called = true;\r\n      reject(error);\r\n    }\r\n  } else {\r\n    // 返回了常量，直接 resolve\r\n    resolve(x);\r\n  }\r\n}\r\n\r\nconst p = new Promise((resolve, reject) => {\r\n  reject(1);\r\n});\r\n\r\np.catch(error => {\r\n  console.log('error + ', error);\r\n  return error;\r\n}).then(res => {\r\n  console.log(res);\r\n});\r\n\r\nPromise.deferred = function() {\r\n  let dfd = {};\r\n  dfd.promise = new Promise((resolve, reject) => {\r\n    dfd.resolve = resolve;\r\n    dfd.reject = reject;\r\n  });\r\n  return dfd;\r\n};\r\n\r\nmodule.exports = Promise;\r\n```",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "hefeng6500",
+            "url": "https://github.com/hefeng6500"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs5FOv-7",
+          "body": "在作者代码基础上做了一些修改\r\n基本功能够用了\r\n```javascript\r\nclass myPromise {\r\n    static PENDING = 'pending'\r\n    static FULFILLED = 'fulfilled'\r\n    static REJECTED = 'rejected'\r\n\r\n    static resolve (value) {\r\n        if (value && value.then) {\r\n            return value\r\n        }\r\n        return new myPromise((resolve) => resolve(value))\r\n    }\r\n\r\n    static reject (value) {\r\n        return new myPromise((_, reject) => reject(value))\r\n    }\r\n\r\n    constructor (fn) {\r\n        this.status = myPromise.PENDING\r\n        this.result = null\r\n\r\n        this.resFns = []\r\n        this.rejFns = []\r\n\r\n        const resolve = (value) => {\r\n            if (this.status === myPromise.PENDING) {\r\n                setTimeout(() => {\r\n                    this.status = myPromise.FULFILLED\r\n                    this.result = value\r\n                    this.resFns.forEach(({fn, resolve, reject}) => resolve(fn(value)))\r\n                })\r\n            }\r\n        }\r\n\r\n        const reject = (reason) => {\r\n            if (this.status === myPromise.PENDING) {\r\n                setTimeout(() => {\r\n                    this.status = myPromise.REJECTED\r\n                    this.result = reason\r\n                    this.rejFns.forEach(({fn, resolve, reject}) => reject(fn(reason)))\r\n                })\r\n            }\r\n        }\r\n\r\n        try {\r\n            fn(resolve, reject)\r\n        } catch (err) {\r\n            reject(err)\r\n        }\r\n    }\r\n\r\n    then (resFn, rejFn) {\r\n        resFn = typeof resFn === 'function' ? resFn : value => value\r\n        rejFn = typeof rejFn === 'function' ? rejFn : reason => reason\r\n\r\n        const _promise = {\r\n            [myPromise.PENDING]: () => {\r\n                return new myPromise((resolve, reject) => {\r\n                    this.resFns.push({fn: resFn, resolve, reject})\r\n                    this.rejFns.push({fn: rejFn, resolve, reject})\r\n                })\r\n            },\r\n            [myPromise.FULFILLED]: () => myPromise.resolve(resFn(this.result)),\r\n            [myPromise.REJECTED]: () => myPromise.reject(rejFn(this.result))\r\n        }[this.status]\r\n\r\n        return _promise()\r\n    }\r\n\r\n    catch (fn) {\r\n        return this.then(undefined, fn)\r\n    }\r\n\r\n    finally(cb) {\r\n        return this.then(cb, cb)\r\n    }\r\n}\r\n```",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "Yu-Lxy",
+            "url": "https://github.com/Yu-Lxy"
           }
         }
       ]
@@ -1435,6 +1512,28 @@
             "login": "SageSanyue",
             "url": "https://github.com/SageSanyue"
           }
+        },
+        {
+          "id": "IC_kwDODQzyOs5DL2FL",
+          "body": "```ts\r\nFunction.prototype.fakeBind = function (target, ...args) {\r\n  return (...rest) => this.apply(target, args.concat(rest).slice(0, this.length));\r\n};\r\n```",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "Vi-jay",
+            "url": "https://github.com/Vi-jay"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs5E-Tg8",
+          "body": "bind 优化版本：考虑 bind 后返回的函数作为构造函数被 new \r\n\r\n```js\r\nFunction.prototype.bind = function(context, ...args) {\r\n  const self = this;\r\n  const fn = function(...newArgs) {\r\n    self.apply(this instanceof fn ? this : context, args.concat(newArgs));\r\n  };\r\n\r\n  fn.prototype = Object.create(this.prototype);\r\n\r\n  return fn;\r\n};\r\n```",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "hefeng6500",
+            "url": "https://github.com/hefeng6500"
+          }
         }
       ]
     },
@@ -1624,6 +1723,17 @@
           "author": {
             "login": "hwb2017",
             "url": "https://github.com/hwb2017"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs5DwL6l",
+          "body": "用的伪元素\r\nhttps://codepen.io/indusy/pen/BaYmBXo",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "Indusy",
+            "url": "https://github.com/Indusy"
           }
         }
       ]
@@ -2094,7 +2204,7 @@
           "id": "MDEyOklzc3VlQ29tbWVudDcxNTkyMTk3Mg==",
           "body": "这两种异常状态码都与网关 Gateway 有关，首先明确两个概念\r\n\r\n+ Proxy (Gateway)，反向代理层或者网关层。在公司级应用中一般使用 Nginx 扮演这个角色\r\n+ Application (upstream serrver)，应用层服务，作为 Proxy 层的上游服务。在公司中一般为各种语言编写的服务器应用，如 Go/Java/Python/PHP/Node 等\r\n\r\n此时关于 502 与 504 的区别就很显而易见\r\n\r\n+ `502 Bad Gateway`。一般表现为你自己写的应用层服务(Java/Go/PHP)挂了，网关层无法接收到响应\r\n+ `504 Gateway Timeout`。一般表现为应用层服务 (upstream) 超时，如查库操作耗时十分钟，超过了 Nginx 配置的超时时间",
           "star": {
-            "totalCount": 6
+            "totalCount": 7
           },
           "author": {
             "login": "shfshanyue",
@@ -2118,7 +2228,19 @@
     "title": "【Q051】简述一下 graphql，它的引进有什么好处",
     "body": "",
     "comments": {
-      "nodes": []
+      "nodes": [
+        {
+          "id": "IC_kwDODQzyOs5DQjX-",
+          "body": "GraphQL是一种新的API标准，本质是一个用于 API 的查询语言；它提供了一种高效、强大和灵活的数据查询方式。它主要目的是使用简单描述数据需求和交互的灵活语法和系统。\r\nGraphQL的引进降低了API接口数据冗余，响应过慢的情况，使得接口返回数据与数据请求预期结果保持一致性。",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "ChenJuo",
+            "url": "https://github.com/ChenJuo"
+          }
+        }
+      ]
     },
     "labels": {
       "nodes": [
@@ -2653,7 +2775,7 @@
           "id": "MDEyOklzc3VlQ29tbWVudDU2OTA3NDAyNQ==",
           "body": "- 虚拟 DOM 最大的优势在于抽象了原本的渲染过程，实现了跨平台的能力，而不仅仅局限于浏览器的 DOM，可以是安卓和 IOS 的原生组件，可以是近期很火热的小程序，也可以是各种 GUI。\r\n-  vdom 把渲染过程抽象化了，从而使得组件的抽象能力也得到提升，并且可以适配 DOM 以外的渲染目标。\r\n\r\n\r\n- Virtual DOM 在牺牲(牺牲很关键)部分性能的前提下，增加了可维护性，这也是很多框架的通性。\r\n实现了对 DOM 的集中化操作，在数据改变时先对虚拟 DOM 进行修改，再反映到真实的 DOM中，用最小的代价来更新DOM，提高效率(提升效率要想想是跟哪个阶段比提升了效率，别只记住了这一条)。\r\n- 打开了函数式 UI 编程的大门。\r\n- 可以渲染到 DOM 以外的端，使得框架跨平台，比如 ReactNative，React VR 等。\r\n- 可以更好的实现 SSR，同构渲染等。这条其实是跟上面一条差不多的。\r\n- 组件的高度抽象化。\r\n\r\n> 虚拟 DOM 的缺点\r\n- 首次渲染大量 DOM 时，由于多了一层虚拟 DOM 的计算，会比 innerHTML 插入慢。\r\n- 虚拟 DOM 需要在内存中的维护一份 DOM 的副本(更上面一条其实也差不多，上面一条是从速度上，这条是空间上)。\r\n- 如果虚拟 DOM 大量更改，这是合适的。但是单一的，频繁的更新的话，虚拟 DOM 将会花费更多的时间处理计算的工作。所以，如果你有一个DOM 节点相对较少页面，用虚拟 DOM，它实际上有可能会更慢。但对于大多数单页面应用，这应该都会更快。\r\n",
           "star": {
-            "totalCount": 9
+            "totalCount": 10
           },
           "author": {
             "login": "libin1991",
@@ -3049,8 +3171,8 @@
             "totalCount": 0
           },
           "author": {
-            "login": "xjx-me",
-            "url": "https://github.com/xjx-me"
+            "login": "xuanyyyy",
+            "url": "https://github.com/xuanyyyy"
           }
         },
         {
@@ -3227,7 +3349,7 @@
           "id": "IC_kwDODQzyOs43Hs2z",
           "body": "https://developers.google.com/web/fundamentals/performance/get-started\r\n\r\n根据谷歌Web开发者网站总结的性能优化点:\r\n- 资源加载优化\r\n  - 衡量性能指标\r\n    - Lab Data, 在规范的特定条件下，对Web应用的各项指标进行评估，典型工具如谷歌的 lighthouse\r\n    - RUM，基于真实用户的性能指标监控，包括FCP，FID，CLS等，参考 https://web.dev/user-centric-performance-metrics/\r\n    - 瀑布图，借助 performance API 记录整个站点和各个资源的加载时长\r\n  - 优化资源大小(字节数)\r\n    - 评估各资源的用途并评估是否可以直接移除\r\n    - 通过压缩技术(minimize和compress)减少文本类资源(CSS,JavaScript,HTML)大小\r\n    - 选择合适的图片格式、裁剪图片、懒加载图片等，通过picture标签响应式地返回图片，参考 https://www.jianshu.com/p/607567e488fc\r\n    - 预加载和长期缓存字体，参考 https://web.dev/optimize-webfont-loading/\r\n  - 减少HTTP请求次数\r\n    - 合并文本资源，比如使用webpack这样的bundle技术\r\n    - 合并图片资源，比如雪碧图\r\n    - 内联内容较小的资源到html中，比如data url\r\n  - 善用HTTP缓存\r\n    - 本地缓存命中顺序，内存缓存 => Service Worker 缓存 => HTTP缓存(磁盘缓存) => HTTP/2 Push缓存，参考 https://calendar.perfplanet.com/2016/a-tale-of-four-caches/\r\n    - https://web.dev/http-cache/\r\n  - 优化JavaScript\r\n    - JavaScript的处理过程：下载(fetch) => 解压 => 解析(代码转换为AST) => 编译(AST转换为字节码) => 执行\r\n    - 死代码消除(Tree Shaking)，减小总体传输文件大小\r\n    - Code Spliting + 基于路由的按需加载，减小首次渲染的传输文件大小\r\n  - 优化首次渲染路径\r\n    - 渲染路径: DOM树构建 => CSSOM树构建 => Render Tree构建 => 样式计算 => 布局 => 绘制位图 => 合成图层\r\n    - 通过媒体查询避免首次渲染时加载不必要的CSS文件\r\n    - 将对页面结构无影响的JS文件标记为 async 和 defer，避免阻塞html解析\r\n- 渲染优化\r\n  - 使用 requestAnimationFrame 代替 setTimeout 和 setInterval 来更新视图，减少卡顿\r\n  - 将计算密集型的JavaScript代码移动到 Web Worker 中执行，避免占用主线程\r\n  - 使用复杂度更低、class风格的CSS选择器；减少频繁变动的CSS样式的影响元素个数\r\n  - 使用性能更高的 flex 布局代替 float 布局\r\n  - 避免对 offsetHeight 等dom属性的频繁访问，导致重绘和重排操作队列的频繁同步执行\r\n  - 在 performance profiling 之后，将频繁变动的动画部分所属的dom元素标记为 will-change，独立构成一个图层",
           "star": {
-            "totalCount": 0
+            "totalCount": 1
           },
           "author": {
             "login": "hwb2017",
@@ -3442,7 +3564,7 @@
           "id": "IC_kwDODQzyOs40hU2T",
           "body": "以下代码见 [如何实现 promise.map - codepen](https://codepen.io/shanyue/pen/zYwZXPN?editors=0012)\r\n\r\n``` js\r\nfunction pMap(list, mapper, concurrency = Infinity) {\r\n  // list 为 Iterator，先转化为 Array\r\n  list = Array.from(list)\r\n  return new Promise((resolve, reject) => {\r\n    let currentIndex = 0\r\n    let result = []\r\n    let resolveCount = 0\r\n    let len = list.length\r\n    function next() {\r\n      const index = currentIndex\r\n      currentIndex++\r\n      Promise.resolve(list[index]).then(o => mapper(o, index)).then(o => {\r\n        result[index] = o\r\n        resolveCount++\r\n        if (resolveCount === len) { resolve(result) }\r\n        if (currentIndex < len) { next() }\r\n      })\r\n    }\r\n    for (let i = 0; i < concurrency && i < len; i ++) {\r\n      next()\r\n    }\r\n  })\r\n}\r\n```",
           "star": {
-            "totalCount": 3
+            "totalCount": 4
           },
           "author": {
             "login": "shfshanyue",
@@ -3469,6 +3591,17 @@
           "author": {
             "login": "spike2044",
             "url": "https://github.com/spike2044"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs5DMVZd",
+          "body": "```ts\r\nfunction pMap([...arr], fn, { concurrency = Infinity } = {}) {\r\n  let queue = [],\r\n    results = [];\r\n  return new Promise((resolve) =>\r\n    (function closure() {\r\n      const times = concurrency - queue.length;\r\n      for (let i = 0; i < times; i++) {\r\n        if (!arr.length) return;\r\n        const promise = Promise.resolve(arr.shift())\r\n          .then(fn)\r\n          .then((data) => results.push(data))\r\n          .finally(() => {\r\n            queue = queue.filter((item) => promise !== item);\r\n            if (!queue.length && !arr.length) return resolve(results);\r\n            return closure();\r\n          });\r\n        queue.push(promise);\r\n      }\r\n    })()\r\n  );\r\n}\r\n```",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "Vi-jay",
+            "url": "https://github.com/Vi-jay"
           }
         }
       ]
@@ -3531,6 +3664,17 @@
           "author": {
             "login": "wython",
             "url": "https://github.com/wython"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs5CxJwl",
+          "body": "Vue3中Computed计算原理和Vue2中使用Watch的搜集方式不太一样了。在Vue3中，如果我们创建了一个computed方法，则会创建一个ComputedRefImpl的对象，在这个对象中进行get和set的处理。如果是读取，就会判断是否是有缓存值以及是否存在不同的数据，如果存在则进行数据的读取（这里对值不变但是频繁读取的情况进行了优化）。判断值已经变化则进行effect的run操作进行取数。设置对应值的话则会进行一个报错提示。\r\n\r\n源码如下：\r\n\r\n```javascript \r\n\r\nimport { DebuggerOptions, ReactiveEffect } from './effect'\r\nimport { Ref, trackRefValue, triggerRefValue } from './ref'\r\nimport { isFunction, NOOP } from '@vue/shared'\r\nimport { ReactiveFlags, toRaw } from './reactive'\r\nimport { Dep } from './dep'\r\n\r\ndeclare const ComputedRefSymbol: unique symbol\r\n\r\nexport interface ComputedRef<T = any> extends WritableComputedRef<T> {\r\n  readonly value: T\r\n  [ComputedRefSymbol]: true\r\n}\r\n\r\nexport interface WritableComputedRef<T> extends Ref<T> {\r\n  readonly effect: ReactiveEffect<T>\r\n}\r\n\r\nexport type ComputedGetter<T> = (...args: any[]) => T\r\nexport type ComputedSetter<T> = (v: T) => void\r\n\r\nexport interface WritableComputedOptions<T> {\r\n  get: ComputedGetter<T>\r\n  set: ComputedSetter<T>\r\n}\r\n\r\nexport class ComputedRefImpl<T> {\r\n  public dep?: Dep = undefined\r\n\r\n  private _value!: T\r\n  public readonly effect: ReactiveEffect<T>\r\n\r\n  public readonly __v_isRef = true\r\n  public readonly [ReactiveFlags.IS_READONLY]: boolean\r\n\r\n  public _dirty = true\r\n  public _cacheable: boolean\r\n\r\n  constructor(\r\n    getter: ComputedGetter<T>,\r\n    private readonly _setter: ComputedSetter<T>,\r\n    isReadonly: boolean,\r\n    isSSR: boolean\r\n  ) {\r\n    this.effect = new ReactiveEffect(getter, () => {\r\n      if (!this._dirty) {\r\n        this._dirty = true\r\n        triggerRefValue(this)\r\n      }\r\n    })\r\n    this.effect.computed = this\r\n    this.effect.active = this._cacheable = !isSSR\r\n    this[ReactiveFlags.IS_READONLY] = isReadonly\r\n  }\r\n\r\n  get value() {\r\n    // the computed ref may get wrapped by other proxies e.g. readonly() #3376\r\n    const self = toRaw(this)\r\n    trackRefValue(self)\r\n    if (self._dirty || !self._cacheable) {\r\n      self._dirty = false\r\n      self._value = self.effect.run()!\r\n    }\r\n    return self._value\r\n  }\r\n\r\n  set value(newValue: T) {\r\n    this._setter(newValue)\r\n  }\r\n}\r\n\r\nexport function computed<T>(\r\n  getter: ComputedGetter<T>,\r\n  debugOptions?: DebuggerOptions\r\n): ComputedRef<T>\r\nexport function computed<T>(\r\n  options: WritableComputedOptions<T>,\r\n  debugOptions?: DebuggerOptions\r\n): WritableComputedRef<T>\r\nexport function computed<T>(\r\n  getterOrOptions: ComputedGetter<T> | WritableComputedOptions<T>,\r\n  debugOptions?: DebuggerOptions,\r\n  isSSR = false\r\n) {\r\n  let getter: ComputedGetter<T>\r\n  let setter: ComputedSetter<T>\r\n\r\n  const onlyGetter = isFunction(getterOrOptions)\r\n  if (onlyGetter) {\r\n    getter = getterOrOptions\r\n    setter = __DEV__\r\n      ? () => {\r\n          console.warn('Write operation failed: computed value is readonly')\r\n        }\r\n      : NOOP\r\n  } else {\r\n    getter = getterOrOptions.get\r\n    setter = getterOrOptions.set\r\n  }\r\n\r\n  const cRef = new ComputedRefImpl(getter, setter, onlyGetter || !setter, isSSR)\r\n\r\n  if (__DEV__ && debugOptions && !isSSR) {\r\n    cRef.effect.onTrack = debugOptions.onTrack\r\n    cRef.effect.onTrigger = debugOptions.onTrigger\r\n  }\r\n\r\n  return cRef as any\r\n}\r\n\r\n```",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "MMmaXingXing",
+            "url": "https://github.com/MMmaXingXing"
           }
         }
       ]
@@ -3843,7 +3987,7 @@
           "id": "MDEyOklzc3VlQ29tbWVudDU2MjE2ODM3OA==",
           "body": "``` bash\r\ngit log -p file\r\n```",
           "star": {
-            "totalCount": 1
+            "totalCount": 2
           },
           "author": {
             "login": "shfshanyue",
@@ -4410,8 +4554,8 @@
             "totalCount": 0
           },
           "author": {
-            "login": "xwxgjs",
-            "url": "https://github.com/xwxgjs"
+            "login": "yundove",
+            "url": "https://github.com/yundove"
           }
         }
       ]
@@ -5158,17 +5302,6 @@
     "body": "我们知道 `javascript` 代码经压缩 (uglify) 后，可以使体积变得更小，那它代码压缩的原理是什么。\r\n\r\n如果你来做这么一个功能的话，你会怎么去压缩一段 `js` 代码的体积",
     "comments": {
       "nodes": [
-        {
-          "id": "MDEyOklzc3VlQ29tbWVudDU2NzgxOTE4Ng==",
-          "body": "https://github.com/mishoo/UglifyJS2",
-          "star": {
-            "totalCount": 0
-          },
-          "author": {
-            "login": "shfshanyue",
-            "url": "https://github.com/shfshanyue"
-          }
-        },
         {
           "id": "MDEyOklzc3VlQ29tbWVudDU3MzM5NDk1Nw==",
           "body": "@shfshanyue 问的是原理，你贴UglifyJS2的地址干嘛",
@@ -6234,7 +6367,7 @@
           "id": "MDEyOklzc3VlQ29tbWVudDU3MzUyNzgyOA==",
           "body": "`Array(100)` 将会创建一个稀疏数组 (sparse array)，即不存在真实元素，节省内存空间。在控制台上显示为 `[empty]`\r\n\r\n``` js\r\n// [empty × 100]\r\nArray(100)\r\n```\r\n\r\n正因为没有元素，所以它也不会有 `map` 操作，所以 `Array(100).map(x => 1)` 仍然返回为 `[empty]`\r\n\r\n**那如何生成100个元素为1的数组呢？**\r\n\r\n可以使用 `Array.from`\r\n\r\n``` js\r\nArray.from(Array(100), x => 1)\r\n```\r\n\r\n而在 `ES5` 中借用 `apply`\r\n\r\n``` js\r\nArray.apply(null, Array(100)).map(x => 1)\r\n```\r\n\r\n根据楼下提示，再添加一个 `fill`\r\n\r\n``` js\r\nArray(100).fill(1)\r\n```",
           "star": {
-            "totalCount": 1
+            "totalCount": 2
           },
           "author": {
             "login": "shfshanyue",
@@ -6245,7 +6378,7 @@
           "id": "MDEyOklzc3VlQ29tbWVudDU3Mzk2MTEwNQ==",
           "body": "> 那如何生成100个元素为1的数组呢？\r\n\r\n```ts\r\nArray(100).fill(1)\r\n```",
           "star": {
-            "totalCount": 2
+            "totalCount": 3
           },
           "author": {
             "login": "Chersquwn",
@@ -6303,7 +6436,7 @@
           "id": "MDEyOklzc3VlQ29tbWVudDU3NDAyMzI2NQ==",
           "body": "有现成的公网IP服务提供，根据 TCP 连接获得真实 IP 地址\r\n\r\n``` bash\r\n$ curl ifconfig.me\r\n```",
           "star": {
-            "totalCount": 0
+            "totalCount": 1
           },
           "author": {
             "login": "shfshanyue",
@@ -6429,6 +6562,17 @@
             "login": "dsize1",
             "url": "https://github.com/dsize1"
           }
+        },
+        {
+          "id": "IC_kwDODQzyOs5DwRmm",
+          "body": "https://codepen.io/indusy/pen/YzeEzzb",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "Indusy",
+            "url": "https://github.com/Indusy"
+          }
         }
       ]
     },
@@ -6481,7 +6625,7 @@
           "id": "MDEyOklzc3VlQ29tbWVudDc0NDQwMjE0Ng==",
           "body": "在 URL 中如何传递数组这种复杂的数据，完全**取决于项目中前后端成员关于复杂数据在 URL 中传输的约定**，一般情况下可以使用以下方式来传递数组\r\n\r\n``` js\r\na=3&a=4&a=5\r\n\r\na=3,4,5\r\n\r\na[]=3&a[]=4&a[]=5\r\n\r\na[0]=3&a[1]=4&a[2]=5\r\n```\r\n\r\n但同样，需要后端开发者写一个 `querystring.parse` 来对指定的格式解析进行支持，同时也有对各种复杂 qs 支持较好的 package，比如：\r\n\r\n+ [qs: 据说是对 querystring 复杂对象解析最好的库](https://github.com/ljharb/qs#parsing-arrays)",
           "star": {
-            "totalCount": 0
+            "totalCount": 1
           },
           "author": {
             "login": "shfshanyue",
@@ -7028,11 +7172,33 @@
           "id": "IC_kwDODQzyOs4_AUqe",
           "body": "```js\r\n .container{\r\nwidth:0;\r\nborder:100px solid transparent;\r\nborder-bottom-color:#000;\r\n}\r\n```",
           "star": {
-            "totalCount": 0
+            "totalCount": 1
           },
           "author": {
             "login": "wangliang000",
             "url": "https://github.com/wangliang000"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs5DKFvi",
+          "body": "```css\r\n\r\n        .triangle {\r\n            margin: 0 auto;\r\n            width: 50vh;\r\n            height: 50vh;\r\n            background-color: aqua;\r\n            /* \r\n                画多边形： \r\n                polygon(x y, x y, ...)\r\n                一组 x y, 代表一个点\r\n                x: 往右增加\r\n                y: 往下增加\r\n            */\r\n            clip-path: polygon(0 0, 0% 100%, 100% 100%);\r\n        }\r\n\r\n```\r\n\r\n![image](https://user-images.githubusercontent.com/67412196/168428607-1624ada6-1e52-49a8-981e-f21609023351.png)\r\n\r\n",
+          "star": {
+            "totalCount": 1
+          },
+          "author": {
+            "login": "cy948",
+            "url": "https://github.com/cy948"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs5FhIcq",
+          "body": "```html\r\n.box {\r\n    width: 0;\r\n    height: 0;\r\n    border:100px solid transparent;\r\n    border-bottom-color: blue;\r\n}\r\n```",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "zjunbin1286",
+            "url": "https://github.com/zjunbin1286"
           }
         }
       ]
@@ -7474,17 +7640,6 @@
           }
         },
         {
-          "id": "MDEyOklzc3VlQ29tbWVudDcyODc3MzY4NA==",
-          "body": "const oldJson = { a: 1}\r\nconst newJson = {}\r\nObject.assign(newJson, oldJson)\r\noldJson.a = 2\r\nconsole.log(oldJson) // {a: 2}\r\nconsole.log(newJson) // {a: 1}",
-          "star": {
-            "totalCount": 0
-          },
-          "author": {
-            "login": "kucy",
-            "url": "https://github.com/kucy"
-          }
-        },
-        {
           "id": "MDEyOklzc3VlQ29tbWVudDc1NDU0NTUxMw==",
           "body": "function getType(obj){\r\n    return Object.prototype.toString.call(obj).slice(8,-1);\r\n}\r\nfunction cloneDeep(obj){\r\n\tlet target = {};\r\n\tif(getType(obj)==='Object'){\r\n\t\t\tfor(let key in obj){\r\n\t\t\t\tlet item = obj[key];\r\n\t\t\t\ttarget[key]=cloneDeep(item);\r\n\t\t\t}\r\n\t\t\treturn target;\r\n\t}else if(getType(obj)==='Array'){\r\n\t\treturn obj.map(item => cloneDeep(item) )\r\n\t}else{\r\n\t\treturn obj;\r\n\t}\r\n}\r\n\r\n\r\nvar obj = {foo:function(){},bar:1,name:'cat'}\r\n\r\nvar objClone = cloneDeep(obj)",
           "star": {
@@ -7521,7 +7676,7 @@
           "id": "IC_kwDODQzyOs408XGZ",
           "body": "```js\r\n/**\r\n * 深拷贝关注点:\r\n * 1. JavaScript内置对象的复制: Set、Map、Date、Regex等\r\n * 2. 循环引用问题\r\n * @param {*} object \r\n * @returns \r\n */\r\nfunction deepClone(source, memory) {\r\n  const isPrimitive = (value) => {\r\n    return /Number|Boolean|String|Null|Undefined|Symbol|Function/.test(Object.prototype.toString.call(value));\r\n  }\r\n  let result = null;\r\n\r\n  memory || (memory = new WeakMap());\r\n  // 原始数据类型及函数\r\n  if (isPrimitive(source)) {\r\n    console.log('current copy is primitive', source);\r\n    result = source;\r\n  }\r\n  // 数组\r\n  else if (Array.isArray(source)) {\r\n    result = source.map(value => deepClone(value, memory));\r\n  }\r\n  // 内置对象Date、Regex\r\n  else if (Object.prototype.toString.call(source) === '[object Date]') {\r\n    result = new Date(source);\r\n  }\r\n  else if (Object.prototype.toString.call(source) === '[object Regex]') {\r\n    result = new RegExp(source);\r\n  }\r\n  // 内置对象Set、Map\r\n  else if (Object.prototype.toString.call(source) === '[object Set]') {\r\n    result = new Set();\r\n    for (const value of source) {\r\n      result.add(deepClone(value, memory));\r\n    }\r\n  }\r\n  else if (Object.prototype.toString.call(source) === '[object Map]') {\r\n    result = new Map();\r\n    for (const [key, value] of source.entries()) {\r\n      result.set(key, deepClone(value, memory));\r\n    }\r\n  }\r\n  // 引用类型\r\n  else {\r\n    if (memory.has(source)) {\r\n      result = memory.get(source);\r\n    } else {\r\n      result = Object.create(null);\r\n      memory.set(source, result);\r\n      Object.keys(source).forEach(key => {\r\n        const value = source[key];\r\n        result[key] = deepClone(value, memory);\r\n      });\r\n    }\r\n  }\r\n  return result;\r\n}\r\n```",
           "star": {
-            "totalCount": 3
+            "totalCount": 5
           },
           "author": {
             "login": "haotie1990",
@@ -7559,6 +7714,39 @@
           "author": {
             "login": "jkLennon",
             "url": "https://github.com/jkLennon"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs5CbRFP",
+          "body": "JS有原生的深拷贝API `structuredClone`:\r\n\r\n```js\r\nconst obj1 = { a: 1 };\r\nconst obj2 = structuredClone(obj1);\r\n\r\nobj2.a = 2;\r\n\r\nconsole.log(obj1); // { a: 1 }\r\nconsole.log(obj2); // { a: 2 }\r\n```",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "mrcaidev",
+            "url": "https://github.com/mrcaidev"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs5Dq_ki",
+          "body": "``` javascript\r\n        // 使用array from克隆\r\n        let arr = [1, 2, 3, 4, 5, 6, [{ 1: 12, 2: 24 }]]\r\n        let arr2 = Array.from(arr)\r\n        console.log(arr === arr2)\r\n\r\n        console.log(arr) // [1,2,3,4,5,6,{\"1\": 0,\"2\": 0}]\r\n        console.log(arr2) // [1,2,3,4,5,6,{\"1\": 0,\"2\": 0}]\r\n\r\n        // 解决实现不了深拷贝\r\n        const deepClone = arr => Array.isArray(arr) ? Array.from(arr, deepClone) : arr\r\n        let arr3=deepClone(arr)\r\n        console.log(arr3) // [1,2,3,4,5,6,{\"1\": 12, \"2\": 24}]\r\n\r\n        arr[6][0] = { 1: 00, 2: 00 }\r\n```",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "QC2168",
+            "url": "https://github.com/QC2168"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs5Dq_zA",
+          "body": "```javascript\r\n\r\n// 使用扩展运算符实现深，浅拷贝\r\nlet arr = [1, 2, 3, 4, 5, 6, [{ 1: 12, 2: 24 }]]\r\nlet arr2 = [...arr]\r\nconsole.log(arr === arr2)\r\nconsole.log(arr) // [1,2,3,4,5,6,{\"1\": 0,\"2\": 0}]\r\nconsole.log(arr2) // [1,2,3,4,5,6,{\"1\": 0,\"2\": 0}]\r\n// 深拷贝\r\nconst deepClone = arr => arr.map(i => Array.isArray(i) ? deepClone(i) : i)\r\nlet arr3 = deepClone(arr)\r\narr[6][0] = { 1: 00, 2: 00 }\r\nconsole.log(arr3)  // [1,2,3,4,5,6,{\"1\": 12, \"2\": 24}]\r\n```",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "QC2168",
+            "url": "https://github.com/QC2168"
           }
         }
       ]
@@ -7643,6 +7831,17 @@
           "author": {
             "login": "PlutoCA",
             "url": "https://github.com/PlutoCA"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs5EDk7R",
+          "body": "- isFile()：检测是否为常规文件\r\n- isDirectory()：检测是否为文件夹",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "hsq777",
+            "url": "https://github.com/hsq777"
           }
         }
       ]
@@ -7765,7 +7964,19 @@
     "title": "【Q209】如何得知一条 SQL 执行的时长？",
     "body": "",
     "comments": {
-      "nodes": []
+      "nodes": [
+        {
+          "id": "IC_kwDODQzyOs5E0rOJ",
+          "body": "1.show profiles；\r\n2.set profiling = 1;\r\n3.show databases;\r\n4.show profiles;\r\n----------+------------+----------------+\r\n| Query_ID | Duration   | Query          |\r\n+----------+------------+----------------+\r\n|        1 | 0.00124300 | show warnings  |\r\n|        2 | 0.03788000 | show databases |\r\n+----------+------------+----------------+\r\n\r\nNOTE:\r\nThe [SHOW PROFILE](https://dev.mysql.com/doc/refman/8.0/en/show-profile.html) and [SHOW PROFILES](https://dev.mysql.com/doc/refman/8.0/en/show-profiles.html) statements are deprecated; expect them to be removed in a future MySQL release. Use the [Performance Schema](https://dev.mysql.com/doc/refman/8.0/en/performance-schema.html) instead;\r\n\r\n\r\n\r\n\r\n",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "liyihang",
+            "url": "https://github.com/liyihang"
+          }
+        }
+      ]
     },
     "labels": {
       "nodes": [
@@ -8432,6 +8643,17 @@
           "author": {
             "login": "719676340",
             "url": "https://github.com/719676340"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs5DrCQs",
+          "body": "```javascript\r\n// 先map再flat\r\nlet myFlatMap = function (fn) {\r\n    let target = this\r\n    return (target.map(i => fn(i))).flat()\r\n}\r\nArray.prototype.myFlatMap = myFlatMap\r\nlet arr = [\"it's Sunny in\", \"\", \"California\"];\r\nlet arr1 = arr.map(x => x.split(\" \"));\r\nlet arr2 = arr.flatMap(x => x.split(\" \"));\r\nlet arr3 = arr.myFlatMap(x => x.split(\" \"));\r\nconsole.log(arr1); // [[\"it's\",\"Sunny\",\"in\"],[\"\"],[\"California\"]]\r\nconsole.log(arr2); // [\"it's\",\"Sunny\",\"in\", \"\", \"California\"]\r\nconsole.log(arr3); // [\"it's\",\"Sunny\",\"in\", \"\", \"California\"]\r\n```",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "QC2168",
+            "url": "https://github.com/QC2168"
           }
         }
       ]
@@ -9769,6 +9991,17 @@
             "login": "shfshanyue",
             "url": "https://github.com/shfshanyue"
           }
+        },
+        {
+          "id": "IC_kwDODQzyOs5Dmh_3",
+          "body": "`process.env` 里也可以看到 node 版本号，比如 `NODE`, `_` 这两个字段的值。\r\n\r\n个人是用的 NVM，没有在原生的 node 上试过，但后者的 `process.env` 应该也有。",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "mrcaidev",
+            "url": "https://github.com/mrcaidev"
+          }
         }
       ]
     },
@@ -10222,7 +10455,30 @@
     "title": "【Q285】有没有做过裁剪头像图片的需求，如何实现",
     "body": "",
     "comments": {
-      "nodes": []
+      "nodes": [
+        {
+          "id": "IC_kwDODQzyOs5FFd0p",
+          "body": "没有",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "awuyumian",
+            "url": "https://github.com/awuyumian"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs5FcYtA",
+          "body": "clip-path: circle(40%);",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "JunJD",
+            "url": "https://github.com/JunJD"
+          }
+        }
+      ]
     },
     "labels": {
       "nodes": [
@@ -10817,7 +11073,7 @@
           "id": "MDEyOklzc3VlQ29tbWVudDYzNjYwMjUzMQ==",
           "body": "可以采用 [depcheck](https://github.com/depcheck/depcheck) 来完成这件事\r\n\r\n``` js\r\n$ npm install depcheck -g\r\n\r\n$ depcheck\r\nUnused dependencies\r\n* underscore\r\nUnused devDependencies\r\n* jasmine\r\nMissing dependencies\r\n* lodash\r\n```",
           "star": {
-            "totalCount": 0
+            "totalCount": 1
           },
           "author": {
             "login": "shfshanyue",
@@ -10993,6 +11249,17 @@
           "author": {
             "login": "shfshanyue",
             "url": "https://github.com/shfshanyue"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs5EI5pI",
+          "body": "CSS优先级中应该着重讲解CSS权重值计算：\r\n\r\n更具w3给出的解释,我们可以讲CSS的权重等级分为A、B、C 3类，他们分别对应着id选择器，class选择器、属性选择器、伪类选择器，标签选择器、伪元素选择器。\r\n\r\n将一个选择器整体计算ABC分别进行求和得到一个数组(A，B ，C)，数组值依次比较，选取最高的，如果都相等那么选取靠后的。\r\n\r\n当然也有一些比较特殊的伪类选择器进行权重进行特殊的处理：\r\n\r\n1. 选择器`:is()`、`:not()`、`:has()`的优先级是选择器列表中最具有复杂性的选择器的优先级取代。\r\n\r\n2. 选择器`:nth-child()`、`:nth-last-child()`的优先级是伪类本身的优先级（计为一个伪类选择器，也就是计为B），再加上选择器列表中最具复杂性的选择器的优先级。\r\n\r\n3. 选择器`:where()`伪类的优先级被零代替，也就是没有优先级，再优先级计算中不做数。\r\n\r\n4. 通用选择符以及其他选择符在优先级中不计数。",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "onemue",
+            "url": "https://github.com/onemue"
           }
         }
       ]
@@ -11186,6 +11453,17 @@
           "author": {
             "login": "shfshanyue",
             "url": "https://github.com/shfshanyue"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs5Dou3_",
+          "body": "### ~ + 选择器不同之处\r\n`~` 是匹配元素之后的选择器\r\n\r\n`+` 是匹配相邻元素选择器\r\n\r\n```html\r\n<div>我是div</div>\r\n    <p>我是p</p>\r\n    <p>我是p</p>\r\n    <div>我是div</div>\r\n    <p>我是p</p>\r\n    <div>\r\n        <p>我是div下面的p</p>\r\n        <p>我是div下面的p</p>\r\n    </div>\r\n    <span>我是span</span>\r\n```\r\n\r\n```css\r\n\r\n<style>\r\n    div+p {\r\n        color: red;\r\n    }\r\n\r\n    /* 第一个p标签变红色了 */\r\n\r\n    div~p{\r\n        color:red;\r\n    }\r\n\r\n    /* div后面的p标签都变成红色了 */\r\n</style>\r\n\r\n```",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "QC2168",
+            "url": "https://github.com/QC2168"
           }
         }
       ]
@@ -11450,7 +11728,19 @@
     "title": "【Q326】如何发现 redis 中的 bigkey",
     "body": "",
     "comments": {
-      "nodes": []
+      "nodes": [
+        {
+          "id": "IC_kwDODQzyOs5E0n9Z",
+          "body": "use redis_cli command: redis-cli -h -a --bigkeys.",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "liyihang",
+            "url": "https://github.com/liyihang"
+          }
+        }
+      ]
     },
     "labels": {
       "nodes": [
@@ -11496,7 +11786,19 @@
     "title": "【Q328】简述 bloomfilter，及它的使用场景是什么",
     "body": "",
     "comments": {
-      "nodes": []
+      "nodes": [
+        {
+          "id": "IC_kwDODQzyOs5E-yHR",
+          "body": "一个以计算来换取空间的概率算法，分配一个连续的内存 （m 位的位数组），将目标通过k个hash函数，每个hash函数映射到位数组上。查询时通过所有的k个hash函数计算是否为1。只要有一个0 则不存在，全部为1也不是一定存在。所以bloomfilter适合希望减少内存占用，但允许判断存在True出现误判。不允许误差的使用的场景是在缓存或数据库的上层加上bloomfilter，判断是否存在，如果不存在就不去操作缓存或者数据库层。允许误差的情况下使用场景就较多，可以参考redis set的使用场景。",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "liazylee",
+            "url": "https://github.com/liazylee"
+          }
+        }
+      ]
     },
     "labels": {
       "nodes": [
@@ -11746,6 +12048,28 @@
           "author": {
             "login": "shfshanyue",
             "url": "https://github.com/shfshanyue"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs5DBeJ4",
+          "body": "> 1. 创建了一个新对象\r\n> 2. 链接到原型\r\n> 3. 绑定this指向\r\n>    4.返回这个对象\r\n> \r\n> ```js\r\n> function _new() {\r\n>  let obj = {}\r\n>  let Con = [].shift.call(arguments)\r\n>  obj.__proto__ = Con.prototype\r\n>  let result = Con.apply(obj, arguments)\r\n>  return typeof obj === 'object' ? obj : {}\r\n> }\r\n> ```\r\n\r\n如果构造器返回null 就不对了 因为 ` typeof null === 'object' `   所以应该用 `obj instanceof Object`",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "Vi-jay",
+            "url": "https://github.com/Vi-jay"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs5FYo_o",
+          "body": "> 1. 创建了一个新对象\r\n> 2. 链接到原型\r\n> 3. 绑定这个指向\r\n>    4.返回这个对象\r\n> \r\n> ```js\r\n> function _new() {\r\n>  let obj = {}\r\n>  let Con = [].shift.call(arguments)\r\n>  obj.__proto__ = Con.prototype\r\n>  let result = Con.apply(obj, arguments)\r\n>  return typeof obj === 'object' ? obj : {}\r\n> }\r\n> ```\r\n\r\n这个result没用啊",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "yuerdev",
+            "url": "https://github.com/yuerdev"
           }
         }
       ]
@@ -12434,6 +12758,17 @@
             "login": "nmsn",
             "url": "https://github.com/nmsn"
           }
+        },
+        {
+          "id": "IC_kwDODQzyOs5E1JJM",
+          "body": "`localhost`是本地保存的解析记录，在`/etc/hosts`中，可以修改来指向其它IP。",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "wizardforcel",
+            "url": "https://github.com/wizardforcel"
+          }
         }
       ]
     },
@@ -12783,6 +13118,17 @@
             "login": "shay-an",
             "url": "https://github.com/shay-an"
           }
+        },
+        {
+          "id": "IC_kwDODQzyOs5E0oz-",
+          "body": "Overview of Redis key eviction policies (LRU, LFU, etc.).details below [ https://redis.io/docs/manual/eviction/](url)",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "liyihang",
+            "url": "https://github.com/liyihang"
+          }
         }
       ]
     },
@@ -12801,7 +13147,30 @@
     "title": "【Q373】如何为你们的前端项目选择状态管理器",
     "body": "",
     "comments": {
-      "nodes": []
+      "nodes": [
+        {
+          "id": "IC_kwDODQzyOs5DGPlS",
+          "body": "我选择尽量不使用状态管理器",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "dangdangdanglll",
+            "url": "https://github.com/dangdangdanglll"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs5DH2so",
+          "body": "> 我选择尽量不使用状态管理器\r\n\r\n能说下理由吗，愿闻其详\r\n",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "whale2002",
+            "url": "https://github.com/whale2002"
+          }
+        }
+      ]
     },
     "labels": {
       "nodes": [
@@ -13165,6 +13534,17 @@
           "author": {
             "login": "manondidi",
             "url": "https://github.com/manondidi"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs5Fcxzs",
+          "body": "要查询的数据在数据库不存在，并且 redis 中未设置特殊标志。导致每次都会查询数据库，造成大量开销。\r\n\r\n",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "wizardforcel",
+            "url": "https://github.com/wizardforcel"
           }
         }
       ]
@@ -13536,6 +13916,17 @@
             "login": "shfshanyue",
             "url": "https://github.com/shfshanyue"
           }
+        },
+        {
+          "id": "IC_kwDODQzyOs5DBgfl",
+          "body": "```js\r\nfunction onceCache(fn) {\r\n  let toggle = false,\r\n    ret = null;\r\n  return function () {\r\n    if (toggle) return ret;\r\n    toggle = true;\r\n    return (ret = fn.apply(this, arguments));\r\n  };\r\n}\r\n```",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "Vi-jay",
+            "url": "https://github.com/Vi-jay"
+          }
         }
       ]
     },
@@ -13819,7 +14210,19 @@
     "title": "【Q408】React 17.0 有什么变化",
     "body": "",
     "comments": {
-      "nodes": []
+      "nodes": [
+        {
+          "id": "IC_kwDODQzyOs5DfkwO",
+          "body": "1.合成事件的变化，事件委托放在了root元素上，同时去掉了事件池\r\n2.全新jsx的变化，可以单独使用jsx，不需要手动引入react;旧版jsx会被转换为React.createElement, 新版jsx转换为_jsx()",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "ducaiwei",
+            "url": "https://github.com/ducaiwei"
+          }
+        }
+      ]
     },
     "labels": {
       "nodes": [
@@ -14130,8 +14533,8 @@
             "totalCount": 0
           },
           "author": {
-            "login": "JiangHuanLH",
-            "url": "https://github.com/JiangHuanLH"
+            "login": "liting-yes",
+            "url": "https://github.com/liting-yes"
           }
         },
         {
@@ -14143,6 +14546,17 @@
           "author": {
             "login": "fanfankill",
             "url": "https://github.com/fanfankill"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs5FO3C-",
+          "body": "const encode = (str) => str.replace(/([a-zA-Z])\\1+/g, (all, p1) => p1 + all.length)",
+          "star": {
+            "totalCount": 1
+          },
+          "author": {
+            "login": "xyuh111",
+            "url": "https://github.com/xyuh111"
           }
         }
       ]
@@ -14367,7 +14781,7 @@
           "id": "MDEyOklzc3VlQ29tbWVudDY4MDgzMzk1NA==",
           "body": "> 这还是字节、快手、阿里一众大厂最为偏爱的题目，实际上有一点技巧问题。\r\n\r\n这是一个关于懒计算的函数，使用 `sum` 收集所有累加项，使用 `valueOf` 进行计算\r\n\r\n1. sum 返回一个函数，收集所有的累加项，使用递归实现\r\n1. 返回函数带有 `valueOf` 属性，用于统一计算\r\n\r\n代码见 [【Q421】如何实现无限累加的一个函数](https://codepen.io/shanyue/pen/LYymamZ?editors=0012)，方便测试与调试\r\n\r\n``` js\r\nfunction sum (...args) {\r\n  const f = (...rest) => sum(...args, ...rest)\r\n  f.valueOf = () => args.reduce((x, y) => x + y, 0)\r\n  return f\r\n}\r\n```",
           "star": {
-            "totalCount": 2
+            "totalCount": 3
           },
           "author": {
             "login": "shfshanyue",
@@ -14383,6 +14797,39 @@
           "author": {
             "login": "haiifeng",
             "url": "https://github.com/haiifeng"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs5CxReI",
+          "body": "这算不算函数柯里化?",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "Mingeax",
+            "url": "https://github.com/Mingeax"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs5DBjf8",
+          "body": "> > 这还是字节、快手、阿里一众大厂最为偏爱的题目，实际上有一点技巧问题。\r\n> \r\n> 这是一个关于懒计算的函数，使用 `sum` 收集所有累加项，使用 `valueOf` 进行计算\r\n> \r\n> 1. sum 返回一个函数，收集所有的累加项，使用递归实现\r\n> 2. 返回函数带有 `valueOf` 属性，用于统一计算\r\n> \r\n> 代码见 [【Q421】如何实现无限累加的一个函数](https://codepen.io/shanyue/pen/LYymamZ?editors=0012)，方便测试与调试\r\n> \r\n> ```js\r\n> function sum (...args) {\r\n>   const f = (...rest) => sum(...args, ...rest)\r\n>   f.valueOf = () => args.reduce((x, y) => x + y, 0)\r\n>   return f\r\n> }\r\n> ```\r\n\r\n这闭包用的让人虎躯一震 太强了",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "Vi-jay",
+            "url": "https://github.com/Vi-jay"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs5EqBRb",
+          "body": "写一个啰嗦一点的版本供大家参考：\r\n想法很简单：\r\n1. 用一个变量收集所有的参数。\r\n2. 返回一个带有 valueOf 属性的 function。\r\n```javascript\r\nfunction sum(...args: number[]) {\r\n  // allArgs 收集所有的 args\r\n  let allArgs = args;\r\n\r\n  // 返回一个 function 可以接受参数   \r\n  function fn(...args2) {\r\n    allArgs = allArgs.concat(args2);\r\n    return fn;\r\n  }\r\n  \r\n  // function 上有一个属性叫 valueOf\r\n  fn.valueOf = function () {\r\n    // valueOf 触发时才开始累加\r\n    return allArgs.reduce((res, cur) => (res += cur));\r\n  };\r\n  return fn;\r\n}\r\n\r\n```",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "wangjs-jacky",
+            "url": "https://github.com/wangjs-jacky"
           }
         }
       ]
@@ -14449,6 +14896,17 @@
           "author": {
             "login": "Hishengs",
             "url": "https://github.com/Hishengs"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs5DBlVH",
+          "body": "```ts\r\nfunction sleepSync(ttl) {\r\n  const now = Date.now();\r\n  ttl *= 1000;\r\n  while (Date.now() - now < ttl) {}\r\n}\r\n```",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "Vi-jay",
+            "url": "https://github.com/Vi-jay"
           }
         }
       ]
@@ -14681,6 +15139,17 @@
             "login": "shfshanyue",
             "url": "https://github.com/shfshanyue"
           }
+        },
+        {
+          "id": "IC_kwDODQzyOs5DBmS1",
+          "body": "```ts\r\nfunction url2Params(url) {\r\n  const dict = {};\r\n  url.replace(/([^?&]*)=([^&]*)/g, (__, key, val) => {\r\n    key = decodeURIComponent(key);\r\n    val = decodeURIComponent(val);\r\n    if (dict[key]) return (dict[key] = [dict[key], val].flat());\r\n    dict[key] = val;\r\n  });\r\n  return dict;\r\n}\r\n```",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "Vi-jay",
+            "url": "https://github.com/Vi-jay"
+          }
         }
       ]
     },
@@ -14888,7 +15357,7 @@
         },
         {
           "id": "MDEyOklzc3VlQ29tbWVudDczNjM2MDUyMQ==",
-          "body": "```js\r\nconst sleep = (t = 0) => new Promise(resolve => setTimeout(resolve, t));\r\n```",
+          "body": "```ts\r\nconst sleep = (t = 0) => new Promise(resolve => setTimeout(resolve, t));\r\n\r\nconst delay = <T extends (...args: any[]) => any>(\r\n  func: T,\r\n  seconds: number,\r\n  ...args: Parameters<T>\r\n): Promise<ReturnType<T>> => sleep(seconds).then(() => func(...args));\r\n```",
           "star": {
             "totalCount": 0
           },
@@ -15181,6 +15650,17 @@
             "login": "shfshanyue",
             "url": "https://github.com/shfshanyue"
           }
+        },
+        {
+          "id": "IC_kwDODQzyOs5DBpv2",
+          "body": "```ts\r\nfunction stringify(obj) {\r\n  return encodeURI(Object.entries(obj).reduce((acc, [key, val]) => `${acc ? `${acc}&` : \"?\"}${key}=${val || \"\"}`, \"\"));\r\n}\r\n```",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "Vi-jay",
+            "url": "https://github.com/Vi-jay"
+          }
         }
       ]
     },
@@ -15371,6 +15851,17 @@
             "login": "3fuyang",
             "url": "https://github.com/3fuyang"
           }
+        },
+        {
+          "id": "IC_kwDODQzyOs5DBql5",
+          "body": "支持depth为0\r\n```ts\r\nfunction flatten(arr = [], depth = 1) {\r\n  return arr.reduce((acc, cur) => acc.concat(Array.isArray(cur) && depth > 0 ? flatten(cur, --depth) : [cur]), []);\r\n}\r\n```",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "Vi-jay",
+            "url": "https://github.com/Vi-jay"
+          }
         }
       ]
     },
@@ -15481,6 +15972,17 @@
             "login": "haotie1990",
             "url": "https://github.com/haotie1990"
           }
+        },
+        {
+          "id": "IC_kwDODQzyOs5DJw3C",
+          "body": "```ts\r\nfunction unique(arr) {\r\n  return arr.reduce((acc, item) => (acc.includes(item) ? acc : acc.concat(item)), []);\r\n}\r\n```",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "Vi-jay",
+            "url": "https://github.com/Vi-jay"
+          }
         }
       ]
     },
@@ -15564,6 +16066,17 @@
           "author": {
             "login": "haotie1990",
             "url": "https://github.com/haotie1990"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs5DJxCP",
+          "body": "```ts\r\nfunction shuffle([...arr]) {\r\n  const arrLen = arr.length;\r\n  for (let i = 0; i < arrLen; i++) {\r\n    const randomIdx = Math.floor(Math.random() * arrLen);\r\n    [arr[randomIdx], arr[i]] = [arr[i], arr[randomIdx]];\r\n  }\r\n  return arr;\r\n}\r\n\r\nfunction shuffle([...arr]) {\r\n  return arr.sort(() => Math.random() - 0.5);\r\n}\r\n\r\n```",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "Vi-jay",
+            "url": "https://github.com/Vi-jay"
           }
         }
       ]
@@ -15826,6 +16339,17 @@
             "login": "shfshanyue",
             "url": "https://github.com/shfshanyue"
           }
+        },
+        {
+          "id": "IC_kwDODQzyOs5DJxiv",
+          "body": "我不管你问什么 我就做题\r\n```ts\r\nfunction myInstanceof(obj, clazz) {\r\n  let proto = Object.getPrototypeOf(obj);\r\n  while (proto && proto !== clazz.prototype) {\r\n    proto = Object.getPrototypeOf(proto);\r\n  }\r\n  return !!proto;\r\n}\r\n```",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "Vi-jay",
+            "url": "https://github.com/Vi-jay"
+          }
         }
       ]
     },
@@ -15894,6 +16418,17 @@
           "author": {
             "login": "shfshanyue",
             "url": "https://github.com/shfshanyue"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs5Eutxo",
+          "body": "@buzuosheng hash的历史记录也会显示hash值,也会放到历史记录, chrome 102",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "zyzweb",
+            "url": "https://github.com/zyzweb"
           }
         }
       ]
@@ -17045,6 +17580,17 @@
           "author": {
             "login": "haotie1990",
             "url": "https://github.com/haotie1990"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs5DJyfC",
+          "body": "```ts\r\nfunction all(arr) {\r\n  return new Promise((resolve, reject) => {\r\n    const results = [];\r\n    arr.forEach(async (val) => {\r\n      Promise.resolve(val)\r\n        .then((data) => {\r\n          results.push(data);\r\n          if (results.length === arr.length) return resolve(results);\r\n        })\r\n        .catch((e) => reject(e));\r\n    });\r\n  });\r\n}\r\n```",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "Vi-jay",
+            "url": "https://github.com/Vi-jay"
           }
         }
       ]
@@ -19133,6 +19679,17 @@
             "login": "illumi520",
             "url": "https://github.com/illumi520"
           }
+        },
+        {
+          "id": "IC_kwDODQzyOs5DwDso",
+          "body": "arr.__proto__ === Array.prototype",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "lkzwc",
+            "url": "https://github.com/lkzwc"
+          }
         }
       ]
     },
@@ -20429,7 +20986,19 @@
     "title": "【Q587】使用 webpack 如何分包",
     "body": "",
     "comments": {
-      "nodes": []
+      "nodes": [
+        {
+          "id": "IC_kwDODQzyOs5CxLJH",
+          "body": "webpack中提供了方案4.0之前是：CommonsChunkPlugin 4.0后是optimization.splitChunks",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "MMmaXingXing",
+            "url": "https://github.com/MMmaXingXing"
+          }
+        }
+      ]
     },
     "labels": {
       "nodes": [
@@ -20581,6 +21150,17 @@
             "login": "heretic-G",
             "url": "https://github.com/heretic-G"
           }
+        },
+        {
+          "id": "IC_kwDODQzyOs5DKt-V",
+          "body": "> 1. 输出仅由输入决定，每一个固定的输入总是返回相同的输出\r\n> 2. 不产生副作用\r\n> \r\n> ```js\r\n> function push(list, x)  {\r\n>   list.push(x);\r\n>   return list\r\n> }\r\n> \r\n> const l = []\r\n> push(l, 3)\r\n> ```\r\n\r\n这应该是一个错误的例子吧 这个函数改变了list本身  纯函数应该是不改变外部数据的",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "Vi-jay",
+            "url": "https://github.com/Vi-jay"
+          }
         }
       ]
     },
@@ -20684,6 +21264,17 @@
           "author": {
             "login": "haotie1990",
             "url": "https://github.com/haotie1990"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs5Cfy7Z",
+          "body": "```javascript\r\nfunction numberThousands(num) {\r\n  let result = \"\";\r\n  let str = String(num);\r\n  let length = str.length;\r\n  for (let index = length - 1; index >= 0; index--) {\r\n    const element = str[index];\r\n    result = element + result;\r\n    if (index && (length - index) % 3 == 0) {\r\n      result = \",\" + result;\r\n    }\r\n  }\r\n  return result;\r\n}\r\n```",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "VirgoHxy",
+            "url": "https://github.com/VirgoHxy"
           }
         }
       ]
@@ -21367,7 +21958,7 @@
           "id": "MDEyOklzc3VlQ29tbWVudDg3MjcyNjQ0OA==",
           "body": "一个简单的订阅发布模式实现如下，主要有两个核心 API\r\n\r\n+ `emit`: 发布一个事件\r\n+ `on`: 监听一个事件\r\n+ `off`: 取消一个事件监听\r\n\r\n实现该模式，使用一个 events 维护发布的事件：\r\n\r\n``` js\r\nconst events = {\r\n  click: [{\r\n    once: true,\r\n    listener: callback,\r\n  }, {\r\n    listener: callback\r\n  }]\r\n}\r\n```\r\n\r\n具体实现代码如下所示\r\n\r\n``` js\r\nclass Event {\r\n  events = {}\r\n \r\n  emit (type, ...args) {\r\n    const listeners = this.events[type]\r\n    for (const listener of listeners) {\r\n      listener.listener(...args)\r\n      if (listener.once) {\r\n        this.off(type, listener.listener)\r\n      }\r\n    }\r\n  }\r\n\r\n  on (type, listener) {\r\n    this.events[type] = this.events[type] || []\r\n    this.events[type].push({ listener })\r\n  }\r\n\r\n  once (type, listener) {\r\n    this.events[type] = this.events[type] || []\r\n    this.events[type].push({ listener, once: true })\r\n  }\r\n\r\n  off (type, listener) {\r\n    this.events[type] = this.events[type] || []\r\n    this.events[type] = this.events[type].filter(listener => listener.listener !== listener)\r\n  }\r\n}\r\n```\r\n\r\n以上代码不够优雅，且有点小瑕疵，再次实现如下，代码可见 [如何实现发布订阅器  - codepen](https://codepen.io/shanyue/pen/WNjprpe?editors=0012)\r\n\r\n``` js\r\nclass Event {\r\n  events = {}\r\n \r\n  emit (type, ...args) {\r\n    const listeners = this.events[type]\r\n    for (const listener of listeners) {\r\n      listener(...args)\r\n    }\r\n  }\r\n\r\n  on (type, listener) {\r\n    this.events[type] = this.events[type] || []\r\n    this.events[type].push(listener)\r\n  }\r\n\r\n  once (type, listener) {\r\n    const callback = (...args) => {\r\n      this.off(type, callback)\r\n      listener(...args)\r\n    }\r\n    this.on(type, callback)\r\n  }\r\n\r\n  off (type, listener) {\r\n    this.events[type] = this.events[type] || []\r\n    this.events[type] = this.events[type].filter(callback => callback !== listener)\r\n  }\r\n}\r\n\r\nconst e = new Event()\r\n\r\nconst callback = x => { console.log('Click', x.id) }\r\ne.on('click', callback)\r\ne.on('click', callback)\r\n\r\n// 只打印一次\r\nconst onceCallback = x => console.log('Once Click', x.id)\r\ne.once('click', onceCallback)\r\ne.once('click', onceCallback)\r\n\r\n//=> 3\r\ne.emit('click', { id: 3 })\r\n\r\n//=> 4\r\ne.emit('click', { id: 4 })\r\n```",
           "star": {
-            "totalCount": 2
+            "totalCount": 3
           },
           "author": {
             "login": "shfshanyue",
@@ -21594,6 +22185,17 @@
           "author": {
             "login": "shfshanyue",
             "url": "https://github.com/shfshanyue"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs5Euq78",
+          "body": "山月老师给出的答案：使用 `Math.random` 产生的随机数进行 36 进制转化，该随机数是由0-9，a-z 构成的。\r\n\r\n还有一种方案是对大写字母，小写字母以及数字的 ASCII 码进行转化。\r\n\r\n```javascript\r\nrandom_v1(4);\r\nrandom_v1(6);\r\n\r\n// ASCII：\r\n// 大写字母：65~90\r\n// 小写字母：97~122\r\n// 数字：48-57\r\nfunction random_v1(num: number) {\r\n  let b = new Array(num)\r\n    .fill(0)\r\n    .map(() => String.fromCharCode(generateAcsii()))\r\n    .join(\"\");\r\n  console.log(b);\r\n}\r\n\r\nfunction generateAcsii() {\r\n  // 生成 [65,90] && [97,122] && [48,51]\r\n  let a = Math.floor(Math.random() * 62); // [0,62]\r\n  if (a < 26) {\r\n    //  返回 大写字母 的 ASCII\r\n    return a + 65;\r\n  } else if (a >= 26 && a < 52) {\r\n    //  返回 小写字母 的 ASCII\r\n    return a - 26 + 97;\r\n  } else {\r\n    //  返回 数字 的 ASCII\r\n    return a - 52 + 48;\r\n  }\r\n}\r\n```",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "wangjs-jacky",
+            "url": "https://github.com/wangjs-jacky"
           }
         }
       ]
@@ -22223,6 +22825,17 @@
             "login": "shfshanyue",
             "url": "https://github.com/shfshanyue"
           }
+        },
+        {
+          "id": "IC_kwDODQzyOs5CM7nk",
+          "body": "```js\r\nfunction longStr(str) {\r\n      let results = []\r\n      for(let key of str) {\r\n         const reg = new RegExp(key, 'g') \r\n         const arr = str.match(reg) || []\r\n         if(arr.length>results.length) {\r\n            results = arr \r\n         }\r\n      }\r\n      return [results[0], results.length]\r\n}\r\n```",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "shengrongchun",
+            "url": "https://github.com/shengrongchun"
+          }
         }
       ]
     },
@@ -22273,6 +22886,17 @@
           "author": {
             "login": "haotie1990",
             "url": "https://github.com/haotie1990"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs5E-TIK",
+          "body": "function fib(n, fib1 = 1, fib2 = 1, result = []) {\r\n    if(n <= fib1){ \r\n      return result\r\n    }\r\n    result.push(fib1)\r\n    return fib(n, fib2, fib1 + fib2, result)\r\n  }",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "1609790272",
+            "url": "https://github.com/1609790272"
           }
         }
       ]
@@ -22566,6 +23190,17 @@
             "login": "shfshanyue",
             "url": "https://github.com/shfshanyue"
           }
+        },
+        {
+          "id": "IC_kwDODQzyOs5EgazF",
+          "body": "使用 `forEach`遍历可以过滤 `undefined`\r\n```javascript\r\nfunction reduce(arr, fn, init) {\r\n  let pre = init ? init : arr[0];\r\n  let startIndex = init ? 0 : 1;\r\n  arr.slice(startIndex).forEach((cur) => {\r\n    pre = fn(pre, cur);\r\n  });\r\n  console.log(pre);\r\n  return pre;\r\n}\r\n```",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "wangjs-jacky",
+            "url": "https://github.com/wangjs-jacky"
+          }
         }
       ]
     },
@@ -22706,7 +23341,7 @@
         },
         {
           "id": "IC_kwDODQzyOs40hI3e",
-          "body": "先来一个串行的写法：\r\n\r\n``` js\r\nfunction sum(arr) {\r\n  if (arr.length === 1) return arr[0]\r\n  return arr.reduce((x, y) => Promise.resolve(x).then(x => add(x, y)))\r\n}\r\n```\r\n\r\n接下来是并行的写法：\r\n\r\n``` js\r\nfunction add (x, y) {\r\n  return Promise.resolve(x + y)\r\n}\r\n\r\nfunction chunk (list, size) {\r\n  const l = []\r\n  for (let i = 0; i < list.length; i++ ) {\r\n    const index = Math.floor(i / size)\r\n    l[index] ??= [];\r\n    l[index].push(list[i])\r\n  }\r\n  return l\r\n}\r\n\r\nasync function sum(arr) {\r\n  if (arr.length === 1) return arr[0]\r\n  const promises = chunk(arr, 2).map(([x, y]) => y === undefined ? x : add(x, y))\r\n  return Promise.all(promises).then(list => sum(list))\r\n}\r\n```\r\n\r\n如果需要控制并发数，则可以先实现一个 `pMap` 用以控制并发\r\n\r\n``` js\r\nfunction pMap(list, mapper, concurrency = Infinity) {\r\n  return new Promise((resolve, reject) => {\r\n    let currentIndex = 0\r\n    let result = []\r\n    let resolveCount = 0\r\n    let len = list.length\r\n    function next() {\r\n      const index = currentIndex++\r\n      Promise.resolve(list[index]).then(o => mapper(o, index)).then(o => {\r\n        result[index] = o\r\n        if (++resolveCount === len) { resolve(result) }\r\n        if (currentIndex < len) { next() }\r\n      })\r\n    }\r\n    for (let i = 0; i < concurrency && i < len; i ++) {\r\n      next()\r\n    }\r\n  })\r\n}\r\n\r\nasync function sum(arr, concurrency) {\r\n  if (arr.length === 1) return arr[0]\r\n  return pMap(chunk(arr, 2), ([x, y]) => {\r\n    return y === undefined ? x : add(x, y)\r\n  }, concurrency).then(list => sum(list, concurrency))\r\n}\r\n```",
+          "body": "## 初级实现: 串行方式\r\n\r\n遇到这种题目，第一反应就是如同同步 sum 的实现一样，一个一个进行累加。\r\n\r\n以下是一个借助于 `Array.prototype.reduce` 实现的 Promise 版本。\r\n\r\n这里一个注意的点是：**不能将 0 作为累加器的初始值，因此 add 为异步的，不能保证 `add(x, 0) === x`**\r\n\r\n```js\r\nfunction sum(arr) {\r\n  if (arr.length === 1) return arr[0];\r\n  return arr.reduce((x, y) => Promise.resolve(x).then((x) => add(x, y)));\r\n}\r\n```\r\n\r\n借助于 `async/await` 的异步 sum 的实现，逻辑更为清楚，同样我们把初始值设置为数组中第一个数，而非 0。\r\n\r\n``` js\r\nasync function sum(arr) {\r\n  let s = arr[0]\r\n  for (let i = 1; i < arr.length; i++) {\r\n    s = await add(s, arr[i])\r\n  }\r\n  return s\r\n}\r\n```\r\n\r\n[代码片段](https://code.juejin.cn/pen/7091460261323735048)\r\n\r\n不管是基于 promise 还是 async 实现，这应该是大部分人的第一反应，然而还有很多同学，直接最简单的实现无法通过，很可能无法通过面试。\r\n\r\n但是它有一个问题，在异步sum函数中，**其中最为耗时的是 add()，因为他是一个异步 IO 操作，模拟的是服务器数据请求，假设 add 延时一秒，此时需要 N-1 秒，延时太长。**\r\n\r\n## 中级实现: 并行方式\r\n\r\n关于上边的同步实现，有可能就会筛了一部分同学。面试官到了这里，就会继续增加难度。\r\n\r\n接下来是并行的写法: **我们实现一个 `chunk` 函数，将数组两两分组，每两个计算一次，使用 chunk 二分，此时延时变为 logN 秒**\r\n\r\n关于 `chunk` 的 API 可以参考 [lodash.chunk](https://lodash.com/docs/4.17.15#concat): `_.concat(array, [values])`，在平常工作中也会用到。\r\n\r\n```js\r\nfunction chunk(list, size) {\r\n  const l = [];\r\n  for (let i = 0; i < list.length; i++) {\r\n    const index = Math.floor(i / size);\r\n    l[index] ??= [];\r\n    l[index].push(list[i]);\r\n  }\r\n  return l;\r\n}\r\n```\r\n\r\n**在通过 chunk 进行两两分组时，有可能最后一项为单数，此时直接返回数值即可，在最终得到结果后，迭代该函数继续二分，直到最后只有一个数值。**\r\n\r\n``` js\r\nasync function sum(arr) {\r\n  if (arr.length === 1) return arr[0];\r\n  const promises = chunk(arr, 2).map(([x, y]) =>\r\n    // 注意此时单数的情况\r\n    y === undefined ? x : add(x, y)\r\n  );\r\n  return Promise.all(promises).then((list) => sum(list));\r\n}\r\n```\r\n\r\n[代码片段](https://code.juejin.cn/pen/7091470717836853255)\r\n\r\n写到这里，感觉难度还不是很大，注意，此时使用的是 `Promise.all`，意味着不管 `Promise.all` 所接收的数组中有多少元素，将会同时进行处理。\r\n\r\n此时面试官会进行扩展: **比如有10000个数据，那第一次就会发送5000个请求，网络拥堵了，我想控制成只能同时发送10个请求怎么办？**\r\n\r\n## 更进一步: 控制并行数\r\n\r\n如果需要控制并行数，则可以先实现一个 `promise.map` 用以控制并发，这也是在面试中经常考察的一个点。使用 `promise.map` 来代替上一步的 `promise.all`。\r\n\r\n关于 `promise.map` 的 API 可以参考 `bluebird`: `new Promise(function(function resolve, function reject) resolver) -> Promise`。\r\n\r\n与上一步相同，使用 sum 迭代该函数继续二分，直到最后只有一个数值。\r\n\r\n```js\r\nfunction pMap(list, mapper, concurrency = Infinity) {\r\n  return new Promise((resolve, reject) => {\r\n    let currentIndex = 0;\r\n    let result = [];\r\n    let resolveCount = 0;\r\n    let len = list.length;\r\n    function next() {\r\n      const index = currentIndex++;\r\n      Promise.resolve(list[index])\r\n        .then((o) => mapper(o, index))\r\n        .then((o) => {\r\n          result[index] = o;\r\n          if (++resolveCount === len) {\r\n            resolve(result);\r\n          }\r\n          if (currentIndex < len) {\r\n            next();\r\n          }\r\n        });\r\n    }\r\n    for (let i = 0; i < concurrency && i < len; i++) {\r\n      next();\r\n    }\r\n  });\r\n}\r\n\r\nasync function sum(arr, concurrency) {\r\n  if (arr.length === 1) return arr[0];\r\n  return pMap(\r\n    chunk(arr, 2),\r\n    ([x, y]) => {\r\n      return y === undefined ? x : add(x, y);\r\n    },\r\n    concurrency\r\n  ).then((list) => sum(list, concurrency));\r\n}\r\n```\r\n\r\n关于 `promise.map` 还有一个更简单的实现，可参考 [async-pool](https://github.com/rxaviers/async-pool/blob/master/lib/es9.js)",
           "star": {
             "totalCount": 2
           },
@@ -23334,7 +23969,7 @@
           "id": "IC_kwDODQzyOs41CCva",
           "body": "bind/softBind/apply/call 都是this显式绑定的方法\r\n\r\n- bind会返回一个硬绑定的新函数，新函数会使用指定的第一个thisCtx去调用原始函数，并将其它参数传给原始函数。 硬绑定会降低函数的灵活性，在绑定之后不能通过显式或硬绑定的方式改变this，只能通过new改变\r\n- softBind 会对指定的函数进行封装，首先检查调用时的 this，如果 this 绑定到全局对象或者 undefined，那就用指定的thisCtx 去调用函数，否则不会修改 this  \r\n- apply和call功能相同，都是以指定的thisCtx和参数去执行方法，并返回原方法的返回值，只是apply中参数以数组传递\r\n```javascript\r\nFunction.prototype.myBind = function (ctx = globalThis) {\r\n  const fn = this;\r\n  const args = Array.from(arguments).slice(1);\r\n  function bound() {\r\n    if (this instanceof bound) {\r\n      fn.apply(this, args);\r\n    } else {\r\n      fn.apply(ctx, args);\r\n    }\r\n  }\r\n  bound.prototype = fn.prototype;\r\n  return bound;\r\n};\r\n```\r\n\r\n```javascript\r\nFunction.prototype.mySoftBind = function (ctx = globalThis) {\r\n  const fn = this;\r\n  const args = Array.from(arguments).slice(1);\r\n  function bound() {\r\n    if (!this || this === globalThis) {\r\n      fn.apply(ctx, args);\r\n    } else {\r\n      fn.apply(this, args);\r\n    }\r\n  }\r\n  bound.prototype = fn.prototype;\r\n  return bound;\r\n};\r\n```\r\n\r\n```javascript\r\nFunction.prototype.myCall = function (ctx = globalThis) {\r\n  const args = Array.from(arguments).slice(1);\r\n  const key = Symbol(\"key\");\r\n  ctx[key] = this;\r\n  const res=ctx[key](...args);\r\n  delete ctx[key]\r\n  return res\r\n};\r\n```\r\n```javascript\r\nFunction.prototype.myApply = function (ctx = globalThis) {\r\n  const args = arguments[1];\r\n  const key = Symbol(\"key\");\r\n  ctx[key] = this;\r\n  const res=ctx[key](...args);\r\n  delete ctx[key]\r\n  return res\r\n};\r\n```",
           "star": {
-            "totalCount": 4
+            "totalCount": 6
           },
           "author": {
             "login": "wussss",
@@ -23361,6 +23996,28 @@
           "author": {
             "login": "iceycc",
             "url": "https://github.com/iceycc"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs5DKu34",
+          "body": "```ts\r\nFunction.prototype.myCall = function (target) {\r\n  const args = [].slice.apply(arguments, [1]);\r\n  const fnName = Symbol(\"fn\");\r\n  target[fnName] = this;\r\n  Object.defineProperty(target,fnName,{enumerable:false})\r\n  let res;\r\n  eval(`res  = target[fnName](${args.join(\",\")})`);\r\n  delete target[fnName];\r\n  return res;\r\n};\r\n```",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "Vi-jay",
+            "url": "https://github.com/Vi-jay"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs5Ev8kk",
+          "body": "```javascript\r\n\r\nFunction.prototype.myCall = function (context) {\r\n\t//! 说明：node环境根作用域this 就是globalthis, browser 环境就是window\r\n\tif (context) {\r\n\t\t//! 参数：可能不为对象，所以需要利用Object包裹一层\r\n\t\tif (typeof context !== 'object') {\r\n\t\t\tcontext = Object(context);\r\n\t\t}\r\n\t} else {\r\n\t\tcontext = globalThis;\r\n\t}\r\n\r\n\t//! 说明：由于第一个参数为context，后面的才为调用函数参数，所以需要slice(1)\r\n\tconst args = Array.from(arguments).slice(1);\r\n\r\n\t//! f1 调用的myCall方法, 此时this就是调用的函数本身\r\n\tcontext.fn = this;\r\n\tlet ret = context.fn(...args);\r\n\r\n\t//! 说明：不应该改变了this指向，就给调用方法的对象添加一个方法属性，所以调用完后需要删除\r\n\tdelete context.fn;\r\n\r\n\treturn ret;\r\n}\r\n\r\nfunction f1() {\r\n\tconsole.log(\"f1, this:\", this, \",arguments:\", arguments);\r\n}\r\n\r\nf1.myCall(\"hello\", \"123\");\r\n```",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "yxw007",
+            "url": "https://github.com/yxw007"
           }
         }
       ]
@@ -23514,6 +24171,17 @@
           "author": {
             "login": "shfshanyue",
             "url": "https://github.com/shfshanyue"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs5CZMxg",
+          "body": "```ts\r\nimport { useRef } from \"react\";\r\n\r\ntype ShouldUpdateFunc<T> = (prev: T | undefined, next: T) => boolean;\r\n\r\nconst defalutShouldUpdate = <T>(prev?: T, next?: T) => prev !== next;\r\n\r\nfunction usePrevious<T>(\r\n  state: T,\r\n  shouldUpdateFun: ShouldUpdateFunc<T> = defalutShouldUpdate\r\n): T | undefined {\r\n  const prev = useRef<T>();\r\n  const cur = useRef<T>();\r\n\r\n  if (shouldUpdateFun(cur.current, state)) {\r\n    prev.current = cur.current;\r\n    cur.current = state;\r\n  }\r\n  return prev.current;\r\n}\r\n\r\nexport default usePrevious;\r\n```\r\nahook的实现版本 很简洁",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "jarbinup",
+            "url": "https://github.com/jarbinup"
           }
         }
       ]
@@ -24453,7 +25121,7 @@
           "id": "IC_kwDODQzyOs41EIG8",
           "body": "一，常规两数之和\r\n```js\r\nvar twoSum = function (nums, target) {\r\n    const hash = new Map();\r\n    for (let i = 0; i < nums.length; i++) {\r\n        if (hash.has(target - nums[i])) return [nums[i], nums[target - i]];\r\n        hash.set(nums[i], i);\r\n    }\r\n    return null;\r\n};\r\n```\r\n\r\n二，双指针\r\n利用题目的提示 “正序增长的正整数数组”\r\n而且例1的提示很明显了，左右两个指针\r\n当前和大于目标值，右指针左移\r\n当前和小于目标值，左指针右移\r\n左指针等于右指针，循环中断，返回null\r\n```js\r\nconst twoSum = (number, target) => {\r\n    let left = 0,\r\n        right = number.length - 1;\r\n    while (left < right) {\r\n        const sum = number[left] + number[right];\r\n        if (sum === target) return [number[left], number[right]]; // 等于目标值，返回对应值\r\n        else if (sum < target) left++; // 小于目标值，左指针向右移动\r\n        else right--; // 大于目标值，右指针向左移动\r\n    }\r\n    return null;\r\n};\r\n```",
           "star": {
-            "totalCount": 0
+            "totalCount": 1
           },
           "author": {
             "login": "AaronKwong929",
@@ -24559,7 +25227,7 @@
           "id": "IC_kwDODQzyOs41EVDO",
           "body": "```javascript\r\nfunction fizzbuzz(n) {\r\n    let str = ''\r\n    if (n % 3 === 0) {\r\n        str += 'Fizz'\r\n    }\r\n    if (n % 5 ==0 0) {\r\n        str += 'Buzz'\r\n    }\r\n    return str || n\r\n}\r\n\r\n\r\n```",
           "star": {
-            "totalCount": 0
+            "totalCount": 1
           },
           "author": {
             "login": "heretic-G",
@@ -24695,6 +25363,50 @@
           "author": {
             "login": "illumi520",
             "url": "https://github.com/illumi520"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs5CySKY",
+          "body": "小图的话，基本都是通过工程化转base64。精灵图我觉得麻烦而且还得请求一次拿到精灵图",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "QJune",
+            "url": "https://github.com/QJune"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs5CyYxv",
+          "body": "> 小图的话，基本都是通过工程化转base64。精灵图我觉得麻烦而且还得请求一次拿到精灵图\n\n凌晨三四点，厉害了",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "EricWong1994",
+            "url": "https://github.com/EricWong1994"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs5C0LD4",
+          "body": "> > 小图的话，基本都是通过工程化转base64。精灵图我觉得麻烦而且还得请求一次拿到精灵图\r\n> \r\n> 凌晨三四点，厉害了\r\n\r\n基本操作",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "QJune",
+            "url": "https://github.com/QJune"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs5DLtGT",
+          "body": "需要注意的是 base64 处理过的过的图片会比原先更大，编码到项目的 htmlcss/js 中，会增加静态文件的体积且 html/css/js 是经常修改的内容，base64 随着这些文件也不好处理缓存",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "nmsn",
+            "url": "https://github.com/nmsn"
           }
         }
       ]
@@ -24848,6 +25560,28 @@
           "author": {
             "login": "vandvassily",
             "url": "https://github.com/vandvassily"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs5DKUy8",
+          "body": "有一个小问题问一下大家\r\n代码中判断当前对象是否等于函数prototype的方法是直接用相等判断，即类似这样：\r\n```js\r\nif(parentProto===childProto)\r\n```\r\n但是有个问题就是，不管是函数的prototype还是对象的`__proto__`，实际上都是对象，对象之间为什么能用`===`判断相等？",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "penghei",
+            "url": "https://github.com/penghei"
+          }
+        },
+        {
+          "id": "IC_kwDODQzyOs5DKoO2",
+          "body": "@penghei 因为他们是同一个对象啊",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "shfshanyue",
+            "url": "https://github.com/shfshanyue"
           }
         }
       ]
@@ -25575,6 +26309,17 @@
             "login": "okbug",
             "url": "https://github.com/okbug"
           }
+        },
+        {
+          "id": "IC_kwDODQzyOs5DbDgu",
+          "body": "`infer` 表示在 `extends` 条件语句中待推断的类型变量。\r\n\r\n例子：\r\n```ts\r\n/**\r\n * Obtain the parameters of a function type in a tuple\r\n */\r\ntype Parameters<T extends (...args: any) => any> = T extends (...args: infer P) => any ? P : never;\r\n```\r\n\r\n![image](https://user-images.githubusercontent.com/31235016/169199143-86c51c9c-12a8-4512-bdaa-911d93116b97.png)\r\n",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "canvascat",
+            "url": "https://github.com/canvascat"
+          }
         }
       ]
     },
@@ -25694,7 +26439,7 @@
       "nodes": [
         {
           "id": "IC_kwDODQzyOs44KbBr",
-          "body": "\r\n在前端中，网页只能加载 `javascript` 脚本资源，即便在 node，也只能加载 `javascript` 与 `json` 资源。那类似 `webpack`、`rollup` 及 `vite` 这类工具是如何加载图片、JSON 资源的呢？\r\n\r\n在 `webpack` 等打包工具中，号称**一切皆是模块**。\r\n\r\n![一切皆是模块](https://cdn.jsdelivr.net/gh/shfshanyue/assets@master/src/webpack.1bgkaa8r9d7k.png)\r\n\r\n当 `webpack` 在这类打包器中，需要加载 JSON 等非 Javascript 资源时，则通过模块加载器(`loader`)将它们转化为模块的形式。\r\n\r\n以 JSON 为例:\r\n\r\n``` js\r\n// user.json 中内容\r\n{\r\n  \"id\": 10086,\r\n  \"name\": \"shanyue\",\r\n  \"github\": \"https://github.com/shfshanyue\"\r\n}\r\n```\r\n\r\n在现代前端中，我们把它视为 `module` 时，使用 `import` 引入资源。\r\n\r\n``` js\r\nimport user from './user.json'\r\n```\r\n\r\n而我们的打包器，如 `webpack` 与 `rollup`，将通过以下方式来加载 JSON 资源。\r\n\r\n这样它将被视为普通的一副 Javascript \r\n\r\n``` js\r\n// 实际上的 user.json 被编译为以下内容\r\nexport default {\r\n  \"id\": 10086,\r\n  \"name\": \"shanyue\",\r\n  \"github\": \"https://github.com/shfshanyue\"\r\n}\r\n```\r\n\r\n在 webpack 中通过 loader 处理此类非 JS 资源，以下为一个 `json-loader` 的示例:\r\n\r\n> [mini-code:json-loader](https://github.com/shfshanyue/mini-code/tree/master/code/json-loader) 中可见最小实现及示例。\r\n\r\n``` js\r\nmodule.exports = function (source) {\r\n  const json = typeof source === 'string' ? source : JSON.stringify(source)\r\n  return `module.exports = ${json}`\r\n}\r\n```\r\n\r\n那图片是如何处理的呢？\r\n\r\n``` js\r\nimport mainImage from 'main.png'\r\n\r\n<img src={mainImage} />\r\n```\r\n\r\n更简单，它将替换为它自身的路径。示例如下\r\n\r\n``` js\r\nexport default `$PUBLIC_URL/assets/image/main.png` \r\n```\r\n\r\n那如何加载一个 CSS 脚本呢？此处涉及到各种 DOM API，以及如何将它抽成一个 `.css` 文件，复杂很多，下一篇介绍。",
+          "body": "在前端中，网页只能加载 `javascript` 脚本资源，即便在 node，也只能加载 `javascript` 与 `json` 资源。那类似 `webpack`、`rollup` 及 `vite` 这类工具是如何加载图片、JSON 资源的呢？\r\n\r\n在 `webpack` 等打包工具中，号称**一切皆是模块**。\r\n\r\n![一切皆是模块](https://cdn.jsdelivr.net/gh/shfshanyue/assets@master/src/webpack.1bgkaa8r9d7k.png)\r\n\r\n当 `webpack` 在这类打包器中，需要加载 JSON 等非 Javascript 资源时，则通过**模块加载器(`loader`)**将它们转化为模块的形式。\r\n\r\n## 加载 JSON\r\n\r\n以 JSON 为例:\r\n\r\n``` js\r\n// user.json 中内容\r\n{\r\n  \"id\": 10086,\r\n  \"name\": \"shanyue\",\r\n  \"github\": \"https://github.com/shfshanyue\"\r\n}\r\n```\r\n\r\n在现代前端中，我们把它视为 `module` 时，使用 `import` 引入资源。\r\n\r\n``` js\r\nimport user from './user.json'\r\n```\r\n\r\n而我们的打包器，如 `webpack` 与 `rollup`，将通过以下方式来加载 JSON 资源。\r\n\r\n这样它将被视为普通的 Javascript \r\n\r\n``` js\r\n// 实际上的 user.json 被编译为以下内容\r\nexport default {\r\n  \"id\": 10086,\r\n  \"name\": \"shanyue\",\r\n  \"github\": \"https://github.com/shfshanyue\"\r\n}\r\n```\r\n\r\n在 webpack 中通过 loader 处理此类非 JS 资源，以下为一个 `json-loader` 的示例:\r\n\r\n> [mini-code:json-loader](https://github.com/shfshanyue/mini-code/tree/master/code/json-loader) 中可见最小实现及示例。\r\n\r\n``` js\r\nmodule.exports = function (source) {\r\n  const json = typeof source === 'string' ? source : JSON.stringify(source)\r\n  return `module.exports = ${json}`\r\n}\r\n```\r\n\r\n## 加载图片\r\n\r\n那图片是如何处理的呢？\r\n\r\n更简单，它将替换为它自身的路径。示例如下\r\n\r\n``` js\r\nexport default `$PUBLIC_URL/assets/image/main.png` \r\n```\r\n\r\n而我们在 `import image` 时，其实是图片的自身路径，将它置于 `src` 属性即可\r\n\r\n``` js\r\nimport mainImage from 'main.png'\r\n\r\n<img src={mainImage} />\r\n```\r\n\r\n那如何加载一个 CSS 脚本呢？此处涉及到各种 DOM API，以及如何将它抽成一个 `.css` 文件，复杂很多，下一篇介绍。",
           "star": {
             "totalCount": 0
           },
@@ -26401,7 +27146,7 @@
           "id": "IC_kwDODQzyOs5CMORT",
           "body": "\r\n[browserslist](https://github.com/browserslist/browserslist) 用特定的语句来查询浏览器列表，如 `last 2 Chrome versions`。\r\n\r\n``` js\r\n$ npx browserslist \"last 2 Chrome versions\"\r\nchrome 100\r\nchrome 99\r\n```\r\n\r\n细说起来，**它是现代前端工程化不可或缺的工具，无论是处理 JS 的 `babel`，还是处理 CSS 的 `postcss`，凡是与垫片相关的，他们背后都有 `browserslist` 的身影。**\r\n\r\n+ `babel`，在 `@babel/preset-env` 中使用 `core-js` 作为垫片\r\n+ `postcss` 使用 `autoprefixer` 作为垫片\r\n\r\n关于前端打包体积与垫片关系，我们有以下几点共识:\r\n\r\n1. 由于低浏览器版本的存在，垫片是必不可少的\r\n2. 垫片越少，则打包体积越小\r\n3. 浏览器版本越新，则垫片越少\r\n\r\n那在前端工程化实践中，当我们确认了浏览器版本号，那么它的垫片体积就会确认。\r\n\r\n假设项目只需要支持最新的两个谷歌浏览器。那么关于 `browserslist` 的查询，可以写作 `last 2 Chrome versions`。\r\n\r\n而随着时间的推移，**该查询语句将会返回更新的浏览器，垫片体积便会减小。**\r\n\r\n**如使用以上查询语句，一年前可能还需要 `Promise.any` 的垫片，但目前肯定不需要了。**\r\n\r\n## 原理\r\n\r\n最终，谈一下 `browserslist` 的原理: `browserslist` 根据正则解析查询语句，对浏览器版本数据库 `caniuse-lite` 进行查询，返回所得的浏览器版本列表。\r\n\r\n> PS: `caniuse-lite` 这个库也由 `browserslist` 团队进行维护，它是基于 [caniuse](https://caniuse.com/) 的数据库进行的数据整合。\r\n\r\n因为 `browserslist` 并不维护数据库，因此它会经常提醒你去更新 `caniuse-lite` 这个库，由于 lock 文件的存在，因此需要使用以下命令手动更新数据库。\r\n\r\n``` bash\r\n$ npx browserslist@latest --update-db\r\n```\r\n\r\n该命令将会对 caniuse-lite 进行升级，可体现在 lock 文件中。\r\n\r\n``` diff\r\n     \"caniuse-lite\": {\r\n-      \"version\": \"1.0.30001265\",\r\n-      \"resolved\": \"https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001265.tgz\",\r\n-      \"integrity\": \"sha512-YzBnspggWV5hep1m9Z6sZVLOt7vrju8xWooFAgN6BA5qvy98qPAPb7vNUzypFaoh2pb3vlfzbDO8tB57UPGbtw==\",\r\n+      \"version\": \"1.0.30001332\",\r\n+      \"resolved\": \"https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001332.tgz\",\r\n+      \"integrity\": \"sha512-10T30NYOEQtN6C11YGg411yebhvpnC6Z102+B95eAsN0oB6KUs01ivE8u+G6FMIRtIrVlYXhL+LUwQ3/hXwDWw==\",\r\n       \"dev\": true\r\n     },\r\n```\r\n\r\n## 一些常用的查询语法\r\n\r\n### 根据用户份额:\r\n\r\n+ `> 5%`: 在全球用户份额大于 `5%` 的浏览器\r\n+ `> 5% in CN`: 在中国用户份额大于 `5%` 的浏览器\r\n\r\n### 根据最新浏览器版本\r\n\r\n+ `last 2 versions`: 所有浏览器的最新两个版本\r\n+ `last 2 Chrome versions`: Chrome 浏览器的最新两个版本\r\n\r\n### 不再维护的浏览器\r\n\r\n+ `dead`: 官方不在维护已过两年，比如 `IE10`\r\n\r\n### 浏览器版本号\r\n\r\n+ `Chrome > 90`: Chrome 大于 90 版本号的浏览器\r\n",
           "star": {
-            "totalCount": 0
+            "totalCount": 1
           },
           "author": {
             "login": "shfshanyue",
@@ -26459,7 +27204,7 @@
           "id": "IC_kwDODQzyOs4_fWtg",
           "body": "npm 会把所有下载的包，保存在用户文件夹下面。\r\n\r\n默认值：~/.npm在Posix上 或 %AppData%/npm-cache在Windows上。根缓存文件夹。\r\n\r\nnpm install 之后会计算每个包的 sha1 值(PS:安全散列算法(Secure Hash Algorithm))，然后将包与他的 sha1 值关联保存在 package-lock.json 里面，下次 npm install 时，会根据 package-lock.json 里面保存的 sha1 值去文件夹里面寻找包文件，如果找到就不用从新下载安装了。\r\n\r\n```sh\r\nnpm cache verify\r\n```\r\n\r\n上面这个命令是重新计算，磁盘文件是否与 sha1 值匹配，如果不匹配可能删除。\r\n\r\n> 要对现有缓存内容运行脱机验证，请使用 `npm cache verify`。\r\n\r\n```sh\r\nnpm cache clean --force\r\n```\r\n\r\n上面这个命令是删除磁盘所有缓存文件。",
           "star": {
-            "totalCount": 0
+            "totalCount": 2
           },
           "author": {
             "login": "wenreq",
@@ -26552,6 +27297,17 @@
             "login": "AndyTiTi",
             "url": "https://github.com/AndyTiTi"
           }
+        },
+        {
+          "id": "IC_kwDODQzyOs5CMTzA",
+          "body": "一种基于容器及 docker-compose 或者 k8s 的思路\r\n\r\n1. 借用现有的 CICD 服务，如 `github actions` 或者 `gitlab CI` **获取当前分支信息**\r\n1. 借用 Docker 快速部署前端或者后端，**根据分支信息启动不同的服务 (Service)**，**根据 Docker 启动服务并配置响应的标签 (Label)**\r\n1. 根据容器的标签与当前 Git 分支对前端后端设置不同的域名\r\n\r\n以下是一个 Preview 的示例，其中服务名 `cra-preview-${COMMIT_REF_NAME}` 基于分支名称进行构建。\r\n\r\n``` yaml\r\nversion: \"3\"\r\nservices:\r\n  cra-preview-${COMMIT_REF_NAME}:\r\n    build:\r\n      context: .\r\n      dockerfile: router.Dockerfile\r\n    labels:\r\n       # 配置域名: Preview\r\n       - \"traefik.http.routers.cra-preview-${COMMIT_REF_NAME}.rule=Host(`${COMMIT_REF_NAME}.cra.shanyue.tech`)\"\r\n       - traefik.http.routers.cra-preview-${COMMIT_REF_NAME}.tls=true\r\n       - traefik.http.routers.cra-preview-${COMMIT_REF_NAME}.tls.certresolver=le\r\n```\r\n\r\n在进行构建时，再通过 `envsub` 工具进行环境变量的替换\r\n\r\n``` bash\r\ncat preview.docker-compose.yaml | envsubst > docker-compose.yaml\r\n```",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "shfshanyue",
+            "url": "https://github.com/shfshanyue"
+          }
         }
       ]
     },
@@ -26621,6 +27377,17 @@
             "login": "zhiyuan5985",
             "url": "https://github.com/zhiyuan5985"
           }
+        },
+        {
+          "id": "IC_kwDODQzyOs5DQPgD",
+          "body": "好像是建立长连接，在连接不挂掉期间，都是可以互相传输信息",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "1596944197",
+            "url": "https://github.com/1596944197"
+          }
         }
       ]
     },
@@ -26673,7 +27440,19 @@
     "title": "【Q741】我们上传图片为 Blob/File 对象时，是如何向服务器端传送数据的",
     "body": "",
     "comments": {
-      "nodes": []
+      "nodes": [
+        {
+          "id": "IC_kwDODQzyOs5DQPTl",
+          "body": "new FormData()可以发送二进制对象 #https://developer.mozilla.org/zh-CN/docs/Web/API/FormData\r\n也可以发送base64然后保存",
+          "star": {
+            "totalCount": 0
+          },
+          "author": {
+            "login": "1596944197",
+            "url": "https://github.com/1596944197"
+          }
+        }
+      ]
     },
     "labels": {
       "nodes": [
