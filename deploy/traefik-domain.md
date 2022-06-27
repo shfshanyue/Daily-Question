@@ -79,6 +79,11 @@ labels:
 $ curl --unix-socket /var/run/docker.sock http:/containers/json | jq '.[] | .Labels'
 ```
 
+## 作业
+
+1. 为服务添加一个域名，并可通过 https 域名访问
+1. 为服务添加多个域名，并可通过 https 域名访问
+
 ## 小结
 
 目前为止，终于将一个前端应用使用域名进行部署。此时除了一些部署知识外，还需要一些服务器资源，包括

@@ -107,7 +107,36 @@ X-Real-Ip: 172.20.0.1
 
 ## Dashboard
 
+在 `traefik` 中可通过 `api.dashboard` 类配置控制台。
 
+``` toml
+# Enable API and dashboard
+[api]
+
+  # Enable the API in insecure mode
+  #
+  # Optional
+  # Default: true
+  #
+  insecure = true
+
+  # Enabled Dashboard
+  #
+  # Optional
+  # Default: true
+  #
+  dashboard = true
+```
+
+可通过 `http://localhost:8080`，在本地将 traefik 的控制台打开。
+
+![](https://static.shanyue.tech/images/22-06-27/clipboard-5002.20ade3.webp)
+
+而在远程服务器上的本地服务，可通过 ssh 隧道映射到本地进行打开。ssh 隧道命令，可参考 [ssh -LN](https://q.shanyue.tech/command/ssh-l.html#ssh-nl)。
+
+``` bash
+$ ssh -NL 8080:localhost:8080 shanyue
+```
 
 ## 终极配置文件
 
@@ -299,6 +328,10 @@ $ touch .env
 
 $ docker-compose up
 ```
+
+## 作业
+
+1. 初阶：在服务器成功搭建 traefik
 
 ## 小结
 

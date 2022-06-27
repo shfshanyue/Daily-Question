@@ -158,3 +158,4 @@ mode         user    group   size mtime        name
 
 1. 我们修改了文件的 mode，在 git 中是否有更改操作
 1. 我们修改了文件的 mtime，在 git 中是否有更改操作
+1. 在 pnpm 中，为什么不全部使用软链接
