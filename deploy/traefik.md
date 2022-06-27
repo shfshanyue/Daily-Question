@@ -105,6 +105,10 @@ X-Real-Ip: 172.20.0.1
 
 使用以下配置文件，直接配置生效。
 
+## Dashboard
+
+
+
 ## 终极配置文件
 
 终极配置文件已经配置好了 LTS、Access Log 等，但是细节就不讲了，直接上配置，完整配置文件详见 [compose:traefik](https://github.com/shfshanyue/compose/tree/master/traefik)。

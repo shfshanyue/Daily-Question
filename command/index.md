@@ -1,3 +1,5 @@
+# Linux 技能实战
+
 ## 注意
 
 + 命令行最好在 linux 下完成，windows 可用 WSL，**mac 部分命令行与 linux 有差异**。
@@ -7,41 +9,7 @@
 + [命令行的艺术](https://github.com/jlevy/the-art-of-command-line/blob/master/README-zh.md)
 + [explainshell](http://explainshell.com/)
 
+## 手册
 
-## file system
+养成查看 linux 手册的习惯，对于一条不熟悉的命令，可以先通过 `man` 以及 `--help` 过一遍帮助手册。
 
-+ pwd/ls/tree/~/.
-+ stat/ls
-+ chown/chmod
-+ mkdir/rm/cp/rsync
-+ cat/less/head/tail
-+ pipe
-+ grep
-
-## shell
-
-+ path/which
-+ bash/zsh
-+ ohmyzsh
-+ zsh autocomplete
-+ 快捷键
-+ env/export
-+ $PATH
-+ alias
-
-## editor
-
-+ vim
-  + 快速移动
-  + 编辑
-  + 常用插件
-+ tmux
-  + 快捷键
-
-## system
-
-+ netstat/ss
-+ nc/netcat/lsof
-+ ps/top
-+ free/vmstat
-+ strace
