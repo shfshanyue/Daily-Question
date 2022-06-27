@@ -68,3 +68,4 @@ $ rsync -lahz ~/Documents/react/ ~/Documents/abc/
 
 1. 熟悉 rsync 在本地及远程服务器间拷贝文件
 2. 在 Node.js 或其它语言中如何实现 `cp`。参考 [fsp.cp](https://nodejs.org/api/fs.html#fspromisescpsrc-dest-options)。(cp 实际上是通过库函数 open/write 模拟实现)
+3. 为何说保留复制文件时的元属性，对静态资源服务器有益

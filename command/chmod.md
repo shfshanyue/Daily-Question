@@ -28,6 +28,33 @@ drwxr-xr-x  7 shanyue shanyue 4.0K Jun 14 19:06 .git
 $ chown -R shanyue:shanyue .
 ```
 
+## EACESS
+
+在前端使用 `yarn` 去装包的时候，经常会遇到问题 `EACCES: permission denied, unlink ...`
+
+![](https://static.shanyue.tech/images/22-06-27/clipboard-9926.36e29b.webp)
+
+``` bash
+$ yarn
+error An unexpected error occurred: "EACCES: permission denied, unlink '/home/train/Documents/react/node_modules/@babel/cli/node_modules/commander/CHANGELOG.md'".
+info If you think this is a bug, please open a bug report with the information provided in "/home/train/Documents/react/packages/react/yarn-error.log".
+info Visit https://yarnpkg.com/en/docs/cli/install for documentation about this command.
+```
+
+而**该问题有可能的原因**是：非该文件的所属用户去修改文件内容。比如其中一种可能是，`node_modules` 所属用户应该为 `train` 这个普通用户，但是实际上为 `root`，从而导致没有权限。
+
+``` bash
+# 此时发现 node_modules 为 root:root，因此导致的问题
+$ ls -lah .
+drwxr-xr-x  3 root  root  4.0K Jun 27 22:19 node_modules
+drwxr-xr-x  2 train train 4.0K Jun 10 15:45 npm
+-rw-r--r--  1 train train 1.1K Jun 10 15:45 package.json
+drwxr-xr-x  5 train train 4.0K Jun 10 15:45 src
+
+# 此时通过 chown 即可解决问题
+$ chown -R train:train node_modules
+```
+
 ## chmod
 
 `mode` 指 linux 中对某个文件的访问权限。
