@@ -44,10 +44,6 @@ const sidebar = [
         path: 'cat'
       },
       {
-        title: 'pipe',
-        path: 'pipe'
-      },
-      {
         title: 'glob',
         path: 'glob'
       },
