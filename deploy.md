@@ -1975,7 +1975,7 @@ $ curl --unix-socket /var/run/docker.sock http:/containers/json | jq '.[] | .Lab
 
 ![](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2021-11-17/clipboard-7669.a41a94.webp)
 
-> PS: 改图出自 [Gitlab CICD Workflow](https://docs.gitlab.com/ee/ci/introduction/index.html#basic-cicd-workflow)
+> PS: 该图出自 [Gitlab CICD Workflow](https://docs.gitlab.com/ee/ci/introduction/index.html#basic-cicd-workflow)
 
 1. CI: 切出功能分支，进行新特性开发。此时为图中的 `Verify`、`Package` 阶段
 1. CD: 合并功能分支，进行自动化部署。此时为图中的 `Release` 阶段。
