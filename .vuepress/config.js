@@ -24,6 +24,7 @@ module.exports = {
       { text: '主页', link: '/' },
       // { text: '周刊', link: '/weekly/' },
       { text: '前端部署十五章', link: '/deploy/' },
+      { text: '前端工程化', link: '/engineering/' },
       { text: 'Linxu技能实战', link: '/command/' },
       { text: '前端基础', link: '/fe/' },
       { text: '高级前端', link: '/server/' },
