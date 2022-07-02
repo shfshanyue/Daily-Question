@@ -225,6 +225,12 @@ production:
     # - helm install cra-app cra-app-chart
 ```
 
+## 作业
+
++ 初阶：请讲述几条主分支保护策略
++ 中阶：自建 Github Actions Runner 并完成自动部署
++ 面试：什么是 CICD
+
 ## 小结
 
 本篇文章介绍了 CICD 的基础概念，并通过自建 Runner 进行了简单部署。
