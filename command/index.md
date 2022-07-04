@@ -13,3 +13,5 @@
 
 养成查看 linux 手册的习惯，对于一条不熟悉的命令，可以先通过 `man` 以及 `--help` 过一遍帮助手册。
 
+甚至在开始之前可以通读 `man bash` 或者 [bash 官方文档](https://www.gnu.org/software/bash/manual/bash.html)
+

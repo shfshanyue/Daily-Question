@@ -6,10 +6,14 @@
 
 ## glob
 
+`glob` 拥有以下基本语法
+
 + `*`：匹配0个及以上字符
 + `?`：匹配1个字符
 + `[...]`：range，匹配方括号内所有字符
 + `**`：匹配0个及多个子目录
+
+示例如下
 
 ``` bash
 # 列出当前目录下所有的 js 文件
@@ -20,17 +24,43 @@ $ ls -lah *.js
 
 # 列出当前目录及所有子目录的 js 文件
 $ ls -lah **/*.js
+
+# 列出当前目录及所有子目录的后缀名为两个字幕的文件
+$ ls -lah **/*.??
 ```
 
 ## extglob
 
-+ `?(pattern-list)`
-+ `*(pattern-list)`
-+ `+(pattern-list)`
-+ `@(pattern-list)`
-+ `!(pattern-list)`
+还有一些扩展的 glob 模式
+
++ `?(pattern-list)`，重复0次或1次的模式
++ `*(pattern-list)`，重复0次或多次
++ `+(pattern-list)`，重复1次或多次
++ `@(pattern-list)`，重复1次
++ `!(pattern-list)`，非匹配
+
+``` bash
+# 列出所有以 js/json/md 结尾的文件
+$ ls -lah *.*(js|json|md)
+```
+
+`extglob` 需要通过 `shopt` 命令手动开启
+
+``` bash
+$ shopt | grep glob
+dotglob         off
+extglob         on
+failglob        off
+globasciiranges off
+globstar        off
+nocaseglob      off
+nullglob        off
+
+$ shopt -s extglob
+```
 
 ## 作业
 
 1. 如何列出当前目录下所有的 js 文件
 1. 如何列出当前目录下所有的 js 文件和 json 文件
+
