@@ -57,13 +57,13 @@ on:
 
 但是 Lint 和 Test 都需要依赖安装 (Install)，在依赖安装结束后再执行，此时就是串行的。
 
-![](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2022-01-10/ci-pipeline.7f73a3.webp)
+![](https://static.shanyue.tech/images/22-07-05/clipboard-4703.b64821.webp)
 
 **而进行串行时，如果前一个任务失败，则下一个任务也无法继续。即如果测试无法通过，则无法进行 Preview，更无法上线。**
 
 > PS: 此处可控制某些任务允许失败。如 Github Actions 中的 [jobs.<job_id>.continue-on-error](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idcontinue-on-error)
 
-![](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2022-01-11/clipboard-3382.d71cac.webp)
+![](https://static.shanyue.tech/images/22-07-05/clipboard-6296.264a1f.webp)
 
 ## 使用 Github Actions 进行 CI
 
@@ -121,7 +121,7 @@ jobs:
         run: npm run test
 ```
 
-![](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2022-01-12/clipboard-1177.4f15e5.webp)
+![](https://static.shanyue.tech/images/22-07-05/clipboard-7295.e57442.webp)
 
 > 关于截图的[本次 Action](https://github.com/shfshanyue/cra-deploy/actions/runs/1680667890) 执行情况
 
@@ -135,7 +135,7 @@ jobs:
 
 **首先，将 Install 前置会节省服务器资源，但并不会加快 CI 时间。甚至因为多了一个 JOB，Job 间切换也需要花费时间，总时间还会略有增加。** 
 
-![](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2022-01-12/lint.6b25f2.webp)
+![](https://static.shanyue.tech/images/22-07-05/clipboard-8347.a9edaa.webp)
 
 > 脚本路径位于 [workflows/ci-parallel.yaml](https://github.com/shfshanyue/cra-deploy/blob/master/.github/workflows/ci-parallel.yaml)。
 
@@ -219,7 +219,7 @@ jobs:
       - run: echo 'Preview OK'
 ```
 
-![](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2022-01-12/clipboard-7356.b2c9cb.webp)
+![](https://static.shanyue.tech/images/22-07-05/clipboard-1412.d71c5c.webp)
 
 > 关于截图的[本次 Action](https://github.com/shfshanyue/cra-deploy/actions/runs/1680667891) 执行情况
 
@@ -244,7 +244,7 @@ Lint 和 Test 仅是 CI 中最常见的阶段。为了保障我们的前端代�
 
 而针对 `git hooks` 而言，很容易通过 `git commit --no-verify` 而跳过。
 
-![](https://cdn.jsdelivr.net/gh/shfshanyue/assets@master/src/image.png)
+![](https://static.shanyue.tech/images/22-07-05/clipboard-8622.272bd2.webp)
 
 最重要的是，CI 还可对部署及其后的一系列操作进行检查，如端对端测试、性能测试以及容器扫描(见上)等。
 

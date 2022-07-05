@@ -28,11 +28,11 @@
 
 如下图，当所有 Checks 通过后，`Merge pull request` 才会变绿允许进行合并。
 
-![CI Checks](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2021-11-17/pr-checks-final.26fba2.webp)
+![CI Checks](https://static.shanyue.tech/images/22-07-05/clipboard-7317.168538.webp)
 
 由于近些年来 CICD 的全面介入，项目开发的工作流就是 CICD 的工作流，请看一个比较完善的 CICD Workflow。
 
-![](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2021-11-17/clipboard-7669.a41a94.webp)
+![](https://static.shanyue.tech/images/22-07-05/clipboard-7635.303020.webp)
 
 > PS: 该图出自 [Gitlab CICD Workflow](https://docs.gitlab.com/ee/ci/introduction/index.html#basic-cicd-workflow)
 
@@ -139,14 +139,17 @@ jobs:
 1. 代码必须经过 Code Review (关于该 PR 下的所有 Review 必须解决)
 1. 代码必须两个人同意才能合并到主分支
 
+![至少需要一位成员同意才能合并](https://static.shanyue.tech/images/22-07-05/clipboard-4703.b64821.webp)
+
 在 Gitlab 与 Github 中均可进行设置:
 
 + [Github: Managing a branch protection rule](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/defining-the-mergeability-of-pull-requests/managing-a-branch-protection-rule)
 + [Gitlab: Merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
++ [Gitlab: Merge request approvals ALL TIERS](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
 
 如下示例，未通过 CI，不允许 Merge。可见示例 [PR #22](https://github.com/shfshanyue/cra-deploy/pull/22)。
 
-![](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2022-02-11/clipboard-2703.b42555.webp)
+![](https://static.shanyue.tech/images/22-07-05/clipboard-2308.20bda7.webp)
 
 ## 使用 CICD 进行自动部署
 
