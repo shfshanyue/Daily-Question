@@ -1,4 +1,4 @@
-# 大括号匹配
+# 大括号扩展
 
 `brace`，见文档[Brace Expansion](https://www.gnu.org/software/bash/manual/bash.html#Brace-Expansion)。
 

@@ -248,6 +248,12 @@ Lint 和 Test 仅是 CI 中最常见的阶段。为了保障我们的前端代�
 
 最重要的是，CI 还可对部署及其后的一系列操作进行检查，如端对端测试、性能测试以及容器扫描(见上)等。
 
+## 作业
+
++ 初阶：使用 github actions 配置 lint
++ 中阶：使用 github actions 配置 audit
++ 面试：你们在 CI 中做了那些检测
+
 ## 小结
 
 本篇文章通过 Github Actions 配置了 Lint/Test，并给出了更多可在 CI 中所做的代码质量检查。
