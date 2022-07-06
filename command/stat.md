@@ -6,7 +6,7 @@
 
 ## stat
 
-`stat`，查看文件系统信息，
+`stat`，查看文件系统信息。
 
 ``` bash
 $ stat README.md
@@ -33,129 +33,82 @@ Change: 2022-06-17 12:24:25.276142164 +0800
 
 > 对于每个字段的释义详细，可查看 [stat](https://www.man7.org/linux/man-pages/man2/stat.2.html#DESCRIPTION)
 
-## ln: hard link
+## stat -c
 
-`ln`，在两个文件间创建链接，默认为硬链接。
+使用 `stat -c`，可指定文件某个属性进行输出。
 
 ``` bash
-# 创建一个硬链接 package.hard.json
-$ ln package.json package.hard.json
-
-# 此时 stat 查看 package.json，其 Links 为 2
-$ stat package.json
-  File: package.json
-  Size: 7419            Blocks: 16         IO Block: 4096   regular file
-Device: fd01h/64769d    Inode: 657204      Links: 2
-Access: (0644/-rw-r--r--)  Uid: ( 1000/ shanyue)   Gid: ( 1000/ shanyue)
-Access: 2022-06-14 20:07:05.182595637 +0800
-Modify: 2022-06-14 20:07:02.337546644 +0800
-Change: 2022-06-18 21:19:50.885983756 +0800
- Birth: 2022-06-14 19:10:22.779976895 +0800
-
- # 此时 stat 查看 package.hard.json，其 Links 为 2，与源文件具有相同的 Inode
-$ stat package.hard.json
-  File: package.hard.json
-  Size: 7419            Blocks: 16         IO Block: 4096   regular file
-Device: fd01h/64769d    Inode: 657204      Links: 2
-Access: (0644/-rw-r--r--)  Uid: ( 1000/ shanyue)   Gid: ( 1000/ shanyue)
-Access: 2022-06-14 20:07:05.182595637 +0800
-Modify: 2022-06-14 20:07:02.337546644 +0800
-Change: 2022-06-18 21:19:50.885983756 +0800
- Birth: 2022-06-14 19:10:22.779976895 +0800
+$ stat -c --format=FORMAT
 ```
 
-在 stat 命令中，可发现硬链接文件与源文件
+有以下格式可选：
 
-1. 其 `Links` 变成了 2，`Links` 代表硬链接的个数。
-2. 具有相同的 Inode：657204
-3. 具有相同的 Size 及属性
-
-在前端使用了 pnpm 作为包管理工具的项目中，硬链接到处存在。
++ %a     access rights in octal
++ %A     access rights in human readable form
++ %f     raw mode in hex
++ %F     file type
++ %g     group ID of owner
++ %G     group name of owner
++ %h     number of hard links
++ %i     inode number
++ %n     file name
++ %s     total size, in bytes
++ ...
 
 ``` bash
-# 使用 pnpm 作为前端依赖的项目中的硬链接
-$ stat node_modules/.pnpm/react@17.0.2/node_modules/react/package.json
-  File: 'node_modules/.pnpm/react@17.0.2/node_modules/react/package.json'
-  Size: 777             Blocks: 8          IO Block: 4096   regular file
-Device: fd01h/64769d    Inode: 2680331     Links: 2
-Access: (0644/-rw-r--r--)  Uid: (    0/    root)   Gid: (    0/    root)
-Access: 2022-06-22 17:47:53.434715185 +0800
-Modify: 2022-06-22 17:47:09.079634810 +0800
-Change: 2022-06-22 17:47:51.534626066 +0800
- Birth: -
+$ stat -c "%a" README.md
+644
+$ stat -c "%F" README.md
+regular file
+$ stat -c "%A" README.md
+-rw-r--r--
+$ stat -c "%y" README.md
+2022-06-17 12:21:06.028463373 +0800
+$ stat -c "%Y" README.md
+1655439666
 ```
 
-## ln -s: symbol link
+## 文件类型
 
-`ln -s`，在两个文件间创建软链接。
+在 Linux 中一切都是文件，我们可通过 `stat` 查看文件类型。
+
+我们查看一下 Linux 中有哪些文件类型。
 
 ``` bash
-# 创建一个软链接
-$ ln -s README.md README.soft.md
+$ stat -c "%F" README.md
+regular file
 
-# 此时使用 stat 查看源文件
-$ stat README.md
-  File: README.md
-  Size: 5201            Blocks: 16         IO Block: 4096   regular file
-Device: fd01h/64769d    Inode: 657197      Links: 1
-Access: (0644/-rw-r--r--)  Uid: ( 1000/ shanyue)   Gid: ( 1000/ shanyue)
-Access: 2022-06-18 21:02:40.466278536 +0800
-Modify: 2022-06-17 11:29:45.580831556 +0800
-Change: 2022-06-18 21:02:36.238205891 +0800
- Birth: 2022-06-14 19:10:22.779976895 +0800
+$ stat -c "%F" node_modules/
+directory
 
-# 此时使用 stat 查看时，发现其变为了一个 symbolic link
-$ stat README.soft.md
-  File: README.soft.md -> README.md
-  Size: 9               Blocks: 0          IO Block: 4096   symbolic link
-Device: fd01h/64769d    Inode: 666151      Links: 1
-Access: (0777/lrwxrwxrwx)  Uid: (    0/    root)   Gid: (    0/    root)
-Access: 2022-06-22 18:37:57.957044230 +0800
-Modify: 2022-06-22 18:37:56.123012505 +0800
-Change: 2022-06-22 18:37:56.123012505 +0800
- Birth: 2022-06-22 18:37:56.123012505 +0800 ln -s Readme.md Readme.hard.md
+$ stat -c "%F" /usr/local/bin/npm
+symbolic link
+
+$ stat -c "%F" /dev/null
+character special file
+
+$ stat -c "%F" /dev/pts/0
+character special file
+
+$ stat -c "%F" /dev/vda
+block special file
+
+$ stat -c "%F" /var/run/docker.sock
+socket
 ```
 
-在 stat 命令中，可发现软链接文件与源文件
+同时，还可以使用 `ls -lah` 查看文件类型，第一个字符表示文件类型。
 
-1. 完全不同的 Inode，证明是两个独立的文件
-2. 完全不同的 Size 及属性
-3. 在软链接文件中拥有 sybolic link 标志
-
-其中，软链接文件的 Size 为 9，实际上是它所指写的文件名的字节数。
-
-在前端使用了 pnpm 作为包管理工具的项目中，软链接到处存在。
++ -，regular file。普通文件。
++ d，directory。目录文件。
++ l，symbolic link。符号链接。
++ s，socket。套接字文件。
++ b，block special file。块设备文件。
++ c，character special file。字符设备文件。
 
 ``` bash
-# 使用 pnpm 作为前端依赖的项目中的软链接
-$ ls -lah node_modules/react
-lrwxrwxrwx 1 root root 37 Jun 22 17:47 node_modules/react -> .pnpm/react@17.0.2/node_modules/react
+$ ls -lah /dev/null
+crw-rw-rw- 1 root root 1, 3 Sep 29  2019 /dev/null
+
+$ ls -lah /dev
 ```
-
-<!-- ## ls 之每字段释义
-
-``` bash
-$ ls -lah README.md
--rw-r--r-- 2 shanyue shanyue 5.1K Jun 17 11:29 README.md
-```
-
-各项释义如下:
-
-``` bash
-mode         user    group   size mtime        name
--rw-r--r-- 2 shanyue shanyue 5.1K Jun 17 11:29 README.md
-``` -->
-
-<!-- ## file -->
-
-<!-- > https://stackoverflow.com/questions/19902828/why-does-enoent-mean-no-such-file-or-directory
->
-> It's an abbreviation of Error NO ENTry (or Error NO ENTity), and can actually be used for more than files/directories.
->
-> It's abbreviated because C compilers at the dawn of time didn't support more than 8 characters in symbols. -->
-
-## 作业
-
-1. 我们修改了文件的 mode，在 git 中是否有更改操作
-1. 我们修改了文件的 mtime，在 git 中是否有更改操作
-1. 在 pnpm 中，为什么不全部使用软链接

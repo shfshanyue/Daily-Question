@@ -102,3 +102,8 @@ Host *
   ServerAliveCountMax 6
   Compression yes
 ```
+
+## 作业
+
+1. 免密登录远程服务器
+2. 使用别名登录远程服务器

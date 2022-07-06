@@ -28,16 +28,20 @@ const sidebar = [
         path: 'cd'
       },
       {
-        title: 'stat',
-        path: 'stat',
-      },
-      {
         title: 'user',
         path: 'user',
       },
       {
         title: 'chown',
         path: 'chmod',
+      },
+      {
+        title: 'stat',
+        path: 'stat',
+      },
+      {
+        title: 'ln',
+        path: 'ln',
       },
       {
         title: 'cat',

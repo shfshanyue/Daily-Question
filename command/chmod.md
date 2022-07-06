@@ -116,9 +116,3 @@ $ chmod u+r yarn.lock
 ```
 
 ## 作业
-
-1. 熟悉 cd、pwd、ls、exa、tree 等命令
-2. 在 `ls` 单指令列出文件列表时为何不显示 `.git` 目录，应如何显示
-3. 在 Node.js 或其它语言中如何获得 `pwd`
-4. 在 Node.js 或其它语言中如何获得 `ls` 子文件列表。参考 [fsp.readdir](https://nodejs.org/api/fs.html#fspromisesreaddirpath-options) 及 [readdir](https://man7.org/linux/man-pages/man3/readdir.3.html)
-
