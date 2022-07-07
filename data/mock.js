@@ -30,6 +30,16 @@ const sidebar = [
       }
     ]
   },
+  {
+    title: '2022年6月',
+    collapsable: true,
+    children: [
+      {
+        title: '050. 十年杭州',
+        path: '220612'
+      }
+    ]
+  }
 ]
 
 module.exports = {
