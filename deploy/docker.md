@@ -25,7 +25,7 @@
 
 ![Docker Desktop](https://static.shanyue.tech/images/22-05-31/clipboard-3773.19c457.webp)
 
-如果是个人服务器且为 centos，可参考 [安装 docker](https://shanyue.tech/op/docker.html#%E5%AE%89%E8%A3%85-docker)。
+如果是个人服务器且为 linux，可参考 [安装 docker](https://docs.docker.com/engine/install/centos/)，它将 `docker` 与 `docker compose` 一并安装。
 
 <!-- ## 镜像加速器
 
@@ -120,7 +120,11 @@ $ docker build -t node-base:10 .
 
 ## Dockerfile
 
-在使用 `docker` 部署自己应用时，往往需要自己构建镜像。`docker` 使用 `Dockerfile` 作为配置文件构建镜像，简单看一个 `node` 应用构建的 `dockerfile`
+在使用 `docker` 部署自己应用时，往往需要自己构建镜像。
+
+`docker` 使用 `Dockerfile` 作为配置文件构建镜像，简单看一个 `node` 应用构建的 `dockerfile`。
+
+Dockerfile 的各个指令可参考 [Dockerfile Reference](https://docs.docker.com/engine/reference/builder/)。
 
 ``` dockerfile
 FROM node:alpine
@@ -137,34 +141,43 @@ CMD npm start
 
 ### FROM
 
-基于一个旧有的镜像，格式如下
+基于一个旧有的基础镜像，格式如下。
 
 ``` dockerfile
 FROM <image> [AS <name>]
 
 # 在多阶段构建时会用到
 FROM <image>[:<tag>] [AS <name>]
+
+FROM node:16-alpine
+FROM nginx:-alpine
 ```
+
+而以上所述的 node 与 nginx 基础镜像可在[DockerHub](https://hub.docker.com/)中找到。
 
 ### ADD
 
-把目录，或者 url 地址文件加入到镜像的文件系统中
+把文件或目录加入到镜像的文件系统中。
 
 ``` dockerfile
 ADD [--chown=<user>:<group>] <src>... <dest>
+
+ADD . /code
 ```
 
 ### RUN
 
-执行命令，由于 `ufs` 的文件系统，它会在当前镜像的顶层新增一层
+在镜像中执行命令，由于 `ufs` 的文件系统，它会在当前镜像的顶层新增一层。
 
 ``` dockerfile
 RUN <command>
+
+RUN npm run build
 ```
 
 ### CMD
 
-指定容器如何启动
+指定容器如何启动。
 
 **一个 `Dockerfile` 中只允许有一个 CMD**
 
@@ -177,6 +190,8 @@ CMD ["param1","param2"]
 
 # shell form
 CMD command param1 param2
+
+CMD npm start
 ```
 
 ## 容器
@@ -275,6 +290,38 @@ $ docker stats nginx
 CONTAINER ID        NAME                CPU %               MEM USAGE / LIMIT     MEM %               NET I/O             BLOCK I/O           PIDS
 404e88f0d90c        nginx               0.00%               1.395MiB / 1.796GiB   0.08%               632B / 1.27kB       0B / 0B             2
 ```
+
+## docker compose
+
+在 docker compose v2 中，使用了 `docker compose` 命令去替代了 `docker-compose` 命令，可以通过 docker compose version 查看版本号。
+
+``` bash
+$ docker compose version
+Docker Compose version v2.6.0
+```
+
+在 2022 年 4 月 26 号，compose v2 已经成为了正式版本。更多见 [Announcing Compose V2 General Availability](https://www.docker.com/blog/announcing-compose-v2-general-availability/)
+
+``` bash
+# 使用 docker compose ls，可列出系统全局有多少容器是根据 docker compose 启动，比 v1 版本方便很多
+$ docker compose ls
+NAME                STATUS              CONFIG FILES
+cra-deploy          running(1)          /home/train/Documents/cra-deploy/domain.docker-compose.yaml
+traefik             running(1)          /home/train/Documents/traefik/docker-compose.yml
+```
+
+在当前目录，新建配置文件为 `docker-compose.yaml`，内容如下。
+
+``` yaml
+version: "3"
+services:
+  app:
+    image: "nginx-alpine"
+    ports:
+      - 8000:80
+```
+
+此时可通过 `docker compose up` 启动容器。
 
 ## 作业
 

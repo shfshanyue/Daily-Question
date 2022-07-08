@@ -65,3 +65,4 @@ shanyue$ export HTTP_PROXY=http://127.0.0.1:10010/
 ## 作业
 
 1. 我们如何在本地浏览器访问云服务器的 8080 端口
+2. 我们如何通过 ssh 隧道配置远程服务器的 HTTP_PROXY
