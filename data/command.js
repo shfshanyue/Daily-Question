@@ -78,8 +78,8 @@ const sidebar = [
       //   path: 'zsh'
       // },
       // {
-      //   title: 'shortcut',
-      //   path: 'shortcut'
+      //   title: 'shortcut-key',
+      //   path: 'shortcut-key'
       // },
       // {
       //   title: 'auto complete',
