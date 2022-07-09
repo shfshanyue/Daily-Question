@@ -13,7 +13,11 @@
 1. 我使用 docker 新跑了一个服务，如何让它被其它服务所感知或直接被互联网所访问呢？
 1. 我使用 docker 跑了 N 个服务，我怎么了解所有的服务的健康状态及路由呢？
 
-这就需要一个基于服务发现的网关建设: [Traefik](https://github.com/traefik/traefik)
+这就需要一个基于服务发现的网关建设: [Traefik](https://github.com/traefik/traefik)。
+
+> 本篇关于 compose 的示例文件见 [shfshanyue/compose](https://github.com/shfshanyue/compose)。
+
+> `traefik` 配置文件采用了 toml 格式，可访问官方文档查看其语法 [toml](https://toml.io/en/)。
 
 ## traefik 搭建
 
@@ -21,7 +25,7 @@
 
 目前 traefik 在 Github 拥有 36K 星星，可以放心使用。
 
-![](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2022-01-08/clipboard-0525.255635.webp)
+![](https://static.shanyue.tech/images/22-07-09/clipboard-9715.c042dd.webp)
 
 配置一下 `docker compose` 可启动 traefik 服务。
 
@@ -41,7 +45,7 @@ services:
 
 使用 `docker-compose up` 启动 traefik 后，此时会默认新建一个 `traefik_network` 的网络。这个网络名称很重要，要记住。
 
-![](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2022-01-08/clipboard-5259.7e350b.webp)
+![](https://static.shanyue.tech/images/22-07-09/clipboard-8969.d77d3d.webp)
 
 ## 启动一个任意的服务
 
@@ -107,7 +111,7 @@ X-Real-Ip: 172.20.0.1
 
 ## Dashboard
 
-在 `traefik` 中可通过 `api.dashboard` 类配置控制台。
+在 `traefik` 中可通过 `api.dashboard` 选项配置控制台。
 
 ``` toml
 # Enable API and dashboard
@@ -128,7 +132,7 @@ X-Real-Ip: 172.20.0.1
   dashboard = true
 ```
 
-可通过 `http://localhost:8080`，在本地将 traefik 的控制台打开。
+可通过 `http://localhost:8080`，在本地将 traefik 的控制台直接打开，截图如下。
 
 ![](https://static.shanyue.tech/images/22-06-27/clipboard-5002.20ade3.webp)
 
@@ -137,6 +141,33 @@ X-Real-Ip: 172.20.0.1
 ``` bash
 $ ssh -NL 8080:localhost:8080 shanyue
 ```
+
+此时，即可在自己的本地浏览器中直接将控制台打开。
+
+## 日志与问题定位
+
+日志极为重要，当某个路由配置不成功，或者 **https 配置失败时**，可以通过日志文件来定位问题。
+
+通过 `log` 选项可以配置日志路径与格式。
+
+``` toml
+[log]
+
+  filePath = "log/traefik.log"
+
+  format = "json"
+```
+
+当容器启动时，会自动将日志文件写入 `log/traefik.log`，此时可使用 `cat` 查看日志。
+
+``` bash
+# 取日志前十行，查看其问题
+$ cat log/traefik.log | head -10 | jq
+```
+
+如图，定位到了 TLS 失败的原因是 `acme.json` 的权限不太够。
+
+![](https://static.shanyue.tech/images/22-07-09/clipboard-1437.b7fc8a.webp)
 
 ## 终极配置文件
 
@@ -160,12 +191,6 @@ $ ssh -NL 8080:localhost:8080 shanyue
 [entryPoints]
   [entryPoints.web]
     address = ":80"
-
-    [entryPoints.web.http]
-      [entryPoints.web.http.redirections]
-        [entryPoints.web.http.redirections.entryPoint]
-          to = "websecure"
-          scheme = "https"
 
   [entryPoints.websecure]
     address = ":443"
@@ -322,8 +347,14 @@ services:
 最终，根据以下命令启动容器。
 
 ``` bash
+# 新建 acme.json，用以挂载至 traefik 容器中维护证书信息
 $ touch acme.json
+
+# 给 acme.json 赋 600 权限非常重要
+# 给 acme.json 赋 600 权限非常重要
+# 给 acme.json 赋 600 权限非常重要
 $ chmod 600 acme.json
+
 $ touch .env
 
 $ docker-compose up
@@ -331,7 +362,9 @@ $ docker-compose up
 
 ## 作业
 
-1. 初阶：在服务器成功搭建 traefik
++ 初阶：在服务器成功搭建 traefik
++ 中阶：我们如何配置并查看 AccessLog
++ 高阶：我们如何定位 traefik 启动失败的问题
 
 ## 小结
 

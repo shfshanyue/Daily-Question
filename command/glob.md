@@ -1,8 +1,10 @@
 # glob
 
-详见文档[glob](https://man7.org/linux/man-pages/man7/glob.7.html)
+glob，`global` 的简写，使用通配符来匹配大量文件。比如 `rm *.js` 就可以删除当前目录所有 js 文件。
 
-也可以通过 `man bash`，随之查找 `Pattern Matching` 找到文档
+在 Node.js/Python 各个语言中，也有对 glob 的支持，比如 [node-glob](https://github.com/isaacs/node-glob)
+
+详见文档[glob](https://man7.org/linux/man-pages/man7/glob.7.html)，也可以通过 `man bash`，随之查找 `Pattern Matching` 找到文档。
 
 ## glob
 
@@ -63,4 +65,3 @@ $ shopt -s extglob
 
 1. 如何列出当前目录下所有的 js 文件
 1. 如何列出当前目录下所有的 js 文件和 json 文件
-

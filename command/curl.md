@@ -1,10 +1,10 @@
 # curl
 
-使用命令行发送请求，比在浏览器输入地址更加方便、也更容易定位问题。
+使用命令行工具发送请求，一个 HTTP 请求客户端（实际上它也可以做 FTP/SCP/TELNET 协议的事情）。可类比于浏览器中的 fetch。
 
 ## curl
 
-直接发送请求：
+直接发送 GET 请求：
 
 ``` bash
 $ curl ifconfig.me
@@ -41,7 +41,6 @@ x-swift-savetime: Tue, 21 Jun 2022 05:54:24 GMT
 x-swift-cachetime: 0
 timing-allow-origin: *
 eagleid: 791d26a916557908641262834e
-
 ```
 
 查看发送报文及 TLS handshake 的详细。
