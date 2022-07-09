@@ -262,6 +262,7 @@ function _generateSidebar () {
   return {
     '/engineering/': [
       ['', '开篇词'],
+      ['train', '训练营'],
       ...sidebar
     ]
   }
