@@ -4,7 +4,7 @@
 
 > PS: 如果不了解 Preview 的话，可以看看我在 [cra-deploy](https://github.com/shfshanyue/cra-deploy) 的一个 [PR #21](https://github.com/shfshanyue/cra-deploy/pull/21)。
 >
-> ![](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2022-01-13/clipboard-1458.98c150.webp)
+> ![](https://static.shanyue.tech/images/22-07-09/clipboard-3155.28467d.webp)
 
 项目研发的从开发到上线，一般可以可以划分为三个环境
 
@@ -132,11 +132,11 @@ environment:
   url: http://$COMMIT_REF_NAME.cra.shanyue.tech
 ```
 
-![](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2022-02-04/clipboard-4252.4ac063.webp)
+![](https://static.shanyue.tech/images/22-07-09/clipboard-7155.4b3509.webp)
 
 而在 Github 中，你甚至可以看到每个 Environment 的部署历史。
 
-![Deployment History](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2022-02-04/clipboard-9131.f7971f.webp)
+![Deployment History](https://static.shanyue.tech/images/22-07-09/clipboard-6845.ada850.webp)
 
 ## 基于 CICD 的多分支部署
 
@@ -315,6 +315,11 @@ $ deploy shanyue-feature-A --host feature-A.dev.shanyue.tech
 ```
 
 现在只剩下了一个问题：找到当前分支。
+
+## 作业
+
++ 初阶：你们公司中有没有对功能分支进行单独的测试环境，是如何实现的
++ 中阶：完成 Preview 的实现
 
 ## 小结
 

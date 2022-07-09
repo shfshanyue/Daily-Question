@@ -1,6 +1,6 @@
 # 使用 CI Cache 加速 npm i/npm run build
 
-![](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2022-01-10/ci-pipeline-optim.f53bf9.webp)
+![](https://static.shanyue.tech/images/22-07-09/clipboard-6058.4199b9.webp)
 
 在上一篇文章提到 Lint/Test 在 CI Pipeline 不同的阶段共享资源目录需要利用 CI 中的 Cache。
 
@@ -45,7 +45,7 @@ jobs:
         run: npm run build
 ```
 
-![](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2022-01-13/clipboard-7515.1b1652.webp)
+![](https://static.shanyue.tech/images/22-07-09/clipboard-4340.3f1fd5.webp)
 
 从截图可以看出来此次执行耗时 56s，其中大部分时间花费在**依赖安装**上
 
@@ -110,11 +110,11 @@ jobs:
   run: yarn
 ```
 
-![](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2022-01-13/clipboard-5355.699dbe.webp)
+![](https://static.shanyue.tech/images/22-07-09/clipboard-2547.95f6d4.webp)
 
 即使缓存未命中，我们也可以同样利用 `node_modules` 中内容，依赖安装时间也大幅降低。
 
-![](https://cdn.jsdelivr.net/gh/shfshanyue/assets/2022-01-13/clipboard-9797.445401.webp)
+![](https://static.shanyue.tech/images/22-07-09/clipboard-1808.79df22.webp)
 
 完整配置文件如下所示:
 
