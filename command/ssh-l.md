@@ -33,6 +33,8 @@ local$ ssh -NL 5000:localhost:5000 shanyue
 local$ curl localhost:5000
 ```
 
+> Q：在服务器中安装了 mysql 数据库，我们如何更安全地链接数据库？
+
 ## ssh -NR
 
 将本地的端口号可在远程服务器进行访问。
@@ -58,6 +60,8 @@ shanyue$ curl localhost:5000
 
 ``` bash
 # 第一步：将本地的代理端口转发到远程服务器，则在远程服务器也可直接使用代理
+# 10010：假设 10010 端口可以在本地进行访问
+local$ ssh -NR 10010:localhost:10010 shanyue
 
 shanyue$ export HTTP_PROXY=http://127.0.0.1:10010/
 ```

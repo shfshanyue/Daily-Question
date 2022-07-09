@@ -65,90 +65,90 @@ const sidebar = [
     title: 'shell 操作',
     collapsable: false,
     children: [
-      // {
-      //   title: 'env',
-      //   path: 'env'
-      // },
-      // {
-      //   title: '$path',
-      //   path: 'path'
-      // },
-      // {
-      //   title: 'zsh/ohmyzsh',
-      //   path: 'zsh'
-      // },
-      // {
-      //   title: 'shortcut-key',
-      //   path: 'shortcut-key'
-      // },
-      // {
-      //   title: 'auto complete',
-      //   path: 'auto-complete'
-      // },
+      {
+        title: 'env',
+        path: 'env'
+      },
+      {
+        title: '$path',
+        path: 'path'
+      },
+      {
+        title: 'zsh/ohmyzsh',
+        path: 'zsh'
+      },
+      {
+        title: 'shortcut-key',
+        path: 'shortcut-key'
+      },
+      {
+        title: 'auto complete',
+        path: 'auto-complete'
+      },
     ]
   },
   {
     title: '文件编辑',
     collapsable: false,
     children: [
-      // {
-      //   title: 'vim 模式与切换',
-      //   path: 'vim-mode'
-      // },
-      // {
-      //   title: 'vim 快速移动',
-      //   path: 'vim-move'
-      // },
-      // {
-      //   title: 'vim 配置指南',
-      //   path: 'vim-settings'
-      // },
-      // {
-      //   title: 'vim 插件必备',
-      //   path: 'vim-plugin'
-      // },
-      // {
-      //   title: 'tmux 分屏',
-      //   path: 'tmux'
-      // },
-      // {
-      //   title: 'tmux 配置',
-      //   path: 'tmux-settings'
-      // }
+      {
+        title: 'vim 模式与切换',
+        path: 'vim-mode'
+      },
+      {
+        title: 'vim 快速移动',
+        path: 'vim-move'
+      },
+      {
+        title: 'vim 配置指南',
+        path: 'vim-settings'
+      },
+      {
+        title: 'vim 插件必备',
+        path: 'vim-plugin'
+      },
+      {
+        title: 'tmux 分屏',
+        path: 'tmux'
+      },
+      {
+        title: 'tmux 配置',
+        path: 'tmux-settings'
+      }
     ]
   },
   {
     title: '系统调试',
     collapsable: false,
     children: [
-      // {
-      //   title: 'curl',
-      //   path: 'curl'
-      // },
-      // {
-      //   title: 'dig',
-      //   path: 'dig'
-      // },
-      // {
-      //   title: 'nc',
-      //   path: 'nc'
-      // },
-      // {
-      //   title: 'ss',
-      //   path: 'ss'
-      // },
-      // {
-      //   title: 'top',
-      //   path: 'top'
-      // },
-      // {
-      //   title: 'strace/ltrace',
-      //   path: 'strace'
-      // },
-      // {
-      //   title: 'pidstat',
-      //   path: 'pidstat'
-      // }
+      {
+        title: 'curl',
+        path: 'curl'
+      },
+      {
+        title: 'dig',
+        path: 'dig'
+      },
+      {
+        title: 'nc',
+        path: 'nc'
+      },
+      {
+        title: 'ss',
+        path: 'ss'
+      },
+      {
+        title: 'top',
+        path: 'top'
+      },
+      {
+        title: 'strace/ltrace',
+        path: 'strace'
+      },
+      {
+        title: 'pidstat',
+        path: 'pidstat'
+      }
     ]
   }
 ]
