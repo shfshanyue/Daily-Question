@@ -4,9 +4,13 @@
 
 nginx 的重要性不言而喻。
 
-本篇文章以前端的视角，介绍下 nginx 的常见配置。
+本篇文章以前端的视角，介绍下 nginx 的常见配置，并通过 docker 的方式学习 nginx，这保证所有示例配置都能正常运行。
 
-我将本文所有关于 nginx 的配置放置在 [simple-deploy](https://github.com/shfshanyue/simple-deploy/tree/master/learn-nginx)。
+我将本文所有关于 docker/nginx 的配置放置在 [simple-deploy](https://github.com/shfshanyue/simple-deploy/tree/master/learn-nginx)，可克隆下来通过 docker compose 快速运行。
+
+并将所有的接口示例维护在了 [Learn Nginx By Docker](https://www.apifox.cn/apidoc/project-1264553) 文档，并可通过 [Apifox](https://www.apifox.cn/a1shanyue) 打开并快速调试。
+
+![](https://static.shanyue.tech/images/22-07-11/clipboard-8971.3bfb0d.webp)
 
 ## nginx 的配置文件
 
@@ -481,3 +485,4 @@ location / {
 + 中阶: 如何使用 nginx 与 whoami 镜像，模拟 502/504
 + 高阶: 基于 docker 学习 nginx 配置，并可配置 gzip/brotli
 + 面试: brotli/gzip 有何区别
+
