@@ -21,6 +21,8 @@ $ ssh -L [bind_address:]port:host:hostport
 
 以下命令将远程服务器中的 `localhost:5000` 映射到本地的 5000 端口，在浏览器中可直接输入 `localhost:5000` 进行开发调试。
 
+**注意此时端口转发成功后，没有任何日志及提示。**
+
 ``` bash
 # 在远程服务器开启一个 5000 端口号的服务，此时需要 node 环境
 shanyue$ npx serve . -p 5000
@@ -56,7 +58,7 @@ shanyue$ curl localhost:5000
 
 如果说 `ssh -NL` 还可以将服务器作为开发服务器进行使用，那 `ssh -NR` 我们有什么使用场景呢？
 
-有，比如 `HTTP_PROXY`
+有，比如环境变量 `HTTP_PROXY`，用以代理 HTTP 服务
 
 ``` bash
 # 第一步：将本地的代理端口转发到远程服务器，则在远程服务器也可直接使用代理

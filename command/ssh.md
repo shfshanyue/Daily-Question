@@ -20,6 +20,8 @@ $ ssh root@172.16.3.2
 
 在本地客户端环境 (个人电脑) 上配置 ssh-config，对自己管理的服务器起别名，可以更方便地登录多台云服务器，以下是关于 ssh-config 的配置文件
 
+> 如果 windows 用户需要配置 ssh config，请先安装 [cygwin](http://www.cygwin.com/install.html) 或者 mingw（git 自带）作为终端。
+
 + `/etc/ssh/ssh_config`
 + `~/.ssh/config`
 

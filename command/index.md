@@ -7,7 +7,7 @@
 windows 可用 wsl/[cygwin](http://www.cygwin.com/install.html) 进行替代。wsl 安装教程见 [Ubuntu on WSL
 ](https://ubuntu.com/wsl)。cygwin 安装教程见 [Installing and Updating Cygwin Packages](http://www.cygwin.com/install.html)。
 
-mac 可使用自带终端，但是部分命令行有使用差异，比如 `stat`、`seq` 等。
+mac 可使用自带终端，但是部分命令行有使用差异，比如 `stat`、`sed` 等，而且更不支持 `pidstat`。
 
 ## 资料
 
