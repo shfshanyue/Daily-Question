@@ -1,6 +1,7 @@
 # rsync
 
 快速高效，支持断点续传、按需复制的文件拷贝工具，并**支持远程服务器拷贝**。
+hello
 
 **强烈建议在本地也使用 `rsync` 替换 `cp` 进行文件拷贝。**
 
@@ -24,7 +25,9 @@ $ rsync -lahzv ~/Documents/react shanyue:/home/shanyue/Documents
 
 ## 归档模式
 
-`rsync` 归档模式最大的好处是可以拷贝原信息，如 ctime/mtime/mode 等等，这对于静态资源服务器相当有用！！！
+`rsync` 归档模式最大的好处是可以拷贝元属性，如 ctime/mtime/mode 等等，这对于静态资源服务器相当有用！！！
+
+> 关于元属性，可参考 [stat](https://q.shanyue.tech/command/stat.html) 命令
 
 ``` bash
 # 查看其 yarn.lock 信息
@@ -69,3 +72,4 @@ $ rsync -lahz ~/Documents/react/ ~/Documents/abc/
 1. 熟悉 rsync 在本地及远程服务器间拷贝文件
 2. 在 Node.js 或其它语言中如何实现 `cp`。参考 [fsp.cp](https://nodejs.org/api/fs.html#fspromisescpsrc-dest-options)。(cp 实际上是通过库函数 open/write 模拟实现)
 3. 为何说保留复制文件时的元属性，对静态资源服务器有益
+
