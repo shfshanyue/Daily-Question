@@ -102,6 +102,8 @@ drwxr-xr-x    22 shanyue  shanyue   704B  9  2  2021 scripts
 
 一个 `ls` 的替代品，拥有更友好的色彩更丰富的输出，同时支持更丰富的选项。
 
+该命令需要手动下载安装。
+
 ``` bash
 # 支持查看 git 情况
 $ exa -lah --git
@@ -113,7 +115,7 @@ $ exa -lah --git
 
 `tree`，以树状图的形式列出文件。
 
-该命令需要手动下载。
+该命令需要手动下载安装。
 
 ``` bash
 # macos
@@ -184,4 +186,5 @@ $ exa -lah -T -L 2 packages/react-dom
 2. 在 `ls` 单指令列出文件列表时为何不显示 `.git` 目录，应如何显示
 3. 在 Node.js 或其它语言中如何获得 `pwd`
 4. 在 Node.js 或其它语言中如何获得 `ls` 子文件列表。参考 [fsp.readdir](https://nodejs.org/api/fs.html#fspromisesreaddirpath-options) 及 [readdir](https://man7.org/linux/man-pages/man3/readdir.3.html)
+5. 使用 tree/exa 列出目录树时，如何忽略 .gitignore 中文件内容
 

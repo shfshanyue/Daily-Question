@@ -32,12 +32,12 @@ const sidebar = [
         path: 'user',
       },
       {
-        title: 'chown',
-        path: 'chmod',
-      },
-      {
         title: 'stat',
         path: 'stat',
+      },
+      {
+        title: 'chown',
+        path: 'chmod',
       },
       {
         title: 'ln',

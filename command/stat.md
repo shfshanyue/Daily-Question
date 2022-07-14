@@ -1,4 +1,4 @@
-# stat/link
+# stat
 
 还记得上篇文章关于 `ls` 的内容吗，它每一行代表什么意思？
 
@@ -24,11 +24,12 @@ Change: 2022-06-17 12:24:25.276142164 +0800
 
 + regular file: 普通文件
 + Size: 文件大小
++ Inode：每个文件的 Inode 编号
 + Links: 文件硬链接个数
 + Access Mode: 文件访问模式
 + Access: atime, 文件访问时间
-+ Modify: mtime, 文件修改时间
-+ Change: ctime, 文件修改时间(包括属性，比如 mode 和 owner，也包括 mtime)
++ Modify: mtime, 文件修改时间（在 HTTP 服务器中，常以此作为 last-modified 响应头）
++ Change: ctime, 文件修改时间（包括属性，比如 mode 和 owner，也包括 mtime，因此 ctime 总比 mtime 大）
 + Birth: 某些操作系统其值为 -
 
 > 对于每个字段的释义详细，可查看 [stat](https://www.man7.org/linux/man-pages/man2/stat.2.html#DESCRIPTION)
@@ -102,7 +103,7 @@ socket
 + -，regular file。普通文件。
 + d，directory。目录文件。
 + l，symbolic link。符号链接。
-+ s，socket。套接字文件。
++ s，socket。套接字文件，一般以 `.sock` 作为后缀。（可把 `.sock` 理解为 API，我们可以像 HTTP 一样对它请求数据）
 + b，block special file。块设备文件。
 + c，character special file。字符设备文件。
 
@@ -112,3 +113,10 @@ crw-rw-rw- 1 root root 1, 3 Sep 29  2019 /dev/null
 
 $ ls -lah /dev
 ```
+
+## 作业
+
+1. 尝试说出四种以上文件类型
+2. 如何查看某个文件的文件类型
+3. 如何判断某个文件是一个软链接及硬链接
+3. 在 Node.js 或其它语言中如何获取 stat 信息

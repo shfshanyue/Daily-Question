@@ -8,7 +8,7 @@
 $ lsof
 ```
 
-## less README.md
+## `less README.md` 时打开了多少个文件
 
 当我们使用 less 打开文件 `react/README.md` 时，`README.md` 文件被打开，那除此之外还有哪些文件被打开呢？
 
@@ -85,6 +85,9 @@ $ lsof -i@192.168.0.18
 
 # 列出状态为 ESTABLISHED 的 TCP 连接
 $ lsof -i -sTCP:ESTABLISHED
+
+# 列出状态为 LISTEN 的 TCP 连接
+$ lsof -nP -i -sTCP:LISTEN
 ```
 
 ## 作业

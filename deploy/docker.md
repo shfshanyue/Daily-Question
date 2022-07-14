@@ -8,7 +8,9 @@
 
 `docker` 的架构图如下
 
-![docker architecture](https://docs.docker.com/engine/images/architecture.svg)
+![docker architecture](https://static.shanyue.tech/images/22-07-13/clipboard-8612.864df1.webp)
+
+> 本图片来自官方文档 [Docker architecture](https://docs.docker.com/get-started/overview/#docker-architecture)
 
 从图中可以看出几个组成部分
 
@@ -81,11 +83,17 @@ $ vim /etc/docker/daemon.json
 
 ![分层存储](https://docs.docker.com/storage/storagedriver/images/sharing-layers.jpg)
 
+> 本图片来自官方文档 [About storage drivers](https://docs.docker.com/storage/storagedriver/#container-and-layers)
+> 
+> The major difference between a container and an image is the top writable layer.
+
 ### 镜像仓库与拉取
 
-大部分时候，我们不需要自己构建镜像，我们可以在[官方镜像仓库](https://hub.docker.com/explore/)拉取镜像
+大部分时候，我们不需要自己构建镜像，我们可以在[官方镜像仓库 Docker Hub](https://hub.docker.com/explore/)拉取镜像。
 
-可以简单使用命令 `docker pull` 拉取镜像。拉取镜像后可以使用 `docker inspect` 查看镜像信息
+可以简单使用命令 `docker pull` 拉取镜像。
+
+拉取镜像后可以使用 `docker inspect` 查看镜像信息，如配置及环境变量等。
 
 ``` bash
 # 加入拉取一个 node:alpine 的镜像
@@ -106,21 +114,19 @@ centos              latest              9f38484d220f        8 months ago        
 
 但并不是所有的镜像都可以在镜像仓库中找到，另外我们也需要为我们自己的业务应用去构建镜像。
 
-使用 `docker build` 构建镜像，**`docker build` 会使用当前目录的 `dockerfile` 构建镜像**，至于 `dockerfile` 的配置，参考下节。
-
-`-t` 指定标签
+使用 `docker build` 构建镜像，**`docker build` 会使用当前目录的 `Dockerfile` 构建镜像**，至于 `Dockerfile` 的配置，参考下节。
 
 ``` bash
-# -t node-base:10: 镜像以及版本号
+# -t node-base:10: 指定镜像以及版本号
 # .: 指当前路径
 $ docker build -t node-base:10 .
 ```
 
-当构建镜像成功后可以使用 `docker push` 推送到镜像仓库
+当构建镜像成功后可以使用 `docker push` 推送到镜像仓库。
 
 ## Dockerfile
 
-在使用 `docker` 部署自己应用时，往往需要自己构建镜像。
+在使用 `docker` 部署自己应用时，往往需要独立构建镜像。
 
 `docker` 使用 `Dockerfile` 作为配置文件构建镜像，简单看一个 `node` 应用构建的 `dockerfile`。
 
@@ -150,10 +156,12 @@ FROM <image> [AS <name>]
 FROM <image>[:<tag>] [AS <name>]
 
 FROM node:16-alpine
-FROM nginx:-alpine
+FROM nginx:alpine
 ```
 
-而以上所述的 node 与 nginx 基础镜像可在[DockerHub](https://hub.docker.com/)中找到。
+而以上所述的 node 与 nginx 基础镜像可在[Docker Hub](https://hub.docker.com/)中找到。
+
+需要了解常用的 `alpine`、`node`、`nginx` 基础镜像。
 
 ### ADD
 
@@ -209,7 +217,8 @@ CMD npm start
 使用 `docker run` 来启动容器，`docker ps` 查看容器启动状态
 
 ``` bash
-$ docker run -d --name nginx -p 8888:80 nginx:alpine
+# 启动 nginx 容器，并在本地 8888 端口进行访问
+$ docker run --rm -it --name nginx -p 8888:80 nginx:alpine
 
 $ docker ps -l
 CONTAINER ID        IMAGE                COMMAND                  CREATED             STATUS              PORTS                    NAMES
@@ -219,10 +228,12 @@ CONTAINER ID        IMAGE                COMMAND                  CREATED       
 
 其中:
 
-+ `-d`: 启动一个 `daemon` 进程
-+ `--name`: 为容器指定名称
-+ `-p host-port:container-port`: 宿主机与容器端口映射，方便容器对外提供服务
-+ `nginx:alpine`: 基于该镜像创建容器
+<!-- + `-d`: 启动一个 `daemon` 进程 -->
++ `--rm`：当停止容器时自动清楚容器
++ `-it`：可交互式、赋予 tty 的方式
++ `--name`：为容器指定名称
++ `-p host-port:container-port`：宿主机与容器端口映射，方便容器对外提供服务
++ `nginx:alpine`：基于该基础镜像创建容器
 
 此时在宿主机使用 `curl` 测试容器提供的服务是否正常
 
@@ -291,13 +302,30 @@ CONTAINER ID        NAME                CPU %               MEM USAGE / LIMIT   
 404e88f0d90c        nginx               0.00%               1.395MiB / 1.796GiB   0.08%               632B / 1.27kB       0B / 0B             2
 ```
 
+### 容器测试
+
+如果某时某个容器出现问题，可直接进入容器内部进行调试。
+
+``` bash
+$ docker exec -it <container_name>
+```
+
 ## docker compose
 
 在 docker compose v2 中，使用了 `docker compose` 命令去替代了 `docker-compose` 命令，可以通过 docker compose version 查看版本号。
 
+> 尽管目前 docker compose 最新版本为 v2，但是在本系列专栏中还是使用 v1 进行演示，自行替换即可。
+
 ``` bash
 $ docker compose version
 Docker Compose version v2.6.0
+
+# 如果是 v1 版本，则需要通过 docker-compose 查看命令
+$ docker-compose version
+docker-compose version 1.29.2, build 5becea4c
+docker-py version: 5.0.0
+CPython version: 3.7.10
+OpenSSL version: OpenSSL 1.1.0l  10 Sep 2019
 ```
 
 在 2022 年 4 月 26 号，compose v2 已经成为了正式版本。更多见 [Announcing Compose V2 General Availability](https://www.docker.com/blog/announcing-compose-v2-general-availability/)
@@ -325,6 +353,10 @@ services:
 
 ## 作业
 
-+ 初阶: 了解 docker 常见操作，如构建镜像、运行容器、进入容器执行命令
-+ 高阶: docker 原理，如何模拟 docker 隔离环境及限制资源
-+ 面试: Dockerfile、Image、Container 的区别 
+1. 了解 docker 常见操作，如构建镜像、运行容器、进入容器执行命令
+1. 如何进入 docker 容器中进行调试
+1. 使用 docker 启动 nginx 容器，并在本地浏览器某端口可直接打开
+1. 如何得知启动 nginx 容器的 IP 端口
+1. 了解 docker 原理，如何模拟 docker 隔离环境及限制资源
+1. Dockerfile、Image、Container 有何区别 
+1. Dockerfile 中 CMD 与 RUN 有何区别

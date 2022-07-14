@@ -43,6 +43,8 @@ info Visit https://yarnpkg.com/en/docs/cli/install for documentation about this 
 
 而**该问题有可能的原因**是：非该文件的所属用户去修改文件内容。比如其中一种可能是，`node_modules` 所属用户应该为 `train` 这个普通用户，但是实际上为 `root`，从而导致没有权限。
 
+而实际上，当文件的 owner 及 mode 不匹配时，均会报此错误。如非 root 用户操作 root 用户的文件，对可读文件进行写操作。
+
 ``` bash
 # 此时发现 node_modules 为 root:root，因此导致的问题
 $ ls -lah .
@@ -56,6 +58,8 @@ $ chown -R train:train node_modules
 ```
 
 ## chmod
+
+`chmod`，change mode。更改文件的读写权限。
 
 `mode` 指 linux 中对某个文件的访问权限。
 
@@ -116,3 +120,7 @@ $ chmod u+r yarn.lock
 ```
 
 ## 作业
+
+1. 给某一个文件的所有用户（ugo）都添加 R 权限
+2. 如何获取一个文件的 username 与 groupname
+3. 在 Node.js 或其它语言中如何修改 user 及 mode
