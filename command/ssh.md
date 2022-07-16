@@ -1,5 +1,7 @@
 # 服务器免密码快捷登录
 
+> 未接触过编程，并从未接触过命令行的同学，请从 [文件系统中的目录与切换操作](https://q.shanyue.tech/command/cd.html) 开始看起，在学习完文件操作相关命令后再开始此篇章。
+
 ## 登录服务器: ssh
 
 ssh，`secure shell protocol`，以更加安全的方式连接远程服务器。

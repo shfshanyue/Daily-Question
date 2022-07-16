@@ -4,6 +4,8 @@
 
 别急，我们先看一下 `stat` 这个命令。
 
+> 在 mac 中，stat 用法与 linux 有差异，请在 linux 下练习该命令。
+
 ## stat
 
 `stat`，查看文件系统信息。

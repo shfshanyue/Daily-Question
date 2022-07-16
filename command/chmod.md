@@ -91,16 +91,18 @@ $ stat -c %A README.md
 再回到刚才的 `644` 所代表的的释义
 
 ``` bash
-# rw-：当前用户可写可读，110
-# r--：当前用户组可读，010
-# r--：其它用户可读，010
+# 将以下权限分为三组
+# rw-：当前用户可写可读，110，即十进制 6
+# r--：当前用户组可读，100，即十进制 4
+# r--：其它用户可读，100，即十进制 4
 # 所以加起来就是 644
 -rw-r--r--
 ```
 
-而通过 `chmod` 即可修改用户的权限。
+而通过 `chmod` 与数字所代表的权限，即可修改某个文件的权限。
 
 ``` bash
+# 同理可得 777，即 rwx、rwx、rwx，代表所有用户可读可写可执行
 $ chmod 777 yarn.lock
 ```
 
@@ -117,10 +119,18 @@ $ chmod [ugoa...][[+-=][perms...]...]
 
 # 为 yarn.lock 文件的用户所有者添加可读权限
 $ chmod u+r yarn.lock
+
+# 为所有用户添加 yarn.lock 的可读权限
+$ chmod a+r yarn.lock
+
+# 为所有用户删除 yarn.lock 的可读权限
+$ chmod a-r yarn.lock
 ```
 
 ## 作业
 
-1. 给某一个文件的所有用户（ugo）都添加 R 权限
-2. 如何获取一个文件的 username 与 groupname
-3. 在 Node.js 或其它语言中如何修改 user 及 mode
+1. 给某一个文件的所有用户（ugo）都移除 Read 权限
+1. 给某一个文件的所有用户（ugo）都添加 Read 权限
+1. 为文件添加权限时，数字 `600` 代表什么意思
+1. 如何获取一个文件的 username 与 groupname
+1. 在 Node.js 或其它语言中如何修改 user 及 mode

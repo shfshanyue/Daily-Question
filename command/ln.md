@@ -52,6 +52,9 @@ Change: 2022-06-22 17:47:51.534626066 +0800
  Birth: -
 ```
 
+> Q：在上述 pnpm 硬链接的示例中，如何找到该 package.json 在 pnpm 全局目录 `~/.pnpm-store` 的位置。
+> Tip：请参考后续的 `find` 命令
+
 ## ln -s: symbol link
 
 `ln -s`，在两个文件间创建软链接。
@@ -123,6 +126,9 @@ mode         user    group   size mtime        name
 
 ## 作业
 
+1. 熟练使用 ln 命令
 1. 我们修改了文件的 mode，在 git 中是否有更改操作
 1. 我们修改了文件的 mtime，在 git 中是否有更改操作
 1. 在 pnpm 中，为什么不全部使用软链接
+3. 在 Node.js 或其它语言中如何执行 `ln`
+
