@@ -127,8 +127,6 @@ mode         user    group   size mtime        name
 ## 作业
 
 1. 熟练使用 ln 命令
-1. 我们修改了文件的 mode，在 git 中是否有更改操作
-1. 我们修改了文件的 mtime，在 git 中是否有更改操作
 1. 在 pnpm 中，为什么不全部使用软链接
 3. 在 Node.js 或其它语言中如何执行 `ln`
 
