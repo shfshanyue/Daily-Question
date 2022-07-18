@@ -1,6 +1,8 @@
 # 大括号扩展
 
-`brace`，见文档[Brace Expansion](https://www.gnu.org/software/bash/manual/bash.html#Brace-Expansion)。
+`brace`，用以扩展集合、数组等，有以下语法。
+
+详见文档[Brace Expansion](https://www.gnu.org/software/bash/manual/bash.html#Brace-Expansion)。
 
 + `set`：`{a,b,c}`
 + `range`：`{1..10}`，`{01..10}`
@@ -15,15 +17,26 @@ $ echo {01..10}
 
 $ echo {1..10..2}
 1 3 5 7 9
+
+$ echo {a..z}
+a b c d e f g h i j k l m n o p q r s t u v w x y z
 ```
+
+如此批量操作就很简单：
 
 ``` bash
 # 列出当前目录下所有的 json 与 md 文件
 $ ls -lah {*.json,*.md}
+
+# 创建 a.js 到 z.js 26个文件
+$ touch {a..z}.js
+
+$ ls *.js
+a.js  c.js  e.js  g.js  i.js  k.js  m.js  o.js  q.js  s.js  u.js  w.js  y.js
+b.js  d.js  f.js  h.js  j.js  l.js  n.js  p.js  r.js  t.js  v.js  x.js  z.js
 ```
 
 ## 作业
 
 1. 如何列出当前目录下所有的 json 与 md 文件
 1. 如何创建 `test000` 到 `test099.json` 100 个 json 文件
-

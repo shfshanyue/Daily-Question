@@ -29,6 +29,9 @@ $ ls -lah **/*.js
 
 # 列出当前目录及所有子目录的后缀名为两个字幕的文件
 $ ls -lah **/*.??
+
+# 列出当前目录中，以 2 或者 5 或者 8 开头的文件
+$ ls -lah [258]*
 ```
 
 ## extglob
@@ -46,7 +49,9 @@ $ ls -lah **/*.??
 $ ls -lah *.*(js|json|md)
 ```
 
-`extglob` 需要通过 `shopt` 命令手动开启
+`extglob` 需要通过 `shopt` 命令手动开启。
+
+> `shopt`，`shell option` 缩写，即 shell 配置的意思。
 
 ``` bash
 $ shopt | grep glob
