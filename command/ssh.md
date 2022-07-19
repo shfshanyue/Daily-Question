@@ -20,7 +20,7 @@ $ ssh root@172.16.3.2
 
 ## 配置别名快速登录：ssh-config
 
-在本地客户端环境 (个人电脑) 上配置 ssh-config，对自己管理的服务器起别名，可以更方便地登录多台云服务器，以下是关于 ssh-config 的配置文件
+在**本地客户端环境 (个人电脑) 上配置 ssh-config**，对自己管理的服务器起别名，可以更方便地登录多台云服务器，以下是关于 ssh-config 的配置文件
 
 > 如果 windows 用户需要配置 ssh config，请先安装 [cygwin](http://www.cygwin.com/install.html) 或者 mingw（git 自带）作为终端。
 
@@ -32,6 +32,7 @@ $ ssh root@172.16.3.2
 ```config
 # 修改 ssh 配置文件 ~/.ssh/config
 
+# 172.16.3.2 是内网环境，此处仅做示例
 Host shanyue
     HostName 172.16.3.2
     User root
