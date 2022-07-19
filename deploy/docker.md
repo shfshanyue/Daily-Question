@@ -344,7 +344,7 @@ traefik             running(1)          /home/train/Documents/traefik/docker-com
 version: "3"
 services:
   app:
-    image: "nginx-alpine"
+    image: "nginx:alpine"
     ports:
       - 8000:80
 ```
