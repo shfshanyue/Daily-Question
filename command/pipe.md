@@ -45,7 +45,7 @@ $ cat <<EOF > READEME.md
 
 其意思是将标准输入时的内容，写入到 README.md 中。
 
-其中 `<<EOF`，称作 `Hear Document`，当最终写入 EOF（End of line）时，则 heardoc 会停止输入。
+其中 `<<EOF`，称作 `Here Document`，当最终写入 EOF（End of line）时，则 heardoc 会停止输入。
 
 ``` bash
 <<[-]word
@@ -75,5 +75,5 @@ $ cat hello > /dev/null 2>&1
 
 1. `>` 与 `>>` 的区别是什么
 1. stdin/stdout 的文件描述符各是多少
-1. 什么是 `Hear Document`
+1. 什么是 `Here Document`
 1. 如何不显示某个命令的日志
