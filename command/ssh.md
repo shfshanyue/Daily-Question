@@ -61,7 +61,7 @@ Welcome to Alibaba Cloud Elastic Compute Service !
 1. 两个文件: 本地环境的 `~/.ssh/id_rsa.pub` 与 远程服务器的 `~/.ssh/authorized_keys`
 1. 一个动作: 把本地文件 `~/.ssh/id_rsa.pub` 中内容复制粘贴到远程服务器 `~/.ssh/authorized_keys`
 
-> 如果本地没有 `~/.ssh/id_rsa.pub` 文件，则使用命令 `ssh keygen` 进行生成。
+> 如果本地没有 `~/.ssh/id_rsa.pub` 文件，则使用命令 `ssh-keygen` 进行生成。
 
 **总结成一句话，把自己的公钥放在远程服务器的 `authorized_keys` 中**
 

@@ -68,7 +68,7 @@ EOF
 $ echo hello > /dev/null
 
 # 如果后边跟一个 2>&1，表示将 stderr (fd 为2) 重定向至 &1 (fd===1 的文件，及 stdout)
-$ cat hello > /dev/null 2>&1
+$ echo hello > /dev/null 2>&1
 ```
 
 ## 作业
