@@ -4,7 +4,7 @@ glob，`global` 的简写，使用通配符来匹配大量文件。比如 `rm *.
 
 在 Node.js/Python 各个语言中，也有对 glob 的支持，比如 [node-glob](https://github.com/isaacs/node-glob)
 
-详见文档[glob](https://man7.org/linux/man-pages/man7/glob.7.html)，也可以通过 `man bash`，随之查找 `Pattern Matching` 找到文档。
+详见文档 [glob](https://man7.org/linux/man-pages/man7/glob.7.html)，也可以通过 `man bash`，随之查找 `Pattern Matching` 找到文档。
 
 ## glob
 
@@ -27,7 +27,7 @@ $ ls -lah *.js
 # 列出当前目录及所有子目录的 js 文件
 $ ls -lah **/*.js
 
-# 列出当前目录及所有子目录的后缀名为两个字幕的文件
+# 列出当前目录及所有子目录的后缀名为两个字母的文件
 $ ls -lah **/*.??
 
 # 列出当前目录中，以 2 或者 5 或者 8 开头的文件
@@ -49,7 +49,7 @@ $ ls -lah [258]*
 $ ls -lah *.*(js|json|md)
 ```
 
-`extglob` 需要通过 `shopt` 命令手动开启。
+在 `bash` 中，`extglob` 需要通过 `shopt` 命令手动开启。
 
 > `shopt`，`shell option` 缩写，即 shell 配置的意思。
 
@@ -65,6 +65,15 @@ nullglob        off
 
 $ shopt -s extglob
 ```
+
+在 `zsh` 中，`extglob` 需要通过 `setopt` 命令手动开启。
+
+``` zsh
+$ setopt extendedglob
+$ setopt kshglob
+```
+
+> Q：你知道如何判断当前终端是哪个 shell 吗？
 
 ## 作业
 
