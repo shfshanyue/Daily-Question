@@ -12,11 +12,17 @@
 $ echo {a,b,c}
 a b c
 
+# range: 输出 01 到 10
 $ echo {01..10}
 01 02 03 04 05 06 07 08 09 10
 
+# step: 输出 1 到 10，但是每一步需要自增 2
 $ echo {1..10..2}
 1 3 5 7 9
+
+# step: 输出 1 到 10，但是每一步需要自增 3
+$ echo {1..10..3}
+1 4 7 10
 
 $ echo {a..z}
 a b c d e f g h i j k l m n o p q r s t u v w x y z

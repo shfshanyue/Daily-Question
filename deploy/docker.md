@@ -165,7 +165,7 @@ FROM nginx:alpine
 
 ### ADD
 
-把文件或目录加入到镜像的文件系统中。
+把宿主机的文件或目录加入到镜像的文件系统中。
 
 ``` dockerfile
 ADD [--chown=<user>:<group>] <src>... <dest>
