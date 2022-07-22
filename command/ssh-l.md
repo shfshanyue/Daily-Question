@@ -27,11 +27,12 @@ $ ssh -L [bind_address:]port:host:hostport
 # 在远程服务器开启一个 5000 端口号的服务，此时需要 node 环境
 shanyue$ npx serve . -p 5000
 
-# 将远程服务器的 5000 端口供本地使用
+# 将远程服务器的 5000 端口供本地使用，此时窗口会被占用
 # -N: 用以端口转发
 # -L: 将服务器中 localhost:5000 映射到本地 5000 端口
 local$ ssh -NL 5000:localhost:5000 shanyue
 
+# 此时需要另开一个窗口，用以执行命令
 local$ curl localhost:5000
 ```
 

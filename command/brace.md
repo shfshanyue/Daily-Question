@@ -24,6 +24,10 @@ $ echo {1..10..2}
 $ echo {1..10..3}
 1 4 7 10
 
+# step: 输出 10 到 1，但是每一步需要自减 2
+$ echo {10..1..2}
+10 8 6 4 2
+
 $ echo {a..z}
 a b c d e f g h i j k l m n o p q r s t u v w x y z
 ```
