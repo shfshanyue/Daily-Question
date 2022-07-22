@@ -74,6 +74,10 @@ const sidebar = [
         path: 'env'
       },
       {
+        title: 'export',
+        path: 'export'
+      },
+      {
         title: '$path',
         path: 'path'
       },

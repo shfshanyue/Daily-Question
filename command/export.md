@@ -2,8 +2,37 @@
 
 ## 默认环境变量
 
-``` bash
+我们可以使用 `$var` 或者 `${var}` 来引用环境变量，而环境变量还有一些扩展值。
 
+详见文档[Parameter Expansion](https://www.gnu.org/software/bash/manual/bash.html#Brace-Expansion)。
+
++ `${var:-word}`：如果 `var` 不存在，则使用默认值 `word`。
++ `${var:=word}`：如果 `var` 不存在，则使用默认值 `word`。并且赋值 `$var=word`
++ `${var:+word}`：如果 `var` 存在，则使用默认值 `word`。
+
+``` bash
+# world
+$ echo ${HELLO:-world}
+
+# ''
+$ echo $HELLO
+
+# world 
+$ echo ${HELLO:=world}
+
+# world
+$ echo $HELLO
+
+# 由于此时 $HELLO 存在，则使用 shanyue
+# shanyue
+$ echo ${HELLO:+shanyue}
+```
+
+在 `Dockerfile` 与 `CI` 中，常用到环境变量的扩展，如：
+
+``` bash
+# 如果不配置环境变量，则其值为 production，并赋值给 NODE_ENV
+${NODE_ENV:=production}
 ```
 
 ## export
@@ -20,7 +49,7 @@ $ echo $NODE_ENV
 production
 ```
 
-通过 `export` 配置的环境变量仅在当前 shell(tty) 窗口有效，如果再开一个 shell，则无法读取变量。
+通过 `export` 配置的环境变量仅在当前 `shell(tty)` 窗口有效，如果再开一个 shell，则无法读取变量。
 
 **如果需要使得配置的环境变量永久有效，需要写入 `~/.bashrc` 或者 `~/.zshrc`**
 
@@ -56,3 +85,9 @@ $ printenv NODE_ENV
 ``` bash
 $ NODE_ENV=production npm run build
 ```
+
+## 作业
+
+1. 如何配置环境变量
+2. `${var:=word}` 是什么意思
+3. 使用 `export` 配置的环境变量如何永久生效

@@ -73,3 +73,8 @@ $ which ps
 $ which node
 /usr/local/bin/node
 ```
+
+## 作业
+
+1. 了解 $PATH 环境变量用途
+2. 了解 which 命令用法
