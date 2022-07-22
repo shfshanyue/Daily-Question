@@ -56,24 +56,32 @@ $ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/t
 
 ### plugin
 
+在 zsh 中可拓展多个插件，可见 [插件列表](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins)。
+
+> 插件列表中大部分插件是 alias 与自动补全。
+
+编辑 `~/.zshrc` 文件中的 `plugins` 配置，可启用插件。
+
 ``` bash
-plugins=(
-  git
-  bundler
-  dotenv
-  macos
-  rake
-  rbenv
-  ruby
-)
+plugins=(git dotenv vi-mode)
 ```
+
+如 [dotenv](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/dotenv) 可使 `.env` 文件中环境变量可在终端直接访问。
+
+如 [vi-mode](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/vi-mode) 可在命令行下输出命令时使用 `vim`。
 
 ### theme
 
+在 ohmyzsh 中维护了多个主题，可见 [主题列表](https://github.com/ohmyzsh/ohmyzsh/wiki/Themes)。
+
+编辑 `~/.zshrc` 文件中的 `ZSH_THEME` 配置，可更换主题。
+
+``` bash
+ZSH_THEME="robbyrussell"
+```
 
 ## 作业
 
 1. 如何判断当前处在哪个 shell 下
-2. zsh 有哪些比较有意思的 plugin
-
-
+1. 你喜欢 zsh 下哪个主题
+1. zsh 有哪些比较有意思的 plugin

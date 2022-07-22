@@ -4,16 +4,16 @@
 
 在 bash 下，有许多快捷键，可以提高输入命令行的效率。快捷键默认为 Emacs Mode。
 
-+ <ctrl-a> 移至行首
-+ <ctrl-e> 移至行尾
-+ <meta-b> 移至上一个单词 
-+ <meta-f> 移至下一个单词 
-+ <ctrl-u> 删除光标之前内容
-+ <ctrl-k> 删除光标之后内容
-+ <ctrl-l> 清屏
-+ <ctrl-p> 上一个历史记录
-+ <ctrl-n> 下一个历史记录
-+ <ctrl-r> 搜索历史记录
++ `<ctrl-a>` 移至行首
++ `<ctrl-e>` 移至行尾
++ `<meta-b>` 移至上一个单词 
++ `<meta-f>` 移至下一个单词 
++ `<ctrl-u>` 删除光标之前内容
++ `<ctrl-k>` 删除光标之后内容
++ `<ctrl-l>` 清屏
++ `<ctrl-p>` 上一个历史记录
++ `<ctrl-n>` 下一个历史记录
++ `<ctrl-r>` 搜索历史记录
 
 更多快捷键，可查看 [Readline 手册](https://www.man7.org/linux/man-pages/man3/readline.3.html#EDITING_COMMANDS)
 
@@ -50,3 +50,20 @@ backward-delete-char can be found on "\C-h", "\C-?".
 backward-kill-line can be found on "\C-x\C-?".
 backward-kill-word can be found on "\e\C-h", "\e\C-?".
 ```
+
+## zsh 下的 Vim Mode
+
+如果在 `zsh` 下，如果需要配置 `vi-mode`，你的操作就不需要如此麻烦，仅仅开启 `vi-mode` 的插件即可。
+
+编辑 `~/.zshrc` 文件中的 `plugins` 配置，启用 `vi-mode` 插件。
+
+``` bash
+plugins=(... vi-mode)
+```
+
+## 作业
+
+1. 如何快速移至命令的行首和行尾
+1. 如何快速清屏
+1. 如何快速清楚整个命令
+1. 你更喜欢用 vim 模式的快捷键还是 emacs 的快捷键

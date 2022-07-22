@@ -13,7 +13,7 @@ glob，`global` 的简写，使用通配符来匹配大量文件。比如 `rm *.
 + `*`：匹配0个及以上字符
 + `?`：匹配1个字符
 + `[...]`：range，匹配方括号内所有字符
-+ `**`：匹配0个及多个子目录
++ `**`：匹配0个及多个子目录（在 bash 下，需要开启 globstar 选项，见下 shopt 命令）
 
 示例如下
 
@@ -64,6 +64,9 @@ nocaseglob      off
 nullglob        off
 
 $ shopt -s extglob
+
+# 在 bash 下开启 ** 匹配多级目录
+$ shopt -s globstar
 ```
 
 在 `zsh` 中，`extglob` 需要通过 `setopt` 命令手动开启。
