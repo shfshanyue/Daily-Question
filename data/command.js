@@ -89,10 +89,6 @@ const sidebar = [
         title: 'shortcut-key',
         path: 'shortcut-key'
       },
-      {
-        title: 'auto complete',
-        path: 'auto-complete'
-      },
     ]
   },
   {

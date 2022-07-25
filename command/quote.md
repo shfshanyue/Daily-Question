@@ -20,6 +20,8 @@ $ echo '$USER'
 $USER
 ```
 
+
+
 ## 中括号
 
 ``` bash

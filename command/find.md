@@ -29,9 +29,24 @@ $ find . -samefile package.json
 
 > Q：你还记得 f/d/s 各代表什么文件类型吗？
 
+## grep -r：根据文件内容搜索
+
+`grep`，即 `Global Regular Expression Print` 的缩写，可基于正则表达式在文件中搜索内容。
+
+如需在目录中进行搜索，可使用 `-r` 参数。
+
+``` bash
+# 在当前目录寻找 helloworld 
+$ grep -r helloworld .
+```
+
+![](https://static.shanyue.tech/images/22-07-24/clipboard-6194.81bb3a.webp)
+
 ## ag：根据文件内容搜索
 
 可根据 [the silver searcher](https://github.com/ggreer/the_silver_searcher) 进行文件内容搜索。
+
+该命令需要手动下载安装。
 
 ``` bash
 $ ag helloworld
