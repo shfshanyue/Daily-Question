@@ -70,6 +70,14 @@ const sidebar = [
     collapsable: false,
     children: [
       {
+        title: 'zsh/ohmyzsh',
+        path: 'zsh'
+      },
+      {
+        title: 'shortcut-key',
+        path: 'shortcut-key'
+      },
+      {
         title: 'env',
         path: 'env'
       },
@@ -78,16 +86,24 @@ const sidebar = [
         path: 'export'
       },
       {
-        title: '$path',
+        title: '$PATH',
         path: 'path'
       },
       {
-        title: 'zsh/ohmyzsh',
-        path: 'zsh'
+        title: 'quote',
+        path: '引号与括号'
       },
       {
-        title: 'shortcut-key',
-        path: 'shortcut-key'
+        title: '数组与字典',
+        path: 'array'
+      },
+      {
+        title: 'if 与 for',
+        path: 'forif'
+      },
+      {
+        title: '函数',
+        path: 'function'
       },
     ]
   },
@@ -96,24 +112,28 @@ const sidebar = [
     collapsable: false,
     children: [
       {
-        title: 'vim 模式与切换',
+        title: 'vim 模式',
         path: 'vim-mode'
       },
       {
-        title: 'vim 快速移动',
+        title: 'vim 移动',
         path: 'vim-move'
       },
       {
-        title: 'vim 配置指南',
+        title: 'vim 配置',
         path: 'vim-settings'
       },
       {
-        title: 'vim 插件必备',
+        title: 'vim 插件',
         path: 'vim-plugin'
       },
       {
         title: 'tmux 分屏',
         path: 'tmux'
+      },
+      {
+        title: 'tmux 命令',
+        path: 'tmux-command'
       },
       {
         title: 'tmux 配置',
