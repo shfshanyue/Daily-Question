@@ -1,6 +1,6 @@
 # zsh
 
-在 linux 中，拥有各种各样的 shell，比如 bash、zsh、sh 等。
+在 linux 中，拥有各种各样的 shell，比如 dash、bash、zsh 等。
 
 如果将服务器作为个人开发服务器，则很适合将 `zsh` 作为个人的默认 shell。
 
@@ -8,7 +8,7 @@
 
 zsh 是一种更富有交互效果，功能更加强大，界面更加华丽的 shell 工具。
 
-通过 `chsh`，即 `change shell`，可切换终端默认 shell。
+通过 `chsh`，即 `change shell`，可切换终端默认 shell，**但此时不会生效，在下次登录时生效**。
 
 ``` bash
 # 安装 zsh
@@ -23,10 +23,6 @@ $ echo $SHELL
 $ which zsh
 /usr/bin/zsh
 
-# 更改默认的 shell
-# -s: --shell，切换为指定的 shell
-$ chsh -s /usr/bin/zsh
-
 # 打印 shell 列表
 $ chsh -l
 /bin/sh
@@ -35,6 +31,13 @@ $ chsh -l
 /usr/bin/bash
 /usr/bin/zsh
 /bin/zsh
+
+# 更改服务器默认登录的 shell，但此刻不会生效
+# -s: --shell，切换为指定的 shell
+$ chsh -s /usr/bin/zsh
+
+# 如过想要尽快体验 zsh，可直接输入zsh命令
+$ zsh
 ```
 
 ## ohmyzsh

@@ -132,5 +132,6 @@ $ chmod a-r yarn.lock
 1. 给某一个文件的所有用户（ugo）都移除 Read 权限
 1. 给某一个文件的所有用户（ugo）都添加 Read 权限
 1. 为文件添加权限时，数字 `600` 代表什么意思
+1. 当我们新建了一个文件时，他默认的 mode 是多少
 1. 如何获取一个文件的 username 与 groupname
 1. 在 Node.js 或其它语言中如何修改 user 及 mode

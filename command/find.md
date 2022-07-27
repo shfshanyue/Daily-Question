@@ -54,7 +54,7 @@ $ find . -name 'test*' -exec realpath {} \;
 
 ``` bash
 # 在当前目录递归查找所有以 test 开头的文件，并删除
-$ find . -name 'test*' -exec realpath {} \;
+$ find . -name 'test*' -delete
 ```
 
 ## grep -r：根据文件内容搜索

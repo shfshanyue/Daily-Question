@@ -67,7 +67,7 @@ const sidebar = [
   },
   {
     title: 'shell 操作',
-    collapsable: false,
+    collapsable: true,
     children: [
       {
         title: 'zsh/ohmyzsh',
@@ -101,15 +101,11 @@ const sidebar = [
         title: 'if 与 for',
         path: 'forif'
       },
-      {
-        title: '函数',
-        path: 'function'
-      },
     ]
   },
   {
     title: '文件编辑',
-    collapsable: false,
+    collapsable: true,
     children: [
       {
         title: 'vim 模式',
@@ -142,8 +138,38 @@ const sidebar = [
     ]
   },
   {
+    title: '数据处理',
+    collapsable: true,
+    children: [
+      {
+        title: 'grep'
+      },
+      {
+        title: 'tr'
+      },
+      {
+        title: 'sort'
+      },
+      {
+        title: 'wc'
+      },
+      {
+        title: 'js'
+      },
+      {
+        title: 'xargs'
+      },
+      {
+        title: 'sed'
+      },
+      {
+        title: 'awk'
+      },
+    ]
+  },
+  {
     title: '系统调试',
-    collapsable: false,
+    collapsable: true,
     children: [
       {
         title: 'curl',

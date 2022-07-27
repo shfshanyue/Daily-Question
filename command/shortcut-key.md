@@ -2,7 +2,13 @@
 
 ## Emacs Mode
 
-在 bash 下，有许多快捷键，可以提高输入命令行的效率。快捷键默认为 Emacs Mode。
+在 bash 下，有许多快捷键，可以提高输入命令行的效率，快捷键模式默认为 Emacs Mode。
+
+以下都是高频快捷键，不仅可在命令行下使用，**还可以在 Python/Node.js REPL 甚至浏览器控制台中直接使用**。
+
+> 在 Mac 下可配置终端将 Option 作为 Meta 键，在 windows 下使用 Alt 键。
+>
+> ![](https://static.shanyue.tech/images/22-07-27/clipboard-3958.56ff37.webp)
 
 + `<ctrl-a>` 移至行首
 + `<ctrl-e>` 移至行尾
@@ -15,15 +21,15 @@
 + `<ctrl-n>` 下一个历史记录
 + `<ctrl-r>` 搜索历史记录
 
-更多快捷键，可查看 [Readline 手册](https://www.man7.org/linux/man-pages/man3/readline.3.html#EDITING_COMMANDS)
+更多快捷键，可查看 [Readline 手册](https://www.man7.org/linux/man-pages/man3/readline.3.html#EDITING_COMMANDS)。
 
 ## Vim Mode
 
-通过 `set -o vi`，可以将快捷键改为 vi 风格。
+如果在 `bash` 下，通过 `set -o vi`，可以将快捷键改为 vi 风格。
 
 此时通过一些 vi 的快捷键即可操作命令行，了解更多请学习 vi。
 
-同时，在 Emacs Mode 下的清屏快捷键还挺好用，可在 vi mode 下通过 bind 命令绑定 `<ctrl-l>`。
+同时，在 Emacs Mode 下的清屏快捷键还挺好用，可在 vi mode 下通过 bind 命令绑定 `<ctrl-l>` 清屏命令。
 
 ``` bash
 # 将这两行命令放置在 shell 配置文件下
@@ -65,5 +71,5 @@ plugins=(... vi-mode)
 
 1. 如何快速移至命令的行首和行尾
 1. 如何快速清屏
-1. 如何快速清楚整个命令
+1. 输入命令后，发觉有误，如何快速清除整个命令
 1. 你更喜欢用 vim 模式的快捷键还是 emacs 的快捷键

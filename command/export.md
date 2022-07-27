@@ -37,9 +37,7 @@ ${NODE_ENV:=production}
 
 ## export
 
-通过 `export` 可配置环境变量。
-
-<!-- TODO -->
+通过 `export` 可配置环境变量，如 `export A=3`，**注意 `=` 前后不能有空格**。
 
 ``` bash
 $ export A=3
