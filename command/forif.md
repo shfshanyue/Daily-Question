@@ -34,6 +34,8 @@ if [[ -z $USER ]]; then echo ok; fi
 if [[ -z $USER ]]; then echo ok; else echo not ok; fi
 ```
 
-## function
+## 作业
 
+1. 如何遍历输出 1 至 100
+1. 判断某个命令是否存在，存在输出 ok，不存在输出 not ok
 

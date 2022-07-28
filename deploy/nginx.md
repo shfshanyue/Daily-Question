@@ -8,7 +8,16 @@ nginx 的重要性不言而喻。
 
 我将本文所有关于 docker/nginx 的配置放置在 [simple-deploy](https://github.com/shfshanyue/simple-deploy/tree/master/learn-nginx)，可克隆下来通过 docker compose 快速运行。
 
-并将所有的接口示例维护在了 [Learn Nginx By Docker](https://www.apifox.cn/apidoc/project-1264553) 文档，并可通过 [Apifox](https://www.apifox.cn/a1shanyue) 打开并快速调试。
+并将所有的接口示例维护在了 [Learn Nginx By Docker](https://www.apifox.cn/apidoc/project-1264553/api-28673521/shanyue) 文档，并可通过 [Apifox](https://www.apifox.cn/a1shanyue) 打开并快速调试。
+
+可通过以下步骤，在 [apifox](https://www.apifox.cn/a1shanyue) 中调试 nginx 接口。
+
+1. [下载 Apifox](https://www.apifox.cn/a1shanyue)
+2. 在 Apifox 中克隆该项目
+3. 在 Github 中克隆[示例仓库](https://github.com/shfshanyue/simple-deploy/tree/master/learn-nginx)
+4. 克隆下来后，进入 learn-nginx 目录
+5. `docker-compose up` 启动容器
+6. 打开 Apifox 调试接口学习 nginx
 
 ![](https://static.shanyue.tech/images/22-07-11/clipboard-8971.3bfb0d.webp)
 

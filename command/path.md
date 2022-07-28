@@ -74,7 +74,34 @@ $ which node
 /usr/local/bin/node
 ```
 
+## command -v
+
+`command`，用以执行命令，及列出全局命令路径。
+
+``` bash
+# 直接执行 node
+$ command node
+
+# 打印出 node 的真实执行路径
+$ command -v node
+/usr/local/bin/node
+```
+
+那既然 `command -v` 与 `which` 命令一致，那有何不同？
+
+最重要的一个不同点是，当某个命令不存在时，`command -v` 不会输出任何字符，用此常来判断某个命令是否存在。
+
+``` bash
+$ which hello
+/usr/bin/which: no hello in (/home/train/.autojump/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/home/train/bin)
+
+# 无任何输出
+$ which hello
+```
+
 ## 作业
 
 1. 了解 $PATH 环境变量用途
-2. 了解 which 命令用法
+1. 了解 which 命令用法
+1. 如何设计一个可以切换 node 版本的命令行工具，比如 n 与 [nvm](https://github.com/nvm-sh/nvm)
+
