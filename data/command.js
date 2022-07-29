@@ -90,8 +90,8 @@ const sidebar = [
         path: 'path'
       },
       {
-        title: 'quote',
-        path: '引号与括号'
+        title: '引号与括号',
+        path: 'quote'
       },
       {
         title: '数组与字典',

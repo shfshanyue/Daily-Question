@@ -85,6 +85,8 @@ ZSH_THEME="robbyrussell"
 
 ## 作业
 
+1. sh 与 bash 的区别是什么
 1. 如何判断当前处在哪个 shell 下
 1. 你喜欢 zsh 下哪个主题
 1. zsh 有哪些比较有意思的 plugin
+

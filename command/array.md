@@ -18,13 +18,18 @@ $ echo $NODE_ENV
 production
 ```
 
+而关于 Array，也是直接通过 `=` 赋值即可完成，注意 `=` 前后不能有空格。
+
 ## Array
 
 在 shell 中通过**括号及空格分隔符**来定义数组。
 
 数组可通过下标进行访问，如果需要访问全部数组，则使用 `${ARRAY[@]}` 变量。
 
-> zsh 中可直接使用 `$var`，在 bash 中使用 `$var` 会报错，因此最好使用 `${var}`。
+**如无特别说明，以下命令均在 `bash` 下执行。**
+
+> zsh 中可直接使用 `$list[@]`，在 bash 中使用 `$list[@]` 会报错，因此最好使用 `${var}`。
+> bash 中下标以 0 开始，zsh 中下标以 1 开始。
 
 ``` bash
 $ list=('a' 'b' 'c' 'd' 'e')
@@ -34,6 +39,8 @@ $ echo ${list[@]}
 a b c d e
 
 # 打印index为0的变量
+# 注意：在 zsh 中为打印所有值
+# 注意：在 zsh 中为打印所有值
 $ echo $list
 a
 
@@ -53,6 +60,10 @@ $ echo ${#list[@]}
 $ echo ${list[@]:2:3}
 c d e
 
+# 注意：在 zsh 中可通过 [2:3] 作为切片
+# 注意：在 zsh 中可通过 [2:3] 作为切片
+$ echo ${list[2:3]}
+
 # 增
 $ list+=('f' 'g')
 $ echo ${list[@]}
@@ -62,6 +73,10 @@ a b c d e f g
 $ unset list[3]
 $ echo ${list[@]}
 a b c e f g
+
+# 注意：在 zsh 中通过赋值空数组进行删除某一项
+# 注意：在 zsh 中通过赋值空数组进行删除某一项
+$ list[3]=()
 
 # 改
 $ list[0]=x
@@ -104,10 +119,10 @@ a b c
 $ echo ${(k)object[@]}
 
 # 打印所有的 values
-$ echo ${(k)object[@]}
+$ echo ${(v)object[@]}
 
 # 打印所有的 keys/values
-$ echo ${(k)object[@]}
+$ echo ${(kv)object[@]}
 ```
 
 ## 作业
