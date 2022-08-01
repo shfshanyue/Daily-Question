@@ -101,6 +101,10 @@ const sidebar = [
         title: 'if 与 for',
         path: 'forif'
       },
+      {
+        title: 'function',
+        path: 'funciton'
+      }
     ]
   },
   {

@@ -96,7 +96,7 @@ $ which hello
 /usr/bin/which: no hello in (/home/train/.autojump/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/home/train/bin)
 
 # 无任何输出
-$ which hello
+$ command -v hello
 ```
 
 ## 作业
