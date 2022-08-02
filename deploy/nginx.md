@@ -490,8 +490,7 @@ location / {
 
 ## 作业
 
-+ 初阶: 基于 docker 学习 nginx 配置，并可配置 index.html 强缓存 60s 时间
-+ 中阶: 如何使用 nginx 与 whoami 镜像，模拟 502/504
-+ 高阶: 基于 docker 学习 nginx 配置，并可配置 gzip/brotli
-+ 面试: brotli/gzip 有何区别
-
+1. 基于 docker 学习 nginx 配置，并可配置 index.html 强缓存 60s 时间
+2. 如何使用 nginx 与 whoami 镜像，模拟 502/504
+3. 基于 docker 学习 nginx 配置，并可配置 gzip/brotli
+4. brotli/gzip 有何区别

@@ -259,9 +259,11 @@ $ npx serve .
 
 ## 作业
 
-+ 初阶：继续完善静态服务器，使其基于 stream，并能给出正确的 Content-Length。
-+ 高阶：继续完善静态服务器，使其作为一个命令行工具，支持指定端口号、读取目录、404、stream (甚至 trailingSlash、cleanUrls、rewrite、redirect 等)。可参考 [serve-handler](https://github.com/vercel/serve-handler)。
-+ 面试：什么是 rewrite 和 redirect
+1. 为什么基于 stream 的静态服务器拥有更高的性能
+2. 为什么基于 stream 后，serve 等静态资源服务器仍然会计算 Content-Length
+3. 继续完善静态服务器，使其基于 stream，并能给出正确的 Content-Length。
+4. 继续完善静态服务器，使其作为一个命令行工具，支持指定端口号、读取目录、404、stream (甚至 trailingSlash、cleanUrls、rewrite、redirect 等)。可参考 serve-handler。
+5. 什么是 rewrite 和 redirect
 
 ## 小结
 

@@ -169,7 +169,7 @@ services:
 通过 `docker-compose images` 命令，可查看该配置文件的所有镜像体积。此时发现**基于 nginx 的镜像为 23.2 MB**，而基于 node 的镜像为 `133MB` (还记得上篇文章的数据吗)。
 
 ``` bash
-docker-compose images
+$ docker-compose images
         Container                 Repository           Tag       Image Id      Size
 -------------------------------------------------------------------------------------
 simple-deploy_nginx-app_1   simple-deploy_nginx-app   latest   62f362825a0a   23.2 MB
@@ -216,8 +216,8 @@ $ docker-compose -f learn-nginx.docker-compose.yaml up learn-nginx
 
 ## 作业
 
-+ 初阶: 基于 docker 将极简前端项目进行部署
-+ 面试: 我们的基础镜像 tag 总是携带 `alpine`，它是什么
+1. 基于 nginx 镜像将极简前端项目进行部署
+1. 我们的基础镜像 tag 总是携带 `alpine`，它是什么
 
 ## 小结
 

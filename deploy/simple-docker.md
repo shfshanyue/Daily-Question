@@ -195,9 +195,9 @@ $ docker build --progress plain --no-cache .
 
 ## 作业
 
-+ 通过 docker/docker-compose 将单文件 html 进行部署
-+ 你了解如何找到官方 node 镜像的 Dockerfile 吗
-+ 我们为什么可以直接在 node 镜像中使用 yarn 命令行工具
+1. 通过 docker/docker-compose 将单文件 html 进行部署
+2. 你了解如何找到官方 node 镜像的 Dockerfile 吗
+3. 我们为什么可以直接在 node 镜像中使用 yarn 命令行工具
 
 ## 小结
 
