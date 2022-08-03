@@ -135,7 +135,7 @@ server {
 
 ### /usr/share/nginx/html
 
-默认的静态资源目录，也是 nginx 的欢迎页面。
+默认的静态资源目录，其目录下的 `index.html` 也是 nginx 的欢迎页面。
 
 ``` html
 <!DOCTYPE html>
