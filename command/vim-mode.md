@@ -55,4 +55,3 @@ $ vim Readme.md
 
 1. 如何进入 `insert mode`
 2. 如何退出 `insert mode`
-

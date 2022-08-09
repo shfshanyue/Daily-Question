@@ -133,7 +133,7 @@ const sidebar = [
       },
       {
         title: 'tmux 命令',
-        path: 'tmux-command'
+        path: 'tmux-shortcut'
       },
       {
         title: 'tmux 配置',

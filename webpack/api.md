@@ -127,3 +127,4 @@ f1().run((err, stat) => {
 ## 作业
 
 1. 使用 `webpack api` 打包一个最简的 js 资源
+1. 你所使用含有 webpack 的项目中，`webpack` 是通过 `webpack-cli` 打包的吗

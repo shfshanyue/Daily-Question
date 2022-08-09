@@ -108,7 +108,7 @@ server {
 
 **那我们将我们的示例资源添加到镜像中的 `/usr/share/nginx/html` 岂不可以正确部署了？**
 
-那我们将我们的配置文件添加到镜像中的 `/usr/share/nginx/html` 岂不可以学习 nginx 的一些指令了。
+那我们将我们的配置文件添加到镜像中的 `/etc/nginx/conf.d/default.conf` 岂不可以学习 nginx 的一些指令了。
 
 正是如此。
 
