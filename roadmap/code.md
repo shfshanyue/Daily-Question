@@ -367,7 +367,7 @@ function chunk (list, size) {
 }
 ```
 
-### chunk ⭐️⭐️⭐️⭐️
+### once ⭐️⭐️⭐️⭐️
 
 + 题目: [【Q399】实现一个 once 函数，记忆返回结果只执行一次](https://github.com/shfshanyue/Daily-Question/issues/406)
 
