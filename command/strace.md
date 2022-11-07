@@ -1,5 +1,0 @@
-# strace/ltrace
-
-## strace
-
-
