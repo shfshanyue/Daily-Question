@@ -1,6 +1,6 @@
 # 日问
 
-+ [山月的博客点击这里](https://github.com/shfshanyue/blog)
+<!-- + [山月的博客点击这里](https://github.com/shfshanyue/blog) -->
 + [一日一题官方网站点击这里](https://q.shanyue.tech)
 + [一日一题 bilibili 讲解点击这里](https://space.bilibili.com/28696526)，每天晚上九点十分B站直播讲解面试题。
 
@@ -42,7 +42,7 @@
 
 ## 特别赞助
 
-[**Apifox: API 文档、API 调试、API Mock、API 自动化测试**](https://www.apifox.cn?utm_source=shanyue-question)
+[**开发者武器库**](https://devtool.tech/)
 
 ## 大厂内推
 
@@ -111,15 +111,15 @@
 我是山月，你可以添加微信 `shanyue94` 与我交流，另外欢迎关注我的博客[山月行](https://shanyue.tech/)，我会在其中分享工作中遇到的一些前后端问题以及思考。
 
 
-社交:
+<!-- 社交: -->
 
-| [Github](https://github.com/shfshanyue) | [知乎](https://www.zhihu.com/people/shfshanyue) | [掘金](https://juejin.cn/user/1556564164489389) | [博客](https://shanyue.tech) | [B站](https://space.bilibili.com/28696526/) |
-|-----------------------------------------|-----------------------------------------------|-----------------------------------------------|----------------------------|--------------------------------------------|
+<!-- | [Github](https://github.com/shfshanyue) | [知乎](https://www.zhihu.com/people/shfshanyue) | [掘金](https://juejin.cn/user/1556564164489389) | [博客](https://shanyue.tech) | [B站](https://space.bilibili.com/28696526/) | -->
+<!-- |-----------------------------------------|-----------------------------------------------|-----------------------------------------------|----------------------------|--------------------------------------------| -->
 
 
-项目:
+<!-- 项目: -->
 
-| [极客时间返利](https://geek.shanyue.tech/) | [前端面试每日一题](https://q.shanyue.tech/)      | [诗词集](https://shici.xiange.tech)    |
-|------------------------------------|--------------------------------------|-------------------------------------|
-| [开发者工具箱](https://devtool.tech)     | [npm 在线执行](https://npm.devtool.tech) | [前端周刊](https://weekly.shanyue.tech) |
-| [一纸简历](https://cv.devtool.tech)     | [码途编辑器](https://markdown.devtool.tech) | [云吸一只猫](https://cat.shanyue.tech) |
+<!-- | [极客时间返利](https://geek.shanyue.tech/) | [前端面试每日一题](https://q.shanyue.tech/)      | [诗词集](https://shici.xiange.tech)    | -->
+<!-- |------------------------------------|--------------------------------------|-------------------------------------| -->
+<!-- | [开发者工具箱](https://devtool.tech)     | [npm 在线执行](https://npm.devtool.tech) | [前端周刊](https://weekly.shanyue.tech) | -->
+<!-- | [一纸简历](https://cv.devtool.tech)     | [码途编辑器](https://markdown.devtool.tech) | [云吸一只猫](https://cat.shanyue.tech) | -->
