@@ -205,7 +205,7 @@ ADD nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=builder code/build /usr/share/nginx/html
 ``` 
 
-> PS: 该 docker compose 配置位于 [cra-deploy/router.Dockerfile](https://github.com/shfshanyue/cra-deploy/blob/master/router.Dockerfile)
+> PS: 该 docker compose 配置位于 [cra-deploy/docker-compose.yaml](https://github.com/shfshanyue/cra-deploy/blob/master/docker-compose.yaml)
 
 ``` yaml
 version: "3"
