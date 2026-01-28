@@ -44,7 +44,7 @@
     "graphql-tag": "^2.12.6",
     "lodash": "^4.17.21",
     "midash": "^1.0.3",
-    "next": "^15.0.3",
+    "next": "^16.1.5",
     "next-sitemap": "^4.2.3",
     "nextra": "^3.2.4",
     "nextra-theme-docs": "^3.2.4",
