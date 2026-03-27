@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@ai-sdk/openai": "^1.0.4",
-    "@apollo/server": "^4.13.0",
+    "@apollo/server": "^5.5.0",
     "@as-integrations/next": "^3.2.0",
     "@graphql-codegen/cli": "^5.0.3",
     "@graphql-codegen/typescript-graphql-request": "^6.2.0",
