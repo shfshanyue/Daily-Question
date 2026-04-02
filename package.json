@@ -42,7 +42,7 @@
     "graphql": "^16.9.0",
     "graphql-request": "^7.1.2",
     "graphql-tag": "^2.12.6",
-    "lodash": "^4.17.21",
+    "lodash": "^4.18.0",
     "midash": "^1.0.3",
     "next": "^15.0.3",
     "next-sitemap": "^4.2.3",
