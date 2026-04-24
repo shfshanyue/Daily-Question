@@ -50,7 +50,7 @@
     "nextra-theme-docs": "^3.2.4",
     "openai": "^4.73.0",
     "p-queue": "^8.0.1",
-    "postcss": "^8.4.49",
+    "postcss": "^8.5.10",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-preset-env": "^10.1.1",
     "prettier": "^3.3.3",
