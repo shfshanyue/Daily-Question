@@ -3386,9 +3386,9 @@ packages:
   jose@4.14.6:
     resolution: {integrity: sha512-EqJPEUlZD0/CSUMubKtMaYUOtWe91tZXTWMJZoKSbLk+KtdhNdcvppH8lA9XwVu2V4Ailvsj0GBZJ2ZwDjfesQ==}
 
-  js-cookie@3.0.5:
-    resolution: {integrity: sha512-cEiJEAEoIbWfCZYKWhVwFuvPX1gETRYPw6LlaTKoxD3s2AkXzkCjnp6h0V77ozyqj0jakteJ4YqDJT830+lVGw==}
-    engines: {node: '>=14'}
+  js-cookie@3.0.7:
+    resolution: {integrity: sha512-z/wZZgDrkNV1eA0ULjM/F9/50Ya8fbzgKneSpoPsXSGd0KnpdtHfOZWK+GcwLk+EZbS4F9RBhU+K2RgzuDaItw==}
+    engines: {node: '>=20'}
 
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
@@ -7361,7 +7361,7 @@ snapshots:
       '@babel/runtime': 7.22.15
       dayjs: 1.11.9
       intersection-observer: 0.12.2
-      js-cookie: 3.0.5
+      js-cookie: 3.0.7
       lodash: 4.17.21
       react: 18.3.1
       react-fast-compare: 3.2.2
@@ -9054,7 +9054,7 @@ snapshots:
 
   jose@4.14.6: {}
 
-  js-cookie@3.0.5: {}
+  js-cookie@3.0.7: {}
 
   js-tokens@4.0.0: {}
 
